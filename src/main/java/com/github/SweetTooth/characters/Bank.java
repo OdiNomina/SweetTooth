@@ -1,0 +1,62 @@
+package com.github.SweetTooth.characters;
+
+import com.github.SweetTooth.locations.Location;
+
+non-sealed class Bank extends MoneyDealer implements IMoneyDealer {
+	final static double INTEREST_CREDIT_PERCENT = Double.valueOf(2);
+	final static double INTEREST_DEBT_PERCENT = Double.valueOf(5);
+	final static double MIN_BALANCE = Double.valueOf(-100);
+	private static Bank uniqueInstance;
+	
+	private Bank() {
+		super(Location.BRONX);
+	}
+	
+	static Bank getInstance() {
+		if(uniqueInstance == null)
+			uniqueInstance = new Bank();
+		return uniqueInstance;
+	}
+	
+	@Override
+	public Double applyInterestToBalance(Playable player) {
+		Client bankClient = findClientByIdentity((Player)player);
+		double interest = 0;
+		if(bankClient != null) {
+			if(bankClient.getBalance() < 0)
+				interest = bankClient.getBalance() * INTEREST_DEBT_PERCENT / 100;
+			else
+				interest = bankClient.getBalance() * INTEREST_CREDIT_PERCENT / 100;
+			bankClient.addAmount(interest);
+		}
+		return interest;
+	}
+	
+	@Override
+	public double getBalance(Playable player) {
+		Client bankClient = findClientByIdentity((Player) player);
+		if(bankClient == null)
+			return 0.0;
+		return bankClient.getBalance();
+	}
+	
+	@Override
+	public String getDispoHint() {
+		return String.format("Kredit-Rahmen: %.2f%s (Mehr gibts nicht.)", MIN_BALANCE, Bank.CURRENCY);
+	}
+
+	@Override
+	public String getInterestHint() {
+		return String.format("Kredit Zinsen: -%.1f%% pro Tag.%nGuthaben Zinsen:  +%.1f%% pro Tag.", Bank.INTEREST_DEBT_PERCENT, Bank.INTEREST_CREDIT_PERCENT);
+	}
+	
+	@Override
+	public void increaseClientsBalance(Playable player, double amount) {
+		getExistingOrNewClient((Player)player).addAmount(amount);
+	}
+
+	@Override
+	public void reduceClientsBalance(Playable player, double amount) {
+		getExistingOrNewClient((Player)player).removeAmount(amount);
+	}
+}
