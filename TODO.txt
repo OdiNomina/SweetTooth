@@ -1,0 +1,22 @@
+Tests schreiben
+JavaDoc
+Ausnahmebehandlung
+MVC Annäherung
+Würfeln, Snake und Hangman mit Lanterna umsetzen
+
+001.01:	Alle Formatierungen in Gettern entfernen. Formatierungen übernehmen die Aufrufer.
+001.02:	Separates Fenster für Süßigkeiten mit aktuellen Marktpreisen. Beliebig offen oder geschlossen.
+001.03:	Travel: Wenn der Spieler Hunger hat und nichts dabei hat, kauft er etwas.
+		Das ist dann teurer als es das Eating Ereignis wäre.
+		Er zahlt unterwegs mit Bankkarte.
+001.03:	Dealen ist an jedem Ort möglich.
+		Die Marktpreise schwanken an jedem Ort in der selben Spanne aber auf unterschiedlichem Niveau.
+		Bsp. Im Ghetto billig einkaufen und in Manhatten teuer verkaufen.
+001.04: Die Ticketpreise sind je nach Entfernung Start-Ziel unterschiedlich.
+001.05: Auf Coney Island kann er mit Cash Einsatz Würfeln und somit Geld gewinnen oder verlieren.
+001.05: Auf dem Weg nach Brooklyn spielt er aus Langeweile Snake oder Hangman. Wird durch Zufall ausgewählt.
+001.06: Im Central Park kann er zusätzlich Süßigkeiten tauschen.
+		Was zum Tausch zur Verfügung steht, ist zufällig zusammengestellt.
+		Für einen Tausch bekommt der Spieler immer etwas mehr Gegenwert in Form von Süßigkeiten, als sie aktuell Wert wären.
+001.07: Spielername und Endstand speichern.
+		Spielhistorie separat aufrufbar.
