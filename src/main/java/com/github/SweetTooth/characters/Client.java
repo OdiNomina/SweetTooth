@@ -22,4 +22,15 @@ class Client extends Character {
 	void removeAmount(double amount) {
 		balance = rounded(balance) - rounded(amount);
 	}
+
+	@Override
+	public String toString() {
+		StringBuffer builder = new StringBuffer();
+		builder.append("Client [identity=").append(identity)
+			.append(", balance=").append(balance)
+			.append(", hometown=").append(hometown)
+			.append(", location=").append(location)
+			.append("]");
+		return builder.toString();
+	}
 }

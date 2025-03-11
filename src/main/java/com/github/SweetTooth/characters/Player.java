@@ -172,4 +172,16 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 	public void store(String key, String value) {
 		PersistentPreference.super.store("player." + key, value);
 	}
+
+	@Override
+	public String toString() {
+		StringBuffer builder = new StringBuffer();
+		builder.append("Player [candies=").append(candies)
+			.append(", stash=").append(stash)
+			.append(", cash=").append(cash)
+			.append(", hometown=").append(hometown)
+			.append(", location=").append(location)
+			.append("]");
+		return builder.toString();
+	}
 }

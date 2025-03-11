@@ -59,4 +59,14 @@ non-sealed class Bank extends MoneyDealer implements IMoneyDealer {
 	public void reduceClientsBalance(IPlayer player, double amount) {
 		getExistingOrNewClient((Player)player).removeAmount(amount);
 	}
+
+	@Override
+	public String toString() {
+		StringBuffer builder = new StringBuffer();
+		builder.append("Bank [clients=").append(clients)
+			.append(", hometown=").append(hometown)
+			.append(", location=").append(location)
+			.append("]");
+		return builder.toString();
+	}
 }
