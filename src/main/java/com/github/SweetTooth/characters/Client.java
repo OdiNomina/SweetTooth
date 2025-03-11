@@ -1,5 +1,7 @@
 package com.github.SweetTooth.characters;
 
+import java.util.Objects;
+
 import com.github.SweetTooth.locations.Location;
 
 class Client extends Character {
@@ -32,5 +34,28 @@ class Client extends Character {
 			.append(", location=").append(location)
 			.append("]");
 		return builder.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(balance, identity);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (!super.equals(obj))
+			return false;
+		Client other = (Client) obj;
+		return Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance)
+				&& Objects.equals(identity, other.identity);
 	}
 }

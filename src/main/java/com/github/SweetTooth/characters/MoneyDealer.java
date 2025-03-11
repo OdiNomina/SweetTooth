@@ -1,6 +1,7 @@
 package com.github.SweetTooth.characters;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.github.SweetTooth.locations.Location;
 
@@ -37,5 +38,21 @@ abstract sealed class MoneyDealer extends Character implements IMoneyDealer
 			clients.add(client);
 		}
 		return client;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(clients);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (!super.equals(obj))
+			return false;
+		MoneyDealer other = (MoneyDealer) obj;
+		return Objects.equals(clients, other.clients);
 	}
 }

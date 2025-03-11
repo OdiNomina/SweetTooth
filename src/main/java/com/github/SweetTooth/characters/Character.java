@@ -1,5 +1,7 @@
 package com.github.SweetTooth.characters;
 
+import java.util.Objects;
+
 import com.github.SweetTooth.locations.Location;
 
 abstract class Character {
@@ -25,5 +27,16 @@ abstract class Character {
 	
 	double rounded(double amount) {
 		return Math.round(amount * 100) / 100.00;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(hometown, location);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Character other = (Character) obj;
+		return hometown == other.hometown && location == other.location;
 	}
 }

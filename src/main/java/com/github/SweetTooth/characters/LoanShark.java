@@ -66,4 +66,22 @@ non-sealed class LoanShark extends MoneyDealer implements IMoneyDealer {
 			.append("]");
 		return builder.toString();
 	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (!super.equals(obj))
+			return false;
+		return true;
+	}
 }

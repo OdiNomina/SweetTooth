@@ -1,6 +1,7 @@
 package com.github.SweetTooth.characters;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.CandyFactory;
@@ -183,5 +184,29 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 			.append(", location=").append(location)
 			.append("]");
 		return builder.toString();
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(candies, cash, stash);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if(!super.equals(obj))
+			return false;
+		Player other = (Player) obj;
+		return Objects.equals(candies, other.candies) //ArrayList compares elementData
+				&& Double.doubleToLongBits(cash) == Double.doubleToLongBits(other.cash)
+				&& Objects.equals(stash, other.stash);
 	}
 }
