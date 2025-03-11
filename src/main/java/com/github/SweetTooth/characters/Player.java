@@ -6,7 +6,7 @@ import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.CandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
 
-class Player extends Character implements Playable, PersistentPreference, Logged {
+class Player extends Character implements IPlayer, PersistentPreference, Logged {
 	final static int MAX_CANDIES = Integer.valueOf(100); //Änderung der Konstanten erzwingt keine neue Übersetzung der Klassen.
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);
 	private final ArrayList<Snackable> candies = new ArrayList<Snackable>();

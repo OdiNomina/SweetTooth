@@ -2,7 +2,7 @@ package com.github.SweetTooth.gui;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.characters.Playable;
+import com.github.SweetTooth.characters.IPlayer;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
@@ -26,7 +26,7 @@ public class GUIManager {
 	private WindowPostRenderer postRenderer;
 	private Component background;
 	private MultiWindowTextGUI multiWindowTextGUI;
-	Playable player;
+	IPlayer player;
 	private SeparateTextGUIThread guiThread;
 	
 	SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
@@ -38,7 +38,7 @@ public class GUIManager {
 			new RGB(200, 255, 210), 	// selected back
 			new RGB(245, 190, 70));	// gui
 	
-	public GUIManager(Playable player) throws IOException {
+	public GUIManager(IPlayer player) throws IOException {
 		DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
 		terminalFactory.setInitialTerminalSize(new TerminalSize(128, 61));
 		screen = terminalFactory.createScreen();

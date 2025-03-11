@@ -1,12 +1,12 @@
 package com.github.SweetTooth.game;
 
-import com.github.SweetTooth.characters.Playable;
+import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.gui.GUIManager;
 
 public class SweetTooth {
 	public static void main(String[] args) throws InterruptedException {	
 		try {
-			Playable player = Playable.getInstance();
+			IPlayer player = IPlayer.getInstance();
 	    	GUIManager guiManager = new GUIManager(player);
 	        guiManager.start();
 	    }

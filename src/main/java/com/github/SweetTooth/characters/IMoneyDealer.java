@@ -15,10 +15,10 @@ public sealed interface IMoneyDealer
 		return MoneyDealer.CURRENCY;
 	}
 	
-	Double applyInterestToBalance(Playable player);
-	double getBalance(Playable player);
+	Double applyInterestToBalance(IPlayer player);
+	double getBalance(IPlayer player);
 	String getDispoHint();
 	String getInterestHint();
-	void increaseClientsBalance(Playable player, double amount);
-	void reduceClientsBalance(Playable player, double amount);
+	void increaseClientsBalance(IPlayer player, double amount);
+	void reduceClientsBalance(IPlayer player, double amount);
 }

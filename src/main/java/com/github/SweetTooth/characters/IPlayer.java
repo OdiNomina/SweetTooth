@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.Snackable;
 
-public interface Playable {
-	public static Playable getInstance() {
+public interface IPlayer {
+	public static IPlayer getInstance() {
 		return new Player();
 	}
 	

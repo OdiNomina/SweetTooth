@@ -2,7 +2,7 @@ package com.github.SweetTooth.travel;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.SweetTooth.characters.Playable;
+import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.snacks.CandyType;
 import com.github.SweetTooth.snacks.Snackable;
 
@@ -11,7 +11,7 @@ final class Gift extends Experience implements Experienceable {
 	final static int MAX_QUANTITY = Integer.valueOf(6);
 	
 	@Override
-	public String process(Playable player) {
+	public String process(IPlayer player) {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 		Snackable randomCandy = null;
 		int randomQuantity = 0;

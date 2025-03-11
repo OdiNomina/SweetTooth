@@ -3,7 +3,7 @@ package com.github.SweetTooth.events;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.github.SweetTooth.characters.Playable;
+import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.gui.GUI;
 import com.github.SweetTooth.snacks.Snackable;
 
@@ -14,7 +14,7 @@ abstract sealed class Event implements IEvent permits
 	double doubleInput;
 	int integerInput;
 	String notAtHometown = "Du bist nicht in deiner Heimatstadt.";
-	Playable player;
+	IPlayer player;
 	String stringInput;
 	
 	static void increaseDayOfGame(int numberOfDays, GUI gui) throws IOException {
@@ -39,7 +39,7 @@ abstract sealed class Event implements IEvent permits
 		ArrayList<Snackable> candies =  player.getCandies();
 		for(int i = 0; i < candies.size(); i++)
 			sumCandies += candies.get(i).getQuantity();
-		return sumCandies + quantity <= Playable.getMaxCandies();
+		return sumCandies + quantity <= IPlayer.getMaxCandies();
 	}
 	
 	boolean isAtHometown() {

@@ -1,7 +1,7 @@
 package com.github.SweetTooth.events;
 
 import com.github.SweetTooth.characters.IMoneyDealer;
-import com.github.SweetTooth.characters.Playable;
+import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.Snackable;
 import com.github.SweetTooth.travel.Experienceable;
@@ -13,7 +13,7 @@ final class Travel extends Event implements IEvent {
 	}
 	
 	private Answer travel() {
-		double travelCosts = Playable.getTravelCosts();
+		double travelCosts = IPlayer.getTravelCosts();
 		String payment = "";
 		if(player.getCash() >= travelCosts) {
 			player.reduceCash(travelCosts);

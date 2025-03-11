@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.github.SweetTooth.characters.IMoneyDealer;
-import com.github.SweetTooth.characters.Playable;
+import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.events.EventFactory;
 import com.github.SweetTooth.events.IEvent;
 import com.github.SweetTooth.locations.Location;
@@ -326,7 +326,7 @@ public class GUI {
 	    loansharkBalance.setText(getMoneyFormatted(IMoneyDealer.create("LoanShark").getBalance(guiManager.player)));
 	    loansharkInfo.setText("");
 	    // Travel
-	    ticketPrice.setText(getMoneyFormatted(Playable.getTravelCosts()));
+	    ticketPrice.setText(getMoneyFormatted(IPlayer.getTravelCosts()));
 	    travelEventInfo1.setText("");
 	    travelEventInfo2.setText("");
 	    travelEventInfo3.setText("");

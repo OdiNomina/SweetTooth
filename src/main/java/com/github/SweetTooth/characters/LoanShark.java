@@ -17,7 +17,7 @@ non-sealed class LoanShark extends MoneyDealer implements IMoneyDealer {
 	}
 	
 	@Override
-	public Double applyInterestToBalance(Playable player) {
+	public Double applyInterestToBalance(IPlayer player) {
 		Client client = findClientByIdentity((Player)player);
 		if(client != null) {
 			double interest = client.getBalance() * INTEREST_DEBT_PERCENT / 100;
@@ -33,7 +33,7 @@ non-sealed class LoanShark extends MoneyDealer implements IMoneyDealer {
 	}
 
 	@Override
-	public double getBalance(Playable player) {
+	public double getBalance(IPlayer player) {
 		Client loanSharkClient = findClientByIdentity((Player)player);
 		if(loanSharkClient == null)
 			return 0.0;
@@ -46,14 +46,14 @@ non-sealed class LoanShark extends MoneyDealer implements IMoneyDealer {
 	}
 
 	@Override
-	public void increaseClientsBalance(Playable player, double amount) {
+	public void increaseClientsBalance(IPlayer player, double amount) {
 		Client client = findClientByIdentity((Player)player);
 		if(client != null)
 			client.addAmount(amount);
 	}
 
 	@Override
-	public void reduceClientsBalance(Playable player, double amount) {
+	public void reduceClientsBalance(IPlayer player, double amount) {
 		getExistingOrNewClient((Player)player).removeAmount(amount);
 	}
 }

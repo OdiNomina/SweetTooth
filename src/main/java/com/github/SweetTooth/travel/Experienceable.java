@@ -1,11 +1,11 @@
 package com.github.SweetTooth.travel;
 
-import com.github.SweetTooth.characters.Playable;
+import com.github.SweetTooth.characters.IPlayer;
 
 public interface Experienceable {
 	public static Experienceable getRandomExperience() {
 		return Experience.randomExperience();
 	}
 	
-	String process(Playable player);
+	String process(IPlayer player);
 }

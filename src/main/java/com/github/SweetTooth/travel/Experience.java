@@ -2,7 +2,7 @@ package com.github.SweetTooth.travel;
 
 import java.util.ArrayList;
 
-import com.github.SweetTooth.characters.Playable;
+import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.snacks.Snackable;
 
 abstract sealed class Experience implements Experienceable permits 
@@ -17,11 +17,11 @@ abstract sealed class Experience implements Experienceable permits
 		return new NoopEvent();
 	}
 		
-	boolean hasSpaceInPockets(Playable player, int quantity){
+	boolean hasSpaceInPockets(IPlayer player, int quantity){
 		int sumCandies = 0;
 		ArrayList<Snackable> candies =  player.getCandies();
 		for(int i = 0; i < candies.size(); i++)
 			sumCandies += candies.get(i).getQuantity();
-		return sumCandies + quantity <= Playable.getMaxCandies();
+		return sumCandies + quantity <= IPlayer.getMaxCandies();
 	}
 }
