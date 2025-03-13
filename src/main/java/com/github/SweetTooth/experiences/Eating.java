@@ -1,4 +1,4 @@
-package com.github.SweetTooth.travel;
+package com.github.SweetTooth.experiences;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
@@ -6,7 +6,7 @@ import java.util.concurrent.ThreadLocalRandom;
 import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.snacks.Snackable;
 
-final class Eating extends Experience implements Experienceable {
+final class Eating extends Experience {
 	@Override
 	public String process(IPlayer player) {
 		ArrayList<Snackable> candies = player.getCandies();

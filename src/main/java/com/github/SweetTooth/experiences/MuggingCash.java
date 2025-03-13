@@ -1,8 +1,8 @@
-package com.github.SweetTooth.travel;
+package com.github.SweetTooth.experiences;
 
 import com.github.SweetTooth.characters.IPlayer;
 
-final class MuggingCash extends Experience implements Experienceable {
+final class MuggingCash extends Experience {
 	@Override
 	public String process(IPlayer player) {
 		if(player.getCash() == 0)
