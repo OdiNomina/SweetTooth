@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.github.SweetTooth.locations.Location;
-import com.github.SweetTooth.snacks.CandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
 
 class Player extends Character implements IPlayer, PersistentPreference, Logged {
@@ -37,33 +36,31 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 	}
 	
 	/**
-	 * Adds the given candy type to the given list and updates the quantity property.
-	 * If an equal type already exists in the list, the quantity of this object will be increased by the given quantity.
-	 * If no equal type exists, a new instance of the given type will be added. Its quantity will be initialized with the given quantity.
+	 * Adds the given snack to the given list and updates the quantity property. If quantity is 0, nothing will be added.
+	 * If an equal snack already exists in the list, the quantity of this object will be increased by the given quantity.
+	 * If no equal snack exists, a new instance of the given type will be added. It's quantity will be initialized with the given quantity.
 	 * Types are equal if the names of the objects are equal.
-	 * @param candy the type to add.
+	 * @param snack the type to add.
 	 * @param list the list to be added to.
 	 * @param quantity the quantity property will be increased or initialized by this number.
-	 * 			If quantity is 0, nothing will be added.
 	 * @exception IllegalArgumentException
 	 * 				if the type or the list argument is null.
 	 */
 	@Override
-	public void addCandy(Snackable candy, ArrayList<Snackable> list, int quantity) {
-		if(candy == null || list == null)
+	public void addCandy(Snackable snack, ArrayList<Snackable> list, int quantity) {
+		if(snack == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
 		if(quantity == 0) 
 			return;
-		
 		for(Snackable existingCandy : list) {
-			if(existingCandy.getName().equalsIgnoreCase(candy.getName())) {
+			if(existingCandy.getName().equalsIgnoreCase(snack.getName().strip())) {
 				existingCandy.increaseQuantity(quantity);
 				return;
 			}
 		}
-		Snackable newInstance = CandyFactory.getDefaultFactory().create(candy);
-		newInstance.setQuantity(quantity);
-		list.add(newInstance);
+		Snackable clone = snack.clone();
+		clone.setQuantity(quantity);
+		list.add(clone);
 	}
 	
 	/**

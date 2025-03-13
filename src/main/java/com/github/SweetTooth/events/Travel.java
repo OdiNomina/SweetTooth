@@ -3,6 +3,7 @@ package com.github.SweetTooth.events;
 import com.github.SweetTooth.characters.IMoneyDealer;
 import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.locations.Location;
+import com.github.SweetTooth.snacks.DefaultCandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
 import com.github.SweetTooth.travel.Experienceable;
 
@@ -24,7 +25,7 @@ final class Travel extends Event implements IEvent {
 			payment = "Du zahlst per Bankcard.";
 		}
 		player.setLocation(Location.valueOf(stringInput));
-		Snackable.changePrices();
+		Snackable.changePrices(new DefaultCandyFactory().getDefaultSnacks());
 		String infoChangePrices = "Die Marktpreise der Süßigkeiten haben sich geändert.";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")

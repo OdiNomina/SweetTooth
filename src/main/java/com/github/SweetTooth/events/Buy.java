@@ -1,5 +1,6 @@
 package com.github.SweetTooth.events;
 
+import com.github.SweetTooth.snacks.DefaultCandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
 
 final class Buy extends Event implements IEvent {
@@ -15,7 +16,7 @@ final class Buy extends Event implements IEvent {
 			return "Nix gekauft";
 		if(!hasSpaceInPockets(integerInput))
 			return "Soviel kannst du gar nicht tragen.";
-		Snackable kindOfCandy = Snackable.valueOf(stringInput);
+		Snackable kindOfCandy = new DefaultCandyFactory().valueOf(stringInput);
 		if(player.getCash() < kindOfCandy.getStaticPrice() * integerInput)
 			return "Soviel Geld hast du nicht dabei, musst du erst besorgen...";
 		player.addCandy(kindOfCandy, player.getCandies(), integerInput);

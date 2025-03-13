@@ -2,7 +2,7 @@ package com.github.SweetTooth.snacks;
 
 import java.util.ArrayList;
 
-abstract sealed class Candy implements Snackable permits
+abstract sealed class Candy implements Cloneable, Snackable permits
 	Bonbon, BubbleGum, ChewyCandy, ChocolateBar, GummyBears, Lollipop
 {
 	private final String name;
@@ -12,10 +12,10 @@ abstract sealed class Candy implements Snackable permits
 		this.name = name;
 	}
 	
-	static void setRandomStaticPrices() {
+	static void setRandomStaticPrices(ArrayList<Snackable> snacks) {
 		Candy candy = null;
-		for(CandyType ct : CandyType.values()) {
-			candy = (Candy)ct.getCandy();
+		for(Snackable s : snacks) {
+			candy = (Candy)s;
 			candy.setRandomStaticPrice();
 		}
 	}
@@ -24,21 +24,6 @@ abstract sealed class Candy implements Snackable permits
 		for(Snackable s : list) {
 			if(s.getName().equalsIgnoreCase(candyName.strip()))
 				return s;
-		}
-		return null;
-	}
-	
-	/**
-	 * Searches for a matching CandyType and returns the corresponding default candy instance.
-	 * @param candyName the final name of candy.
-	 * @return candy instance or null if no corresponding CandyType exists.
-	 */
-	static Snackable valueOf(String candyName) {
-		Snackable curCandy = null;
-		for(CandyType ct : CandyType.values()) {
-			curCandy = ct.getCandy();
-			if(curCandy.getName().equalsIgnoreCase(candyName.strip()))
-				return curCandy;
 		}
 		return null;
 	}
@@ -73,4 +58,13 @@ abstract sealed class Candy implements Snackable permits
 	}
 	
 	abstract void setRandomStaticPrice();
+	
+	@Override
+	public Candy clone() {
+		try {
+			return (Candy) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new InternalError();
+		}
+	}
 }

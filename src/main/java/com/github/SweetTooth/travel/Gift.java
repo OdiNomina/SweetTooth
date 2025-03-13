@@ -3,7 +3,7 @@ package com.github.SweetTooth.travel;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.github.SweetTooth.characters.IPlayer;
-import com.github.SweetTooth.snacks.CandyType;
+import com.github.SweetTooth.snacks.DefaultCandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
 
 final class Gift extends Experience implements Experienceable {
@@ -18,7 +18,7 @@ final class Gift extends Experience implements Experienceable {
 		int gift = 0;
 		for(int i = 0; i <= random.nextInt(0, MAX_GIFTS); i++) {
 			randomQuantity = random.nextInt(1, MAX_QUANTITY + 1);
-			randomCandy = CandyType.getRandom();
+			randomCandy = new DefaultCandyFactory().getRandom();
 			if(hasSpaceInPockets(player, randomQuantity)) {
 				player.addCandy(randomCandy, player.getCandies(), randomQuantity);
 				gift++;

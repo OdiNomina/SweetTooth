@@ -8,7 +8,7 @@ import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.events.EventFactory;
 import com.github.SweetTooth.events.IEvent;
 import com.github.SweetTooth.locations.Location;
-import com.github.SweetTooth.snacks.CandyType;
+import com.github.SweetTooth.snacks.DefaultCandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;
@@ -301,14 +301,14 @@ public class GUI {
 	    	sweetsInPockets.addItem(i);    
 	    // Buy
 	    buySelection.clearItems();
-	    Collection<String> itemsBuy = getCandyTypeEnumFormatted();
+	    Collection<String> itemsBuy = getDefaultSnacksFormatted();
 	    for(var i : itemsBuy)
 	    	buySelection.addItem(i);
 	    buyQuantity.setText("");
 	    buyInfo.setText("");
 	    // Sell
 	    sellSelection.clearItems();
-	    Collection<String> itemsSell = getCandyTypeEnumFormatted();
+	    Collection<String> itemsSell = getDefaultSnacksFormatted();
 	    for(var i : itemsSell)
 	    	sellSelection.addItem(i);
 	    sellQuantity.setText("");
@@ -393,10 +393,10 @@ public class GUI {
 		return answer.toString();
 	}
     
-    ArrayList<String> getCandyTypeEnumFormatted() {
+    ArrayList<String> getDefaultSnacksFormatted() {
 	    ArrayList<String> list = new ArrayList<String>();
-	    for(CandyType ct : CandyType.values())
-	    	list.add(String.format("%s - %.2f %s", ct.getCandy().getName(), ct.getCandy().getStaticPrice(), IMoneyDealer.getCurrency()));
+	    for(Snackable s : new DefaultCandyFactory().getDefaultSnacks())
+	    	list.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), IMoneyDealer.getCurrency()));
 	    return list;
 	}
 
