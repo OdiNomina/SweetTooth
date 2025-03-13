@@ -6,6 +6,11 @@ public class DefaultCandyFactory extends CandyFactory {
 	private static final ArrayList<Snackable> defaultSnacks = new ArrayList<>();
 	
 	@Override
+	public Snackable create(String snackName) {
+		throw new UnsupportedOperationException();
+	}
+	
+	@Override
 	public ArrayList<Snackable> getDefaultSnacks() {
 		if(defaultSnacks.isEmpty()) {
 			defaultSnacks.add(new Bonbon());
@@ -23,8 +28,9 @@ public class DefaultCandyFactory extends CandyFactory {
 	}
 	
 	@Override
-	public Snackable create(String snackName) {
-		throw new UnsupportedOperationException();
+	public Snackable getRandom() {
+		int randomIdx = (int)(Math.random() * defaultSnacks.size());
+		return defaultSnacks.get(randomIdx).clone();
 	}
 	
 	@Override
@@ -34,11 +40,5 @@ public class DefaultCandyFactory extends CandyFactory {
 				return s.clone();
 		}
 		return null;
-	}
-	
-	@Override
-	public Snackable getRandom() {
-		int randomIdx = (int)(Math.random() * defaultSnacks.size());
-		return defaultSnacks.get(randomIdx).clone();
 	}
 }

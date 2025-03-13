@@ -3,9 +3,14 @@ package com.github.SweetTooth.snacks;
 import java.util.ArrayList;
 
 public abstract class CandyFactory {
+	public abstract Snackable create(String snackName);
 	public abstract ArrayList<Snackable> getDefaultSnacks();
 	
-	public abstract Snackable create(String snackName);
+	/**
+	 * Returns a random default Snackable.
+	 * @return a new Snackable instance.
+	 */
+	public abstract Snackable getRandom();
 	
 	/**
 	 * Searches for a matching default Snackable and returns a new instance.
@@ -13,10 +18,4 @@ public abstract class CandyFactory {
 	 * @return a new Snackable instance or null if no corresponding Snackable exists.
 	 */
 	public abstract Snackable valueOf(String snackName);
-	
-	/**
-	 * Returns a random default Snackable.
-	 * @return a new Snackable instance.
-	 */
-	public abstract Snackable getRandom();
 }

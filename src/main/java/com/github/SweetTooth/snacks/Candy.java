@@ -1,17 +1,11 @@
 package com.github.SweetTooth.snacks;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 abstract sealed class Candy implements Cloneable, Snackable permits
 	Bonbon, BubbleGum, ChewyCandy, ChocolateBar, GummyBears, Lollipop
 {
-	private final String name;
-	private int quantity = 1;
-	
-	Candy(String name) {
-		this.name = name;
-	}
-	
 	static void setRandomStaticPrices(ArrayList<Snackable> snacks) {
 		Candy candy = null;
 		for(Snackable s : snacks) {
@@ -19,7 +13,6 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 			candy.setRandomStaticPrice();
 		}
 	}
-	
 	static Snackable valueOf(ArrayList<Snackable> list, String candyName) {
 		for(Snackable s : list) {
 			if(s.getName().equalsIgnoreCase(candyName.strip()))
@@ -28,26 +21,53 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 		return null;
 	}
 	
+	private final String name;
+	private int quantity = 1;
+	
+	Candy(String name) {
+		this.name = name;
+	}
+	
+	@Override
+	public Candy clone() {
+		try {
+			return (Candy) super.clone();
+		} catch (CloneNotSupportedException e) {
+			throw new InternalError();
+		}
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		Candy other = (Candy) obj;
+		return Objects.equals(name, other.name) && quantity == other.quantity;
+	}
+	
 	@Override
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
 	public int getQuantity() {
 		return quantity;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(name, quantity);
 	}
 	
 	@Override
 	public void increaseQuantity(int number) {
 		quantity += number;
 	}
-
+	
 	@Override
 	public void reduceQuantity(int number) {
 		quantity -= number;
 	}
-
+	
 	double rounded(double amount) {
 		return Math.round(amount * 100) / 100.00;
 	}
@@ -58,13 +78,4 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 	}
 	
 	abstract void setRandomStaticPrice();
-	
-	@Override
-	public Candy clone() {
-		try {
-			return (Candy) super.clone();
-		} catch (CloneNotSupportedException e) {
-			throw new InternalError();
-		}
-	}
 }

@@ -11,13 +11,6 @@ public interface Snackable {
 		return Candy.valueOf(list, candyName);
 	}
 	
-	String getName();
-	int getQuantity();
-	double getStaticPrice();
-	void increaseQuantity(int number);
-	void reduceQuantity(int number);
-	void setQuantity(int quantity);
-	
 	/**
 	 * Returns a cloned new Instance.
 	 * @param snack a type that is concrete at runtime.
@@ -25,4 +18,10 @@ public interface Snackable {
 	 * 				if argument is null.
 	 */
 	Snackable clone();
+	String getName();
+	int getQuantity();
+	double getStaticPrice();
+	void increaseQuantity(int number);
+	void reduceQuantity(int number);
+	void setQuantity(int quantity);
 }
