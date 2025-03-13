@@ -2,20 +2,43 @@ package com.github.SweetTooth.snacks;
 
 import java.util.ArrayList;
 
-public abstract class CandyFactory {
-	public abstract Snackable create(String snackName);
-	public abstract ArrayList<Snackable> getDefaultSnacks();
+public class CandyFactory extends SnackFactory {	
+	private static final ArrayList<Snackable> defaultSnacks = new ArrayList<>();
 	
-	/**
-	 * Returns a random default Snackable.
-	 * @return a new Snackable instance.
-	 */
-	public abstract Snackable getRandom();
+	@Override
+	public Snackable create(String snackName) {
+		throw new UnsupportedOperationException();
+	}
 	
-	/**
-	 * Searches for a matching default Snackable and returns a new instance.
-	 * @param snackName the final name.
-	 * @return a new Snackable instance or null if no corresponding Snackable exists.
-	 */
-	public abstract Snackable valueOf(String snackName);
+	@Override
+	public ArrayList<Snackable> getDefaultSnacks() {
+		if(defaultSnacks.isEmpty()) {
+			defaultSnacks.add(new Bonbon());
+			defaultSnacks.add(new BubbleGum());
+			defaultSnacks.add(new ChewyCandy());
+			defaultSnacks.add(new ChocolateBar());
+			defaultSnacks.add(new GummyBears());
+			defaultSnacks.add(new Lollipop());
+			Snackable.changeCandyPrices(defaultSnacks);
+		}
+		ArrayList<Snackable> copy = new ArrayList<>();
+		for(Snackable s : defaultSnacks)
+			copy.add(s);
+		return copy;
+	}
+	
+	@Override
+	public Snackable getRandom() {
+		int randomIdx = (int)(Math.random() * defaultSnacks.size());
+		return defaultSnacks.get(randomIdx).clone();
+	}
+	
+	@Override
+	public Snackable valueOf(String snackName) {
+		for(Snackable s : getDefaultSnacks()) {
+			if(s.getName().equalsIgnoreCase(snackName.strip()))
+				return s.clone();
+		}
+		return null;
+	}
 }
