@@ -33,7 +33,7 @@ final class Lollipop extends Candy implements Snackable {
 	}
 
 	@Override
-	void setRandomStaticPrice() {
+	public void setRandomStaticPrice() {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 		price = rounded(random.nextDouble(5, 15));
 	}

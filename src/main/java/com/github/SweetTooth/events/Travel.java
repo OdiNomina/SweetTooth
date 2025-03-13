@@ -25,7 +25,7 @@ final class Travel extends Event implements IEvent {
 			payment = "Du zahlst per Bankcard.";
 		}
 		player.setLocation(Location.valueOf(stringInput));
-		Snackable.changeCandyPrices(new CandyFactory().getDefaultSnacks());
+		Snackable.changeSnackPrices(new CandyFactory().getDefaultSnacks());
 		String infoChangePrices = "Die Marktpreise der Süßigkeiten haben sich geändert.";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")

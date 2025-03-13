@@ -3,8 +3,10 @@ package com.github.SweetTooth.snacks;
 import java.util.ArrayList;
 
 public interface Snackable {
-	public static void changeCandyPrices(ArrayList<Snackable> snacks) {
-		Candy.setRandomStaticPrices(snacks);
+	public static void changeSnackPrices(ArrayList<Snackable> snacks) {
+		for(Snackable s : snacks) {
+			s.setRandomStaticPrice();
+		}
 	}
 	
 	public static Snackable findSnack(ArrayList<Snackable> list, String snackName) {
@@ -24,4 +26,5 @@ public interface Snackable {
 	void increaseQuantity(int number);
 	void reduceQuantity(int number);
 	void setQuantity(int quantity);
+	void setRandomStaticPrice();
 }

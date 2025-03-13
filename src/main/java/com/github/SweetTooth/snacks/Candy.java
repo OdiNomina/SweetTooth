@@ -1,19 +1,10 @@
 package com.github.SweetTooth.snacks;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 abstract sealed class Candy implements Cloneable, Snackable permits
 	Bonbon, BubbleGum, ChewyCandy, ChocolateBar, GummyBears, Lollipop
 {
-	static void setRandomStaticPrices(ArrayList<Snackable> snacks) {
-		Candy candy = null;
-		for(Snackable s : snacks) {
-			candy = (Candy)s;
-			candy.setRandomStaticPrice();
-		}
-	}
-	
 	private final String name;
 	private int quantity = 1;
 	
@@ -47,6 +38,9 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 	}
 
 	@Override
+	public abstract double getStaticPrice();
+	
+	@Override
 	public int hashCode() {
 		return Objects.hash(name, quantity);
 	}
@@ -70,5 +64,6 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 		this.quantity = quantity > 0 ? quantity : 0;
 	}
 	
-	abstract void setRandomStaticPrice();
+	@Override
+	public abstract void setRandomStaticPrice();
 }
