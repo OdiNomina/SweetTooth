@@ -19,7 +19,7 @@ public class DefaultCandyFactory extends CandyFactory {
 			defaultSnacks.add(new ChocolateBar());
 			defaultSnacks.add(new GummyBears());
 			defaultSnacks.add(new Lollipop());
-			Snackable.changePrices(defaultSnacks);
+			Snackable.changeCandyPrices(defaultSnacks);
 		}
 		ArrayList<Snackable> copy = new ArrayList<>();
 		for(Snackable s : defaultSnacks)

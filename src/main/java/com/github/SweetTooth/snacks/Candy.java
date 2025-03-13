@@ -13,13 +13,6 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 			candy.setRandomStaticPrice();
 		}
 	}
-	static Snackable valueOf(ArrayList<Snackable> list, String candyName) {
-		for(Snackable s : list) {
-			if(s.getName().equalsIgnoreCase(candyName.strip()))
-				return s;
-		}
-		return null;
-	}
 	
 	private final String name;
 	private int quantity = 1;
@@ -33,7 +26,7 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 		try {
 			return (Candy) super.clone();
 		} catch (CloneNotSupportedException e) {
-			throw new InternalError();
+			throw new InternalError(); //Kann eigentlich nicht auftreten, da Cloneable implementiert wird.
 		}
 	}
 	

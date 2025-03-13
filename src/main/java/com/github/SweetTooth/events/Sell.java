@@ -13,7 +13,7 @@ final class Sell extends Event implements IEvent {
 	private String sell() {
 		if(integerInput < 1)
 			return "Nix verkauft";
-		Snackable playersCandy = Snackable.valueOf(player.getCandies(), stringInput);
+		Snackable playersCandy = Snackable.findSnack(player.getCandies(), stringInput);
 		if(playersCandy == null || playersCandy.getQuantity() < integerInput)
 			return "Du kannst nur verkaufen, was du hast.";
 		if(playersCandy.getQuantity() > integerInput)
