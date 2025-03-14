@@ -12,9 +12,11 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 	private final ArrayList<Snackable> candies = new ArrayList<Snackable>();
 	private final ArrayList<Snackable> stash = new ArrayList<Snackable>();
 	private double cash = 200;
+	private String name;
 
-	Player(){
+	Player(String name){
 		super(Location.BRONX);
+		this.name = Objects.requireNonNullElse(name, "Anonymer Spieler");
 	}
 
 	/**
@@ -86,6 +88,11 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 	@Override
 	public double getCash() {
 		return rounded(cash);
+	}
+	
+	@Override
+	public String getName() {
+		return name;
 	}
 	
 	/**
@@ -177,6 +184,7 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 		builder.append("Player [candies=").append(candies)
 			.append(", stash=").append(stash)
 			.append(", cash=").append(cash)
+			.append(", name=").append(name)
 			.append(", hometown=").append(hometown)
 			.append(", location=").append(location)
 			.append("]");
@@ -193,7 +201,7 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(candies, cash, stash);
+		result = prime * result + Objects.hash(candies, cash, name, stash);
 		return result;
 	}
 	
@@ -218,6 +226,7 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 		long otherCash = other.cash == 0.0 ? 0L : Double.doubleToLongBits(other.cash);
 		return Objects.equals(candies, other.candies) //ArrayList compares elementData
 				&& Objects.equals(stash, other.stash) 
-				&& thisCash == otherCash;
+				&& thisCash == otherCash
+				&& name.equalsIgnoreCase(other.name);
 	}
 }

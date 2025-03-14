@@ -6,8 +6,8 @@ import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.Snackable;
 
 public interface IPlayer {
-	public static IPlayer getInstance() {
-		return new Player();
+	public static IPlayer getInstance(String name) {
+		return new Player(name);
 	}
 	
 	public static int getMaxCandies() {
@@ -25,6 +25,7 @@ public interface IPlayer {
 	double getCash();
 	Location getHometown();
 	Location getLocation();
+	String getName();
 	ArrayList<Snackable> getStash();
 	void reduceCash(double amount);
 	void removeAllCandies(ArrayList<Snackable> candiesToRemove, ArrayList<Snackable> fromList);

@@ -6,7 +6,7 @@ import com.github.SweetTooth.gui.GUIManager;
 public class SweetTooth {
 	public static void main(String[] args) throws InterruptedException {	
 		try {
-			IPlayer player = IPlayer.getInstance();
+			IPlayer player = IPlayer.getInstance(null);
 	    	GUIManager guiManager = new GUIManager(player);
 	        guiManager.start();
 	    }
