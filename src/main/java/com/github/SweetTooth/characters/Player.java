@@ -182,7 +182,13 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 			.append("]");
 		return builder.toString();
 	}
-
+	
+	/**
+	* Returns a hash code value for this {@code Player} object.
+	* @return A hash code value for this object.
+	* @see java.lang.Object#equals(java.lang.Object)
+	* @see java.util.HashMap
+	*/
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -190,7 +196,13 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 		result = prime * result + Objects.hash(candies, cash, stash);
 		return result;
 	}
-
+	
+	/**
+	* Determines whether or not two players are equal.
+	* Two instances of {@code Player} are equal if the values of their member fields are the same.
+	* @param obj object to be compared with this {@code Player}
+	* @return {@code true} if the object to be compared is an instance of {@code Player} and has the same values; {@code false} otherwise.
+	*/
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -202,8 +214,10 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 		if(!super.equals(obj))
 			return false;
 		Player other = (Player) obj;
+		long thisCash = cash == 0.0 ? 0L : Double.doubleToLongBits(cash);
+		long otherCash = other.cash == 0.0 ? 0L : Double.doubleToLongBits(other.cash);
 		return Objects.equals(candies, other.candies) //ArrayList compares elementData
-				&& Double.doubleToLongBits(cash) == Double.doubleToLongBits(other.cash)
-				&& Objects.equals(stash, other.stash);
+				&& Objects.equals(stash, other.stash) 
+				&& thisCash == otherCash;
 	}
 }

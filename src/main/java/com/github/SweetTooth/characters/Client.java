@@ -55,7 +55,9 @@ class Client extends Character {
 		if (!super.equals(obj))
 			return false;
 		Client other = (Client) obj;
-		return Double.doubleToLongBits(balance) == Double.doubleToLongBits(other.balance)
+		long thisBalance = balance == 0.0 ? 0L : Double.doubleToLongBits(balance);
+		long otherBalance = other.balance == 0.0 ? 0L : Double.doubleToLongBits(other.balance);
+		return thisBalance == otherBalance
 				&& Objects.equals(identity, other.identity);
 	}
 }
