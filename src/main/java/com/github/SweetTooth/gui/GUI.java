@@ -2,6 +2,7 @@ package com.github.SweetTooth.gui;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Comparator;
 
 import com.github.SweetTooth.characters.IMoneyDealer;
 import com.github.SweetTooth.characters.IPlayer;
@@ -296,27 +297,27 @@ public class GUI {
 	    cash.setText(getMoneyFormatted(guiManager.player.getCash()));
 	    // Sweets in pockets
 	    sweetsInPockets.clearItems();
-	    Collection<String> itemsPockets = getSnackableListFormatted(guiManager.player.getCandies());
+	    Collection<String> itemsPockets = getSnacksFormatted(guiManager.player.getCandies());
 	    for(var i : itemsPockets)
 	    	sweetsInPockets.addItem(i);    
 	    // Buy
 	    buySelection.clearItems();
-	    Collection<String> itemsBuy = getDefaultSnacksFormatted();
+	    Collection<String> itemsBuy = getDefaultCandiesFormatted();
 	    for(var i : itemsBuy)
 	    	buySelection.addItem(i);
 	    buyQuantity.setText("");
 	    buyInfo.setText("");
 	    // Sell
 	    sellSelection.clearItems();
-	    Collection<String> itemsSell = getDefaultSnacksFormatted();
+	    Collection<String> itemsSell = getDefaultCandiesFormatted();
 	    for(var i : itemsSell)
 	    	sellSelection.addItem(i);
 	    sellQuantity.setText("");
 	    sellInfo.setText("");
 	    // Hide and Seek
 	    stash.clearItems();
-	    Collection<String> itemsStash = getSnackableListFormatted(guiManager.player.getStash());
-	    for(var i : itemsStash)
+	    Collection<String> items = getSnacksFormatted(guiManager.player.getStash());
+	    for(var i : items)
 	    	stash.addItem(i);
 	    hideSeekInfo.setText("");
 	    // Bank
@@ -393,11 +394,13 @@ public class GUI {
 		return answer.toString();
 	}
     
-    ArrayList<String> getDefaultSnacksFormatted() {
-	    ArrayList<String> list = new ArrayList<String>();
-	    for(Snackable s : new CandyFactory().getDefaultSnacks())
-	    	list.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), IMoneyDealer.getCurrency()));
-	    return list;
+    ArrayList<String> getDefaultCandiesFormatted() {
+	    ArrayList<Snackable> candies = new CandyFactory().getDefaultSnacks();
+	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
+    	ArrayList<String> formattedList = new ArrayList<String>();
+	    for(Snackable s : candies)
+	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), IMoneyDealer.getCurrency()));
+	    return formattedList;
 	}
 
     ArrayList<String> getLocationListFormatted() {
@@ -411,14 +414,15 @@ public class GUI {
 	   return String.format("%.2f %s", money, IMoneyDealer.getCurrency());
     }
     
-	ArrayList<String> getSnackableListFormatted(ArrayList<Snackable> snackableList){
-		ArrayList<String> stringList = new ArrayList<String>();
-		if(snackableList.isEmpty()) {
-			stringList.add("Nix drin!");
-			return stringList;
+	ArrayList<String> getSnacksFormatted(ArrayList<Snackable> snacks){
+		snacks.sort(Comparator.comparing(Snackable::getName));
+		ArrayList<String> formattedList = new ArrayList<String>();
+		if(snacks.isEmpty()) {
+			formattedList.add("Nix drin!");
+			return formattedList;
 		}
-		for(Snackable c : snackableList)
-			stringList.add(String.format("%d %s", c.getQuantity(), c.getName()));
-		return stringList;
+		for(Snackable s : snacks)
+			formattedList.add(String.format("%d %s", s.getQuantity(), s.getName()));
+		return formattedList;
 	}
 }

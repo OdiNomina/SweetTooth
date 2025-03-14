@@ -13,12 +13,12 @@ public class CandyFactory extends SnackFactory {
 	@Override
 	public ArrayList<Snackable> getDefaultSnacks() {
 		if(defaultSnacks.isEmpty()) {
+			defaultSnacks.add(new Lollipop());
 			defaultSnacks.add(new Bonbon());
 			defaultSnacks.add(new BubbleGum());
 			defaultSnacks.add(new ChewyCandy());
 			defaultSnacks.add(new ChocolateBar());
 			defaultSnacks.add(new GummyBears());
-			defaultSnacks.add(new Lollipop());
 			Snackable.changeSnackPrices(defaultSnacks);
 		}
 		ArrayList<Snackable> copy = new ArrayList<>();
