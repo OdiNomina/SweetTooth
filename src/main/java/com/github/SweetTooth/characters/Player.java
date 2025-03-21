@@ -7,10 +7,10 @@ import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.Snackable;
 
 class Player extends Character implements IPlayer, PersistentPreference, Logged {
-	final static int MAX_CANDIES = Integer.valueOf(100); //Änderung der Konstanten erzwingt keine neue Übersetzung der Klassen.
+	final static int MAX_CANDIES = Integer.valueOf(100); //Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen (s. Java Insel - 6.6.4 Eincompilierte Belegungen der Klassenvariablen).
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);
-	private final ArrayList<Snackable> candies = new ArrayList<Snackable>();
-	private final ArrayList<Snackable> stash = new ArrayList<Snackable>();
+	private final ArrayList<Snackable> candies = new ArrayList<>();
+	private final ArrayList<Snackable> stash = new ArrayList<>();
 	private double cash = 200;
 	private String name;
 

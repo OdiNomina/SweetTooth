@@ -9,7 +9,7 @@ abstract sealed class MoneyDealer extends Character implements IMoneyDealer
 	permits Bank, LoanShark
 {
 	public final static String CURRENCY = "€";
-	final ArrayList<Client> clients = new ArrayList<Client>();
+	final ArrayList<Client> clients = new ArrayList<>();
 	
 	MoneyDealer(Location hometown){
 		super(hometown);

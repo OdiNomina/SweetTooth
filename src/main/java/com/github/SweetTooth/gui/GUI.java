@@ -397,14 +397,14 @@ public class GUI {
     ArrayList<String> getDefaultCandiesFormatted() {
 	    ArrayList<Snackable> candies = new CandyFactory().getDefaultSnacks();
 	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
-    	ArrayList<String> formattedList = new ArrayList<String>();
+    	ArrayList<String> formattedList = new ArrayList<>();
 	    for(Snackable s : candies)
 	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), IMoneyDealer.getCurrency()));
 	    return formattedList;
 	}
 
     ArrayList<String> getLocationListFormatted() {
-	    ArrayList<String> answer = new ArrayList<String>();
+	    ArrayList<String> answer = new ArrayList<>();
 	    for(Location c : Location.values())
 			answer.add(c.getOfficialName());
 	    return answer;
@@ -416,7 +416,7 @@ public class GUI {
     
 	ArrayList<String> getSnacksFormatted(ArrayList<Snackable> snacks){
 		snacks.sort(Comparator.comparing(Snackable::getName));
-		ArrayList<String> formattedList = new ArrayList<String>();
+		ArrayList<String> formattedList = new ArrayList<>();
 		if(snacks.isEmpty()) {
 			formattedList.add("Nix drin!");
 			return formattedList;
