@@ -31,12 +31,12 @@ public class GUIManager {
 	
 	SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
 			new RGB(50, 50, 0),		// base foreground
-			new RGB(170, 245, 180), 	// base background
+			new RGB(255, 240, 140), 	// base background
 			new RGB(50, 50, 0), 		// editable fore
-			new RGB(200, 255, 210), 	// editable back
+			new RGB(255, 250, 180), 	// editable back
 			new RGB(50, 100, 0), 		// selected fore
-			new RGB(200, 255, 210), 	// selected back
-			new RGB(245, 190, 70));	// gui
+			new RGB(255, 250, 180), 	// selected back
+			new RGB(255, 140, 80));	// gui
 	
 	public GUIManager(IPlayer player) throws IOException {
 		DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();

@@ -214,7 +214,7 @@ public class GUI {
         panel.addComponent(travelInterestInfo);
         // Balance sheet
         balanceSheet.setLayoutData(GridLayout.createLayoutData(GridLayout.Alignment.FILL, GridLayout.Alignment.FILL, true, true, 2, 1))
-        	.setTheme(new SimpleTheme(new RGB(50, 50, 0), new RGB(170, 245, 180), SGR.BOLD));
+        	.setTheme(new SimpleTheme(new RGB(50, 50, 0), new RGB(250, 220, 100), SGR.BOLD));
         panel.addComponent(addHorizontalLine());
         panel.addComponent(balanceSheet);
         // Exit
