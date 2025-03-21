@@ -1,12 +1,10 @@
 package com.github.SweetTooth.snacks;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 final class Bonbon extends Candy implements Snackable {
 	static double price;
 	
 	Bonbon() {
-		super("Bonbon");
+		super("Bonbon", 10, 45);
 	}
 	
 	@Override
@@ -33,8 +31,7 @@ final class Bonbon extends Candy implements Snackable {
 	}
 
 	@Override
-	public void setRandomStaticPrice() {
-		ThreadLocalRandom random = ThreadLocalRandom.current();
-		price = rounded(random.nextDouble(10, 45));
+	void setStaticPrice(double staticPrice) {
+		price = staticPrice;
 	}
 }

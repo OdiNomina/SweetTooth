@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public interface Snackable {
 	public static void changeSnackPrices(ArrayList<Snackable> snacks) {
 		for(Snackable s : snacks) {
-			s.setRandomStaticPrice();
+			((Candy)s).setRandomStaticPrice();
 		}
 	}
 	
@@ -26,5 +26,4 @@ public interface Snackable {
 	void increaseQuantity(int number);
 	void reduceQuantity(int number);
 	void setQuantity(int quantity);
-	void setRandomStaticPrice();
 }

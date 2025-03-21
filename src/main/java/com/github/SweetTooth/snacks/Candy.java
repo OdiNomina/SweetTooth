@@ -1,17 +1,26 @@
 package com.github.SweetTooth.snacks;
 
 import java.util.Objects;
+import java.util.concurrent.ThreadLocalRandom;
 
 abstract sealed class Candy implements Cloneable, Snackable permits
 	Bonbon, BubbleGum, ChewyCandy, ChocolateBar, GummyBears, Lollipop
 {
-	private final String name;
-	private int quantity = 1;
-	
-	Candy(String name) {
-		this.name = name;
+	static double rounded(double amount) {
+		return Math.round(amount * 100) / 100.00;
 	}
 	
+	private final String name;
+	private final double minPrice;
+	private final double maxPrice;
+	private int quantity = 1;
+	
+	Candy(String name, double minPrice, double maxPrice) {
+		this.name = name;
+		this.minPrice = minPrice;
+		this.maxPrice = maxPrice;
+	}
+
 	@Override
 	public Candy clone() {
 		try {
@@ -26,7 +35,7 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 		Candy other = (Candy) obj;
 		return Objects.equals(name, other.name) && quantity == other.quantity;
 	}
-	
+
 	@Override
 	public String getName() {
 		return name;
@@ -36,7 +45,7 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 	public int getQuantity() {
 		return quantity;
 	}
-
+	
 	@Override
 	public abstract double getStaticPrice();
 	
@@ -55,15 +64,15 @@ abstract sealed class Candy implements Cloneable, Snackable permits
 		quantity -= number;
 	}
 	
-	double rounded(double amount) {
-		return Math.round(amount * 100) / 100.00;
-	}
-	
 	@Override
 	public void setQuantity(int quantity) {
 		this.quantity = quantity > 0 ? quantity : 0;
 	}
 	
-	@Override
-	public abstract void setRandomStaticPrice();
+	void setRandomStaticPrice() {
+		ThreadLocalRandom random = ThreadLocalRandom.current();
+		setStaticPrice(rounded(random.nextDouble(minPrice, maxPrice)));
+	}
+
+	abstract void setStaticPrice(double rounded);
 }
