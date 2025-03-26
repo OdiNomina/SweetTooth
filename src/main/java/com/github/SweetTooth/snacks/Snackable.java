@@ -17,7 +17,7 @@ public interface Snackable {
 		return null;
 	}
 	
-	Snackable clone();
+	<T extends Snackable> T cloneSnack();
 	boolean equals(Object obj);
 	String getName();
 	int getQuantity();

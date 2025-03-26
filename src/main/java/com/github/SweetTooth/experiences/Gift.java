@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.snacks.Candy;
 import com.github.SweetTooth.snacks.CandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
 
@@ -14,7 +15,7 @@ final class Gift extends Experience {
 	@Override
 	public String process(IPlayer player) {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
-		Snackable randomCandy = null;
+		Candy randomCandy = null;
 		int randomQuantity = 0;
 		int gift = 0;
 		for(int i = 0; i <= random.nextInt(0, MAX_GIFTS); i++) {

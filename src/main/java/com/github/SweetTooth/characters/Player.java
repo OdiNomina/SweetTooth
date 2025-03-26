@@ -29,11 +29,11 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 	 * @see #addSnack(Snackable, ArrayList, int)
 	 */
 	@Override
-	public void addAllSnacks(ArrayList<? extends Snackable> snacks, ArrayList<? extends Snackable> list) {
+	public <E extends Snackable> void addAllSnacks(ArrayList<E> snacks, ArrayList<E> list) {
 		if(snacks == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
 		
-		for(Snackable s : snacks) {
+		for(E s : snacks) {
 			addSnack(s, list, s.getQuantity());
 		}
 	}
@@ -58,7 +58,7 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 	 * 				if the type or the list argument is null.
 	 */
 	@Override
-	public void addSnack(Snackable snack, ArrayList<? extends Snackable> list, int quantity) {
+	public <E extends Snackable> void addSnack(E snack, ArrayList<E> list, int quantity) {
 		if(snack == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
 		if(quantity == 0) 
@@ -69,13 +69,9 @@ class Player extends Character implements IPlayer, PersistentPreference, Logged 
 				return;
 			}
 		}
-		Snackable clone = snack.clone();
+		E clone = snack.cloneSnack();
 		clone.setQuantity(quantity);
-		if(list == candies)
-			candies.add((Candy)clone);
-		else  
-			if(list == candyStash)
-				candyStash.add((Candy)clone);
+		list.add(clone);
 	}
 
 	/**

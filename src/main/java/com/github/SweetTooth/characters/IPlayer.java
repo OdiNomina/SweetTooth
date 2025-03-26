@@ -18,9 +18,9 @@ public interface IPlayer {
 		return Player.TRAVEL_COSTS;
 	}
 
-	void addAllSnacks(ArrayList<? extends Snackable> snacks, ArrayList<? extends Snackable> list);
+	<E extends Snackable> void addAllSnacks(ArrayList<E> snacks, ArrayList<E> list);
 	void addCash(double amount);
-	void addSnack(Snackable snack, ArrayList<? extends Snackable> list, int quantity);
+	<E extends Snackable> void addSnack(E snack, ArrayList<E> list, int quantity);
 	ArrayList<Candy> getCandies();
 	ArrayList<Candy> getCandyStash();
 	double getCash();

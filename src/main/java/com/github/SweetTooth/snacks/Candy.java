@@ -21,10 +21,15 @@ public abstract sealed class Candy implements Cloneable, Snackable permits
 		this.maxPrice = maxPrice;
 	}
 
+	/*
+	 * Typ-Inferenz: Aus dem Ergebnistyp (Zuweisung bei Aufruf) leitet der Compiler das Typargument der Rückgabe ab.
+	 * (Java Insel - 12.1.7 Generische Methoden/Konstruktoren und Typ-Inferenz | Knappe Fabrikmethoden)
+	 */
+	@SuppressWarnings("unchecked")
 	@Override
-	public Candy clone() {
+	public <T extends Snackable> T cloneSnack() {
 		try {
-			return (Candy) super.clone();
+			return (T) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError(); //Kann eigentlich nicht auftreten, da Cloneable implementiert wird.
 		}

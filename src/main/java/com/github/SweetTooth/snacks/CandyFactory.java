@@ -30,14 +30,14 @@ public class CandyFactory extends SnackFactory {
 	@Override
 	public Candy getRandom() {
 		int randomIdx = (int)(Math.random() * defaultSnacks.size());
-		return defaultSnacks.get(randomIdx).clone();
+		return defaultSnacks.get(randomIdx).cloneSnack();
 	}
 	
 	@Override
 	public Candy valueOf(String snackName) {
 		for(Candy c : getDefaultSnacks()) {
 			if(c.getName().equalsIgnoreCase(snackName.strip()))
-				return c.clone();
+				return c.cloneSnack();
 		}
 		return null;
 	}
