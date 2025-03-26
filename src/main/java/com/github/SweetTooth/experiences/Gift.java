@@ -21,7 +21,7 @@ final class Gift extends Experience {
 			randomQuantity = random.nextInt(1, MAX_QUANTITY + 1);
 			randomCandy = new CandyFactory().getRandom();
 			if(isNotTooMuch(player, randomQuantity)) {
-				player.addCandy(randomCandy, player.getCandies(), randomQuantity);
+				player.addSnack(randomCandy, player.getCandies(), randomQuantity);
 				gift++;
 			}
 		}
@@ -32,9 +32,9 @@ final class Gift extends Experience {
 	
 	boolean isNotTooMuch(IPlayer player, int quantity){
 		int sumCandies = 0;
-		ArrayList<Snackable> candies =  player.getCandies();
+		ArrayList<? extends Snackable> candies =  player.getCandies();
 		for(int i = 0; i < candies.size(); i++)
 			sumCandies += candies.get(i).getQuantity();
-		return sumCandies + quantity <= IPlayer.getMaxCandies();
+		return sumCandies + quantity <= IPlayer.getMaxSnacks();
 	}
 }

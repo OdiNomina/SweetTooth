@@ -316,7 +316,7 @@ public class GUI {
 	    sellInfo.setText("");
 	    // Hide and Seek
 	    stash.clearItems();
-	    Collection<String> items = getSnacksFormatted(guiManager.player.getStash());
+	    Collection<String> items = getSnacksFormatted(guiManager.player.getCandyStash());
 	    for(var i : items)
 	    	stash.addItem(i);
 	    hideSeekInfo.setText("");
@@ -395,7 +395,7 @@ public class GUI {
 	}
     
     ArrayList<String> getDefaultCandiesFormatted() {
-	    ArrayList<Snackable> candies = new CandyFactory().getDefaultSnacks();
+	    ArrayList<? extends Snackable> candies = new CandyFactory().getDefaultSnacks();
 	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
 	    for(Snackable s : candies)
@@ -414,7 +414,7 @@ public class GUI {
 	   return String.format("%.2f %s", money, IMoneyDealer.getCurrency());
     }
     
-	ArrayList<String> getSnacksFormatted(ArrayList<Snackable> snacks){
+	ArrayList<String> getSnacksFormatted(ArrayList<? extends Snackable> snacks){
 		snacks.sort(Comparator.comparing(Snackable::getName));
 		ArrayList<String> formattedList = new ArrayList<>();
 		if(snacks.isEmpty()) {

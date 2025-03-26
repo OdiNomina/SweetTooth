@@ -3,13 +3,13 @@ package com.github.SweetTooth.snacks;
 import java.util.ArrayList;
 
 public interface Snackable {
-	public static void changeSnackPrices(ArrayList<Snackable> snacks) {
-		for(Snackable s : snacks) {
-			((Candy)s).setRandomStaticPrice();
+	public static void changeCandyPrices(ArrayList<? extends Candy> candies) {
+		for(Candy c : candies) {
+			c.setRandomStaticPrice();
 		}
 	}
 	
-	public static Snackable findSnack(ArrayList<Snackable> list, String snackName) {
+	public static Snackable findSnack(ArrayList<? extends Snackable> list, String snackName) {
 		for(Snackable s : list) {
 			if(s.getName().equalsIgnoreCase(snackName.strip()))
 				return s;

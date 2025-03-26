@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class SnackFactory {
 	public abstract Snackable create(String snackName);
-	public abstract ArrayList<Snackable> getDefaultSnacks();
+	public abstract ArrayList<? extends Snackable> getDefaultSnacks(); //Generics sind nicht kovariant
 	
 	/**
 	 * Returns a random default Snackable.

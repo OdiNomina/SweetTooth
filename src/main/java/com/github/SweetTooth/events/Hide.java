@@ -9,7 +9,7 @@ final class Hide extends Event implements IEvent {
 	}
 	
 	public String hide() {
-		player.addAllCandies(player.getCandies(), player.getStash());
+		player.addAllSnacks(player.getCandies(), player.getCandyStash());
 		player.getCandies().clear();
 		return "Alles versteckt!";
 	}

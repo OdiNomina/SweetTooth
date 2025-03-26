@@ -19,7 +19,7 @@ final class Buy extends Event implements IEvent {
 		Snackable kindOfCandy = new CandyFactory().valueOf(stringInput);
 		if(player.getCash() < kindOfCandy.getStaticPrice() * integerInput)
 			return "Soviel Geld hast du nicht dabei, musst du erst besorgen...";
-		player.addCandy(kindOfCandy, player.getCandies(), integerInput);
+		player.addSnack(kindOfCandy, player.getCandies(), integerInput);
 		player.reduceCash(kindOfCandy.getStaticPrice() * integerInput);
 		return "Gekauft!";
 	}

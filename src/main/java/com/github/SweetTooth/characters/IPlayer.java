@@ -1,8 +1,8 @@
 package com.github.SweetTooth.characters;
 
 import java.util.ArrayList;
-
 import com.github.SweetTooth.locations.Location;
+import com.github.SweetTooth.snacks.Candy;
 import com.github.SweetTooth.snacks.Snackable;
 
 public interface IPlayer {
@@ -10,26 +10,26 @@ public interface IPlayer {
 		return new Player(name);
 	}
 	
-	public static int getMaxCandies() {
-		return Player.MAX_CANDIES;
+	public static int getMaxSnacks() {
+		return Player.MAX_SNACKS;
 	}
 	
 	public static double getTravelCosts() {
 		return Player.TRAVEL_COSTS;
 	}
 
-	void addAllCandies(ArrayList<Snackable> candies, ArrayList<Snackable> list);
-	void addCandy(Snackable candy, ArrayList<Snackable> list, int quantity);
+	void addAllSnacks(ArrayList<? extends Snackable> snacks, ArrayList<? extends Snackable> list);
 	void addCash(double amount);
-	ArrayList<Snackable> getCandies();
+	void addSnack(Snackable snack, ArrayList<? extends Snackable> list, int quantity);
+	ArrayList<Candy> getCandies();
+	ArrayList<Candy> getCandyStash();
 	double getCash();
 	Location getHometown();
 	Location getLocation();
 	String getName();
-	ArrayList<Snackable> getStash();
 	void reduceCash(double amount);
-	void removeAllCandies(ArrayList<Snackable> candiesToRemove, ArrayList<Snackable> fromList);
-	void removeCandy(Snackable candy, ArrayList<Snackable> list, int quantity);
+	void removeAllSnacks(ArrayList<? extends Snackable> candiesToRemove, ArrayList<? extends Snackable> fromList);
+	void removeSnack(Snackable candy, ArrayList<? extends Snackable> list, int quantity);
 	void setCash(double cash);
 	void setLocation(Location cityName);
 }

@@ -9,8 +9,8 @@ final class Seek extends Event implements IEvent {
 	}
 	
 	public String seek() {
-		player.addAllCandies(player.getStash(), player.getCandies());
-		player.getStash().clear();
+		player.addAllSnacks(player.getCandyStash(), player.getCandies());
+		player.getCandyStash().clear();
 		return "Alles eingepackt!";
 	}
 }

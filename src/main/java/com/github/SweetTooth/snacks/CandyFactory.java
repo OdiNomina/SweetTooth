@@ -3,15 +3,15 @@ package com.github.SweetTooth.snacks;
 import java.util.ArrayList;
 
 public class CandyFactory extends SnackFactory {	
-	private static final ArrayList<Snackable> defaultSnacks = new ArrayList<>();
+	private static final ArrayList<Candy> defaultSnacks = new ArrayList<>();
 	
 	@Override
-	public Snackable create(String snackName) {
+	public Candy create(String snackName) {
 		throw new UnsupportedOperationException();
 	}
 	
 	@Override
-	public ArrayList<Snackable> getDefaultSnacks() {
+	public ArrayList<Candy> getDefaultSnacks() {
 		if(defaultSnacks.isEmpty()) {
 			defaultSnacks.add(new Lollipop());
 			defaultSnacks.add(new Bonbon());
@@ -19,25 +19,25 @@ public class CandyFactory extends SnackFactory {
 			defaultSnacks.add(new ChewyCandy());
 			defaultSnacks.add(new ChocolateBar());
 			defaultSnacks.add(new GummyBears());
-			Snackable.changeSnackPrices(defaultSnacks);
+			Snackable.changeCandyPrices(defaultSnacks);
 		}
-		ArrayList<Snackable> copy = new ArrayList<>();
-		for(Snackable s : defaultSnacks)
-			copy.add(s);
+		ArrayList<Candy> copy = new ArrayList<>();
+		for(Candy c : defaultSnacks)
+			copy.add(c);
 		return copy;
 	}
 	
 	@Override
-	public Snackable getRandom() {
+	public Candy getRandom() {
 		int randomIdx = (int)(Math.random() * defaultSnacks.size());
 		return defaultSnacks.get(randomIdx).clone();
 	}
 	
 	@Override
-	public Snackable valueOf(String snackName) {
-		for(Snackable s : getDefaultSnacks()) {
-			if(s.getName().equalsIgnoreCase(snackName.strip()))
-				return s.clone();
+	public Candy valueOf(String snackName) {
+		for(Candy c : getDefaultSnacks()) {
+			if(c.getName().equalsIgnoreCase(snackName.strip()))
+				return c.clone();
 		}
 		return null;
 	}

@@ -3,7 +3,7 @@ package com.github.SweetTooth.snacks;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-abstract sealed class Candy implements Cloneable, Snackable permits
+public abstract sealed class Candy implements Cloneable, Snackable permits
 	Bonbon, BubbleGum, ChewyCandy, ChocolateBar, GummyBears, Lollipop
 {
 	static double rounded(double amount) {

@@ -36,10 +36,10 @@ abstract sealed class Event implements IEvent permits
 	
 	boolean hasSpaceInPockets(int quantity){
 		int sumCandies = 0;
-		ArrayList<Snackable> candies =  player.getCandies();
+		ArrayList<? extends Snackable> candies =  player.getCandies();
 		for(int i = 0; i < candies.size(); i++)
 			sumCandies += candies.get(i).getQuantity();
-		return sumCandies + quantity <= IPlayer.getMaxCandies();
+		return sumCandies + quantity <= IPlayer.getMaxSnacks();
 	}
 	
 	boolean isAtHometown() {
