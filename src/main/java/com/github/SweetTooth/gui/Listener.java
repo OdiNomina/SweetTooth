@@ -64,15 +64,15 @@ class Listener {
 				try {
 					int input = validateQuantity(inputContainer);
 					event.setIntegerInput(input);
+					event.setStringInput(selection.getSelectedItem());
+					String seekAnswer = event.handleEvent();
+					gui.updateComponents();
+					gui.hideSeekInfo.setText(seekAnswer);	
 				}
 				catch(NumberFormatException e) {
 					inputContainer.removeLine(0);
 					inputContainer.takeFocus();
 				}
-				event.setStringInput(selection.getSelectedItem());
-				String seekAnswer = event.handleEvent();
-				gui.updateComponents();
-				gui.hideSeekInfo.setText(seekAnswer);
 			}
         });
     }
