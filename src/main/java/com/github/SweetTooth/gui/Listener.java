@@ -102,10 +102,12 @@ class Listener {
         			else {
         				try {
 							int input = Integer.parseInt(inputContainer.getText().strip());
+							if(input > 100)
+								throw new NumberFormatException();
 							event.setIntegerInput(input);
 						}
 						catch(NumberFormatException e) {
-							answerContainer.setText("Du musst eine Zahl eingeben!");
+							answerContainer.setText("Du musst eine Zahl eingeben! (<= 100)");
 							inputContainer.removeLine(0);
 		        			return false;
 						}
@@ -137,10 +139,12 @@ class Listener {
         			else {
 	        			try {
 							double input = Double.parseDouble(inputContainer.getText().strip());
+							if(input > 100_000)
+								throw new NumberFormatException();
 							event.setDoubleInput(input);
 						}
 						catch(NumberFormatException e) {
-							answerContainer.setText("Du musst eine Zahl eingeben!");
+							answerContainer.setText("Du musst eine Zahl eingeben! (<= 100.000)");
 							inputContainer.removeLine(0);
 		        			return false;
 						}
