@@ -12,12 +12,11 @@ final class Seek extends Event implements IEvent {
 	}
 	
 	public String seek() {
-		if(hasSpaceInPockets(integerInput)) {
-			Candy snack = new CandyFactory().valueOf(stringInput);
-			player.addSnack(snack, player.getCandies(), integerInput);
-			player.removeSnack(snack, player.getCandyStash(), integerInput);
-			return "Eingepackt";
-		}
-		return "Soviel kannst du nicht tragen.";
+		if(isTooMuchToCarry(integerInput))
+			return "Soviel kannst du nicht tragen.";
+		Candy snack = new CandyFactory().valueOf(stringInput);
+		player.addSnack(snack, player.getCandies(), integerInput);
+		player.removeSnack(snack, player.getCandyStash(), integerInput);
+		return "Eingepackt";
 	}
 }

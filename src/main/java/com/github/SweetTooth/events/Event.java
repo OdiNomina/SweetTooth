@@ -34,12 +34,12 @@ abstract sealed class Event implements IEvent permits
 		throw new UnsupportedOperationException("Subclasses have to override this operation.");
 	}
 	
-	boolean hasSpaceInPockets(int quantity){
-		int sumCandies = 0;
+	boolean isTooMuchToCarry(int quantity){
+		int sumInPockets = 0;
 		ArrayList<? extends Snackable> candies =  player.getCandies();
 		for(int i = 0; i < candies.size(); i++)
-			sumCandies += candies.get(i).getQuantity();
-		return sumCandies + quantity <= IPlayer.getMaxSnacks();
+			sumInPockets += candies.get(i).getQuantity();
+		return sumInPockets + quantity > IPlayer.getMaxSnacks();
 	}
 	
 	boolean isAtHometown() {

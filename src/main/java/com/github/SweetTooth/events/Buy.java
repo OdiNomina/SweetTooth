@@ -14,7 +14,7 @@ final class Buy extends Event implements IEvent {
 	private String buy() {
 		if(integerInput < 1)
 			return "Nix gekauft";
-		if(!hasSpaceInPockets(integerInput))
+		if(isTooMuchToCarry(integerInput))
 			return "Soviel kannst du gar nicht tragen.";
 		Candy kindOfCandy = new CandyFactory().valueOf(stringInput);
 		if(player.getCash() < kindOfCandy.getStaticPrice() * integerInput)
