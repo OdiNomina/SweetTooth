@@ -387,10 +387,10 @@ public class GUI {
 		double loan = loanShark.getBalance(guiManager.player);
 		double balance = bank.getBalance(guiManager.player);
 		StringBuffer answer = new StringBuffer();
-		answer.append(String.format("Cash: %.2f", cash))
-			.append(String.format(" | Kredithai: %.2f", loan))
-			.append(String.format(" | Bankkonto: %.2f", balance))
-			.append(String.format("\nSaldo: %.2f", cash + loan + balance));
+		answer.append(String.format("Cash: %,.2f", cash))
+			.append(String.format(" | Kredithai: %,.2f", loan))
+			.append(String.format(" | Bankkonto: %,.2f", balance))
+			.append(String.format("\nSaldo: %,.2f", cash + loan + balance));
 		return answer.toString();
 	}
     
@@ -411,7 +411,7 @@ public class GUI {
     }
     
     String getMoneyFormatted(double money) {
-	   return String.format("%.2f %s", money, IMoneyDealer.getCurrency());
+	   return String.format("%,.2f %s", money, IMoneyDealer.getCurrency());
     }
     
 	ArrayList<String> getSnacksFormatted(ArrayList<? extends Snackable> snacks){
