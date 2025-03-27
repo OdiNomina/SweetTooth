@@ -5,8 +5,6 @@ import com.github.SweetTooth.characters.IMoneyDealer;
 final class Withdraw extends Event implements IEvent{
 	@Override
 	public String handleEvent() {
-		if(!isAtHometown()) 
-			return notAtHometown;
 		return withdraw();
 	}
 	

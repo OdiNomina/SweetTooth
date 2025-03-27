@@ -5,8 +5,6 @@ import com.github.SweetTooth.snacks.Snackable;
 final class Sell extends Event implements IEvent {
 	@Override
 	public String handleEvent() {
-		if(!isAtHometown())
-			return notAtHometown;
 		return sell();
 	}
 	

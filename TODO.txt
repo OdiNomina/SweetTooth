@@ -9,9 +9,9 @@ Würfeln, Snake und Hangman mit Lanterna umsetzen
 100.003:	Travel: Wenn der Spieler Hunger hat und nichts dabei hat, kauft er etwas.
 			Das ist dann teurer als es das Eating Ereignis wäre.
 			Er zahlt unterwegs mit Bankkarte.
-100.004:	Dealen ist an jedem Ort möglich.
-			Die Marktpreise schwanken an jedem Ort in der selben Spanne aber auf unterschiedlichem Niveau.
-			Bsp. Im Ghetto billig einkaufen und in Manhatten teuer verkaufen.
+#100.004:	Dealen ist an jedem Ort möglich.
+#			Die Marktpreise schwanken an jedem Ort in der selben Spanne aber auf unterschiedlichem Niveau.
+#			Bsp. Im Ghetto billig einkaufen und in Manhatten teuer verkaufen.
 100.005:	Die Ticketpreise sind je nach Entfernung Start-Ziel unterschiedlich.
 100.006:	Auf Coney Island kann er mit Cash Einsatz Würfeln und somit Geld gewinnen oder verlieren.
 100.007:	Auf dem Weg nach Brooklyn spielt er aus Langeweile Snake oder Hangman. Wird durch Zufall ausgewählt.

@@ -1,17 +1,19 @@
 package com.github.SweetTooth.locations;
 
 public enum Location {
-	BRONX("Bronx"),
-	GHETTO("Ghetto"),
-	CENTRAL_PARK("Central Park"),
-	MANHATTEN("Manhatten"),
-	CONEY_ISLAND("Coney Island"),
-	BROOKLYN("Brooklyn");
+	BRONX("Bronx", 1),
+	GHETTO("Ghetto", 1.1),
+	CENTRAL_PARK("Central Park", 1.3),
+	MANHATTEN("Manhatten", 1.5),
+	CONEY_ISLAND("Coney Island", 1.4),
+	BROOKLYN("Brooklyn", 1.2);
 	
 	private String officialName;
-	
-	Location(String officialName){
+	private double priceFactor;
+
+	Location(String officialName, double priceFactor){
 		this.officialName = officialName;
+		this.priceFactor = priceFactor;
 	}
 	
 	/**
@@ -30,6 +32,22 @@ public enum Location {
 	}
 	
 	/**
+	 * Returns the official name of the location represented by enum entity.
+	 * @return 	the locations's official name.
+	 */
+	public String getOfficialName() {
+		return officialName;
+	}
+	
+	/**
+	 * The prices of the snacks vary by the returned factor. 
+	 * @return the price factor of this location.
+	 */
+	public double getPriceFactor() {
+		return priceFactor;
+	}
+	
+	/**
 	 * Returns the corresponding enum entity.
 	 * @param 	officialName the official name of the location represented by enum entity.
 	 * @return 	enum entity.
@@ -42,13 +60,5 @@ public enum Location {
 				return staticObject;
 		}
 		throw new IllegalArgumentException("Invalid argument.");
-	}
-	
-	/**
-	 * Returns the official name of the location represented by enum entity.
-	 * @return 	the locations's official name.
-	 */
-	public String getOfficialName() {
-		return officialName;
 	}
 }

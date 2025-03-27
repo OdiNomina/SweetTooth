@@ -2,6 +2,8 @@ package com.github.SweetTooth.snacks;
 
 import java.util.ArrayList;
 
+import com.github.SweetTooth.locations.Location;
+
 public class CandyFactory extends SnackFactory {	
 	private static final ArrayList<Candy> defaultSnacks = new ArrayList<>();
 	
@@ -19,7 +21,7 @@ public class CandyFactory extends SnackFactory {
 			defaultSnacks.add(new ChewyCandy());
 			defaultSnacks.add(new ChocolateBar());
 			defaultSnacks.add(new GummyBears());
-			Snackable.changeCandyPrices(defaultSnacks);
+			Snackable.changeCandyPrices(defaultSnacks, Location.BRONX);
 		}
 		ArrayList<Candy> copy = new ArrayList<>();
 		for(Candy c : defaultSnacks)

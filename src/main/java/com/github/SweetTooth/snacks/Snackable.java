@@ -2,10 +2,12 @@ package com.github.SweetTooth.snacks;
 
 import java.util.ArrayList;
 
+import com.github.SweetTooth.locations.Location;
+
 public interface Snackable {
-	public static void changeCandyPrices(ArrayList<? extends Candy> candies) {
+	public static void changeCandyPrices(ArrayList<? extends Candy> candies, Location location) {
 		for(Candy c : candies) {
-			c.setRandomStaticPrice();
+			c.setRandomStaticPrice(location);
 		}
 	}
 	
