@@ -1,5 +1,8 @@
 package com.github.SweetTooth.events;
 
+import com.github.SweetTooth.snacks.CandyFactory;
+import com.github.SweetTooth.snacks.Candy;
+
 final class Seek extends Event implements IEvent {
 	@Override
 	public String handleEvent() {
@@ -9,8 +12,12 @@ final class Seek extends Event implements IEvent {
 	}
 	
 	public String seek() {
-		player.addAllSnacks(player.getCandyStash(), player.getCandies());
-		player.getCandyStash().clear();
-		return "Alles eingepackt!";
+		if(hasSpaceInPockets(integerInput)) {
+			Candy snack = new CandyFactory().valueOf(stringInput);
+			player.addSnack(snack, player.getCandies(), integerInput);
+			player.removeSnack(snack, player.getCandyStash(), integerInput);
+			return "Eingepackt";
+		}
+		return "Soviel kannst du nicht tragen.";
 	}
 }

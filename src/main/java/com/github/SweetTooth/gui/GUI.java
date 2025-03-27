@@ -61,8 +61,10 @@ public class GUI {
     // Hide and Seek
     Label hideSeekTitel = new Label("");
     Label stashLabel = new Label("");
-    ComboBox<String> stash = new ComboBox<>("").setReadOnly(true);
     Button hide = new Button("");
+    ComboBox<String> stash = new ComboBox<>("").setReadOnly(true);
+    Label seekQuantityLabel = new Label("");
+    TextBox seekQuantity = new TextBox();
     Button seek = new Button("");
     Label hideSeekInfo = new Label("");
     // Bank
@@ -157,11 +159,13 @@ public class GUI {
         stashLabel.setLayoutData(GridLayout.createHorizontallyEndAlignedLayoutData(1)).addStyle(SGR.BOLD);
         panel.addComponent(addHorizontalLine());
         panel.addComponent(hideSeekTitel);
+        panel.addComponent(new EmptySpace());
+        panel.addComponent(hide);
         panel.addComponent(addEmptyRow());
         panel.addComponent(stashLabel);
         panel.addComponent(stash.setLayoutData(GridLayout.createHorizontallyFilledLayoutData()));
-        panel.addComponent(new EmptySpace());
-        panel.addComponent(hide);
+        panel.addComponent(seekQuantityLabel.setLayoutData(GridLayout.createHorizontallyEndAlignedLayoutData(1)));
+        panel.addComponent(seekQuantity.setLayoutData(GridLayout.createHorizontallyFilledLayoutData()));
         panel.addComponent(new EmptySpace());
         panel.addComponent(seek);
         panel.addComponent(hideSeekInfo.setLayoutData(GridLayout.createHorizontallyEndAlignedLayoutData(2)));
@@ -218,7 +222,6 @@ public class GUI {
         panel.addComponent(addHorizontalLine());
         panel.addComponent(balanceSheet);
         // Exit
-        panel.addComponent(addEmptyRow());
         panel.addComponent(exit.setLayoutData(GridLayout.createHorizontallyEndAlignedLayoutData(2)));
 	}
 	
@@ -252,7 +255,8 @@ public class GUI {
 	    // Hide and Seek
 	    hideSeekTitel.setText("Du hast ein echt gutes Versteck für deine Süßis, da sind sie sicher!");
 	    stashLabel.setText("Was liegt schon im Versteck?");
-	    hide.setLabel("Verstecken");
+	    seekQuantityLabel.setText("hmm... wie viel");
+	    hide.setLabel("Alles Verstecken");
 	    seek.setLabel("Aus dem Versteck holen");
 	    // Bank
 	    bankTitel.setText("BANK:");
@@ -261,7 +265,7 @@ public class GUI {
 	    deposit.setText("Natürlich, welchen Betrag?");
 	    deposit.setInitialText(deposit.getText());
 	    withdrawLabel.setText("Ich würde gerne Geld abheben.");
-	    withdraw.setText("Gerne, wieviel?");
+	    withdraw.setText("Gerne, wie viel?");
 	    withdraw.setInitialText(withdraw.getText());
 	    bankDispoHint.setText(IMoneyDealer.create("Bank").getDispoHint());
 	    bankInterestHint.setText(IMoneyDealer.create("Bank").getInterestHint());
@@ -269,7 +273,7 @@ public class GUI {
 	    loansharkTitel.setText("KREDITHAI:");
 	    loansharkBalanceLabel.setText("Schulden:");
 	    lendLabel.setText("Ich brauch Geld.");
-	    lend.setText("Wieviel willst du?!");
+	    lend.setText("Wie viel willst du?!");
 	    lend.setInitialText(lend.getText());
 	    giveBackLabel.setText("Hier, ich hab dein Geld dabei.");
 	    giveBack.setText("Lass sehn...");
@@ -319,6 +323,7 @@ public class GUI {
 	    Collection<String> items = getSnacksFormatted(guiManager.player.getCandyStash());
 	    for(var i : items)
 	    	stash.addItem(i);
+	    seekQuantity.setText("");
 	    hideSeekInfo.setText("");
 	    // Bank
 	    bankBalance.setText(getMoneyFormatted(IMoneyDealer.create("Bank").getBalance(guiManager.player)));
@@ -340,6 +345,7 @@ public class GUI {
 		updateComponents();
 		buySelection.setEnabled(false);
 		sellSelection.setEnabled(false);
+		seekQuantity.setEnabled(false);
 		hide.setEnabled(false);
 		seek.setEnabled(false);
 		deposit.setEnabled(false);
@@ -348,7 +354,7 @@ public class GUI {
 		giveBack.setEnabled(false);
 		locationSelection.setEnabled(false);
 		titel3.setVisible(true);
-		balanceSheet.setTheme(new SimpleTheme(new RGB(50, 50, 0), new RGB(255, 240, 150), SGR.BOLD));
+		balanceSheet.setTheme(new SimpleTheme(new RGB(0, 0, 0), new RGB(255, 240, 140), SGR.BOLD));
 	}
 	
 	void addInputHandling() {
@@ -366,8 +372,8 @@ public class GUI {
 
 		new Listener(this).addListenerDeal(buySelection, buyEvent, buyQuantity);
 		new Listener(this).addListenerDeal(sellSelection, sellEvent, sellQuantity);
-		new Listener(this).addListenerHideSeek(hide, hideEvent);
-        new Listener(this).addListenerHideSeek(seek, seekEvent);
+		new Listener(this).addListenerHide(hide, hideEvent);
+        new Listener(this).addListenerSeek(seek, seekEvent, stash, seekQuantity);
 		new Listener(this).addListenerTravel(travelEvent, applyInterestEvent);
 		new Listener(this).addListenerExit();
         new Listener(this).setInputFilterDeal(buyQuantity, buyEvent, buyInfo, buySelection);
@@ -376,6 +382,7 @@ public class GUI {
         new Listener(this).setInputFilterFinances(withdraw, withdrawEvent, bankInfo, locationSelection);
 		new Listener(this).setInputFilterFinances(lend, lendEvent, loansharkInfo, locationSelection);
 	    new Listener(this).setInputFilterFinances(giveBack, giveBackEvent, loansharkInfo, locationSelection);
+	    new Listener(this).setInputFilterSeek(seekQuantity, seekEvent, hideSeekInfo, stash);
 	}
 	
     // ######################## Utilities
@@ -422,7 +429,7 @@ public class GUI {
 			return formattedList;
 		}
 		for(Snackable s : snacks)
-			formattedList.add(String.format("%d %s", s.getQuantity(), s.getName()));
+			formattedList.add(String.format("%d | %s", s.getQuantity(), s.getName()));
 		return formattedList;
 	}
 }

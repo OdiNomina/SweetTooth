@@ -46,17 +46,37 @@ class Listener {
         });
     }
     
-    void addListenerHideSeek(Button button, IEvent event) {
+    void addListenerHide(Button button, IEvent event) {
     	button.addListener(new Button.Listener() {
 			@Override
 			public void onTriggered(Button button) {
-				String hideSeekAnswer = event.handleEvent();
+				String hideAnswer = event.handleEvent();
 				gui.updateComponents();
-				gui.hideSeekInfo.setText(hideSeekAnswer);
+				gui.hideSeekInfo.setText(hideAnswer);
 			}
         });
     }
 	
+    void addListenerSeek(Button button, IEvent event, ComboBox<String> selection, TextBox inputContainer) {
+    	button.addListener(new Button.Listener() {
+			@Override
+			public void onTriggered(Button button) {
+				try {
+					int input = validateQuantity(inputContainer);
+					event.setIntegerInput(input);
+				}
+				catch(NumberFormatException e) {
+					inputContainer.removeLine(0);
+					inputContainer.takeFocus();
+				}
+				event.setStringInput(selection.getSelectedItem());
+				String seekAnswer = event.handleEvent();
+				gui.updateComponents();
+				gui.hideSeekInfo.setText(seekAnswer);
+			}
+        });
+    }
+    
     void addListenerTravel(IEvent travelEvent, IEvent applyInterestEvent) {
         gui.locationSelection.addListener(new ComboBox.Listener() {
         	@Override
@@ -158,5 +178,40 @@ class Listener {
 				return true;
 			}
 		});
+    }
+    
+    void setInputFilterSeek(TextBox inputContainer, IEvent event, Label answerContainer, ComboBox<String> nextInFocus) {
+    	inputContainer.setInputFilter(new InputFilter() {
+        	@Override
+			public boolean onInput(Interactable interactable, KeyStroke keyStroke) {
+        		if(keyStroke.getKeyType() == KeyType.Enter) {
+        			if(inputContainer.getText().isBlank()) {
+        				inputContainer.removeLine(0);
+        				answerContainer.setText("");
+            			return false;
+        			}
+        			else
+        				try {
+        					validateQuantity(inputContainer);
+        					nextInFocus.takeFocus();
+        					answerContainer.setText("");
+        					return false;
+        				}
+        				catch(NumberFormatException e) {
+        					answerContainer.setText("Du musst eine Zahl eingeben! (<= 100)");
+        					inputContainer.removeLine(0);
+        					return false;
+        				}
+        		}
+        		return true;
+			}
+		});
+    }
+    
+    private int validateQuantity(TextBox inputContainer) {
+    	int input = Integer.parseInt(inputContainer.getText().strip());
+		if(input > 100)
+			throw new NumberFormatException();
+		return input;
     }
 }

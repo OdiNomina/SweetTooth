@@ -61,7 +61,11 @@ abstract sealed class Event implements IEvent permits
 		int separatorIdx = input.indexOf("-");
 		if(separatorIdx > -1)
 			stringInput = input.substring(0, separatorIdx).strip();
-		else
-			stringInput =  input.strip();
+		else {
+			separatorIdx = input.indexOf("|");
+			if(separatorIdx > -1)
+				stringInput = input.substring(separatorIdx + 1, input.length()).strip();
+			else stringInput = input;
+		}
 	}
 }
