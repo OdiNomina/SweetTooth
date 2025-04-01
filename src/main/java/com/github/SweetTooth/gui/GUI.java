@@ -5,12 +5,13 @@ import java.util.Collection;
 import java.util.Comparator;
 
 import com.github.SweetTooth.characters.IMoneyDealer;
-import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.events.EventFactory;
 import com.github.SweetTooth.events.IEvent;
+import com.github.SweetTooth.game.Game;
 import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.CandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
@@ -25,8 +26,6 @@ import com.googlecode.lanterna.gui2.Separator;
 import com.googlecode.lanterna.gui2.TextBox;
 
 public class GUI {
-//	ArrayList<AbstractComponent<T>> components = new ArrayList<>();
-	GUIManager guiManager;
 	Panel panel;
 	
 	// Titel
@@ -104,8 +103,7 @@ public class GUI {
     // End
     Button exit = new Button("").setEnabled(true);
 	
-	GUI(GUIManager guiManager, Panel contentPanel) {
-		this.guiManager = guiManager;
+	GUI(Panel contentPanel) {
 		this.panel = contentPanel;
 	}
 	
@@ -225,15 +223,7 @@ public class GUI {
         panel.addComponent(exit.setLayoutData(GridLayout.createHorizontallyEndAlignedLayoutData(2)));
 	}
 	
-	private EmptySpace addEmptyRow() {
-    	return new EmptySpace().setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2));
-    }
-    
-    private Separator addHorizontalLine() {
-    	return new Separator(Direction.HORIZONTAL).setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2));
-    }
-	
-	void initializeComponents() {
+	void initializeComponents(Game game) {
 		// Titel
 		titel1.setText("Du dealst mit Süßis?");
 		titel2.setText("Mal sehen was du in einem Monat verdienst...");
@@ -267,8 +257,8 @@ public class GUI {
 	    withdrawLabel.setText("Ich würde gerne Geld abheben.");
 	    withdraw.setText("Gerne, wie viel?");
 	    withdraw.setInitialText(withdraw.getText());
-	    bankDispoHint.setText(IMoneyDealer.create("Bank").getDispoHint());
-	    bankInterestHint.setText(IMoneyDealer.create("Bank").getInterestHint());
+	    bankDispoHint.setText(game.getBank().getDispoHint());
+	    bankInterestHint.setText(game.getBank().getInterestHint());
 	    // Loanshark
 	    loansharkTitel.setText("KREDITHAI:");
 	    loansharkBalanceLabel.setText("Schulden:");
@@ -278,7 +268,7 @@ public class GUI {
 	    giveBackLabel.setText("Hier, ich hab dein Geld dabei.");
 	    giveBack.setText("Lass sehn...");
 	    giveBack.setInitialText(giveBack.getText());
-	    loansharkInterestHint.setText(IMoneyDealer.create("LoanShark").getInterestHint());
+	    loansharkInterestHint.setText(game.getLoanShark().getInterestHint());
 	    // Travel
 	    travelTitel1.setText("Du willst dich mal umschauen?");
 	    travelTitel2.setText("Klar, aber du wirst den ganzen Tag unterwegs sein.");
@@ -292,16 +282,16 @@ public class GUI {
 	    exit.setLabel("Ich hau ab, kein Bock mehr...");
 	}
 	
-	void updateComponents() {
+	void updateComponents(Game game) {
 		// Current day
-	    currentDay.setText(Integer.toString(IEvent.getDayOfGame()));
+	    currentDay.setText(Integer.toString(game.getDayOfGame()));
 	    // Current location
-	    currentLocation.setText(guiManager.player.getLocation().getOfficialName());
+	    currentLocation.setText(game.getPlayer().getLocation().getOfficialName());
 	    // Cash
-	    cash.setText(getMoneyFormatted(guiManager.player.getCash()));
+	    cash.setText(getMoneyFormatted(game.getPlayer().getCash()));
 	    // Sweets in pockets
 	    sweetsInPockets.clearItems();
-	    Collection<String> itemsPockets = getSnacksFormatted(guiManager.player.getCandies());
+	    Collection<String> itemsPockets = getSnacksFormatted(game.getPlayer().getCandies());
 	    for(var i : itemsPockets)
 	    	sweetsInPockets.addItem(i);    
 	    // Buy
@@ -320,29 +310,57 @@ public class GUI {
 	    sellInfo.setText("");
 	    // Hide and Seek
 	    stash.clearItems();
-	    Collection<String> items = getSnacksFormatted(guiManager.player.getCandyStash());
+	    Collection<String> items = getSnacksFormatted(game.getPlayer().getCandyStash());
 	    for(var i : items)
 	    	stash.addItem(i);
 	    seekQuantity.setText("");
 	    hideSeekInfo.setText("");
 	    // Bank
-	    bankBalance.setText(getMoneyFormatted(IMoneyDealer.create("Bank").getBalance(guiManager.player)));
+	    bankBalance.setText(getMoneyFormatted(game.getBank().getBalance(game.getPlayer())));
 	    bankInfo.setText("");
 	    // Loanshark
-	    loansharkBalance.setText(getMoneyFormatted(IMoneyDealer.create("LoanShark").getBalance(guiManager.player)));
+	    loansharkBalance.setText(getMoneyFormatted(game.getLoanShark().getBalance(game.getPlayer())));
 	    loansharkInfo.setText("");
 	    // Travel
-	    ticketPrice.setText(getMoneyFormatted(IPlayer.getTravelCosts()));
+	    ticketPrice.setText(getMoneyFormatted(Game.getTravelCosts()));
 	    travelEventInfo1.setText("");
 	    travelEventInfo2.setText("");
 	    travelEventInfo3.setText("");
 	    travelInterestInfo.setText("");
 	    // Balance sheet
-	    balanceSheet.setText(calculateBalanceSheet());
+	    balanceSheet.setText(calculateBalanceSheet(game));
 	}
 	
-	public void disableComponents() {
-		updateComponents();
+	void addInputHandling(Game game, InputManager inputManager) {
+		EventFactory factory = EventFactory.getDefaultFactory();
+		IEvent applyInterestEvent = factory.create("ApplyInterest", game);
+		IEvent buyEvent = factory.create("Buy", game);
+		IEvent depositEvent = factory.create("Deposit", game);
+		IEvent giveBackEvent = factory.create("GiveMoneyBack", game);
+		IEvent hideEvent = factory.create("Hide", game);
+		IEvent lendEvent = factory.create("Lend", game);
+		IEvent sellEvent = factory.create("Sell", game);
+	    IEvent seekEvent = factory.create("Seek", game);
+	    IEvent travelEvent = factory.create("Travel", game);
+	    IEvent withdrawEvent = factory.create("Withdraw", game);
+    	
+	    inputManager.addListenerDeal(buySelection, buyEvent, buyQuantity);
+	    inputManager.addListenerDeal(sellSelection, sellEvent, sellQuantity);
+	    inputManager.addListenerHide(hide, hideEvent, game);
+	    inputManager.addListenerSeek(seek, seekEvent, stash, seekQuantity, game);
+	    inputManager.addListenerTravel(travelEvent, applyInterestEvent, game);
+	    inputManager.addListenerExit();
+	    inputManager.setInputFilterDeal(buyQuantity, buyEvent, buyInfo, buySelection, game);
+	    inputManager.setInputFilterDeal(sellQuantity, sellEvent, sellInfo, sellSelection, game);
+	    inputManager.setInputFilterFinances(deposit, depositEvent, bankInfo, locationSelection, game);
+	    inputManager.setInputFilterFinances(withdraw, withdrawEvent, bankInfo, locationSelection, game);
+	    inputManager.setInputFilterFinances(lend, lendEvent, loansharkInfo, locationSelection, game);
+	    inputManager.setInputFilterFinances(giveBack, giveBackEvent, loansharkInfo, locationSelection, game);
+	    inputManager.setInputFilterSeek(seekQuantity, seekEvent, hideSeekInfo, stash);
+    }
+	
+	public void disableComponents(Game game) {
+		updateComponents(game);
 		buySelection.setEnabled(false);
 		sellSelection.setEnabled(false);
 		seekQuantity.setEnabled(false);
@@ -357,42 +375,20 @@ public class GUI {
 		balanceSheet.setTheme(new SimpleTheme(new RGB(0, 0, 0), new RGB(255, 240, 140), SGR.BOLD));
 	}
 	
-	void addInputHandling() {
-		EventFactory factory = EventFactory.getDefaultFactory();
-		IEvent applyInterestEvent = factory.create("ApplyInterest", guiManager.player);
-		IEvent buyEvent = factory.create("Buy", guiManager.player);
-		IEvent depositEvent = factory.create("Deposit", guiManager.player);
-		IEvent giveBackEvent = factory.create("GiveMoneyBack", guiManager.player);
-		IEvent hideEvent = factory.create("Hide", guiManager.player);
-		IEvent lendEvent = factory.create("Lend", guiManager.player);
-		IEvent sellEvent = factory.create("Sell", guiManager.player);
-	    IEvent seekEvent = factory.create("Seek", guiManager.player);
-	    IEvent travelEvent = factory.create("Travel", guiManager.player);
-	    IEvent withdrawEvent = factory.create("Withdraw", guiManager.player);
-
-		new Listener(this).addListenerDeal(buySelection, buyEvent, buyQuantity);
-		new Listener(this).addListenerDeal(sellSelection, sellEvent, sellQuantity);
-		new Listener(this).addListenerHide(hide, hideEvent);
-        new Listener(this).addListenerSeek(seek, seekEvent, stash, seekQuantity);
-		new Listener(this).addListenerTravel(travelEvent, applyInterestEvent);
-		new Listener(this).addListenerExit();
-        new Listener(this).setInputFilterDeal(buyQuantity, buyEvent, buyInfo, buySelection);
-        new Listener(this).setInputFilterDeal(sellQuantity, sellEvent, sellInfo, sellSelection);
-		new Listener(this).setInputFilterFinances(deposit, depositEvent, bankInfo, locationSelection);
-        new Listener(this).setInputFilterFinances(withdraw, withdrawEvent, bankInfo, locationSelection);
-		new Listener(this).setInputFilterFinances(lend, lendEvent, loansharkInfo, locationSelection);
-	    new Listener(this).setInputFilterFinances(giveBack, giveBackEvent, loansharkInfo, locationSelection);
-	    new Listener(this).setInputFilterSeek(seekQuantity, seekEvent, hideSeekInfo, stash);
-	}
-	
     // ######################## Utilities
-  
-    String calculateBalanceSheet() {
-		IMoneyDealer bank = IMoneyDealer.create("Bank");
-		IMoneyDealer loanShark = IMoneyDealer.create("LoanShark");
-		double cash = guiManager.player.getCash();
-		double loan = loanShark.getBalance(guiManager.player);
-		double balance = bank.getBalance(guiManager.player);
+	
+	private EmptySpace addEmptyRow() {
+    	return new EmptySpace().setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2));
+    }
+    
+    private Separator addHorizontalLine() {
+    	return new Separator(Direction.HORIZONTAL).setLayoutData(GridLayout.createHorizontallyFilledLayoutData(2));
+    }
+    
+    String calculateBalanceSheet(Game game) {
+		double cash = game.getPlayer().getCash();
+		double loan = game.getLoanShark().getBalance(game.getPlayer());
+		double balance = game.getBank().getBalance(game.getPlayer());
 		StringBuffer answer = new StringBuffer();
 		answer.append(String.format("Cash: %,.2f", cash))
 			.append(String.format(" | Kredithai: %,.2f", loan))

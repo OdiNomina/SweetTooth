@@ -2,7 +2,8 @@ package com.github.SweetTooth.gui;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.game.Game;
+
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
@@ -26,7 +27,6 @@ public class GUIManager {
 	private WindowPostRenderer postRenderer;
 	private Component background;
 	private MultiWindowTextGUI multiWindowTextGUI;
-	IPlayer player;
 	private SeparateTextGUIThread guiThread;
 	
 	SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
@@ -38,7 +38,7 @@ public class GUIManager {
 			new RGB(255, 250, 180), // selected back
 			new RGB(255, 140, 80));	// gui
 	
-	public GUIManager(IPlayer player) throws IOException {
+	public GUIManager() throws IOException {
 		DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
 		terminalFactory.setInitialTerminalSize(new TerminalSize(127, 61));
 		screen = terminalFactory.createScreen();
@@ -46,16 +46,15 @@ public class GUIManager {
 		postRenderer = null;
 		background = new GUIBackdrop();
 		multiWindowTextGUI = new MultiWindowTextGUI(new SeparateTextGUIThread.Factory(), screen, windowManager, postRenderer, background);
-		this.player = player;
 	}
 	
-    public void start() throws IOException, InterruptedException {
+    public void start(Game game) throws IOException, InterruptedException {
         Panel contentPanel = new Panel(new GridLayout(2));
-        GUI gui = new GUI(this, contentPanel);
+        GUI gui = new GUI(contentPanel);
         gui.addComponents();
-    	gui.initializeComponents();
-    	gui.updateComponents();
-        gui.addInputHandling();
+    	gui.initializeComponents(game);
+    	gui.updateComponents(game);
+    	gui.addInputHandling(game, new InputManager(this, gui));
     	
         Window window = new BasicWindow("Jaw Breaker");
     	window.setFixedSize(new TerminalSize(120, 56));
