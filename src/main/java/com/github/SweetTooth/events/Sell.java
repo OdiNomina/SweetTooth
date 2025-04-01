@@ -1,16 +1,15 @@
 package com.github.SweetTooth.events;
 
+import com.github.SweetTooth.characters.IPlayer;
 import com.github.SweetTooth.snacks.Snackable;
 
 final class Sell extends Event implements IEvent {
 	@Override
 	public String handleEvent() {
-		return sell();
-	}
-	
-	private String sell() {
 		if(integerInput < 1)
 			return "Nix verkauft";
+		
+		IPlayer player = game.getPlayer();
 		Snackable playersCandy = Snackable.findSnack(player.getCandies(), stringInput);
 		if(playersCandy == null || playersCandy.getQuantity() < integerInput)
 			return "Du kannst nur verkaufen, was du hast.";

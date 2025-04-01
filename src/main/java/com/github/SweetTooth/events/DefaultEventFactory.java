@@ -1,10 +1,10 @@
 package com.github.SweetTooth.events;
 
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.game.Game;
 
 class DefaultEventFactory extends EventFactory {
 	@Override
-	public Event create(String event, IPlayer player) {
+	public Event create(String event, Game game) {
 		Event instance = null; 
 		switch (event) {
 			case "ApplyInterest" -> instance = new ApplyInterest();
@@ -18,7 +18,7 @@ class DefaultEventFactory extends EventFactory {
 			case "Travel" -> instance = new Travel();
 			case "Withdraw" -> instance = new Withdraw();
 		}
-		instance.player = player;
+		instance.game = game;
 		return instance;
 	}
 }

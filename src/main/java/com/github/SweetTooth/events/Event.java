@@ -1,28 +1,19 @@
 package com.github.SweetTooth.events;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.github.SweetTooth.characters.IPlayer;
-import com.github.SweetTooth.gui.GUI;
+import com.github.SweetTooth.game.Game;
 import com.github.SweetTooth.snacks.Snackable;
 
 abstract sealed class Event implements IEvent permits 
 	ApplyInterest, Buy, Deposit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw
 {
-	static int dayOfGame = Integer.valueOf(1);
 	double doubleInput;
 	int integerInput;
-	String notAtHometown = "Du bist nicht in deiner Heimatstadt.";
-	IPlayer player;
 	String stringInput;
-	
-	static void increaseDayOfGame(int numberOfDays, GUI gui) throws IOException {
-		if(dayOfGame < 30)
-			dayOfGame += numberOfDays;
-		else
-			gui.disableComponents();
-	}
+	Game game;
+	String notAtHometown = "Du bist nicht in deiner Heimatstadt.";
 	
 	@Override
 	public String handleEvent() {
@@ -36,14 +27,14 @@ abstract sealed class Event implements IEvent permits
 	
 	boolean isTooMuchToCarry(int quantity){
 		int sumInPockets = 0;
-		ArrayList<? extends Snackable> candies =  player.getCandies();
+		ArrayList<? extends Snackable> candies = game.getPlayer().getCandies();
 		for(int i = 0; i < candies.size(); i++)
 			sumInPockets += candies.get(i).getQuantity();
 		return sumInPockets + quantity > IPlayer.getMaxSnacks();
 	}
 	
 	boolean isAtHometown() {
-		return player.getLocation() == player.getHometown();
+		return game.getPlayer().getLocation() == game.getPlayer().getHometown();
 	}
 
 	@Override

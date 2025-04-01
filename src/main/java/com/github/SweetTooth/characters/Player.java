@@ -7,15 +7,14 @@ import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.Candy;
 import com.github.SweetTooth.snacks.Snackable;
 
-class Player extends Character implements IPlayer, PersistentPreference, Logged {
+public class Player extends Character implements IPlayer, PersistentPreference, Logged {
 	final static int MAX_SNACKS = Integer.valueOf(100); //Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen (s. Java Insel - 6.6.4 Eincompilierte Belegungen der Klassenvariablen).
-	final static double TRAVEL_COSTS = Double.valueOf(10.00);
 	private final ArrayList<Candy> candies = new ArrayList<>();
 	private final ArrayList<Candy> candyStash = new ArrayList<>();
 	private double cash = 200;
 	private String name;
 
-	Player(String name){
+	public Player(String name){
 		super(Location.BRONX);
 		this.name = Objects.requireNonNullElse(name, "Anonymer Spieler");
 	}
