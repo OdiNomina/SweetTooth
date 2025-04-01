@@ -7,8 +7,13 @@ import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.Candy;
 import com.github.SweetTooth.snacks.Snackable;
 
-public class Player extends Character implements IPlayer, PersistentPreference, Logged {
+public class Player extends Character implements PersistentPreference, Logged {
 	final static int MAX_SNACKS = Integer.valueOf(100); //Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen (s. Java Insel - 6.6.4 Eincompilierte Belegungen der Klassenvariablen).
+	
+	public static int getMaxSnacks() {
+		return MAX_SNACKS;
+	}
+	
 	private final ArrayList<Candy> candies = new ArrayList<>();
 	private final ArrayList<Candy> candyStash = new ArrayList<>();
 	private double cash = 200;
@@ -27,7 +32,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	 * 				if one of the arguments is null.
 	 * @see #addSnack(Snackable, ArrayList, int)
 	 */
-	@Override
 	public <E extends Snackable> void addAllSnacks(ArrayList<E> snacks, ArrayList<E> list) {
 		if(snacks == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
@@ -41,7 +45,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	 * Adds the given amount rounded to the player's cash.
 	 * The argument will be rounded to two decimal places.
 	 */
-	@Override
 	public void addCash(double amount) {
 		cash = rounded(cash) + rounded(amount);
 	}
@@ -56,7 +59,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	 * @exception IllegalArgumentException
 	 * 				if the type or the list argument is null.
 	 */
-	@Override
 	public <E extends Snackable> void addSnack(E snack, ArrayList<E> list, int quantity) {
 		if(snack == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
@@ -101,7 +103,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	/**
 	 * Returns the list reference of player's candies list.
 	 */
-	@Override
 	public ArrayList<Candy> getCandies() {
 		return candies;
 	}
@@ -109,7 +110,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	/**
 	 * Returns the list reference of player's candyStash list.
 	 */
-	@Override
 	public ArrayList<Candy> getCandyStash() {
 		return candyStash;
 	}
@@ -117,12 +117,10 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	/**
 	 * Returns player's cash rounded to two decimal places.
 	 */
-	@Override
 	public double getCash() {
 		return rounded(cash);
 	}
 	
-	@Override
 	public String getName() {
 		return name;
 	}
@@ -133,7 +131,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	* @see java.lang.Object#equals(java.lang.Object)
 	* @see java.util.HashMap
 	*/
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
@@ -147,7 +144,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	 * @exception IllegalArgumentException
 	 * 				if the given amount is greater than player's cash.
 	 */
-	@Override
 	public void reduceCash(double amount) {
 		if(rounded(amount) > rounded(cash))
 			throw new IllegalArgumentException("Argument is too large.");
@@ -162,7 +158,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	 * 				if one of the arguments is null.
 	 * @see #removeSnack(Snackable, ArrayList, int)
 	 */
-	@Override
 	public void removeAllSnacks(ArrayList<? extends Snackable> snacks, ArrayList<? extends Snackable> list) {
 		if(snacks == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
@@ -180,7 +175,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	 * @exception IllegalArgumentException
 	 * 				if the type or the list argument is null.
 	 */
-	@Override
 	public void removeSnack(Snackable snack, ArrayList<? extends Snackable> list, int quantity) {
 		if(snack == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
@@ -200,7 +194,6 @@ public class Player extends Character implements IPlayer, PersistentPreference, 
 	/**
 	 * Sets player's cash rounded to two decimal places.
 	 */
-	@Override
 	public void setCash(double cash) {
 		this.cash = rounded(cash);
 	}

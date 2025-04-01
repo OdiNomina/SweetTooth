@@ -1,10 +1,10 @@
 package com.github.SweetTooth.experiences;
 
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.characters.Player;
 
 final class MuggingCandies extends Experience {
 	@Override
-	public String process(IPlayer player) {
+	public String process(Player player) {
 		if(player.getCandies().size() < 1)
 			return "Jemand will dir Süßigkeiten klauen, aber du hast nichts.";
 		player.getCandies().clear();

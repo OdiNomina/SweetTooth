@@ -1,7 +1,7 @@
 package com.github.SweetTooth.events;
 
 import com.github.SweetTooth.characters.MoneyDealer;
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.characters.Player;
 
 final class GiveMoneyBack extends Event implements IEvent {
 	@Override
@@ -12,7 +12,7 @@ final class GiveMoneyBack extends Event implements IEvent {
 		double amount = doubleInput != 0 ? doubleInput : integerInput;
 		amount = Math.round(amount * 100) / 100.00;
 		MoneyDealer loanShark =  game.getLoanShark();
-		IPlayer player = game.getPlayer();
+		Player player = game.getPlayer();
 		if(amount + loanShark.getBalance(player) > 0)
 			return "Digga was gibst du mir soviel Geld? Hab ich dir gar nicht gegeben.";
 		player.reduceCash(amount);

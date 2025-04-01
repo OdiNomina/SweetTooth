@@ -1,6 +1,6 @@
 package com.github.SweetTooth.experiences;
 
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.characters.Player;
 
 public abstract sealed class Experience permits 
 	Eating, Gift, MuggingCandies, MuggingCash, NoopEvent
@@ -14,5 +14,5 @@ public abstract sealed class Experience permits
 		return new NoopEvent();
 	}
 		
-	public abstract String process(IPlayer player);
+	public abstract String process(Player player);
 }

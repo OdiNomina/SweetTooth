@@ -3,12 +3,12 @@ package com.github.SweetTooth.experiences;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.characters.Player;
 import com.github.SweetTooth.snacks.Snackable;
 
 final class Eating extends Experience {
 	@Override
-	public String process(IPlayer player) {
+	public String process(Player player) {
 		ArrayList<? extends Snackable> candies = player.getCandies();
 		int size = candies.size();
 		if(size == 0)

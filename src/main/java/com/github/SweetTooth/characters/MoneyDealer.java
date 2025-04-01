@@ -56,10 +56,10 @@ public abstract sealed class MoneyDealer extends Character permits Bank, LoanSha
 		return Objects.equals(clients, other.clients);
 	}
 	
-	abstract public Double applyInterestToBalance(IPlayer player);
-	abstract public double getBalance(IPlayer player);
+	abstract public Double applyInterestToBalance(Player player);
+	abstract public double getBalance(Player player);
 	abstract public String getDispoHint();
 	abstract public String getInterestHint();
-	abstract public void increaseClientsBalance(IPlayer player, double amount);
-	abstract public void reduceClientsBalance(IPlayer player, double amount);
+	abstract public void increaseClientsBalance(Player player, double amount);
+	abstract public void reduceClientsBalance(Player player, double amount);
 }

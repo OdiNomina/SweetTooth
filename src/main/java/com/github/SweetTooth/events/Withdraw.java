@@ -1,18 +1,14 @@
 package com.github.SweetTooth.events;
 
 import com.github.SweetTooth.characters.MoneyDealer;
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.characters.Player;
 
 final class Withdraw extends Event implements IEvent{
 	@Override
 	public String handleEvent() {
-		return withdraw();
-	}
-	
-	private String withdraw() {
 		double amount = doubleInput > 0 ? doubleInput : integerInput;
 		amount = Math.round(amount * 100) / 100.00;
-		IPlayer player = game.getPlayer();
+		Player player = game.getPlayer();
 		MoneyDealer bank = game.getBank();
 		if(bank.getBalance(player) - amount < MoneyDealer.getBankMinBalance())
 			return "Die Bank zahlt dir diese Summe nicht aus.";

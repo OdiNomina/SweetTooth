@@ -1,6 +1,6 @@
 package com.github.SweetTooth.events;
 
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.characters.Player;
 import com.github.SweetTooth.snacks.Candy;
 import com.github.SweetTooth.snacks.CandyFactory;
 
@@ -12,7 +12,7 @@ final class Buy extends Event implements IEvent {
 		if(isTooMuchToCarry(integerInput))
 			return "Soviel kannst du gar nicht tragen.";
 		Candy kindOfCandy = new CandyFactory().valueOf(stringInput);
-		IPlayer player = game.getPlayer();
+		Player player = game.getPlayer();
 		if(player.getCash() < kindOfCandy.getStaticPrice() * integerInput)
 			return "Soviel Geld hast du nicht dabei, musst du erst besorgen...";
 		player.addSnack(kindOfCandy, player.getCandies(), integerInput);

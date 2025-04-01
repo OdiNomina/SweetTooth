@@ -12,7 +12,7 @@ non-sealed public class Bank extends MoneyDealer {
 	}
 	
 	@Override
-	public Double applyInterestToBalance(IPlayer player) {
+	public Double applyInterestToBalance(Player player) {
 		Client bankClient = findClientByIdentity((Player)player);
 		double interest = 0;
 		if(bankClient != null) {
@@ -39,7 +39,7 @@ non-sealed public class Bank extends MoneyDealer {
 	}
 	
 	@Override
-	public double getBalance(IPlayer player) {
+	public double getBalance(Player player) {
 		Client bankClient = findClientByIdentity((Player) player);
 		if(bankClient == null)
 			return 0.0;
@@ -62,12 +62,12 @@ non-sealed public class Bank extends MoneyDealer {
 	}
 
 	@Override
-	public void increaseClientsBalance(IPlayer player, double amount) {
+	public void increaseClientsBalance(Player player, double amount) {
 		getExistingOrNewClient((Player)player).addAmount(amount);
 	}
 	
 	@Override
-	public void reduceClientsBalance(IPlayer player, double amount) {
+	public void reduceClientsBalance(Player player, double amount) {
 		getExistingOrNewClient((Player)player).removeAmount(amount);
 	}
 

@@ -2,7 +2,7 @@ package com.github.SweetTooth.events;
 
 import java.util.ArrayList;
 
-import com.github.SweetTooth.characters.IPlayer;
+import com.github.SweetTooth.characters.Player;
 import com.github.SweetTooth.game.Game;
 import com.github.SweetTooth.snacks.Snackable;
 
@@ -30,7 +30,7 @@ abstract sealed class Event implements IEvent permits
 		ArrayList<? extends Snackable> candies = game.getPlayer().getCandies();
 		for(int i = 0; i < candies.size(); i++)
 			sumInPockets += candies.get(i).getQuantity();
-		return sumInPockets + quantity > IPlayer.getMaxSnacks();
+		return sumInPockets + quantity > Player.getMaxSnacks();
 	}
 	
 	boolean isAtHometown() {

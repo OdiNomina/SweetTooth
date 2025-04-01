@@ -4,16 +4,15 @@ import java.io.IOException;
 
 import com.github.SweetTooth.characters.Bank;
 import com.github.SweetTooth.characters.MoneyDealer;
-import com.github.SweetTooth.characters.IPlayer;
-import com.github.SweetTooth.characters.LoanShark;
 import com.github.SweetTooth.characters.Player;
+import com.github.SweetTooth.characters.LoanShark;
 import com.github.SweetTooth.gui.GUI;
 import com.github.SweetTooth.gui.GUIManager;
 
 public class Game {
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);
 	private int dayOfGame = Integer.valueOf(1);
-	private IPlayer player;
+	private Player player;
 	private MoneyDealer bank;
 	private MoneyDealer loanShark;
 	
@@ -21,7 +20,7 @@ public class Game {
 		return TRAVEL_COSTS;
 	}
 	
-	Game(IPlayer player, MoneyDealer bank, MoneyDealer loanShark) {
+	Game(Player player, MoneyDealer bank, MoneyDealer loanShark) {
 		this.player = player;
 		this.bank = bank;
 		this.loanShark = loanShark;
@@ -39,7 +38,7 @@ public class Game {
 		return loanShark;
 	}
 	
-	public IPlayer getPlayer() {
+	public Player getPlayer() {
 		return player;
 	}
 	
