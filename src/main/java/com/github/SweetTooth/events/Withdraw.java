@@ -3,9 +3,9 @@ package com.github.SweetTooth.events;
 import com.github.SweetTooth.characters.MoneyDealer;
 import com.github.SweetTooth.characters.Player;
 
-final class Withdraw extends Event implements IEvent{
+final class Withdraw extends Event {
 	@Override
-	public String handleEvent() {
+	public String handle() {
 		double amount = doubleInput > 0 ? doubleInput : integerInput;
 		amount = Math.round(amount * 100) / 100.00;
 		Player player = game.getPlayer();
@@ -15,5 +15,10 @@ final class Withdraw extends Event implements IEvent{
 		player.addCash(amount);
 		bank.reduceClientsBalance(player, amount);
 		return "Betrag ausbezahlt.";
+	}
+
+	@Override
+	public Answer handleMultipleAnswers() {
+		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

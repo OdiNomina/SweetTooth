@@ -3,9 +3,9 @@ package com.github.SweetTooth.events;
 import com.github.SweetTooth.characters.Player;
 import com.github.SweetTooth.snacks.Snackable;
 
-final class Sell extends Event implements IEvent {
+final class Sell extends Event {
 	@Override
-	public String handleEvent() {
+	public String handle() {
 		if(integerInput < 1)
 			return "Nix verkauft";
 		
@@ -19,5 +19,10 @@ final class Sell extends Event implements IEvent {
 			player.getCandies().remove(playersCandy);
 		player.addCash(playersCandy.getStaticPrice() * integerInput);			
 		return "Verkauft";
+	}
+
+	@Override
+	public Answer handleMultipleAnswers() {
+		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

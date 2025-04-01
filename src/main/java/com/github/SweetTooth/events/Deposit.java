@@ -2,9 +2,9 @@ package com.github.SweetTooth.events;
 
 import com.github.SweetTooth.characters.Player;
 
-final class Deposit extends Event implements IEvent{
+final class Deposit extends Event {
 	@Override
-	public String handleEvent() {
+	public String handle() {
 		double amount = doubleInput != 0 ? doubleInput : integerInput;
 		amount = Math.round(amount * 100) / 100.00;
 		Player player = game.getPlayer();
@@ -13,5 +13,10 @@ final class Deposit extends Event implements IEvent{
 		player.reduceCash(amount);
 		game.getBank().increaseClientsBalance(player, amount);
 		return "Betrag einbezahlt.";
+	}
+
+	@Override
+	public Answer handleMultipleAnswers() {
+		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

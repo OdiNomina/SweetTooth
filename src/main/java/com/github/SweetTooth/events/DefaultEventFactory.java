@@ -2,7 +2,7 @@ package com.github.SweetTooth.events;
 
 import com.github.SweetTooth.game.Game;
 
-class DefaultEventFactory extends EventFactory {
+public class DefaultEventFactory extends EventFactory {
 	@Override
 	public Event create(String event, Game game) {
 		Event instance = null; 

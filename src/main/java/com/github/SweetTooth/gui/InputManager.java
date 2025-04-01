@@ -1,7 +1,7 @@
 package com.github.SweetTooth.gui;
 
 import java.io.IOException;
-import com.github.SweetTooth.events.IEvent;
+import com.github.SweetTooth.events.Event;
 import com.github.SweetTooth.game.Game;
 import com.github.SweetTooth.locations.Location;
 import com.googlecode.lanterna.gui2.Button;
@@ -22,7 +22,7 @@ class InputManager {
 		this.gui = gui;
 	}
 	
-	void addListenerDeal(ComboBox<String> selection, IEvent event, TextBox quantity) {
+	void addListenerDeal(ComboBox<String> selection, Event event, TextBox quantity) {
     	selection.addListener(new ComboBox.Listener() {
     		@Override
     		public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
@@ -48,18 +48,18 @@ class InputManager {
         });
     }
     
-    void addListenerHide(Button button, IEvent event, Game game) {
+    void addListenerHide(Button button, Event event, Game game) {
     	button.addListener(new Button.Listener() {
 			@Override
 			public void onTriggered(Button button) {
-				String hideAnswer = event.handleEvent();
+				String hideAnswer = event.handle();
 				gui.updateComponents(game);
 				gui.hideSeekInfo.setText(hideAnswer);
 			}
         });
     }
 	
-    void addListenerSeek(Button button, IEvent event, ComboBox<String> selection, TextBox inputContainer, Game game) {
+    void addListenerSeek(Button button, Event event, ComboBox<String> selection, TextBox inputContainer, Game game) {
     	button.addListener(new Button.Listener() {
 			@Override
 			public void onTriggered(Button button) {
@@ -67,7 +67,7 @@ class InputManager {
 					int input = validateQuantity(inputContainer);
 					event.setIntegerInput(input);
 					event.setStringInput(selection.getSelectedItem());
-					String seekAnswer = event.handleEvent();
+					String seekAnswer = event.handle();
 					gui.updateComponents(game);
 					gui.hideSeekInfo.setText(seekAnswer);	
 				}
@@ -79,7 +79,7 @@ class InputManager {
         });
     }
     
-    void addListenerTravel(IEvent travelEvent, IEvent applyInterestEvent, Game game) {
+    void addListenerTravel(Event travelEvent, Event applyInterestEvent, Game game) {
         gui.locationSelection.addListener(new ComboBox.Listener() {
         	@Override
             public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
@@ -92,12 +92,12 @@ class InputManager {
 	        			Location location = Location.valueOfficialName(gui.locationSelection.getItem(selectedIndex));
 	        			String input = location.toString();
 	        			travelEvent.setStringInput(input);
-		            	IEvent.Answer travelAnswer = travelEvent.handleEventMultipleAnswers();
-		            	String applyInterestAnswer = applyInterestEvent.handleEvent();
+		            	Event.Answer travelAnswer = travelEvent.handleMultipleAnswers();
+		            	String applyInterestAnswer = applyInterestEvent.handle();
 	        			gui.updateComponents(game);
-		            	gui.travelEventInfo1.setText(travelAnswer.first());
-		            	gui.travelEventInfo2.setText(travelAnswer.second());
-		            	gui.travelEventInfo3.setText(travelAnswer.third());
+		            	gui.travelEventInfo1.setText(travelAnswer.answer()[0]);
+		            	gui.travelEventInfo2.setText(travelAnswer.answer()[1]);
+		            	gui.travelEventInfo3.setText(travelAnswer.answer()[2]);
 		        	    gui.travelInterestInfo.setText(applyInterestAnswer);
 		        	    game.increaseDayOfGame(1, gui);
 	        		}
@@ -111,7 +111,7 @@ class InputManager {
         });
     }
     
-	void setInputFilterDeal(TextBox inputContainer, IEvent event, Label answerContainer, ComboBox<String> nextInFocus, Game game) {
+	void setInputFilterDeal(TextBox inputContainer, Event event, Label answerContainer, ComboBox<String> nextInFocus, Game game) {
     	inputContainer.setInputFilter(new InputFilter() {
         	@Override
 			public boolean onInput(Interactable interactable, KeyStroke keyStroke) {
@@ -133,7 +133,7 @@ class InputManager {
 							inputContainer.removeLine(0);
 		        			return false;
 						}
-						String eventAnswer = event.handleEvent();
+						String eventAnswer = event.handle();
 						gui.updateComponents(game);
 						answerContainer.setText(eventAnswer);
 						inputContainer.setEnabled(false);
@@ -148,7 +148,7 @@ class InputManager {
 		}); 
     }
     
-    void setInputFilterFinances(TextBox inputContainer, IEvent event, Label answerContainer, ComboBox<String> nextInFocus, Game game) {
+    void setInputFilterFinances(TextBox inputContainer, Event event, Label answerContainer, ComboBox<String> nextInFocus, Game game) {
     	inputContainer.setInputFilter(new InputFilter() {
         	@Override
 			public boolean onInput(Interactable interactable, KeyStroke keyStroke) {
@@ -170,7 +170,7 @@ class InputManager {
 							inputContainer.removeLine(0);
 		        			return false;
 						}
-	        			String eventAnswer = event.handleEvent();
+	        			String eventAnswer = event.handle();
 						gui.updateComponents(game);
 						answerContainer.setText(eventAnswer);
 						nextInFocus.takeFocus();
@@ -182,7 +182,7 @@ class InputManager {
 		});
     }
     
-    void setInputFilterSeek(TextBox inputContainer, IEvent event, Label answerContainer, ComboBox<String> nextInFocus) {
+    void setInputFilterSeek(TextBox inputContainer, Event event, Label answerContainer, ComboBox<String> nextInFocus) {
     	inputContainer.setInputFilter(new InputFilter() {
         	@Override
 			public boolean onInput(Interactable interactable, KeyStroke keyStroke) {

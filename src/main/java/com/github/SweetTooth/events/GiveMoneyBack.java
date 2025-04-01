@@ -3,9 +3,9 @@ package com.github.SweetTooth.events;
 import com.github.SweetTooth.characters.MoneyDealer;
 import com.github.SweetTooth.characters.Player;
 
-final class GiveMoneyBack extends Event implements IEvent {
+final class GiveMoneyBack extends Event {
 	@Override
-	public String handleEvent() {
+	public String handle() {
 		if(!isAtHometown()) 
 			return notAtHometown;
 		
@@ -20,5 +20,10 @@ final class GiveMoneyBack extends Event implements IEvent {
 		if(loanShark.getBalance(player) < 0)
 			return "Da fehlt aber noch was!";
 		return "Geht klar Alder, bis zum nächsten Mal.";
+	}
+
+	@Override
+	public Answer handleMultipleAnswers() {
+		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

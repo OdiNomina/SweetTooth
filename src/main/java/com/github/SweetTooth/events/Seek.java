@@ -4,9 +4,9 @@ import com.github.SweetTooth.snacks.CandyFactory;
 import com.github.SweetTooth.characters.Player;
 import com.github.SweetTooth.snacks.Candy;
 
-final class Seek extends Event implements IEvent {
+final class Seek extends Event {
 	@Override
-	public String handleEvent() {
+	public String handle() {
 		if(!isAtHometown())
 			return notAtHometown;
 
@@ -17,5 +17,10 @@ final class Seek extends Event implements IEvent {
 		player.addSnack(snack, player.getCandies(), integerInput);
 		player.removeSnack(snack, player.getCandyStash(), integerInput);
 		return "Eingepackt";
+	}
+
+	@Override
+	public Answer handleMultipleAnswers() {
+		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

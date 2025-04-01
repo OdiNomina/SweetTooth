@@ -2,9 +2,9 @@ package com.github.SweetTooth.events;
 
 import com.github.SweetTooth.characters.Player;
 
-final class Hide extends Event implements IEvent {
+final class Hide extends Event {
 	@Override
-	public String handleEvent() {
+	public String handle() {
 		if(!isAtHometown())
 			return notAtHometown;
 
@@ -12,5 +12,10 @@ final class Hide extends Event implements IEvent {
 		player.addAllSnacks(player.getCandies(), player.getCandyStash());
 		player.getCandies().clear();
 		return "Alles versteckt!";
+	}
+
+	@Override
+	public Answer handleMultipleAnswers() {
+		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

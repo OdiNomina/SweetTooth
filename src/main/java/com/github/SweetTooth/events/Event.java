@@ -6,7 +6,7 @@ import com.github.SweetTooth.characters.Player;
 import com.github.SweetTooth.game.Game;
 import com.github.SweetTooth.snacks.Snackable;
 
-abstract sealed class Event implements IEvent permits 
+public abstract sealed class Event implements Handleable permits 
 	ApplyInterest, Buy, Deposit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw
 {
 	double doubleInput;
@@ -14,16 +14,6 @@ abstract sealed class Event implements IEvent permits
 	String stringInput;
 	Game game;
 	String notAtHometown = "Du bist nicht in deiner Heimatstadt.";
-	
-	@Override
-	public String handleEvent() {
-		throw new UnsupportedOperationException("Subclasses have to override this operation.");
-	}
-	
-	@Override
-	public Answer handleEventMultipleAnswers() {
-		throw new UnsupportedOperationException("Subclasses have to override this operation.");
-	}
 	
 	boolean isTooMuchToCarry(int quantity){
 		int sumInPockets = 0;
@@ -37,17 +27,14 @@ abstract sealed class Event implements IEvent permits
 		return game.getPlayer().getLocation() == game.getPlayer().getHometown();
 	}
 
-	@Override
 	public void setDoubleInput(double input) {
 		doubleInput = input;
 	}
 
-	@Override
 	public void setIntegerInput(int input) {
 		integerInput = input;
 	}
 	
-	@Override
 	public void setStringInput(String input) {
 		int separatorIdx = input.indexOf("-");
 		if(separatorIdx > -1)

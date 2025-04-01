@@ -7,9 +7,9 @@ import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.CandyFactory;
 import com.github.SweetTooth.snacks.Snackable;
 
-final class Travel extends Event implements IEvent {
+final class Travel extends Event {
 	@Override
-	public Answer handleEventMultipleAnswers() {
+	public Answer handleMultipleAnswers() {
 		return travel();
 	}
 	
@@ -33,5 +33,10 @@ final class Travel extends Event implements IEvent {
 					.append(Experience.randomExperience().process(player))
 					.append(" ");
 		return new Answer(eventAnswer.toString(), payment, infoChangePrices);
+	}
+
+	@Override
+	public String handle() {
+		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

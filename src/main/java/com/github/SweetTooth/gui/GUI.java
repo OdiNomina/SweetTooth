@@ -6,7 +6,7 @@ import java.util.Comparator;
 
 import com.github.SweetTooth.characters.MoneyDealer;
 import com.github.SweetTooth.events.EventFactory;
-import com.github.SweetTooth.events.IEvent;
+import com.github.SweetTooth.events.Event;
 import com.github.SweetTooth.game.Game;
 import com.github.SweetTooth.locations.Location;
 import com.github.SweetTooth.snacks.CandyFactory;
@@ -333,16 +333,16 @@ public class GUI {
 	
 	void addInputHandling(Game game, InputManager inputManager) {
 		EventFactory factory = EventFactory.getDefaultFactory();
-		IEvent applyInterestEvent = factory.create("ApplyInterest", game);
-		IEvent buyEvent = factory.create("Buy", game);
-		IEvent depositEvent = factory.create("Deposit", game);
-		IEvent giveBackEvent = factory.create("GiveMoneyBack", game);
-		IEvent hideEvent = factory.create("Hide", game);
-		IEvent lendEvent = factory.create("Lend", game);
-		IEvent sellEvent = factory.create("Sell", game);
-	    IEvent seekEvent = factory.create("Seek", game);
-	    IEvent travelEvent = factory.create("Travel", game);
-	    IEvent withdrawEvent = factory.create("Withdraw", game);
+		Event applyInterestEvent = factory.create("ApplyInterest", game);
+		Event buyEvent = factory.create("Buy", game);
+		Event depositEvent = factory.create("Deposit", game);
+		Event giveBackEvent = factory.create("GiveMoneyBack", game);
+		Event hideEvent = factory.create("Hide", game);
+		Event lendEvent = factory.create("Lend", game);
+		Event sellEvent = factory.create("Sell", game);
+	    Event seekEvent = factory.create("Seek", game);
+	    Event travelEvent = factory.create("Travel", game);
+	    Event withdrawEvent = factory.create("Withdraw", game);
     	
 	    inputManager.addListenerDeal(buySelection, buyEvent, buyQuantity);
 	    inputManager.addListenerDeal(sellSelection, sellEvent, sellQuantity);
