@@ -15,14 +15,6 @@ abstract sealed class MoneyDealer extends Character implements IMoneyDealer
 		super(hometown);
 	}
 	
-	static MoneyDealer create(String character) {
-		switch(character) {	
-			case "Bank": return Bank.getInstance();
-			case "LoanShark": return LoanShark.getInstance();
-			default: return null;
-		}
-	}
-	
 	Client findClientByIdentity(Player player) {
 		for(Client c : clients) {
 			if(c.identity == player)

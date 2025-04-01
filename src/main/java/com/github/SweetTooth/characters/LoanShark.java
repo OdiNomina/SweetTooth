@@ -2,18 +2,11 @@ package com.github.SweetTooth.characters;
 
 import com.github.SweetTooth.locations.Location;
 
-non-sealed class LoanShark extends MoneyDealer implements IMoneyDealer {
+non-sealed public class LoanShark extends MoneyDealer implements IMoneyDealer {
 	final static double INTEREST_DEBT_PERCENT = Double.valueOf(10);
-	private static LoanShark uniqueInstance;
 	
-	private LoanShark() {
+	public LoanShark() {
 		super(Location.BRONX);
-	}
-	
-	static LoanShark getInstance() {
-		if(uniqueInstance == null)
-			uniqueInstance = new LoanShark();
-		return uniqueInstance;
 	}
 	
 	@Override

@@ -2,11 +2,7 @@ package com.github.SweetTooth.characters;
 
 public sealed interface IMoneyDealer 
 	permits Bank, LoanShark, MoneyDealer 
-{
-	public static IMoneyDealer create(String character) {
-		return MoneyDealer.create(character);
-	}
-	
+{	
 	public static double getBankMinBalance() {
 		return Bank.MIN_BALANCE;
 	}

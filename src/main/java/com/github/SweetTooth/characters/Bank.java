@@ -2,20 +2,13 @@ package com.github.SweetTooth.characters;
 
 import com.github.SweetTooth.locations.Location;
 
-non-sealed class Bank extends MoneyDealer implements IMoneyDealer {
+non-sealed public class Bank extends MoneyDealer implements IMoneyDealer {
 	final static double INTEREST_CREDIT_PERCENT = Double.valueOf(2);
 	final static double INTEREST_DEBT_PERCENT = Double.valueOf(5);
 	final static double MIN_BALANCE = Double.valueOf(-100);
-	private static Bank uniqueInstance;
 	
-	private Bank() {
+	public Bank() {
 		super(Location.BRONX);
-	}
-	
-	static Bank getInstance() {
-		if(uniqueInstance == null)
-			uniqueInstance = new Bank();
-		return uniqueInstance;
 	}
 	
 	@Override
