@@ -2,7 +2,7 @@ package com.github.SweetTooth.characters;
 
 import com.github.SweetTooth.locations.Location;
 
-non-sealed public class LoanShark extends MoneyDealer implements IMoneyDealer {
+non-sealed public class LoanShark extends MoneyDealer {
 	final static double INTEREST_DEBT_PERCENT = Double.valueOf(10);
 	
 	public LoanShark() {
@@ -21,8 +21,16 @@ non-sealed public class LoanShark extends MoneyDealer implements IMoneyDealer {
 	}
 
 	@Override
-	public String getInterestHint() {
-		return String.format("Ich will %.1f%% am Tag!", INTEREST_DEBT_PERCENT);
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		if (!super.equals(obj))
+			return false;
+		return true;
 	}
 
 	@Override
@@ -36,6 +44,16 @@ non-sealed public class LoanShark extends MoneyDealer implements IMoneyDealer {
 	@Override
 	public String getDispoHint() {
 		return "";
+	}
+
+	@Override
+	public String getInterestHint() {
+		return String.format("Ich will %.1f%% am Tag!", INTEREST_DEBT_PERCENT);
+	}
+
+	@Override
+	public int hashCode() {
+		return super.hashCode();
 	}
 
 	@Override
@@ -58,23 +76,5 @@ non-sealed public class LoanShark extends MoneyDealer implements IMoneyDealer {
 			.append(", location=").append(location)
 			.append("]");
 		return builder.toString();
-	}
-
-	@Override
-	public int hashCode() {
-		return super.hashCode();
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		if (!super.equals(obj))
-			return false;
-		return true;
 	}
 }

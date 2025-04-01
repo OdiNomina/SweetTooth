@@ -1,6 +1,6 @@
 package com.github.SweetTooth.events;
 
-import com.github.SweetTooth.characters.IMoneyDealer;
+import com.github.SweetTooth.characters.MoneyDealer;
 import com.github.SweetTooth.characters.IPlayer;
 
 final class Lend extends Event implements IEvent{
@@ -10,7 +10,7 @@ final class Lend extends Event implements IEvent{
 			return notAtHometown;
 
 		double amount = doubleInput != 0 ? doubleInput : integerInput;
-		IMoneyDealer loanShark =  game.getLoanShark();
+		MoneyDealer loanShark =  game.getLoanShark();
 		IPlayer player = game.getPlayer();
 		if(loanShark.getBalance(player) < 0)
 			return "Kannst du vergessen Alder.";

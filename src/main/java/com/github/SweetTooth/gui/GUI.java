@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 
-import com.github.SweetTooth.characters.IMoneyDealer;
+import com.github.SweetTooth.characters.MoneyDealer;
 import com.github.SweetTooth.events.EventFactory;
 import com.github.SweetTooth.events.IEvent;
 import com.github.SweetTooth.game.Game;
@@ -402,7 +402,7 @@ public class GUI {
 	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
 	    for(Snackable s : candies)
-	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), IMoneyDealer.getCurrency()));
+	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), MoneyDealer.getCurrency()));
 	    return formattedList;
 	}
 
@@ -414,7 +414,7 @@ public class GUI {
     }
     
     String getMoneyFormatted(double money) {
-	   return String.format("%,.2f %s", money, IMoneyDealer.getCurrency());
+	   return String.format("%,.2f %s", money, MoneyDealer.getCurrency());
     }
     
 	ArrayList<String> getSnacksFormatted(ArrayList<? extends Snackable> snacks){

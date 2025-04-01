@@ -5,10 +5,18 @@ import java.util.Objects;
 
 import com.github.SweetTooth.locations.Location;
 
-abstract sealed class MoneyDealer extends Character implements IMoneyDealer 
-	permits Bank, LoanShark
+public abstract sealed class MoneyDealer extends Character permits Bank, LoanShark
 {
 	public final static String CURRENCY = "€";
+	
+	public static double getBankMinBalance() {
+		return Bank.MIN_BALANCE;
+	}
+
+	public static String getCurrency() {
+		return CURRENCY;
+	}
+	
 	final ArrayList<Client> clients = new ArrayList<>();
 	
 	MoneyDealer(Location hometown){
@@ -47,4 +55,11 @@ abstract sealed class MoneyDealer extends Character implements IMoneyDealer
 		MoneyDealer other = (MoneyDealer) obj;
 		return Objects.equals(clients, other.clients);
 	}
+	
+	abstract public Double applyInterestToBalance(IPlayer player);
+	abstract public double getBalance(IPlayer player);
+	abstract public String getDispoHint();
+	abstract public String getInterestHint();
+	abstract public void increaseClientsBalance(IPlayer player, double amount);
+	abstract public void reduceClientsBalance(IPlayer player, double amount);
 }
