@@ -111,7 +111,7 @@ class InputManager {
         });
     }
     
-	void setInputFilterDeal(TextBox inputContainer, Event event, Label answerContainer, ComboBox<String> nextInFocus, Game game) {
+	void setInputFilterDeal(TextBox inputContainer, Event event, Label answerContainer, Interactable nextInFocus, Game game) {
     	inputContainer.setInputFilter(new InputFilter() {
         	@Override
 			public boolean onInput(Interactable interactable, KeyStroke keyStroke) {
@@ -137,6 +137,7 @@ class InputManager {
 						gui.updateComponents(game);
 						answerContainer.setText(eventAnswer);
 						inputContainer.setEnabled(false);
+						inputContainer.removeLine(0);
 						nextInFocus.setEnabled(true).takeFocus();
 						return false;
 					}
@@ -148,7 +149,7 @@ class InputManager {
 		}); 
     }
     
-    void setInputFilterFinances(TextBox inputContainer, Event event, Label answerContainer, ComboBox<String> nextInFocus, Game game) {
+    void setInputFilterFinances(TextBox inputContainer, Event event, Label answerContainer, Interactable nextInFocus, Game game) {
     	inputContainer.setInputFilter(new InputFilter() {
         	@Override
 			public boolean onInput(Interactable interactable, KeyStroke keyStroke) {
@@ -173,6 +174,7 @@ class InputManager {
 	        			String eventAnswer = event.handle();
 						gui.updateComponents(game);
 						answerContainer.setText(eventAnswer);
+						inputContainer.removeLine(0);
 						nextInFocus.takeFocus();
 						return false;
         			}
@@ -182,7 +184,7 @@ class InputManager {
 		});
     }
     
-    void setInputFilterSeek(TextBox inputContainer, Event event, Label answerContainer, ComboBox<String> nextInFocus) {
+    void setInputFilterSeek(TextBox inputContainer, Event event, Label answerContainer, Interactable nextInFocus) {
     	inputContainer.setInputFilter(new InputFilter() {
         	@Override
 			public boolean onInput(Interactable interactable, KeyStroke keyStroke) {
@@ -195,6 +197,7 @@ class InputManager {
         			else
         				try {
         					validateQuantity(inputContainer);
+        					inputContainer.removeLine(0);
         					nextInFocus.takeFocus();
         					answerContainer.setText("");
         					return false;

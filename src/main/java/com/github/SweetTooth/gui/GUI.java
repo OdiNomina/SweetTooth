@@ -352,10 +352,10 @@ public class GUI {
 	    inputManager.addListenerExit();
 	    inputManager.setInputFilterDeal(buyQuantity, buyEvent, buyInfo, buySelection, game);
 	    inputManager.setInputFilterDeal(sellQuantity, sellEvent, sellInfo, sellSelection, game);
-	    inputManager.setInputFilterFinances(deposit, depositEvent, bankInfo, locationSelection, game);
-	    inputManager.setInputFilterFinances(withdraw, withdrawEvent, bankInfo, locationSelection, game);
-	    inputManager.setInputFilterFinances(lend, lendEvent, loansharkInfo, locationSelection, game);
-	    inputManager.setInputFilterFinances(giveBack, giveBackEvent, loansharkInfo, locationSelection, game);
+	    inputManager.setInputFilterFinances(deposit, depositEvent, bankInfo, deposit, game);
+	    inputManager.setInputFilterFinances(withdraw, withdrawEvent, bankInfo, withdraw, game);
+	    inputManager.setInputFilterFinances(lend, lendEvent, loansharkInfo, lend, game);
+	    inputManager.setInputFilterFinances(giveBack, giveBackEvent, loansharkInfo, giveBack, game);
 	    inputManager.setInputFilterSeek(seekQuantity, seekEvent, hideSeekInfo, stash);
     }
 	
