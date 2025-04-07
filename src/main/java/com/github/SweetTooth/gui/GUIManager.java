@@ -9,7 +9,6 @@ import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
 import com.googlecode.lanterna.gui2.GridLayout;
 import com.googlecode.lanterna.gui2.MultiWindowTextGUI;
-import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.SeparateTextGUIThread;
 import com.googlecode.lanterna.gui2.WindowPostRenderer;
 import com.googlecode.lanterna.gui2.WindowManager;
@@ -23,9 +22,6 @@ import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
 public class GUIManager {
 	private Screen screen;
-	private WindowManager windowManager;
-	private WindowPostRenderer postRenderer;
-	private Component background;
 	private MultiWindowTextGUI multiWindowTextGUI;
 	private SeparateTextGUIThread guiThread;
 	
@@ -39,28 +35,27 @@ public class GUIManager {
 			new RGB(255, 140, 80));	// gui
 	
 	public GUIManager() throws IOException {
-		DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory();
-		terminalFactory.setInitialTerminalSize(new TerminalSize(127, 61));
+		DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(127, 60));
 		screen = terminalFactory.createScreen();
-		windowManager = new DefaultWindowManager();
-		postRenderer = null;
-		background = new GUIBackdrop();
+		WindowManager windowManager = new DefaultWindowManager();
+		WindowPostRenderer postRenderer = null;
+		Component background = new GUIBackdrop();
 		multiWindowTextGUI = new MultiWindowTextGUI(new SeparateTextGUIThread.Factory(), screen, windowManager, postRenderer, background);
 	}
 	
     public void start(Game game) throws IOException, InterruptedException {
-        Panel contentPanel = new Panel(new GridLayout(2));
-        GUI gui = new GUI(contentPanel);
-        gui.addComponents();
-    	gui.initializeComponents(game);
-    	gui.updateComponents(game);
-    	gui.addInputHandling(game, new InputManager(this, gui));
+        PanelContentMain panelContentMain = new PanelContentMain(this, new GridLayout(2), game);
+        panelContentMain.createContent();
+        panelContentMain.addContent();
+        panelContentMain.initializeContent();
+        panelContentMain.updateContent();
+        panelContentMain.addInputHandling();
     	
-        Window window = new BasicWindow("Jaw Breaker");
-    	window.setFixedSize(new TerminalSize(120, 56));
-        window.setComponent(contentPanel);
-        multiWindowTextGUI.addWindow(window);
+        Window mainWindow = new BasicWindow("SWEET TOOTH");
+    	mainWindow.setFixedSize(new TerminalSize(120, 55));
+        mainWindow.setComponent(panelContentMain);
         multiWindowTextGUI.setTheme(globalTheme);
+        multiWindowTextGUI.addWindow(mainWindow);
         
         screen.startScreen();
     	guiThread = (SeparateTextGUIThread)multiWindowTextGUI.getGUIThread();
