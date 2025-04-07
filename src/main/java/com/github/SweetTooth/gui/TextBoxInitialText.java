@@ -3,8 +3,12 @@ package com.github.SweetTooth.gui;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.TextBox;
 
-class MyTextBox extends TextBox {
+class TextBoxInitialText extends TextBox {
 	String initialText;
+	
+	TextBoxInitialText(String initialText){
+		this.initialText = initialText;
+	}
 	
 	@Override
 	protected void afterEnterFocus(FocusChangeDirection direction, Interactable previouslyInFocus) {
@@ -15,8 +19,4 @@ class MyTextBox extends TextBox {
 	protected void afterLeaveFocus(FocusChangeDirection direction, Interactable nextInFocus) {
         this.setText(initialText);
     }
-	
-	public void setInitialText(String initialText) {
-		this.initialText = initialText;
-	}
 }
