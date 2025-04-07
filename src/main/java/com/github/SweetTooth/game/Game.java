@@ -6,7 +6,7 @@ import com.github.SweetTooth.characters.Bank;
 import com.github.SweetTooth.characters.MoneyDealer;
 import com.github.SweetTooth.characters.Player;
 import com.github.SweetTooth.characters.LoanShark;
-import com.github.SweetTooth.gui.GUI;
+import com.github.SweetTooth.gui.PanelContentMain;
 import com.github.SweetTooth.gui.GUIManager;
 
 public class Game {
@@ -42,11 +42,11 @@ public class Game {
 		return player;
 	}
 	
-	public void increaseDayOfGame(int numberOfDays, GUI gui) throws IOException {
+	public void increaseDayOfGame(int numberOfDays, PanelContentMain panelContentMain) throws IOException {
 		if(dayOfGame < 30)
 			dayOfGame += numberOfDays;
 		else
-			gui.disableComponents(this);
+			panelContentMain.disableComponents();
 	}
 	
 	public static void main(String[] args) throws InterruptedException {	
