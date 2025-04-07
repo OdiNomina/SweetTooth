@@ -6,7 +6,8 @@ import com.github.SweetTooth.snacks.Candy;
 
 final class Seek extends Event {
 	@Override
-	public String handle() {
+	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
+		stringInput = splitStringInput(stringInput);
 		if(!isAtHometown())
 			return notAtHometown;
 
@@ -20,7 +21,7 @@ final class Seek extends Event {
 	}
 
 	@Override
-	public Answer handleMultipleAnswers() {
+	public Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
 		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

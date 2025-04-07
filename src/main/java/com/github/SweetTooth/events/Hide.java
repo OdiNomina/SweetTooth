@@ -4,7 +4,7 @@ import com.github.SweetTooth.characters.Player;
 
 final class Hide extends Event {
 	@Override
-	public String handle() {
+	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
 		if(!isAtHometown())
 			return notAtHometown;
 
@@ -15,7 +15,7 @@ final class Hide extends Event {
 	}
 
 	@Override
-	public Answer handleMultipleAnswers() {
+	public Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
 		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

@@ -9,11 +9,7 @@ import com.github.SweetTooth.snacks.Snackable;
 
 final class Travel extends Event {
 	@Override
-	public Answer handleMultipleAnswers() {
-		return travel();
-	}
-	
-	private Answer travel() {
+	public Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
 		double travelCosts = Game.getTravelCosts();
 		String payment = "";
 		Player player = game.getPlayer();
@@ -36,7 +32,7 @@ final class Travel extends Event {
 	}
 
 	@Override
-	public String handle() {
+	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
 		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

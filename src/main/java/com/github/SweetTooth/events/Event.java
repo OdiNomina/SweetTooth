@@ -9,9 +9,6 @@ import com.github.SweetTooth.snacks.Snackable;
 public abstract sealed class Event implements Handleable permits 
 	ApplyInterest, Buy, Deposit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw
 {
-	double doubleInput;
-	int integerInput;
-	String stringInput;
 	Game game;
 	String notAtHometown = "Du bist nicht in deiner Heimatstadt.";
 	
@@ -27,23 +24,15 @@ public abstract sealed class Event implements Handleable permits
 		return game.getPlayer().getLocation() == game.getPlayer().getHometown();
 	}
 
-	public void setDoubleInput(double input) {
-		doubleInput = input;
-	}
-
-	public void setIntegerInput(int input) {
-		integerInput = input;
-	}
-	
-	public void setStringInput(String input) {
+	public String splitStringInput(String input) {
 		int separatorIdx = input.indexOf("-");
 		if(separatorIdx > -1)
-			stringInput = input.substring(0, separatorIdx).strip();
+			return input.substring(0, separatorIdx).strip();
 		else {
 			separatorIdx = input.indexOf("|");
 			if(separatorIdx > -1)
-				stringInput = input.substring(separatorIdx + 1, input.length()).strip();
-			else stringInput = input;
+				return input.substring(separatorIdx + 1, input.length()).strip();
+			else return input;
 		}
 	}
 }
