@@ -18,11 +18,15 @@ import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Direction;
 import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.GridLayout;
+import com.googlecode.lanterna.gui2.InputFilter;
+import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutData;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Separator;
 import com.googlecode.lanterna.gui2.TextBox;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 
 public class PanelContentMain extends PanelContent<String> {
 	GUIManager guiManager;
@@ -124,107 +128,93 @@ public class PanelContentMain extends PanelContent<String> {
 
 	@Override
 	public void addInputHandling() {
-		EventFactory fct = EventFactory.getDefaultFactory();
+		EventFactory eventFactory = EventFactory.getDefaultFactory();
 		
-		comboBoxes.get("buySelection").addListener(new ComboBox.Listener() {
-    		@Override
-    		public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
-    			if(changedByUserInteraction) {
-    				comboBoxes.get("buySelection").setEnabled(false);
-    				textBoxesIT.get("buyQuantity").setEnabled(true).takeFocus();
-    			}
-    		}
-    	});
-		
-		comboBoxes.get("sellSelection").addListener(new ComboBox.Listener() {
-    		@Override
-    		public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
-    			if(changedByUserInteraction) {
-    				comboBoxes.get("sellSelection").setEnabled(false);
-    				textBoxesIT.get("sellQuantity").setEnabled(true).takeFocus();
-    			}
-    		}
-    	});
-    	
-    	comboBoxes.get("locationSelection").addListener(new ComboBox.Listener() {
-    		Event travelEvent = fct.create("Travel", game);
-    		Event applyInterestEvent = fct.create("ApplyInterest", game);
-    		
-    		@Override
-    		public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
-    			if(changedByUserInteraction) {
-    				if(selectedIndex == previousSelection) {
-    					labels.get("travelEventInfo1").setText("Du bist doch schon da!");
-    					return;
-    				}
-    				try {
-    					Location location = Location.valueOfficialName(comboBoxes.get("locationSelection").getItem(selectedIndex));
-		    			String input = location.toString();
-		            	Event.Answer answer = travelEvent.handleMultipleAnswers(input, null, null);
-		            	String applyInterestAnswer = applyInterestEvent.handle(null, null, null);
+		ComboBox.Listener buySelectionListener = (selectedIndex, previousSelection, changedByUserInteraction) -> {
+					if(changedByUserInteraction) {
+						comboBoxes.get("buySelection").setEnabled(false);
+						textBoxesIT.get("buyQuantity").setEnabled(true).takeFocus();
+					}};
+		ComboBox.Listener sellSelectionListener = (selectedIndex, previousSelection, changedByUserInteraction) -> {
+					if(changedByUserInteraction) {
+						comboBoxes.get("sellSelection").setEnabled(false);
+						textBoxesIT.get("sellQuantity").setEnabled(true).takeFocus();
+					}};
+		ComboBox.Listener locationSelectionListener = (selectedIndex, previousSelection, changedByUserInteraction) -> {
+					if(changedByUserInteraction) {
+						if(selectedIndex == previousSelection)
+							labels.get("travelEventInfo1").setText("Du bist doch schon da!");
+						else
+							try {
+								updateContent();
+								Location location = Location.valueOfficialName(comboBoxes.get("locationSelection").getItem(selectedIndex));
+				    			String input = location.toString();
+				            	Event.Answer answer = eventFactory.create("Travel", game).handleMultipleAnswers(input, null, null);
+				            	String applyInterestAnswer = eventFactory.create("ApplyInterest", game).handle(null, null, null);
+				    			labels.get("travelEventInfo1").setText(answer.answer()[0]);
+				    			labels.get("travelEventInfo2").setText(answer.answer()[1]);
+				    			labels.get("travelEventInfo3").setText(answer.answer()[2]);
+				            	labels.get("travelInterestInfo").setText(applyInterestAnswer);
+				        	    game.increaseDayOfGame(1, PanelContentMain.this);
+							}
+							catch(IllegalArgumentException e) { e.printStackTrace(); }
+							catch (IOException e) {	e.printStackTrace(); }
+					}};
+		Button.Listener hideListener = button -> {
+						String answer = eventFactory.create("Hide", game).handle(null, null, null);
+						updateContent();
+						labels.get("hideSeekInfo").setText(answer);
+					};
+		Button.Listener seekListener = button -> {
+						String snackInput = comboBoxes.get("stash").getSelectedItem();
+		    			Integer snackQuantity = Integer.parseInt(textBoxes.get("seekQuantity").getText());
+		    			String answer = eventFactory.create("Seek", game).handle(snackInput, snackQuantity, null);
 		    			updateContent();
-		    			labels.get("travelEventInfo1").setText(answer.answer()[0]);
-		    			labels.get("travelEventInfo2").setText(answer.answer()[1]);
-		    			labels.get("travelEventInfo3").setText(answer.answer()[2]);
-		            	labels.get("travelInterestInfo").setText(applyInterestAnswer);
-		        	    game.increaseDayOfGame(1, PanelContentMain.this);
-					}
-					catch(IllegalArgumentException e) {
-						e.printStackTrace();
-					}
-    				catch (IOException e) {
-						e.printStackTrace();
-					}
-    			}
-    		}
-    	});
-    	
-    	buttons.get("hide").addListener(new Button.Listener() {
-			Event event = fct.create("Hide", game);
-			
-			@Override
-			public void onTriggered(Button button) {
-				String answer = event.handle(null, null, null);
-				updateContent();
-				labels.get("hideSeekInfo").setText(answer);
-			}
-        });
-	    
-    	buttons.get("seek").addListener(new Button.Listener() {
-			Event event = fct.create("Seek", game);
-			
-    		@Override
-			public void onTriggered(Button button) {
-    			String snackInput = comboBoxes.get("stash").getSelectedItem();
-    			Integer snackQuantity = Integer.parseInt(textBoxes.get("seekQuantity").getText());
-    			
-    			String answer = event.handle(snackInput, snackQuantity, null);
-    			updateContent();
-    			labels.get("hideSeekInfo").setText(answer);
-    			comboBoxes.get("stash").takeFocus();
-    			textBoxes.get("seekQuantity").setEnabled(true);
-    			button.setEnabled(false);
-			}
-        });
-    	
-    	buttons.get("exit").addListener(new Button.Listener() {
-			@Override
-			public void onTriggered(Button button){
-				try {
-					guiManager.stop();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-        });
+		    			labels.get("hideSeekInfo").setText(answer);
+		    			comboBoxes.get("stash").takeFocus();
+		    			textBoxes.get("seekQuantity").setEnabled(true);
+		    			button.setEnabled(false);
+					};
+		Button.Listener exitListener = button -> {
+						try { guiManager.stop(); }
+						catch (IOException e) { e.printStackTrace(); }
+					};
+		comboBoxes.get("buySelection").addListener(buySelectionListener);
+		comboBoxes.get("sellSelection").addListener(sellSelectionListener);
+		comboBoxes.get("locationSelection").addListener(locationSelectionListener);
+		buttons.get("hide").addListener(hideListener);
+		buttons.get("seek").addListener(seekListener);
+		buttons.get("exit").addListener(exitListener);
     
-		textBoxesIT.get("buyQuantity").setInputFilter(new InputFilterDeal(this, fct.create("Buy", game)));
-		textBoxesIT.get("sellQuantity").setInputFilter(new InputFilterDeal(this, fct.create("Sell", game)));
-		textBoxesIT.get("deposit").setInputFilter(new InputFilterFinances(this, fct.create("Deposit", game)));
-		textBoxesIT.get("withdraw").setInputFilter(new InputFilterFinances(this, fct.create("Withdraw", game)));
-		textBoxesIT.get("lend").setInputFilter(new InputFilterFinances(this, fct.create("Lend", game)));
-		textBoxesIT.get("giveBack").setInputFilter(new InputFilterFinances(this, fct.create("GiveMoneyBack", game)));
-		textBoxes.get("seekQuantity").setInputFilter(new InputFilterSeek(this, null));
+		InputFilter seekQuantityInputFilter = (Interactable interactable, KeyStroke keyStroke) -> {
+						TextBox seekQuantity = (TextBox) interactable;
+						if(keyStroke.getKeyType() == KeyType.Enter) {
+							if(seekQuantity.getText().isBlank()) { 
+								seekQuantity.removeLine(0);
+				    			return false;
+							}
+							try {
+								Integer input = Integer.parseInt(seekQuantity.getText().strip());
+								if(input > 100) throw new NumberFormatException();
+								buttons.get("seek").setEnabled(true).takeFocus();
+								seekQuantity.setEnabled(false);
+								return false;
+							}
+							catch(NumberFormatException e) {
+								seekQuantity.removeLine(0);
+								labels.get("hideSeekInfo").setText("Du musst eine Zahl eingeben! (<= 100)");
+			        			return false;
+							}
+						}
+						return true;
+					};
+		textBoxes.get("seekQuantity").setInputFilter(seekQuantityInputFilter);			
+		textBoxesIT.get("buyQuantity").setInputFilter(new InputFilterDeal(this, eventFactory.create("Buy", game)));
+		textBoxesIT.get("sellQuantity").setInputFilter(new InputFilterDeal(this, eventFactory.create("Sell", game)));
+		textBoxesIT.get("deposit").setInputFilter(new InputFilterFinances(this, eventFactory.create("Deposit", game)));
+		textBoxesIT.get("withdraw").setInputFilter(new InputFilterFinances(this, eventFactory.create("Withdraw", game)));
+		textBoxesIT.get("lend").setInputFilter(new InputFilterFinances(this, eventFactory.create("Lend", game)));
+		textBoxesIT.get("giveBack").setInputFilter(new InputFilterFinances(this, eventFactory.create("GiveMoneyBack", game)));
     }
 	
 	@Override
