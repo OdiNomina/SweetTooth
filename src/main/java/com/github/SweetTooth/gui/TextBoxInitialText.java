@@ -7,6 +7,7 @@ class TextBoxInitialText extends TextBox {
 	String initialText;
 	
 	TextBoxInitialText(String initialText){
+		super(initialText);
 		this.initialText = initialText;
 	}
 	
