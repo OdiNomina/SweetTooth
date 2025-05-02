@@ -1,7 +1,7 @@
 # Created by https://www.toptal.com/developers/gitignore/api/eclipse
 # Customized by OdiNomina
 
-### Others ###
+### Privates ###
 commitInProgress.txt
 mavenVersion.txt
 
@@ -64,10 +64,6 @@ target
 .cache-main
 .scala_dependencies
 .worksheet
-
-# Uncomment this line if you wish to ignore the project description file.
-# Typically, this file would be tracked if it contains build/dependency configurations:
-#.project
 
 ### Eclipse Patch ###
 # Spring Boot Tooling

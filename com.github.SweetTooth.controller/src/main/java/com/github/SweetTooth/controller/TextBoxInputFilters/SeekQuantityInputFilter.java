@@ -1,0 +1,38 @@
+package com.github.SweetTooth.controller.TextBoxInputFilters;
+
+import com.googlecode.lanterna.gui2.InputFilter;
+import com.googlecode.lanterna.gui2.Interactable;
+import com.googlecode.lanterna.gui2.TextBox;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
+
+public class SeekQuantityInputFilter extends TextBoxInputFilter implements InputFilter {	
+	public SeekQuantityInputFilter(String textBoxName){
+		super(textBoxName);
+	}
+	
+	@Override
+	public boolean onInput(Interactable interactable, KeyStroke keyStroke) {
+		TextBox seekQuantity = (TextBox) interactable;
+		
+		if(keyStroke.getKeyType() == KeyType.Enter) {
+			if(seekQuantity.getText().isBlank()) { 
+				seekQuantity.removeLine(0);
+    			return false;
+			}
+			try {
+				Integer input = Integer.parseInt(seekQuantity.getText().strip());
+				if(input > 100) throw new NumberFormatException();
+				getPanelContent().getButtons().get("seek").setEnabled(true).takeFocus();
+				seekQuantity.setEnabled(false);
+				return false;
+			}
+			catch(NumberFormatException e) {
+				seekQuantity.removeLine(0);
+				answerBox.setText("Du musst eine Zahl eingeben! (<= 100)");
+    			return false;
+			}
+		}
+		return true;
+	}
+}
