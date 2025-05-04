@@ -6,9 +6,12 @@ import com.github.SweetTooth.model.characters.Player;
 import com.github.SweetTooth.model.games.Game;
 import com.github.SweetTooth.model.snacks.Snackable;
 
-public abstract sealed class Event implements Handleable permits 
+public abstract sealed class Event permits 
 	ApplyInterest, Buy, Deposit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw
 {
+	//This nested record is used as a response container (... instead of an array).
+	public record Answer(String answer1, String answer2, String answer3) {}
+	
 	Game game;
 	String notAtHometown = "Du bist nicht in deiner Heimatstadt.";
 	
@@ -35,4 +38,7 @@ public abstract sealed class Event implements Handleable permits
 			else return input;
 		}
 	}
+	
+	abstract String handle(String stringInput, Integer integerInput, Double doubleInput);
+	abstract Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput);
 }
