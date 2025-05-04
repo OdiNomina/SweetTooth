@@ -3,7 +3,7 @@ package com.github.SweetTooth.model.events;
 import java.util.ArrayList;
 
 import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.model.game.Game;
+import com.github.SweetTooth.model.games.Game;
 import com.github.SweetTooth.model.snacks.Snackable;
 
 public abstract sealed class Event implements Handleable permits 

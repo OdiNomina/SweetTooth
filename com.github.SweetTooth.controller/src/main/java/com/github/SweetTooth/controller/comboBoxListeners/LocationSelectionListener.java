@@ -24,11 +24,12 @@ public class LocationSelectionListener extends ComboBoxListener {
 	    			String input = location.toString();
 	            	Event.Answer answer = getEventFactory().create("Travel", getGame()).handleMultipleAnswers(input, null, null);
 	            	String applyInterestAnswer = getEventFactory().create("ApplyInterest", getGame()).handle(null, null, null);
-	            	getPanelContent().getLabels().get("travelEventInfo1").setText(answer.answer()[0]);
-	            	getPanelContent().getLabels().get("travelEventInfo2").setText(answer.answer()[1]);
-	            	getPanelContent().getLabels().get("travelEventInfo3").setText(answer.answer()[2]);
+	            	getPanelContent().getLabels().get("travelEventInfo1").setText(answer.answer1());
+	            	getPanelContent().getLabels().get("travelEventInfo2").setText(answer.answer2());
+	            	getPanelContent().getLabels().get("travelEventInfo3").setText(answer.answer3());
 	            	getPanelContent().getLabels().get("travelInterestInfo").setText(applyInterestAnswer);
-	        	    getGame().increaseDayOfGame(1, getPanelContent());
+	        	    getGame().increaseDayOfGame(1);
+	        	    getPanelContent().updateContent(); //Prüft ob Game Over!
 				}
 				catch(IllegalArgumentException e) { e.printStackTrace(); }
 				catch (IOException e) {	e.printStackTrace(); }

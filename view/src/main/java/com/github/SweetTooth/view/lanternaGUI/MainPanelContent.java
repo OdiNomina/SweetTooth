@@ -6,8 +6,10 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+
 import com.github.SweetTooth.model.characters.MoneyDealer;
-import com.github.SweetTooth.model.game.Game;
+import com.github.SweetTooth.model.characters.Player;
+import com.github.SweetTooth.model.games.Game;
 import com.github.SweetTooth.model.locations.Location;
 import com.github.SweetTooth.model.snacks.CandyFactory;
 import com.github.SweetTooth.model.snacks.Snackable;
@@ -29,84 +31,19 @@ import com.googlecode.lanterna.gui2.TextBox;
 class MainPanelContent extends PanelContent<String> {
 	private LanternaController controller;
 	private Game game;
+	private Player player;
+	private MoneyDealer loanShark;
+	private MoneyDealer bank;
 	
 	MainPanelContent(LayoutManager layoutManager, LanternaController controller) {
         super(layoutManager);
         this.controller = controller;
         game = controller.getGame();
+        player = game.getPlayer();
+        loanShark = game.getLoanShark();
+        bank = game.getBank();
     }
 	
-	@Override
-	final void createContent() {
-		getLabels().put("titel1", new Label(""));
-		getLabels().put("titel2", new Label(""));
-		getLabels().put("titel3", new Label(""));
-		getLabels().put("currentDayLabel", new Label(""));
-		getLabels().put("currentDay", new Label(""));
-		getLabels().put("currentLocationLabel", new Label(""));
-		getLabels().put("currentLocation", new Label(""));
-		getLabels().put("cashLabel", new Label(""));
-		getLabels().put("cash", new Label(""));
-		getLabels().put("pocketsLabel", new Label(""));
-		
-		getLabels().put("buyTitel", new Label(""));
-		getLabels().put("buySelectionLabel", new Label(""));
-		getLabels().put("sellTitel", new Label(""));
-		getLabels().put("sellSelectionLabel", new Label(""));
-		getLabels().put("buySellInfo", new Label(""));
-		
-		getLabels().put("hideSeekTitel", new Label(""));
-		getLabels().put("stashLabel", new Label(""));
-		getLabels().put("seekQuantityLabel", new Label(""));
-		getLabels().put("hideSeekInfo", new Label(""));
-		
-		getLabels().put("bankTitel", new Label(""));
-		getLabels().put("bankBalanceLabel", new Label(""));
-		getLabels().put("bankBalance", new Label(""));
-		getLabels().put("depositLabel", new Label(""));
-		getLabels().put("withdrawLabel", new Label(""));
-		getLabels().put("bankInfo", new Label(""));
-		getLabels().put("bankDispoHint", new Label(""));
-		getLabels().put("bankInterestHint", new Label(""));
-		
-		getLabels().put("loansharkTitel", new Label(""));
-		getLabels().put("loansharkBalanceLabel", new Label(""));
-		getLabels().put("loansharkBalance", new Label(""));
-		getLabels().put("lendLabel", new Label(""));
-		getLabels().put("giveBackLabel", new Label(""));
-		getLabels().put("loansharkInfo", new Label(""));
-		getLabels().put("loansharkInterestHint", new Label(""));
-		
-		getLabels().put("travelTitel1", new Label(""));
-		getLabels().put("travelTitel2", new Label(""));
-		getLabels().put("ticketLabel", new Label(""));
-		getLabels().put("ticketPrice", new Label(""));
-		getLabels().put("locationLabel", new Label(""));
-		getLabels().put("travelEventInfo1", new Label(""));
-		getLabels().put("travelEventInfo2", new Label(""));
-		getLabels().put("travelEventInfo3", new Label(""));
-		getLabels().put("travelInterestInfo", new Label(""));
-		
-		getComboBoxes().put("sweetsInPockets", new ComboBox<>(""));
-		getComboBoxes().put("buySelection", new ComboBox<>(""));
-		getComboBoxes().put("sellSelection", new ComboBox<>(""));
-		getComboBoxes().put("stash", new ComboBox<>(""));
-		getComboBoxes().put("locationSelection", new ComboBox<>(""));
-	
-		getTextBoxes().put("seekQuantity", new TextBox(""));
-		getTextBoxes().put("balanceSheet", new TextBox("", TextBox.Style.MULTI_LINE));
-		getTextBoxesIT().put("buyQuantity", new TextBoxInitialText(""));
-		getTextBoxesIT().put("sellQuantity", new TextBoxInitialText(""));
-		getTextBoxesIT().put("deposit", new TextBoxInitialText("Natürlich, welchen Betrag?"));
-		getTextBoxesIT().put("withdraw", new TextBoxInitialText("Gerne, wie viel?"));
-		getTextBoxesIT().put("lend", new TextBoxInitialText("Wie viel willst du?!"));
-		getTextBoxesIT().put("giveBack", new TextBoxInitialText("Lass sehn..."));
-	
-		getButtons().put("hide", new Button(""));
-		getButtons().put("seek", new Button(""));
-		getButtons().put("exit", new Button(""));
-	}
-
 	@Override
 	final void addContent() {
 		LayoutData HF_1Span = GridLayout.createHorizontallyFilledLayoutData();
@@ -197,7 +134,150 @@ class MainPanelContent extends PanelContent<String> {
         addComponent(getButtons().get("exit").setLayoutData(HEA_2Span));
 	}
 
+	void addInputHandling() {
+		List<String> comboBoxKeys = Arrays.asList("buySelection", "sellSelection", "locationSelection");
+		for(String key : comboBoxKeys)
+			getComboBoxes().get(key).addListener(controller.createComboBoxListener(key));
+		
+		List<String> buttonKeys = Arrays.asList("hide", "seek", "exit");
+		for(String key : buttonKeys)
+			getButtons().get(key).addListener(controller.createButtonListener(key));
+	
+		String texBoxKey = "seekQuantity";
+		getTextBoxes().get(texBoxKey).setInputFilter(controller.createInputFilter(texBoxKey));
+		
+		List<String> textBoxITKeys = Arrays.asList("buyQuantity", "sellQuantity", "deposit", "withdraw", "lend", "giveBack");
+		for(String key : textBoxITKeys)
+			getTextBoxesIT().get(key).setInputFilter(controller.createInputFilter(key));
+	}
+
 	@Override
+	final void createContent() {
+		getLabels().put("titel1", new Label(""));
+		getLabels().put("titel2", new Label(""));
+		getLabels().put("titel3", new Label(""));
+		getLabels().put("currentDayLabel", new Label(""));
+		getLabels().put("currentDay", new Label(""));
+		getLabels().put("currentLocationLabel", new Label(""));
+		getLabels().put("currentLocation", new Label(""));
+		getLabels().put("cashLabel", new Label(""));
+		getLabels().put("cash", new Label(""));
+		getLabels().put("pocketsLabel", new Label(""));
+		
+		getLabels().put("buyTitel", new Label(""));
+		getLabels().put("buySelectionLabel", new Label(""));
+		getLabels().put("sellTitel", new Label(""));
+		getLabels().put("sellSelectionLabel", new Label(""));
+		getLabels().put("buySellInfo", new Label(""));
+		
+		getLabels().put("hideSeekTitel", new Label(""));
+		getLabels().put("stashLabel", new Label(""));
+		getLabels().put("seekQuantityLabel", new Label(""));
+		getLabels().put("hideSeekInfo", new Label(""));
+		
+		getLabels().put("bankTitel", new Label(""));
+		getLabels().put("bankBalanceLabel", new Label(""));
+		getLabels().put("bankBalance", new Label(""));
+		getLabels().put("depositLabel", new Label(""));
+		getLabels().put("withdrawLabel", new Label(""));
+		getLabels().put("bankInfo", new Label(""));
+		getLabels().put("bankDispoHint", new Label(""));
+		getLabels().put("bankInterestHint", new Label(""));
+		
+		getLabels().put("loansharkTitel", new Label(""));
+		getLabels().put("loansharkBalanceLabel", new Label(""));
+		getLabels().put("loansharkBalance", new Label(""));
+		getLabels().put("lendLabel", new Label(""));
+		getLabels().put("giveBackLabel", new Label(""));
+		getLabels().put("loansharkInfo", new Label(""));
+		getLabels().put("loansharkInterestHint", new Label(""));
+		
+		getLabels().put("travelTitel1", new Label(""));
+		getLabels().put("travelTitel2", new Label(""));
+		getLabels().put("ticketLabel", new Label(""));
+		getLabels().put("ticketPrice", new Label(""));
+		getLabels().put("locationLabel", new Label(""));
+		getLabels().put("travelEventInfo1", new Label(""));
+		getLabels().put("travelEventInfo2", new Label(""));
+		getLabels().put("travelEventInfo3", new Label(""));
+		getLabels().put("travelInterestInfo", new Label(""));
+		
+		getComboBoxes().put("sweetsInPockets", new ComboBox<>(""));
+		getComboBoxes().put("buySelection", new ComboBox<>(""));
+		getComboBoxes().put("sellSelection", new ComboBox<>(""));
+		getComboBoxes().put("stash", new ComboBox<>(""));
+		getComboBoxes().put("locationSelection", new ComboBox<>(""));
+	
+		getTextBoxes().put("seekQuantity", new TextBox(""));
+		getTextBoxes().put("balanceSheet", new TextBox("", TextBox.Style.MULTI_LINE));
+		getTextBoxesIT().put("buyQuantity", new TextBoxInitialText(""));
+		getTextBoxesIT().put("sellQuantity", new TextBoxInitialText(""));
+		getTextBoxesIT().put("deposit", new TextBoxInitialText("Natürlich, welchen Betrag?"));
+		getTextBoxesIT().put("withdraw", new TextBoxInitialText("Gerne, wie viel?"));
+		getTextBoxesIT().put("lend", new TextBoxInitialText("Wie viel willst du?!"));
+		getTextBoxesIT().put("giveBack", new TextBoxInitialText("Lass sehn..."));
+	
+		getButtons().put("hide", new Button(""));
+		getButtons().put("seek", new Button(""));
+		getButtons().put("exit", new Button(""));
+	}
+	
+	private void disableComponents() {
+		getLabels().get("titel3").setVisible(true);
+		
+		getTextBoxes().get("balanceSheet").setTheme(new SimpleTheme(new RGB(0, 0, 0), new RGB(255, 240, 140), SGR.BOLD));
+		getTextBoxesIT().get("seekQuantity").setEnabled(false);
+		getTextBoxesIT().get("deposit").setEnabled(false);
+	    getTextBoxesIT().get("withdraw").setEnabled(false);
+	    getTextBoxesIT().get("lend").setEnabled(false);
+	    getTextBoxesIT().get("giveBack").setEnabled(false);
+		
+		getComboBoxes().get("buySelection").setEnabled(false);
+	    getComboBoxes().get("sellSelection").setEnabled(false);
+	    getComboBoxes().get("locationSelection").setEnabled(false);
+	    
+	    getButtons().get("hide").setEnabled(false);
+	    getButtons().get("seek").setEnabled(false);
+	}
+
+	private String formatBalanceSheet() {
+		double cash = player.getCash();
+		double loan = loanShark.getBalance(player);
+		double balance = bank.getBalance(player);
+		StringBuffer answer = new StringBuffer();
+		answer.append(String.format("Cash: %,.2f", cash))
+			.append(String.format(" | Kredithai: %,.2f", loan))
+			.append(String.format(" | Bankkonto: %,.2f", balance))
+			.append(String.format("\nSaldo: %,.2f", cash + loan + balance));
+		return answer.toString();
+	}
+	
+	private ArrayList<String> formatDefaultCandies() {
+	    ArrayList<? extends Snackable> candies = new CandyFactory().getDefaultSnacks();
+	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
+    	ArrayList<String> formattedList = new ArrayList<>();
+	    for(Snackable s : candies)
+	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), MoneyDealer.getCurrency()));
+	    return formattedList;
+	}
+	
+	private String formatMoney(double money) {
+	   return String.format("%,.2f %s", money, MoneyDealer.getCurrency());
+    }
+
+	private ArrayList<String> formatSnacks(ArrayList<? extends Snackable> snacks){
+		snacks.sort(Comparator.comparing(Snackable::getName));
+		ArrayList<String> formattedList = new ArrayList<>();
+		if(snacks.isEmpty()) {
+			formattedList.add("Nix drin!");
+			return formattedList;
+		}
+		for(Snackable s : snacks)
+			formattedList.add(String.format("%d | %s", s.getQuantity(), s.getName()));
+		return formattedList;
+	}
+    
+    @Override
 	void initializeContent() {
 		getLabels().get("titel1").addStyle(SGR.BOLD).setText("Du dealst mit Süßis?");
 		getLabels().get("titel2").addStyle(SGR.BOLD).setText("Mal sehen was du in einem Monat verdienst...");
@@ -220,14 +300,14 @@ class MainPanelContent extends PanelContent<String> {
 	    getLabels().get("bankBalanceLabel").addStyle(SGR.BOLD).setText("Kontostand:");
 	    getLabels().get("depositLabel").setText("Ich möchte Geld einzahlen.");
 	    getLabels().get("withdrawLabel").setText("Ich würde gerne Geld abheben.");
-	    getLabels().get("bankInterestHint").addStyle(SGR.ITALIC).setText(game.getBank().getInterestHint());
-	    getLabels().get("bankDispoHint").addStyle(SGR.ITALIC).setText(game.getBank().getDispoHint());
+	    getLabels().get("bankInterestHint").addStyle(SGR.ITALIC).setText(bank.getInterestHint());
+	    getLabels().get("bankDispoHint").addStyle(SGR.ITALIC).setText(bank.getDispoHint());
 	    
 	    getLabels().get("loansharkTitel").addStyle(SGR.BOLD).setText("KREDITHAI:");
 	    getLabels().get("loansharkBalanceLabel").addStyle(SGR.BOLD).setText("Schulden:");
 	    getLabels().get("lendLabel").setText("Ich brauch Geld.");
 	    getLabels().get("giveBackLabel").setText("Hier, ich hab dein Geld dabei.");
-	    getLabels().get("loansharkInterestHint").addStyle(SGR.ITALIC).setText(game.getLoanShark().getInterestHint());
+	    getLabels().get("loansharkInterestHint").addStyle(SGR.ITALIC).setText(loanShark.getInterestHint());
 	    
 	    getLabels().get("travelTitel1").addStyle(SGR.BOLD).setText("Du willst dich mal umschauen?");
 	    getLabels().get("travelTitel2").addStyle(SGR.BOLD).setText("Klar, aber du wirst den ganzen Tag unterwegs sein.");
@@ -256,121 +336,49 @@ class MainPanelContent extends PanelContent<String> {
 	    getButtons().get("seek").setEnabled(false).setLabel("Aus dem Versteck holen");
 	    getButtons().get("exit").setLabel("Ich hau ab, kein Bock mehr...");
 	}
-	
-	@Override
+    
+    @Override
 	void updateContent() {
-	    getLabels().get("currentDay").setText(Integer.toString(game.getDayOfGame()));
-	    getLabels().get("currentLocation").setText(game.getPlayer().getLocation().getOfficialName());
-	    getLabels().get("cash").setText(getMoneyFormatted(game.getPlayer().getCash()));
+		getLabels().get("currentDay").setText(Integer.toString(game.getDayOfGame()));
+	    getLabels().get("currentLocation").setText(player.getLocation().getOfficialName());
+	    getLabels().get("cash").setText(formatMoney(player.getCash()));
 	    getLabels().get("buySellInfo").setText("");
 	    getLabels().get("hideSeekInfo").setText("");
-	    getLabels().get("bankBalance").setText(getMoneyFormatted(game.getBank().getBalance(game.getPlayer())));
+	    getLabels().get("bankBalance").setText(formatMoney(bank.getBalance(player)));
 	    getLabels().get("bankInfo").setText("");
-	    getLabels().get("loansharkBalance").setText(getMoneyFormatted(game.getLoanShark().getBalance(game.getPlayer())));
+	    getLabels().get("loansharkBalance").setText(formatMoney(loanShark.getBalance(player)));
 	    getLabels().get("loansharkInfo").setText("");
-	    getLabels().get("ticketPrice").setText(getMoneyFormatted(game.getTravelCosts()));
+	    getLabels().get("ticketPrice").setText(formatMoney(Game.getTravelCosts()));
 	    getLabels().get("travelEventInfo1").setText("");
 	    getLabels().get("travelEventInfo2").setText("");
 	    getLabels().get("travelEventInfo3").setText("");
 	    getLabels().get("travelInterestInfo").setText("");
 	    
 	    getTextBoxes().get("seekQuantity").setText("");
-	    getTextBoxes().get("balanceSheet").setText(calculateBalanceSheet(game));
+	    getTextBoxes().get("balanceSheet").setText(formatBalanceSheet());
 	    
-	    ArrayList<String> sweetsList = getSnacksFormatted(game.getPlayer().getCandies());
+	    ArrayList<String> sweetsList = formatSnacks(player.getCandies());
 	    ComboBox<String> sweetsInPockets = getComboBoxes().get("sweetsInPockets").clearItems();
 	    for(String s : sweetsList)
 	    	sweetsInPockets.addItem(s);
 	    
-	    ArrayList<String> buyList = getDefaultCandiesFormatted();
+	    ArrayList<String> buyList = formatDefaultCandies();
 	    ComboBox<String> buySelection = getComboBoxes().get("buySelection").clearItems();
 	    for(String s : buyList)
 	    	buySelection.addItem(s);
 	
 	    
-	    ArrayList<String> sellList = getDefaultCandiesFormatted();
+	    ArrayList<String> sellList = formatDefaultCandies();
 	    ComboBox<String> sellSelection = getComboBoxes().get("sellSelection").clearItems();
 	    for(String s : sellList)
 	    	sellSelection.addItem(s);
 	
-	    ArrayList<String> stashList = getSnacksFormatted(game.getPlayer().getCandyStash());
+	    ArrayList<String> stashList = formatSnacks(player.getCandyStash());
 	    ComboBox<String> stash = getComboBoxes().get("stash").clearItems();
 	    for(String s : stashList)
-	    	stash.addItem(s);  
-	}
-
-	void addInputHandling() {
-		List<String> comboBoxKeys = Arrays.asList("buySelection", "sellSelection", "locationSelection");
-		for(String key : comboBoxKeys)
-			getComboBoxes().get(key).addListener(controller.createComboBoxListener(key));
-		
-		List<String> buttonKeys = Arrays.asList("hide", "seek", "exit");
-		for(String key : buttonKeys)
-			getButtons().get(key).addListener(controller.createButtonListener(key));
-	
-		String texBoxKey = "seekQuantity";
-		getTextBoxes().get(texBoxKey).setInputFilter(controller.createInputFilter(texBoxKey));
-		
-		List<String> textBoxITKeys = Arrays.asList("buyQuantity", "sellQuantity", "deposit", "withdraw", "lend", "giveBack");
-		for(String key : textBoxITKeys)
-			getTextBoxesIT().get(key).setInputFilter(controller.createInputFilter(key));
-	}
-	
-	@Override
-	void disableComponents() {
-		updateContent();
-		
-		getLabels().get("titel3").setVisible(true);
-		
-		getTextBoxes().get("balanceSheet").setTheme(new SimpleTheme(new RGB(0, 0, 0), new RGB(255, 240, 140), SGR.BOLD));
-		getTextBoxesIT().get("seekQuantity").setEnabled(false);
-		getTextBoxesIT().get("deposit").setEnabled(false);
-	    getTextBoxesIT().get("withdraw").setEnabled(false);
-	    getTextBoxesIT().get("lend").setEnabled(false);
-	    getTextBoxesIT().get("giveBack").setEnabled(false);
-		
-		getComboBoxes().get("buySelection").setEnabled(false);
-	    getComboBoxes().get("sellSelection").setEnabled(false);
-	    getComboBoxes().get("locationSelection").setEnabled(false);
+	    	stash.addItem(s);
 	    
-	    getButtons().get("hide").setEnabled(false);
-	    getButtons().get("seek").setEnabled(false);
-	}
-	
-	private String calculateBalanceSheet(Game game) {
-		double cash = game.getPlayer().getCash();
-		double loan = game.getLoanShark().getBalance(game.getPlayer());
-		double balance = game.getBank().getBalance(game.getPlayer());
-		StringBuffer answer = new StringBuffer();
-		answer.append(String.format("Cash: %,.2f", cash))
-			.append(String.format(" | Kredithai: %,.2f", loan))
-			.append(String.format(" | Bankkonto: %,.2f", balance))
-			.append(String.format("\nSaldo: %,.2f", cash + loan + balance));
-		return answer.toString();
-	}
-
-	private ArrayList<String> getDefaultCandiesFormatted() {
-	    ArrayList<? extends Snackable> candies = new CandyFactory().getDefaultSnacks();
-	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
-    	ArrayList<String> formattedList = new ArrayList<>();
-	    for(Snackable s : candies)
-	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), MoneyDealer.getCurrency()));
-	    return formattedList;
-	}
-    
-    private String getMoneyFormatted(double money) {
-	   return String.format("%,.2f %s", money, MoneyDealer.getCurrency());
-    }
-    
-    private ArrayList<String> getSnacksFormatted(ArrayList<? extends Snackable> snacks){
-		snacks.sort(Comparator.comparing(Snackable::getName));
-		ArrayList<String> formattedList = new ArrayList<>();
-		if(snacks.isEmpty()) {
-			formattedList.add("Nix drin!");
-			return formattedList;
-		}
-		for(Snackable s : snacks)
-			formattedList.add(String.format("%d | %s", s.getQuantity(), s.getName()));
-		return formattedList;
+	    if(game.isGameOver())
+	    	disableComponents();
 	}
 }

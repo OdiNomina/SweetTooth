@@ -2,7 +2,7 @@ package com.github.SweetTooth.model.events;
 
 import com.github.SweetTooth.model.characters.Player;
 import com.github.SweetTooth.model.experiences.Experience;
-import com.github.SweetTooth.model.game.Game;
+import com.github.SweetTooth.model.games.Game;
 import com.github.SweetTooth.model.locations.Location;
 import com.github.SweetTooth.model.snacks.CandyFactory;
 import com.github.SweetTooth.model.snacks.Snackable;

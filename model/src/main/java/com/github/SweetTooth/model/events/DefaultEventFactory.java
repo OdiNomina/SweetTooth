@@ -1,6 +1,6 @@
 package com.github.SweetTooth.model.events;
 
-import com.github.SweetTooth.model.game.Game;
+import com.github.SweetTooth.model.games.Game;
 
 public class DefaultEventFactory extends EventFactory {
 	@Override

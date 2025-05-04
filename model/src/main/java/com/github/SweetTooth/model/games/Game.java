@@ -1,27 +1,28 @@
-package com.github.SweetTooth.model.game;
+package com.github.SweetTooth.model.games;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.model.characters.Bank;
-import com.github.SweetTooth.model.characters.LoanShark;
 import com.github.SweetTooth.model.characters.MoneyDealer;
 import com.github.SweetTooth.model.characters.Player;
 
 public class Game {
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);
+	final static int GAME_DURATION_DAYS = Integer.valueOf(30);
+	
+	public static double getTravelCosts() {
+		return TRAVEL_COSTS;
+	}
+	
 	private int dayOfGame = Integer.valueOf(1);
 	private Player player;
 	private MoneyDealer bank;
 	private MoneyDealer loanShark;
+	private boolean isGameOver;
 	
 	public Game(Player player, MoneyDealer bank, MoneyDealer loanShark) {
 		this.player = player;
 		this.bank = bank;
 		this.loanShark = loanShark;
-	}
-	
-	public static double getTravelCosts() {
-		return TRAVEL_COSTS;
 	}
 	
 	public MoneyDealer getBank() {
@@ -40,10 +41,14 @@ public class Game {
 		return player;
 	}
 	
-	public void increaseDayOfGame(int numberOfDays, PanelContentMain panelContentMain) throws IOException {
-		if(dayOfGame < 30)
+	public void increaseDayOfGame(int numberOfDays) throws IOException {
+		if(dayOfGame < GAME_DURATION_DAYS)
 			dayOfGame += numberOfDays;
 		else
-			panelContentMain.disableComponents();
+			isGameOver = true;
+	}
+
+	public boolean isGameOver() {
+		return isGameOver;
 	}
 }

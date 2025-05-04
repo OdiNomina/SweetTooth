@@ -43,7 +43,6 @@ abstract class PanelContent<T> extends Panel {
 	
 	abstract void addContent();
 	abstract void createContent();
-	abstract void disableComponents();
 	abstract void initializeContent();
 	abstract void updateContent();
 }

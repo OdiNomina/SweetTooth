@@ -3,7 +3,7 @@ package com.github.SweetTooth.controller.ButtonListeners;
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 import com.github.SweetTooth.model.events.Event;
 import com.github.SweetTooth.model.events.EventFactory;
-import com.github.SweetTooth.model.game.Game;
+import com.github.SweetTooth.model.games.Game;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.Label;
 
