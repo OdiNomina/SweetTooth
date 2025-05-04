@@ -3,6 +3,7 @@ package com.github.SweetTooth.view.lanternaGUI;
 import java.io.IOException;
 
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
@@ -23,8 +24,9 @@ public class GUIManager {
 	private Screen screen;
 	private MultiWindowTextGUI multiWindowTextGUI;
 	private SeparateTextGUIThread guiThread;
+	private LanternaController controller;
 	
-	SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
+	private SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
 			new RGB(0, 0, 0),		// base foreground
 			new RGB(255, 240, 140), // base background
 			new RGB(0, 0, 0), 		// editable fore
@@ -33,22 +35,24 @@ public class GUIManager {
 			new RGB(255, 250, 180), // selected back
 			new RGB(255, 140, 80));	// gui
 	
-	public GUIManager() throws IOException {
+	public GUIManager(LanternaController controller) throws IOException {
 		DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(127, 60));
 		screen = terminalFactory.createScreen();
 		WindowManager windowManager = new DefaultWindowManager();
 		WindowPostRenderer postRenderer = null;
 		Component background = new GUIBackdrop();
 		multiWindowTextGUI = new MultiWindowTextGUI(new SeparateTextGUIThread.Factory(), screen, windowManager, postRenderer, background);
+		
+		this.controller = controller;
 	}
 	
-    public void start(LanternaController controller) throws IOException, InterruptedException {
-        MainPanelContent mainPanelContent = new MainPanelContent(new GridLayout(2));
+    public void start() throws IOException, InterruptedException {
+        MainPanelContent mainPanelContent = new MainPanelContent(new GridLayout(2), controller);
         mainPanelContent.createContent();
         mainPanelContent.addContent();
         mainPanelContent.initializeContent();
         mainPanelContent.updateContent();
-        controller.addInputHandling();
+        mainPanelContent.addInputHandling();
     	
         Window mainWindow = new BasicWindow("SWEET TOOTH");
     	mainWindow.setFixedSize(new TerminalSize(120, 55));

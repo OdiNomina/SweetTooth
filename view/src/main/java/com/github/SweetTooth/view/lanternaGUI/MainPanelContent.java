@@ -1,8 +1,9 @@
 package com.github.SweetTooth.view.lanternaGUI;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 import com.github.SweetTooth.model.characters.MoneyDealer;
@@ -10,6 +11,7 @@ import com.github.SweetTooth.model.game.Game;
 import com.github.SweetTooth.model.locations.Location;
 import com.github.SweetTooth.model.snacks.CandyFactory;
 import com.github.SweetTooth.model.snacks.Snackable;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
@@ -18,26 +20,24 @@ import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Direction;
 import com.googlecode.lanterna.gui2.EmptySpace;
 import com.googlecode.lanterna.gui2.GridLayout;
-import com.googlecode.lanterna.gui2.InputFilter;
-import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.LayoutData;
 import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Separator;
 import com.googlecode.lanterna.gui2.TextBox;
-import com.googlecode.lanterna.input.KeyStroke;
-import com.googlecode.lanterna.input.KeyType;
 
-public class MainPanelContent extends PanelContent<String> {
-	Game game;
+class MainPanelContent extends PanelContent<String> {
+	private LanternaController controller;
+	private Game game;
 	
-	public MainPanelContent(LayoutManager layoutManager, LanternaController controller) {
+	MainPanelContent(LayoutManager layoutManager, LanternaController controller) {
         super(layoutManager);
+        this.controller = controller;
         game = controller.getGame();
     }
 	
 	@Override
-	public void createContent() {
+	final void createContent() {
 		getLabels().put("titel1", new Label(""));
 		getLabels().put("titel2", new Label(""));
 		getLabels().put("titel3", new Label(""));
@@ -108,7 +108,7 @@ public class MainPanelContent extends PanelContent<String> {
 	}
 
 	@Override
-	public void addContent() {
+	final void addContent() {
 		LayoutData HF_1Span = GridLayout.createHorizontallyFilledLayoutData();
 		LayoutData HF_2Span = GridLayout.createHorizontallyFilledLayoutData(2);
 		LayoutData HEA_1Span = GridLayout.createHorizontallyEndAlignedLayoutData(1);
@@ -198,7 +198,7 @@ public class MainPanelContent extends PanelContent<String> {
 	}
 
 	@Override
-	public void initializeContent() {
+	void initializeContent() {
 		getLabels().get("titel1").addStyle(SGR.BOLD).setText("Du dealst mit Süßis?");
 		getLabels().get("titel2").addStyle(SGR.BOLD).setText("Mal sehen was du in einem Monat verdienst...");
 		getLabels().get("titel3").addStyle(SGR.BOLD).addStyle(SGR.REVERSE).setVisible(false).setText(" Das wars... NICHTS GEHT MEHR ! ");
@@ -258,28 +258,7 @@ public class MainPanelContent extends PanelContent<String> {
 	}
 	
 	@Override
-	public void disableComponents() {
-		updateContent();
-		
-		getLabels().get("titel3").setVisible(true);
-		
-		getTextBoxes().get("balanceSheet").setTheme(new SimpleTheme(new RGB(0, 0, 0), new RGB(255, 240, 140), SGR.BOLD));
-		getTextBoxesIT().get("seekQuantity").setEnabled(false);
-		getTextBoxesIT().get("deposit").setEnabled(false);
-	    getTextBoxesIT().get("withdraw").setEnabled(false);
-	    getTextBoxesIT().get("lend").setEnabled(false);
-	    getTextBoxesIT().get("giveBack").setEnabled(false);
-		
-		getComboBoxes().get("buySelection").setEnabled(false);
-	    getComboBoxes().get("sellSelection").setEnabled(false);
-	    getComboBoxes().get("locationSelection").setEnabled(false);
-	    
-	    getButtons().get("hide").setEnabled(false);
-	    getButtons().get("seek").setEnabled(false);
-	}
-	
-	@Override
-	public void updateContent() {
+	void updateContent() {
 	    getLabels().get("currentDay").setText(Integer.toString(game.getDayOfGame()));
 	    getLabels().get("currentLocation").setText(game.getPlayer().getLocation().getOfficialName());
 	    getLabels().get("cash").setText(getMoneyFormatted(game.getPlayer().getCash()));
@@ -320,6 +299,44 @@ public class MainPanelContent extends PanelContent<String> {
 	    	stash.addItem(s);  
 	}
 
+	void addInputHandling() {
+		List<String> comboBoxKeys = Arrays.asList("buySelection", "sellSelection", "locationSelection");
+		for(String key : comboBoxKeys)
+			getComboBoxes().get(key).addListener(controller.createComboBoxListener(key));
+		
+		List<String> buttonKeys = Arrays.asList("hide", "seek", "exit");
+		for(String key : buttonKeys)
+			getButtons().get(key).addListener(controller.createButtonListener(key));
+	
+		String texBoxKey = "seekQuantity";
+		getTextBoxes().get(texBoxKey).setInputFilter(controller.createInputFilter(texBoxKey));
+		
+		List<String> textBoxITKeys = Arrays.asList("buyQuantity", "sellQuantity", "deposit", "withdraw", "lend", "giveBack");
+		for(String key : textBoxITKeys)
+			getTextBoxesIT().get(key).setInputFilter(controller.createInputFilter(key));
+	}
+	
+	@Override
+	void disableComponents() {
+		updateContent();
+		
+		getLabels().get("titel3").setVisible(true);
+		
+		getTextBoxes().get("balanceSheet").setTheme(new SimpleTheme(new RGB(0, 0, 0), new RGB(255, 240, 140), SGR.BOLD));
+		getTextBoxesIT().get("seekQuantity").setEnabled(false);
+		getTextBoxesIT().get("deposit").setEnabled(false);
+	    getTextBoxesIT().get("withdraw").setEnabled(false);
+	    getTextBoxesIT().get("lend").setEnabled(false);
+	    getTextBoxesIT().get("giveBack").setEnabled(false);
+		
+		getComboBoxes().get("buySelection").setEnabled(false);
+	    getComboBoxes().get("sellSelection").setEnabled(false);
+	    getComboBoxes().get("locationSelection").setEnabled(false);
+	    
+	    getButtons().get("hide").setEnabled(false);
+	    getButtons().get("seek").setEnabled(false);
+	}
+	
 	private String calculateBalanceSheet(Game game) {
 		double cash = game.getPlayer().getCash();
 		double loan = game.getLoanShark().getBalance(game.getPlayer());

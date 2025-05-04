@@ -10,7 +10,7 @@ import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.TextBox;
 
 
-public abstract class PanelContent<T> extends Panel {
+abstract class PanelContent<T> extends Panel {
 	private ConcurrentHashMap<String, Label> labels = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<String, TextBox> textBoxes = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<String, TextBoxInitialText> textBoxesIT = new ConcurrentHashMap<>();
@@ -21,29 +21,29 @@ public abstract class PanelContent<T> extends Panel {
         super(layoutManager);
     }
 	
-	public ConcurrentHashMap<String, Label> getLabels(){
+	ConcurrentHashMap<String, Button> getButtons(){
+		return buttons;
+	}
+
+	ConcurrentHashMap<String, ComboBox<T>> getComboBoxes(){
+		return comboBoxes;
+	}
+
+	ConcurrentHashMap<String, Label> getLabels(){
 		return labels;
 	}
 	
-	public ConcurrentHashMap<String, TextBox> getTextBoxes(){
+	ConcurrentHashMap<String, TextBox> getTextBoxes(){
 		return textBoxes;
 	}
 	
-	public ConcurrentHashMap<String, TextBoxInitialText> getTextBoxesIT(){
+	ConcurrentHashMap<String, TextBoxInitialText> getTextBoxesIT(){
 		return textBoxesIT;
 	}
 	
-	public ConcurrentHashMap<String, ComboBox<T>> getComboBoxes(){
-		return comboBoxes;
-	}
-	
-	public ConcurrentHashMap<String, Button> getButtons(){
-		return buttons;
-	}
-	
-	public abstract void addContent();
-	public abstract void createContent();
-	public abstract void disableComponents();
-	public abstract void initializeContent();
-	public abstract void updateContent();
+	abstract void addContent();
+	abstract void createContent();
+	abstract void disableComponents();
+	abstract void initializeContent();
+	abstract void updateContent();
 }

@@ -2,12 +2,10 @@ package com.github.SweetTooth.model.game;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.gui.PanelContentMain;
 import com.github.SweetTooth.model.characters.Bank;
 import com.github.SweetTooth.model.characters.LoanShark;
 import com.github.SweetTooth.model.characters.MoneyDealer;
 import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.gui.GUIManager;
 
 public class Game {
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);

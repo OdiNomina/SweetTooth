@@ -2,11 +2,16 @@ package com.github.SweetTooth.controller.comboBoxListeners;
 
 import java.io.IOException;
 
+import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 import com.github.SweetTooth.model.events.Event;
 import com.github.SweetTooth.model.locations.Location;
 import com.googlecode.lanterna.gui2.ComboBox;
 
-public class LocationSelectionListener extends ComboBoxListener implements ComboBox.Listener{
+public class LocationSelectionListener extends ComboBoxListener {
+	public LocationSelectionListener(String comboBoxName, LanternaController controller) {
+		super(comboBoxName, controller);
+	}
+	
 	@Override
 	public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
 		if(changedByUserInteraction) {

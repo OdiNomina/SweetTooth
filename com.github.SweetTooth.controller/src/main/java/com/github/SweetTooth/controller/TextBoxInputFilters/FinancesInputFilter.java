@@ -1,5 +1,6 @@
 package com.github.SweetTooth.controller.TextBoxInputFilters;
 
+import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 import com.googlecode.lanterna.gui2.InputFilter;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
@@ -7,9 +8,9 @@ import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
-public class FinancesInputFilter extends TextBoxInputFilter implements InputFilter {	
-	public FinancesInputFilter(String textBoxName){
-		super(textBoxName);
+public class FinancesInputFilter extends TextBoxInputFilter {	
+	public FinancesInputFilter(String textBoxName, LanternaController controller){
+		super(textBoxName, controller);
 	}
 	
 	@Override

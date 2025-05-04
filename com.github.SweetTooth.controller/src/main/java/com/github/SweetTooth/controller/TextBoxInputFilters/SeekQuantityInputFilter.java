@@ -1,14 +1,15 @@
 package com.github.SweetTooth.controller.TextBoxInputFilters;
 
+import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 import com.googlecode.lanterna.gui2.InputFilter;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
-public class SeekQuantityInputFilter extends TextBoxInputFilter implements InputFilter {	
-	public SeekQuantityInputFilter(String textBoxName){
-		super(textBoxName);
+public class SeekQuantityInputFilter extends TextBoxInputFilter {	
+	public SeekQuantityInputFilter(String textBoxName, LanternaController controller){
+		super(textBoxName, controller);
 	}
 	
 	@Override

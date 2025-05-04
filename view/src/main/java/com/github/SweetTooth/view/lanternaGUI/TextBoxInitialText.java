@@ -3,7 +3,7 @@ package com.github.SweetTooth.view.lanternaGUI;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.TextBox;
 
-public class TextBoxInitialText extends TextBox {
+class TextBoxInitialText extends TextBox {
 	String initialText;
 	
 	TextBoxInitialText(String initialText){

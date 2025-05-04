@@ -1,8 +1,13 @@
 package com.github.SweetTooth.controller.ButtonListeners;
 
+import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 import com.googlecode.lanterna.gui2.Button;
 
-public class SeekListener extends ButtonListener implements Button.Listener{
+public class SeekListener extends ButtonListener {
+	public SeekListener(String buttonName, LanternaController controller) {
+		super(buttonName, controller);
+	}
+	
 	@Override
 	public void onTriggered(Button button) {
 		String snackInput = getPanelContent().getComboBoxes().get("stash").getSelectedItem();

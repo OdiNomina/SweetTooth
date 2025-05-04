@@ -1,5 +1,8 @@
 package com.github.SweetTooth.controller.TextBoxInputFilters;
 
+import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+import com.github.SweetTooth.model.events.EventFactory;
+import com.github.SweetTooth.model.game.Game;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.InputFilter;
 import com.googlecode.lanterna.gui2.Interactable;
@@ -8,11 +11,11 @@ import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
-public class DealInputFilter extends TextBoxInputFilter implements InputFilter {	
+public class DealInputFilter extends TextBoxInputFilter {	
 	ComboBox<String> selectionBox;
 	
-	public DealInputFilter(String textBoxName){
-		super(textBoxName);
+	public DealInputFilter(String textBoxName, LanternaController controller){
+		super(textBoxName, controller);
 		switchSelectionBox(textBoxName);
 	}
 	
