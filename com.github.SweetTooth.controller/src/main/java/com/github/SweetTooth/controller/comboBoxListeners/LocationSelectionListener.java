@@ -2,37 +2,65 @@ package com.github.SweetTooth.controller.comboBoxListeners;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 import com.github.SweetTooth.model.events.Event;
+import com.github.SweetTooth.model.events.Observer;
+import com.github.SweetTooth.model.games.Game;
 import com.github.SweetTooth.model.locations.Location;
+
 import com.googlecode.lanterna.gui2.ComboBox;
+import com.googlecode.lanterna.gui2.Interactable;
+import com.googlecode.lanterna.gui2.Label;
 
 public class LocationSelectionListener extends ComboBoxListener {
-	public LocationSelectionListener(String comboBoxName, LanternaController controller) {
-		super(comboBoxName, controller);
+	Game game;
+	Event event;
+	Label[] answerBox;
+	Event applyInterestEvent;
+	
+	public LocationSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus, Game game, Event event, Event applyInterestEvent, Label... answerBox) {
+		super(thisComboBox, nextInFocus);
+		this.game = game;
+		this.event = event;
+		this.answerBox = answerBox;
+		this.applyInterestEvent = applyInterestEvent;
 	}
 	
 	@Override
 	public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
 		if(changedByUserInteraction) {
 			if(selectedIndex == previousSelection)
-				getPanelContent().getLabels().get("travelEventInfo1").setText("Du bist doch schon da!");
+				answerBox[0].setText("Du bist doch schon da!");
 			else
 				try {
-					getPanelContent().updateContent();
-					Location location = Location.valueOfficialName(getPanelContent().getComboBoxes().get("locationSelection").getItem(selectedIndex));
+					for(Observer view : game.getViews())
+						view.updateObserver();
+					Location location = Location.valueOfficialName(thisComboBox.getItem(selectedIndex));
 	    			String input = location.toString();
-	            	Event.Answer answer = getEventFactory().create("Travel", getGame()).handleMultipleAnswers(input, null, null);
-	            	String applyInterestAnswer = getEventFactory().create("ApplyInterest", getGame()).handle(null, null, null);
-	            	getPanelContent().getLabels().get("travelEventInfo1").setText(answer.answer1());
-	            	getPanelContent().getLabels().get("travelEventInfo2").setText(answer.answer2());
-	            	getPanelContent().getLabels().get("travelEventInfo3").setText(answer.answer3());
-	            	getPanelContent().getLabels().get("travelInterestInfo").setText(applyInterestAnswer);
-	        	    getGame().increaseDayOfGame(1);
-	        	    getPanelContent().updateContent(); //Prüft ob Game Over!
+	            	Event.Answer answer = event.handleMultipleAnswers(input, null, null);
+	            	answerBox[0].setText(answer.answer1());
+	            	answerBox[1].setText(answer.answer2());
+	            	answerBox[2].setText(answer.answer3());
+	            	
+	            	answerBox[3].setText(applyInterestEvent.handle(null, null, null));
+	            	
+	            	game.increaseDayOfGame(1);
+	            	
+	            	for(Observer view : game.getViews())
+						view.updateObserver(); //Prüft ob Game Over!
 				}
-				catch(IllegalArgumentException e) { e.printStackTrace(); }
-				catch (IOException e) {	e.printStackTrace(); }
+				catch(IllegalArgumentException e) {
+					answerBox[0].setText("An exception occurred.");
+					thisComboBox.takeFocus();
+					e.printStackTrace();
+				}
+				catch(ArrayIndexOutOfBoundsException e) {
+					e.printStackTrace();
+					for(Observer view : game.getViews())
+						view.updateObserver(); //Prüft ob Game Over!
+				}
+				catch(IOException e) {
+					e.printStackTrace();
+				}
 		}
 	}
 }

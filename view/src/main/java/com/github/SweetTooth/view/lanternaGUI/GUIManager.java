@@ -4,6 +4,11 @@ import java.io.IOException;
 
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 
+import com.github.SweetTooth.model.events.Observer;
+
+import com.github.SweetTooth.view.panels.PanelContent;
+import com.github.SweetTooth.view.panels.MainPanelContent;
+
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
@@ -20,11 +25,12 @@ import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
-public class GUIManager {
+public class GUIManager implements Observer {
 	private Screen screen;
 	private MultiWindowTextGUI multiWindowTextGUI;
 	private SeparateTextGUIThread guiThread;
 	private LanternaController controller;
+	PanelContent mainPanelContent = new MainPanelContent(new GridLayout(2), controller);
 	
 	private SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
 			new RGB(0, 0, 0),		// base foreground
@@ -47,7 +53,6 @@ public class GUIManager {
 	}
 	
     public void start() throws IOException, InterruptedException {
-        MainPanelContent mainPanelContent = new MainPanelContent(new GridLayout(2), controller);
         mainPanelContent.createContent();
         mainPanelContent.addContent();
         mainPanelContent.initializeContent();
@@ -64,8 +69,24 @@ public class GUIManager {
     	guiThread = (SeparateTextGUIThread)multiWindowTextGUI.getGUIThread();
     	guiThread.start(); // ... this thread will continue while the GUI runs on a separate thread ...
     }
-
-    public void stop() throws IOException {
+    
+    @Override
+	public void addObserver() {
+		controller.getGame().getViews().add(this);
+	}
+    
+    @Override
+    public void removeObserver() {
+    	controller.getGame().getViews().remove(this);
+    }
+    
+    @Override
+    public void updateObserver() {
+    	mainPanelContent.updateContent();
+    }
+    
+    @Override
+    public void stopObserver() throws IOException {
     	if (guiThread != null)
             guiThread.stop();
     	

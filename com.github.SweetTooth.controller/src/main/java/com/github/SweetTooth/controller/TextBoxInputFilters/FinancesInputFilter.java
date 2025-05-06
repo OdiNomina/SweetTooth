@@ -1,7 +1,9 @@
 package com.github.SweetTooth.controller.TextBoxInputFilters;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
-import com.googlecode.lanterna.gui2.InputFilter;
+import com.github.SweetTooth.model.events.Event;
+import com.github.SweetTooth.model.events.Observer;
+import com.github.SweetTooth.model.games.Game;
+
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
@@ -9,8 +11,8 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 public class FinancesInputFilter extends TextBoxInputFilter {	
-	public FinancesInputFilter(String textBoxName, LanternaController controller){
-		super(textBoxName, controller);
+	public FinancesInputFilter(Game game, Event event, Interactable nextInFocus, Label answerBox){
+		super(nextInFocus, game, event, answerBox);
 	}
 	
 	@Override
@@ -28,7 +30,8 @@ public class FinancesInputFilter extends TextBoxInputFilter {
 					if(input > 100_000)
 						throw new NumberFormatException();
 					String eventAnswer = event.handle(null, null, input);
-					getPanelContent().updateContent();
+					for(Observer view : game.getViews())
+						view.updateObserver();
 					answerBox.setText(eventAnswer);
 					textbox.removeLine(0);
 					

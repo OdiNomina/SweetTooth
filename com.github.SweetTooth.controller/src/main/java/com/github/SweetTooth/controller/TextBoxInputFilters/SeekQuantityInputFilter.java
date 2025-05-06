@@ -1,15 +1,17 @@
 package com.github.SweetTooth.controller.TextBoxInputFilters;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
-import com.googlecode.lanterna.gui2.InputFilter;
+import com.github.SweetTooth.model.events.Event;
+import com.github.SweetTooth.model.games.Game;
+
 import com.googlecode.lanterna.gui2.Interactable;
+import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 public class SeekQuantityInputFilter extends TextBoxInputFilter {	
-	public SeekQuantityInputFilter(String textBoxName, LanternaController controller){
-		super(textBoxName, controller);
+	public SeekQuantityInputFilter(Game game, Event event, Interactable nextInFocus, Label answerBox){
+		super(nextInFocus, game, event, answerBox);
 	}
 	
 	@Override
@@ -24,7 +26,7 @@ public class SeekQuantityInputFilter extends TextBoxInputFilter {
 			try {
 				Integer input = Integer.parseInt(seekQuantity.getText().strip());
 				if(input > 100) throw new NumberFormatException();
-				getPanelContent().getButtons().get("seek").setEnabled(true).takeFocus();
+				nextInFocus.setEnabled(true).takeFocus();
 				seekQuantity.setEnabled(false);
 				return false;
 			}

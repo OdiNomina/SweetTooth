@@ -7,7 +7,7 @@ import com.github.SweetTooth.model.games.Game;
 import com.github.SweetTooth.model.snacks.Snackable;
 
 public abstract sealed class Event permits 
-	ApplyInterest, Buy, Deposit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw
+	ApplyInterest, Buy, Deposit, Exit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw //Update factory!
 {
 	//This nested record is used as a response container (... instead of an array).
 	public record Answer(String answer1, String answer2, String answer3) {}
@@ -39,6 +39,6 @@ public abstract sealed class Event permits
 		}
 	}
 	
-	abstract String handle(String stringInput, Integer integerInput, Double doubleInput);
-	abstract Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput);
+	public abstract String handle(String stringInput, Integer integerInput, Double doubleInput);
+	public abstract Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput);
 }

@@ -1,35 +1,12 @@
 package com.github.SweetTooth.controller.ButtonListeners;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
-import com.github.SweetTooth.model.events.Event;
-import com.github.SweetTooth.model.events.EventFactory;
-import com.github.SweetTooth.model.games.Game;
 import com.googlecode.lanterna.gui2.Button;
-import com.googlecode.lanterna.gui2.Label;
+import com.googlecode.lanterna.gui2.Interactable;
 
 abstract class ButtonListener implements Button.Listener {
-	EventFactory eventFactory;
-	Game game;
-	Event event;
-	Label answerBox;
+	Interactable nextInFocus;
 	
-	ButtonListener(String buttonName, LanternaController controller) {
-		eventFactory = controller.getEventFactory();
-		game = controller.getGame();
-		switchEvent(buttonName);
-		switchAnswerBox(buttonName);
-	}
-	
-	void switchEvent(String buttonName) {
-		switch(buttonName) {
-			case "hide" -> event = eventFactory.create("Hide", game);
-			case "seek" -> event = eventFactory.create("Seek", game);
-		}
-	}
-	
-	void switchAnswerBox(String buttonName) {
-		switch(buttonName) {
-			case "hide", "seek" -> answerBox = getPanelContent().getLabels().get("hideSeekInfo");
-		}
+	ButtonListener(Interactable nextInFocus) {
+		this.nextInFocus = nextInFocus;
 	}
 }

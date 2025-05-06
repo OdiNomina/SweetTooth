@@ -1,9 +1,11 @@
 package com.github.SweetTooth.model.games;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.github.SweetTooth.model.characters.MoneyDealer;
 import com.github.SweetTooth.model.characters.Player;
+import com.github.SweetTooth.model.events.Observer;
 
 public class Game {
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);
@@ -13,6 +15,7 @@ public class Game {
 		return TRAVEL_COSTS;
 	}
 	
+	private ArrayList<Observer> views = new ArrayList<>();
 	private int dayOfGame = Integer.valueOf(1);
 	private Player player;
 	private MoneyDealer bank;
@@ -39,6 +42,10 @@ public class Game {
 	
 	public Player getPlayer() {
 		return player;
+	}
+	
+	public ArrayList<Observer> getViews() {
+		return views;
 	}
 	
 	public void increaseDayOfGame(int numberOfDays) throws IOException {

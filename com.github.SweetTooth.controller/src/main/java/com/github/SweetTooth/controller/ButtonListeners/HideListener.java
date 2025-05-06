@@ -1,17 +1,30 @@
 package com.github.SweetTooth.controller.ButtonListeners;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+import com.github.SweetTooth.model.events.Event;
+import com.github.SweetTooth.model.events.Observer;
+import com.github.SweetTooth.model.games.Game;
+
 import com.googlecode.lanterna.gui2.Button;
+import com.googlecode.lanterna.gui2.Interactable;
+import com.googlecode.lanterna.gui2.Label;
 
 public class HideListener extends ButtonListener {
-	public HideListener(String buttonName, LanternaController controller) {
-		super(buttonName, controller);
+	Game game;
+	Event event;
+	Label[] answerBox;
+	
+	public HideListener(Interactable nextInFocus, Game game, Event event, Label... answerBox) {
+		super(nextInFocus);
+		this.game = game;
+		this.event = event;
+		this.answerBox = answerBox;
 	}
 	
 	@Override
 	public void onTriggered(Button button) {
-		String answer = getEventFactory().create("Hide", getGame()).handle(null, null, null);
-		getPanelContent().updateContent();
-		getPanelContent().getLabels().get("hideSeekInfo").setText(answer);
+		String answer = event.handle(null, null, null);
+		for(Observer view : game.getViews())
+			view.updateObserver();
+		answerBox[0].setText(answer);
 	}
 }

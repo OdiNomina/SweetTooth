@@ -1,18 +1,19 @@
 package com.github.SweetTooth.controller.comboBoxListeners;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 import com.googlecode.lanterna.gui2.ComboBox;
+import com.googlecode.lanterna.gui2.Interactable;
+
 
 public class BuySelectionListener extends ComboBoxListener {
-	public BuySelectionListener(String comboBoxName, LanternaController controller) {
-		super(comboBoxName, controller);
+	public BuySelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus) {
+		super(thisComboBox, nextInFocus);
 	}
 	
 	@Override
 	public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
 		if(changedByUserInteraction) {
-			getPanelContent().getComboBoxes().get("buySelection").setEnabled(false);
-			getPanelContent().getTextBoxesIT().get("buyQuantity").setEnabled(true).takeFocus();
+			thisComboBox.setEnabled(false);
+			nextInFocus.setEnabled(true).takeFocus();
 		}
 	}
 }

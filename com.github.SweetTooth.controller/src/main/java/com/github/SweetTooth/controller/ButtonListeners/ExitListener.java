@@ -2,18 +2,26 @@ package com.github.SweetTooth.controller.ButtonListeners;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+import com.github.SweetTooth.model.events.Event;
+import com.github.SweetTooth.model.events.Observer;
+import com.github.SweetTooth.model.games.Game;
+
 import com.googlecode.lanterna.gui2.Button;
+import com.googlecode.lanterna.gui2.Interactable;
 
 public class ExitListener extends ButtonListener {
-	public ExitListener(String buttonName, LanternaController controller) {
-		super(buttonName, controller);
+	Game game;
+	
+	public ExitListener(Interactable nextInFocus, Game game, Event event) {
+		super(nextInFocus);
+		this.game = game;
 	}
 	
 	@Override
 	public void onTriggered(Button button) {
 		try {
-			guiManager.stop();
+			for(Observer view : game.getViews())
+				view.stopObserver();
 		}
 		catch (IOException e) {
 			e.printStackTrace();

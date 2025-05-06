@@ -10,6 +10,7 @@ public class DefaultEventFactory extends EventFactory {
 			case "ApplyInterest" -> instance = new ApplyInterest();
 			case "Buy" -> instance = new Buy(); 
 			case "Deposit" -> instance = new Deposit();
+			case "Exit" -> instance = new Exit();
 			case "GiveMoneyBack" -> instance = new GiveMoneyBack();
 			case "Hide" -> instance = new Hide();
 			case "Lend" -> instance = new Lend();
