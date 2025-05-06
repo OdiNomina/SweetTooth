@@ -1,6 +1,8 @@
-package com.github.SweetTooth.controller.comboBoxListeners;
+package com.github.SweetTooth.controller.controllerAPI;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+import com.github.SweetTooth.controller.comboBoxListeners.BuySelectionListener;
+import com.github.SweetTooth.controller.comboBoxListeners.LocationSelectionListener;
+import com.github.SweetTooth.controller.comboBoxListeners.SellSelectionListener;
 
 import com.github.SweetTooth.model.events.Event;
 import com.github.SweetTooth.model.games.Game;

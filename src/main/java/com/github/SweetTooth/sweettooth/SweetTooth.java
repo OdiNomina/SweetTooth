@@ -1,10 +1,12 @@
 package com.github.SweetTooth.sweettooth;
 
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+
 import com.github.SweetTooth.model.characters.Bank;
 import com.github.SweetTooth.model.characters.LoanShark;
 import com.github.SweetTooth.model.characters.Player;
 import com.github.SweetTooth.model.games.Game;
+
 import com.github.SweetTooth.view.lanternaGUI.GUIManager;
 
 public class SweetTooth {

@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.TextBoxInputFilters;
+package com.github.SweetTooth.controller.textBoxInputFilters;
 
 import com.github.SweetTooth.model.events.Event;
 import com.github.SweetTooth.model.games.Game;

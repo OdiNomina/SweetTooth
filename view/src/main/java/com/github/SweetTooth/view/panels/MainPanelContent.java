@@ -1,6 +1,7 @@
 package com.github.SweetTooth.view.panels;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 
@@ -8,6 +9,8 @@ import com.github.SweetTooth.model.characters.MoneyDealer;
 import com.github.SweetTooth.model.characters.Player;
 import com.github.SweetTooth.model.games.Game;
 import com.github.SweetTooth.model.locations.Location;
+import com.github.SweetTooth.model.snacks.CandyFactory;
+import com.github.SweetTooth.model.snacks.Snackable;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;
@@ -304,44 +307,81 @@ public class MainPanelContent extends PanelContent {
 	public void updateContent() {
 		labels.get("currentDay").setText(Integer.toString(game.getDayOfGame()));
 	    labels.get("currentLocation").setText(player.getLocation().getOfficialName());
-	    labels.get("cash").setText(controller.formatMoney(player.getCash()));
+	    labels.get("cash").setText(formatMoney(player.getCash()));
 	    labels.get("buySellInfo").setText("");
 	    labels.get("hideSeekInfo").setText("");
-	    labels.get("bankBalance").setText(controller.formatMoney(bank.getBalance(player)));
+	    labels.get("bankBalance").setText(formatMoney(bank.getBalance(player)));
 	    labels.get("bankInfo").setText("");
-	    labels.get("loansharkBalance").setText(controller.formatMoney(loanShark.getBalance(player)));
+	    labels.get("loansharkBalance").setText(formatMoney(loanShark.getBalance(player)));
 	    labels.get("loansharkInfo").setText("");
-	    labels.get("ticketPrice").setText(controller.formatMoney(Game.getTravelCosts()));
+	    labels.get("ticketPrice").setText(formatMoney(Game.getTravelCosts()));
 	    labels.get("travel1").setText("");
 	    labels.get("travel2").setText("");
 	    labels.get("travel3").setText("");
 	    labels.get("travelInterest").setText("");
 	    
 	    textBoxes.get("seekQuantity").setText("");
-	    textBoxes.get("balanceSheet").setText(controller.formatBalanceSheet());
+	    textBoxes.get("balanceSheet").setText(formatBalanceSheet());
 	    
-	    ArrayList<String> sweetsList = controller.formatSnacks(player.getCandies());
+	    ArrayList<String> sweetsList = formatSnacks(player.getCandies());
 	    ComboBox<String> sweetsInPockets = comboBoxes.get("sweetsInPockets").clearItems();
 	    for(String s : sweetsList)
 	    	sweetsInPockets.addItem(s);
 	    
-	    ArrayList<String> buyList = controller.formatDefaultCandies();
+	    ArrayList<String> buyList = formatDefaultCandies();
 	    ComboBox<String> buySelection = comboBoxes.get("buySelection").clearItems();
 	    for(String s : buyList)
 	    	buySelection.addItem(s);
 	
 	    
-	    ArrayList<String> sellList = controller.formatDefaultCandies();
+	    ArrayList<String> sellList = formatDefaultCandies();
 	    ComboBox<String> sellSelection = comboBoxes.get("sellSelection").clearItems();
 	    for(String s : sellList)
 	    	sellSelection.addItem(s);
 	
-	    ArrayList<String> stashList = controller.formatSnacks(player.getCandyStash());
+	    ArrayList<String> stashList = formatSnacks(player.getCandyStash());
 	    ComboBox<String> stash = comboBoxes.get("stash").clearItems();
 	    for(String s : stashList)
 	    	stash.addItem(s);
 	    
 	    if(game.isGameOver())
 	    	disableComponents();
+	}
+    
+    private String formatBalanceSheet() {
+		double cash = player.getCash();
+		double loan = loanShark.getBalance(player);
+		double balance = bank.getBalance(player);
+		StringBuffer answer = new StringBuffer();
+		answer.append(String.format("Cash: %,.2f", cash))
+			.append(String.format(" | Kredithai: %,.2f", loan))
+			.append(String.format(" | Bankkonto: %,.2f", balance))
+			.append(String.format("\nSaldo: %,.2f", cash + loan + balance));
+		return answer.toString();
+	}
+	
+	private ArrayList<String> formatDefaultCandies() {
+	    ArrayList<? extends Snackable> candies = new CandyFactory().getDefaultSnacks();
+	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
+    	ArrayList<String> formattedList = new ArrayList<>();
+	    for(Snackable s : candies)
+	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), MoneyDealer.getCurrency()));
+	    return formattedList;
+	}
+	
+	private String formatMoney(double money) {
+	   return String.format("%,.2f %s", money, MoneyDealer.getCurrency());
+    }
+
+	private ArrayList<String> formatSnacks(ArrayList<? extends Snackable> snacks){
+		snacks.sort(Comparator.comparing(Snackable::getName));
+		ArrayList<String> formattedList = new ArrayList<>();
+		if(snacks.isEmpty()) {
+			formattedList.add("Nix drin!");
+			return formattedList;
+		}
+		for(Snackable s : snacks)
+			formattedList.add(String.format("%d | %s", s.getQuantity(), s.getName()));
+		return formattedList;
 	}
 }

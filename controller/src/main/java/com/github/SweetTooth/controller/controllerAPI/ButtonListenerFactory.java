@@ -1,8 +1,12 @@
-package com.github.SweetTooth.controller.ButtonListeners;
+package com.github.SweetTooth.controller.controllerAPI;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+import com.github.SweetTooth.controller.ButtonListeners.ExitListener;
+import com.github.SweetTooth.controller.ButtonListeners.HideListener;
+import com.github.SweetTooth.controller.ButtonListeners.SeekListener;
+
 import com.github.SweetTooth.model.events.Event;
 import com.github.SweetTooth.model.games.Game;
+
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;

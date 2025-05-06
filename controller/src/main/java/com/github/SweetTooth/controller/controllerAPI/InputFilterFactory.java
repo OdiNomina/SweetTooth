@@ -1,7 +1,8 @@
-package com.github.SweetTooth.controller.TextBoxInputFilters;
+package com.github.SweetTooth.controller.controllerAPI;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
-
+import com.github.SweetTooth.controller.textBoxInputFilters.DealInputFilter;
+import com.github.SweetTooth.controller.textBoxInputFilters.FinancesInputFilter;
+import com.github.SweetTooth.controller.textBoxInputFilters.SeekQuantityInputFilter;
 import com.github.SweetTooth.model.events.Event;
 import com.github.SweetTooth.model.games.Game;
 
