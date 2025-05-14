@@ -7,6 +7,8 @@ import com.github.SweetTooth.model.snacks.CandyFactory;
 final class Seek extends Event {
 	@Override
 	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
+		if(integerInput == 0)
+			return "";
 		stringInput = splitStringInput(stringInput);
 		if(!isAtHometown())
 			return notAtHometown;

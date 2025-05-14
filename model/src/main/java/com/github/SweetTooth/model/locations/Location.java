@@ -1,7 +1,5 @@
 package com.github.SweetTooth.model.locations;
 
-import java.io.ObjectStreamException;
-
 public enum Location {
 	BRONX("Bronx", 1),
 	GHETTO("Ghetto", 1.1),

@@ -20,11 +20,9 @@ public class FinancesInputFilter extends TextBoxInputFilter {
 		TextBox textbox = (TextBox) interactable;
 		
 		if(keyStroke.getKeyType() == KeyType.Enter) {
-			if(textbox.getText().isBlank()) {
+			if(textbox.getText().isBlank())
 				textbox.removeLine(0);
-    			return false;
-			}
-			else {
+			else
 				try {
 					Double input = Double.parseDouble(textbox.getText().strip());
 					if(input > 100_000)
@@ -34,15 +32,13 @@ public class FinancesInputFilter extends TextBoxInputFilter {
 						view.updateObserver();
 					answerBox.setText(eventAnswer);
 					textbox.removeLine(0);
-					
-					return false;
+					nextInFocus.takeFocus();
 				}
 				catch(NumberFormatException e) {
 					textbox.removeLine(0);
 					answerBox.setText("Du musst eine Zahl eingeben! (<= 100.000)");
-        			return false;
 				}
-			}
+			return false;
 		}
 		return true;
 	}

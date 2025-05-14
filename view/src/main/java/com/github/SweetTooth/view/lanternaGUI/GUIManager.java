@@ -3,11 +3,8 @@ package com.github.SweetTooth.view.lanternaGUI;
 import java.io.IOException;
 
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
-
 import com.github.SweetTooth.model.events.Observer;
-
-import com.github.SweetTooth.view.panels.PanelContent;
-import com.github.SweetTooth.view.panels.MainPanelContent;
+import com.github.SweetTooth.view.panels.*;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.RGB;
@@ -25,12 +22,13 @@ import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
+@SuppressWarnings("exports")
 public class GUIManager implements Observer {
 	private Screen screen;
 	private MultiWindowTextGUI multiWindowTextGUI;
 	private SeparateTextGUIThread guiThread;
 	private LanternaController controller;
-	PanelContent mainPanelContent = new MainPanelContent(new GridLayout(2), controller);
+	private PanelContent mainPanelContent;
 	
 	private SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
 			new RGB(0, 0, 0),		// base foreground
@@ -50,6 +48,7 @@ public class GUIManager implements Observer {
 		multiWindowTextGUI = new MultiWindowTextGUI(new SeparateTextGUIThread.Factory(), screen, windowManager, postRenderer, background);
 		
 		this.controller = controller;
+		mainPanelContent = new MainPanelContent(new GridLayout(2), controller);
 	}
 	
     public void start() throws IOException, InterruptedException {
@@ -81,15 +80,17 @@ public class GUIManager implements Observer {
     }
     
     @Override
+	public void stopObserver() throws IOException {
+		if (guiThread != null)
+	        guiThread.stop();
+		
+		screen.stopScreen();
+	}
+
+	@Override
     public void updateObserver() {
-    	mainPanelContent.updateContent();
-    }
-    
-    @Override
-    public void stopObserver() throws IOException {
-    	if (guiThread != null)
-            guiThread.stop();
-    	
-    	screen.stopScreen();
+    	if(controller.getGame().isGameOver())
+    		mainPanelContent.gameOverConfig();
+   		mainPanelContent.updateContent();
     }
 }

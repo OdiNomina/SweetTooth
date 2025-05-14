@@ -19,22 +19,21 @@ public class SeekQuantityInputFilter extends TextBoxInputFilter {
 		TextBox seekQuantity = (TextBox) interactable;
 		
 		if(keyStroke.getKeyType() == KeyType.Enter) {
-			if(seekQuantity.getText().isBlank()) { 
+			if(seekQuantity.getText().isBlank())
 				seekQuantity.removeLine(0);
-    			return false;
-			}
-			try {
-				Integer input = Integer.parseInt(seekQuantity.getText().strip());
-				if(input > 100) throw new NumberFormatException();
-				nextInFocus.setEnabled(true).takeFocus();
-				seekQuantity.setEnabled(false);
-				return false;
-			}
-			catch(NumberFormatException e) {
-				seekQuantity.removeLine(0);
-				answerBox.setText("Du musst eine Zahl eingeben! (<= 100)");
-    			return false;
-			}
+			else
+				try {
+					Integer input = Integer.parseInt(seekQuantity.getText().strip());
+					if(input > 100) throw new NumberFormatException();
+					nextInFocus.setEnabled(true).takeFocus();
+					seekQuantity.setEnabled(false);
+				}
+				catch(NumberFormatException e) {
+					seekQuantity.removeLine(0);
+					answerBox.setText("Du musst eine Zahl eingeben! (<= 100)");
+				}
+			nextInFocus.takeFocus();
+			return false;
 		}
 		return true;
 	}

@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.ButtonListeners;
+package com.github.SweetTooth.controller.buttonListeners;
 
 import java.io.IOException;
 

@@ -24,6 +24,7 @@ public abstract class PanelContent extends Panel {
 	public abstract void addContent();
 	public abstract void addInputHandling();
 	public abstract void createContent();
+	public abstract void gameOverConfig();
 	public abstract void initializeContent();
 	public abstract void updateContent();
 }

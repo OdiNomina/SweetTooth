@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.ButtonListeners;
+package com.github.SweetTooth.controller.buttonListeners;
 
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.Interactable;

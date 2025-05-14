@@ -4,17 +4,17 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
-    	<groupId>com.github.SweetTooth</groupId>
-    	<artifactId>SweetTooth</artifactId>
-    	<version>1.0.2-SNAPSHOT</version>
+		<groupId>com.github.SweetTooth</groupId>
+		<artifactId>SweetTooth</artifactId>
+		<version>1.0.2-SNAPSHOT</version>
 	</parent>
-	
-	<artifactId>controller</artifactId>
+
+	<artifactId>launcher</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-  	<name>com.github.SweetTooth.controller</name>
-  	
-  	<properties>
+	<name>com.github.SweetTooth.launcher</name>
+	
+	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -27,9 +27,14 @@
 		    <version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>com.googlecode.lanterna</groupId>
-			<artifactId>lanterna</artifactId>
-			<version>3.1.2</version>
+		    <groupId>com.github.SweetTooth</groupId>
+		    <artifactId>controller</artifactId>
+		    <version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.github.SweetTooth</groupId>
+		    <artifactId>view</artifactId>
+		    <version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 	

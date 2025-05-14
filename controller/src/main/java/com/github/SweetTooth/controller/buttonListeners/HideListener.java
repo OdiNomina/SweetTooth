@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.ButtonListeners;
+package com.github.SweetTooth.controller.buttonListeners;
 
 import com.github.SweetTooth.model.events.Event;
 import com.github.SweetTooth.model.events.Observer;
@@ -26,5 +26,6 @@ public class HideListener extends ButtonListener {
 		for(Observer view : game.getViews())
 			view.updateObserver();
 		answerBox[0].setText(answer);
+		nextInFocus.takeFocus();
 	}
 }

@@ -11,6 +11,7 @@ import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 
+@SuppressWarnings("exports")
 public class ComboBoxListenerFactory {
 	private LanternaController controller;
 	
@@ -32,3 +33,4 @@ public class ComboBoxListenerFactory {
 		}
 	}
 }
+

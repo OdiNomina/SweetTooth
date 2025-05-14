@@ -20,4 +20,45 @@
 		<maven.compiler.target>21</maven.compiler.target>
 	</properties>
 	
+	<dependencies>
+		<dependency>
+	        <groupId>com.github.SweetTooth</groupId>
+	        <artifactId>controller</artifactId>
+	        <version>1.0.0-SNAPSHOT</version>
+	    </dependency>
+	    <dependency>
+	        <groupId>com.github.SweetTooth</groupId>
+	        <artifactId>model</artifactId>
+	        <version>1.0.0-SNAPSHOT</version>
+	    </dependency>
+		<dependency>
+			<groupId>com.googlecode.lanterna</groupId>
+			<artifactId>lanterna</artifactId>
+			<version>3.1.2</version>
+		</dependency>
+	</dependencies>
+	
+	<!--
+	<build>
+	    <plugins>
+	        <plugin>
+	            <groupId>org.apache.maven.plugins</groupId>
+	            <artifactId>maven-compiler-plugin</artifactId>
+	            <version>3.11.0</version>
+	            <configuration>
+	                <release>21</release>
+	                <compilerArgs>
+	                    <arg>-(-)module-path</arg>
+	                    <arg>${project.build.outputDirectory}</arg>
+	                </compilerArgs>
+	            </configuration>
+	        </plugin>
+	        <!-(-) Plugin, das Eclipse hilft, Module korrekt zu behandeln:
+	        Rechtsklick auf Projekt → Maven > Update Project
+			Rechtsklick → Run As > Maven Build… > Gib clean install ein
+			Damit wird der Build korrekt modularisiert – sogar ohne dass Eclipse manuell eingreifen muss.
+	    </plugins>
+	</build>
+	-->
+	
 </project>

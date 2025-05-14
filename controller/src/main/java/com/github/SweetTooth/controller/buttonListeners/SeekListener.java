@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.ButtonListeners;
+package com.github.SweetTooth.controller.buttonListeners;
 
 import com.github.SweetTooth.model.events.Event;
 import com.github.SweetTooth.model.events.Observer;
@@ -29,13 +29,20 @@ public class SeekListener extends ButtonListener {
 	@Override
 	public void onTriggered(Button button) {
 		String snackInput = associatedComboBox.getSelectedItem();
-		Integer snackQuantity = Integer.parseInt(associatedTextBox.getText());
+		Integer snackQuantity;
+		try {
+			snackQuantity = Integer.parseInt(associatedTextBox.getText());
+		}
+		catch(NumberFormatException e) {
+			e.printStackTrace();
+			snackQuantity = 0;
+		}
 		String answer = event.handle(snackInput, snackQuantity, null);
 		for(Observer view : game.getViews())
 			view.updateObserver();
 		answerBox[0].setText(answer);
-		nextInFocus.takeFocus();
 		associatedTextBox.setEnabled(true);
 		button.setEnabled(false);
+		nextInFocus.takeFocus();
 	}
 }

@@ -27,11 +27,9 @@ public class DealInputFilter extends TextBoxInputFilter {
 			return true;
 		
 		if(keyStroke.getKeyType() == KeyType.Enter) {
-			if(textbox.getText().isBlank()) {
+			if(textbox.getText().isBlank())
 				textbox.removeLine(0);
-    			return false;
-			}
-			else {
+			else
 				try {
 					Integer input = Integer.parseInt(textbox.getText().strip());
 					if(input > 100)
@@ -39,17 +37,15 @@ public class DealInputFilter extends TextBoxInputFilter {
 					String eventAnswer = event.handle(associatedComboBox.getSelectedItem(), input, null);
 					for(Observer view : game.getViews())
 						view.updateObserver();
-					associatedComboBox.setEnabled(true).takeFocus();
+					associatedComboBox.setEnabled(true);
 					textbox.setEnabled(false);
 					answerBox.setText(eventAnswer);
-					return false;
 				}
 				catch(NumberFormatException e) {
 					textbox.removeLine(0);
 					answerBox.setText("Du musst eine Zahl eingeben! (<= 100)");
-        			return false;
 				}
-			}
+			nextInFocus.takeFocus();
 		}
 		return false;
 	}

@@ -1,5 +1,5 @@
-module com.github.SweetTooth {
-	exports com.github.SweetTooth.sweettooth;
+module com.github.SweetTooth.launcher {
+	exports com.github.SweetTooth.launcher.app;
 	
 	requires com.github.SweetTooth.controller;
 	requires com.github.SweetTooth.model;

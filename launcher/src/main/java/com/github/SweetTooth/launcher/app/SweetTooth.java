@@ -1,4 +1,4 @@
-package com.github.SweetTooth.sweettooth;
+package com.github.SweetTooth.launcher.app;
 
 import com.github.SweetTooth.controller.controllerAPI.LanternaController;
 
@@ -16,6 +16,7 @@ public class SweetTooth {
 			Game game = new Game(new Player(null), new Bank(), new LoanShark());
 			LanternaController controller = new LanternaController(game);
 	    	GUIManager guiManager = new GUIManager(controller);
+	    	guiManager.addObserver();
 	        guiManager.start();
 	    }
 		catch(RuntimeException e) {

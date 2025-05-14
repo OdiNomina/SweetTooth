@@ -11,6 +11,7 @@ import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
 
+@SuppressWarnings("exports")
 public class LanternaController {
 	private Game game;
 	private EventFactory eventFactory = new DefaultEventFactory();

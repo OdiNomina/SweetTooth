@@ -7,7 +7,7 @@
 	<artifactId>SweetTooth</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>SweetTooth</name>
+    <name>com.github.SweetTooth.SweetTooth</name>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -17,16 +17,9 @@
   
   	<modules>
 		<module>model</module>
-		<module>view</module>
 		<module>controller</module>
+		<module>view</module>
+		<module>launcher</module>
   	</modules>
-  
-	<dependencies>
-		<dependency>
-			<groupId>com.googlecode.lanterna</groupId>
-			<artifactId>lanterna</artifactId>
-			<version>3.1.2</version>
-		</dependency>
-	</dependencies>
-	
+  	
 </project>

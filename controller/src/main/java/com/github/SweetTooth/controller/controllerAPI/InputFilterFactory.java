@@ -11,6 +11,7 @@ import com.googlecode.lanterna.gui2.InputFilter;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 
+@SuppressWarnings("exports")
 public class InputFilterFactory {
 	private LanternaController controller;
 	

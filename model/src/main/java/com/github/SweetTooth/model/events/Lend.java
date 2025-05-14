@@ -9,7 +9,7 @@ final class Lend extends Event {
 		if(!isAtHometown()) 
 			return notAtHometown;
 
-		double amount = doubleInput != 0 ? doubleInput : integerInput;
+		double amount = doubleInput > 0 ? doubleInput : 0;
 		MoneyDealer loanShark =  game.getLoanShark();
 		Player player = game.getPlayer();
 		if(loanShark.getBalance(player) < 0)

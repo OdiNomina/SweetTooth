@@ -9,7 +9,7 @@ final class GiveMoneyBack extends Event {
 		if(!isAtHometown()) 
 			return notAtHometown;
 		
-		double amount = doubleInput != 0 ? doubleInput : integerInput;
+		double amount = doubleInput > 0 ? doubleInput : 0;
 		amount = Math.round(amount * 100) / 100.00;
 		MoneyDealer loanShark =  game.getLoanShark();
 		Player player = game.getPlayer();
