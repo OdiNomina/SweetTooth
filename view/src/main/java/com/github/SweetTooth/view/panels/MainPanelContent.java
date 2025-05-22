@@ -3,8 +3,7 @@ package com.github.SweetTooth.view.panels;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
-
+import com.github.SweetTooth.controller.api.LanternaController;
 import com.github.SweetTooth.model.characters.MoneyDealer;
 import com.github.SweetTooth.model.characters.Player;
 import com.github.SweetTooth.model.games.Game;

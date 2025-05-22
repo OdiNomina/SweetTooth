@@ -2,7 +2,7 @@ package com.github.SweetTooth.view.lanternaGUI;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.controller.controllerAPI.LanternaController;
+import com.github.SweetTooth.controller.api.LanternaController;
 import com.github.SweetTooth.model.events.Observer;
 import com.github.SweetTooth.view.panels.*;
 

@@ -10,6 +10,7 @@ import com.googlecode.lanterna.gui2.Panel;
 import com.googlecode.lanterna.gui2.TextBox;
 
 
+@SuppressWarnings("exports")
 public abstract class PanelContent extends Panel {
 	final ConcurrentHashMap<String, Label> labels = new ConcurrentHashMap<>();
 	final ConcurrentHashMap<String, TextBox> textBoxes = new ConcurrentHashMap<>();
