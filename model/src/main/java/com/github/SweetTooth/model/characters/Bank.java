@@ -13,7 +13,7 @@ non-sealed public class Bank extends MoneyDealer {
 	
 	@Override
 	public Double applyInterestToBalance(Player player) {
-		Client bankClient = findClientByIdentity((Player)player);
+		Client bankClient = findClientByIdentity(player);
 		double interest = 0;
 		if(bankClient != null) {
 			if(bankClient.getBalance() < 0)
@@ -40,7 +40,7 @@ non-sealed public class Bank extends MoneyDealer {
 	
 	@Override
 	public double getBalance(Player player) {
-		Client bankClient = findClientByIdentity((Player) player);
+		Client bankClient = findClientByIdentity(player);
 		if(bankClient == null)
 			return 0.0;
 		return bankClient.getBalance();
@@ -63,12 +63,12 @@ non-sealed public class Bank extends MoneyDealer {
 
 	@Override
 	public void increaseClientsBalance(Player player, double amount) {
-		getExistingOrNewClient((Player)player).addAmount(amount);
+		getExistingOrNewClient(player).addAmount(amount);
 	}
 	
 	@Override
 	public void reduceClientsBalance(Player player, double amount) {
-		getExistingOrNewClient((Player)player).removeAmount(amount);
+		getExistingOrNewClient(player).removeAmount(amount);
 	}
 
 	@Override
