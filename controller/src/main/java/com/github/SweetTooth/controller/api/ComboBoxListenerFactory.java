@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.controllerAPI;
+package com.github.SweetTooth.controller.api;
 
 import com.github.SweetTooth.controller.comboBoxListeners.BuySelectionListener;
 import com.github.SweetTooth.controller.comboBoxListeners.LocationSelectionListener;
@@ -33,4 +33,3 @@ public class ComboBoxListenerFactory {
 		}
 	}
 }
-

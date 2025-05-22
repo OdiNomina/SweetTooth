@@ -11,7 +11,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 public class FinancesInputFilter extends TextBoxInputFilter {	
-	public FinancesInputFilter(Game game, Event event, Interactable nextInFocus, Label answerBox){
+	public FinancesInputFilter(Game game, Event event, Interactable nextInFocus, Label answerBox) {
 		super(nextInFocus, game, event, answerBox);
 	}
 	

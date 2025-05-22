@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.controllerAPI;
+package com.github.SweetTooth.controller.api;
 
 import com.github.SweetTooth.controller.buttonListeners.ExitListener;
 import com.github.SweetTooth.controller.buttonListeners.HideListener;

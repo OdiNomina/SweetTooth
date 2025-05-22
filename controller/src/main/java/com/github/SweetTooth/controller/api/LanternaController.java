@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.controllerAPI;
+package com.github.SweetTooth.controller.api;
 
 import com.github.SweetTooth.model.games.Game;
 import com.github.SweetTooth.model.events.EventFactory;
@@ -14,13 +14,20 @@ import com.googlecode.lanterna.gui2.TextBox;
 @SuppressWarnings("exports")
 public class LanternaController {
 	private Game game;
-	private EventFactory eventFactory = new DefaultEventFactory();
-	private InputFilterFactory inputFilterFactory = new InputFilterFactory(this);
-	private ButtonListenerFactory buttonListenerFactory = new ButtonListenerFactory(this);
-	private ComboBoxListenerFactory comboBoxListenerFactory = new ComboBoxListenerFactory(this);
+	private EventFactory eventFactory;
+	private InputFilterFactory inputFilterFactory;
+	private ButtonListenerFactory buttonListenerFactory;
+	private ComboBoxListenerFactory comboBoxListenerFactory;
 	
 	public LanternaController(Game game) {
 		this.game = game;
+		eventFactory = new DefaultEventFactory();
+	}
+	
+	public void initialize() {
+		inputFilterFactory = new InputFilterFactory(this);
+		buttonListenerFactory = new ButtonListenerFactory(this);
+		comboBoxListenerFactory = new ComboBoxListenerFactory(this);
 	}
 	
 	public Game getGame() {
