@@ -22,7 +22,7 @@ public abstract sealed class Candy implements Cloneable, Snackable permits
 		this.minPrice = minPrice;
 		this.maxPrice = maxPrice;
 	}
-
+	
 	/*
 	 * Typ-Inferenz: Aus dem Ergebnistyp (Zuweisung bei Aufruf) leitet der Compiler das Typargument der Rückgabe ab.
 	 * (Java Insel - 12.1.7 Generische Methoden/Konstruktoren und Typ-Inferenz | Knappe Fabrikmethoden)
@@ -42,12 +42,12 @@ public abstract sealed class Candy implements Cloneable, Snackable permits
 		Candy other = (Candy) obj;
 		return Objects.equals(name, other.name) && quantity == other.quantity;
 	}
-
+	
 	@Override
 	public String getName() {
 		return name;
 	}
-
+	
 	@Override
 	public int getQuantity() {
 		return quantity;
@@ -82,6 +82,6 @@ public abstract sealed class Candy implements Cloneable, Snackable permits
 		newPrice *= location.getPriceFactor();
 		setStaticPrice(newPrice);
 	}
-
+	
 	abstract void setStaticPrice(double rounded);
 }

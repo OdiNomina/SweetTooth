@@ -15,6 +15,8 @@ public abstract sealed class Event permits
 	Game game;
 	String notAtHometown = "Du bist nicht in deiner Heimatstadt.";
 	
+	Event(){}
+	
 	boolean isTooMuchToCarry(int quantity){
 		int sumInPockets = 0;
 		ArrayList<? extends Snackable> candies = game.getPlayer().getCandies();
@@ -38,7 +40,7 @@ public abstract sealed class Event permits
 			else return input;
 		}
 	}
-	
+
 	public abstract String handle(String stringInput, Integer integerInput, Double doubleInput);
 	public abstract Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput);
 }

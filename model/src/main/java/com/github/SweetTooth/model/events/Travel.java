@@ -23,7 +23,7 @@ final class Travel extends Event {
 		}
 		player.setLocation(Location.valueOf(stringInput));
 		Snackable.changeCandyPrices(new CandyFactory().getDefaultSnacks(), player.getLocation());
-		String infoChangePrices = "Die Marktpreise haben sich geändert.";
+		String infoChangePrices = "(Die Marktpreise haben sich geändert.)";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")
 					.append(Experience.randomExperience().process(player))

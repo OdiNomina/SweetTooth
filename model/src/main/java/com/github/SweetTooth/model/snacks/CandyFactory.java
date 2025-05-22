@@ -7,6 +7,8 @@ import com.github.SweetTooth.model.locations.Location;
 public class CandyFactory extends SnackFactory {	
 	private static final ArrayList<Candy> defaultSnacks = new ArrayList<>();
 	
+	public CandyFactory(){}
+	
 	@Override
 	public Candy create(String snackName) {
 		throw new UnsupportedOperationException();

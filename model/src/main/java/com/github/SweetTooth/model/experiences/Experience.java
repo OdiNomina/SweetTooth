@@ -5,6 +5,8 @@ import com.github.SweetTooth.model.characters.Player;
 public abstract sealed class Experience permits 
 	Eating, Gift, MuggingCandies, MuggingCash, NoopEvent
 {	
+	Experience(){}
+	
 	public static Experience randomExperience(){
 		double random = Math.random();
 		if(random < 0.1) return new MuggingCash();

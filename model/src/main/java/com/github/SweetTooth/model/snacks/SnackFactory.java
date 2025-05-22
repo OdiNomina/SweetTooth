@@ -3,6 +3,8 @@ package com.github.SweetTooth.model.snacks;
 import java.util.ArrayList;
 
 public abstract class SnackFactory {
+	SnackFactory(){}
+	
 	public abstract Snackable create(String snackName);
 	public abstract ArrayList<? extends Snackable> getDefaultSnacks(); //Generics sind nicht kovariant
 	

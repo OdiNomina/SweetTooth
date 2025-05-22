@@ -3,6 +3,8 @@ package com.github.SweetTooth.model.events;
 import com.github.SweetTooth.model.games.Game;
 
 public class DefaultEventFactory extends EventFactory {
+	public DefaultEventFactory(){}
+	
 	@Override
 	public Event create(String event, Game game) {
 		Event instance = null; 
