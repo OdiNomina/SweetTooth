@@ -1,21 +1,42 @@
-# Created by https://www.toptal.com/developers/gitignore/api/eclipse
-# Customized by OdiNomina
-
-### Privates ###
+##### Privates
 commitInProgress.txt
-mavenVersion.txt
 
-### Eclipse ###
-*.class
-.metadata
+##### Build and Run via batch skript
+_LOGFILES/
+_TEMP/
+
+##### Maven
+pom.xml
+target/
+
+##### Shared libraries
+lib/
+
+##### Java
+#compiled source code
 bin/
+*.class
+
+##### Eclipse
+#Workspace settings
+.metadata
+
+#Project preferences, deviating from the default settings.
+.settings/
+
+# Automatically created and may be changed automatically.
+.project
+.classpath
+
+
+##### Created by https://www.toptal.com/developers/gitignore/api/eclipse
+
 tmp/
 *.tmp
 *.bak
 *.swp
 *~.nib
 local.properties
-.settings/
 .loadpath
 .recommenders
 
@@ -39,10 +60,6 @@ local.properties
 
 # PDT-specific (PHP Development Tools)
 .buildpath
-
-# sbteclipse plugin
-.target
-target
 
 # Tern plugin
 .tern-project
