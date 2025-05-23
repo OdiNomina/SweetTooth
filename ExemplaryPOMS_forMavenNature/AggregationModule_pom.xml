@@ -3,11 +3,11 @@
 		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   	<modelVersion>4.0.0</modelVersion>
   	
- 	<groupId>com.github.SweetTooth</groupId>
-	<artifactId>SweetTooth</artifactId>
+ 	<groupId>com.github.sweettooth</groupId>
+	<artifactId>aggregate</artifactId>
 	<version>1.0.2-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>com.github.SweetTooth.SweetTooth</name>
+	<name>com.github.sweettooth.aggregate</name>
 	
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

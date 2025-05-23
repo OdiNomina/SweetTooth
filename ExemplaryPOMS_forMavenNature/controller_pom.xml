@@ -4,15 +4,15 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
-    	<groupId>com.github.SweetTooth</groupId>
-    	<artifactId>SweetTooth</artifactId>
+    	<groupId>com.github.sweettooth</groupId>
+    	<artifactId>aggregate</artifactId>
     	<version>1.0.2-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>controller</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-  	<name>com.github.SweetTooth.controller</name>
+  	<name>com.github.sweettooth.controller</name>
   	
   	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,7 +22,7 @@
 	
 	<dependencies>
 		<dependency>
-		    <groupId>com.github.SweetTooth</groupId>
+		    <groupId>com.github.sweettooth</groupId>
 		    <artifactId>model</artifactId>
 		    <version>1.0.0-SNAPSHOT</version>
 		</dependency>

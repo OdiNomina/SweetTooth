@@ -4,15 +4,15 @@
   	<modelVersion>4.0.0</modelVersion>
   
   	<parent>
-    	<groupId>com.github.SweetTooth</groupId>
-    	<artifactId>SweetTooth</artifactId>
+    	<groupId>com.github.sweettooth</groupId>
+    	<artifactId>aggregate</artifactId>
     	<version>1.0.2-SNAPSHOT</version>
   	</parent>
   
   	<artifactId>model</artifactId>
   	<version>1.0.0-SNAPSHOT</version>
   	<packaging>jar</packaging>
-  	<name>com.github.SweetTooth.model</name>
+  	<name>com.github.sweettooth</name>
   
   	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
