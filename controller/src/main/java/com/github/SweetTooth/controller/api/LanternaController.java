@@ -1,8 +1,8 @@
-package com.github.SweetTooth.controller.api;
+package com.github.sweettooth.controller.api;
 
-import com.github.SweetTooth.model.games.Game;
-import com.github.SweetTooth.model.events.EventFactory;
-import com.github.SweetTooth.model.events.DefaultEventFactory;
+import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.model.events.EventFactory;
+import com.github.sweettooth.model.events.DefaultEventFactory;
 
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;

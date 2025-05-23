@@ -1,11 +1,11 @@
-package com.github.SweetTooth.model.games;
+package com.github.sweettooth.model.games;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.github.SweetTooth.model.characters.MoneyDealer;
-import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.model.events.Observer;
+import com.github.sweettooth.model.characters.MoneyDealer;
+import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.events.Observer;
 
 public class Game {
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);

@@ -1,10 +1,10 @@
-package com.github.SweetTooth.model.events;
+package com.github.sweettooth.model.events;
 
 import java.util.ArrayList;
 
-import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.model.games.Game;
-import com.github.SweetTooth.model.snacks.Snackable;
+import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.model.snacks.Snackable;
 
 public abstract sealed class Event permits 
 	ApplyInterest, Buy, Deposit, Exit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw //Update factory!

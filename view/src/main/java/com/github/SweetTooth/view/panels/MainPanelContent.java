@@ -1,15 +1,15 @@
-package com.github.SweetTooth.view.panels;
+package com.github.sweettooth.view.panels;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import com.github.SweetTooth.controller.api.LanternaController;
-import com.github.SweetTooth.model.characters.MoneyDealer;
-import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.model.games.Game;
-import com.github.SweetTooth.model.locations.Location;
-import com.github.SweetTooth.model.snacks.CandyFactory;
-import com.github.SweetTooth.model.snacks.Snackable;
+import com.github.sweettooth.controller.api.LanternaController;
+import com.github.sweettooth.model.characters.MoneyDealer;
+import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.snacks.CandyFactory;
+import com.github.sweettooth.model.snacks.Snackable;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;

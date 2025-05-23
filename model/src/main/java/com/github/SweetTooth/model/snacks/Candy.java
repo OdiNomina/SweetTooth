@@ -1,9 +1,9 @@
-package com.github.SweetTooth.model.snacks;
+package com.github.sweettooth.model.snacks;
 
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.SweetTooth.model.locations.Location;
+import com.github.sweettooth.model.locations.Location;
 
 public abstract sealed class Candy implements Cloneable, Snackable permits
 	Bonbon, BubbleGum, ChewyCandy, ChocolateBar, GummyBears, Lollipop

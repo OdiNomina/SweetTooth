@@ -1,6 +1,6 @@
-package com.github.SweetTooth.model.events;
+package com.github.sweettooth.model.events;
 
-import com.github.SweetTooth.model.characters.Player;
+import com.github.sweettooth.model.characters.Player;
 
 final class Hide extends Event {
 	@Override

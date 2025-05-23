@@ -1,10 +1,10 @@
-package com.github.SweetTooth.controller.api;
+package com.github.sweettooth.controller.api;
 
-import com.github.SweetTooth.controller.textBoxInputFilters.DealInputFilter;
-import com.github.SweetTooth.controller.textBoxInputFilters.FinancesInputFilter;
-import com.github.SweetTooth.controller.textBoxInputFilters.SeekQuantityInputFilter;
-import com.github.SweetTooth.model.events.Event;
-import com.github.SweetTooth.model.games.Game;
+import com.github.sweettooth.controller.textBoxInputFilters.DealInputFilter;
+import com.github.sweettooth.controller.textBoxInputFilters.FinancesInputFilter;
+import com.github.sweettooth.controller.textBoxInputFilters.SeekQuantityInputFilter;
+import com.github.sweettooth.model.events.Event;
+import com.github.sweettooth.model.games.Game;
 
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.InputFilter;

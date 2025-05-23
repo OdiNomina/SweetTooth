@@ -1,6 +1,6 @@
-package com.github.SweetTooth.model.events;
+package com.github.sweettooth.model.events;
 
-import com.github.SweetTooth.model.characters.MoneyDealer;
+import com.github.sweettooth.model.characters.MoneyDealer;
 
 final class ApplyInterest extends Event {
 	@Override

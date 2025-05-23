@@ -1,10 +1,10 @@
-package com.github.SweetTooth.view.lanternaGUI;
+package com.github.sweettooth.view.lanternaGUI;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.controller.api.LanternaController;
-import com.github.SweetTooth.model.events.Observer;
-import com.github.SweetTooth.view.panels.*;
+import com.github.sweettooth.controller.api.LanternaController;
+import com.github.sweettooth.model.events.Observer;
+import com.github.sweettooth.view.panels.*;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.RGB;

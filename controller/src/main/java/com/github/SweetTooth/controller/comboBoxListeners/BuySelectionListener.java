@@ -1,4 +1,4 @@
-package com.github.SweetTooth.controller.comboBoxListeners;
+package com.github.sweettooth.controller.comboBoxListeners;
 
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;

@@ -1,8 +1,8 @@
-package com.github.SweetTooth.model.events;
+package com.github.sweettooth.model.events;
 
-import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.model.snacks.Candy;
-import com.github.SweetTooth.model.snacks.CandyFactory;
+import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.snacks.Candy;
+import com.github.sweettooth.model.snacks.CandyFactory;
 
 final class Buy extends Event {
 	@Override

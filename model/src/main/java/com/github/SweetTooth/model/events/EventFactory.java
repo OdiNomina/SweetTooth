@@ -1,6 +1,6 @@
-package com.github.SweetTooth.model.events;
+package com.github.sweettooth.model.events;
 
-import com.github.SweetTooth.model.games.Game;
+import com.github.sweettooth.model.games.Game;
 
 public abstract class EventFactory {
 	EventFactory(){}

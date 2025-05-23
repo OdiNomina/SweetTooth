@@ -1,4 +1,4 @@
-package com.github.SweetTooth.model.characters;
+package com.github.sweettooth.model.characters;
 
 //import java.util.prefs.Preferences;
 

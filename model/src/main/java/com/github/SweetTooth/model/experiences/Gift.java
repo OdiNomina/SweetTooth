@@ -1,12 +1,12 @@
-package com.github.SweetTooth.model.experiences;
+package com.github.sweettooth.model.experiences;
 
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.model.snacks.Candy;
-import com.github.SweetTooth.model.snacks.CandyFactory;
-import com.github.SweetTooth.model.snacks.Snackable;
+import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.snacks.Candy;
+import com.github.sweettooth.model.snacks.CandyFactory;
+import com.github.sweettooth.model.snacks.Snackable;
 
 final class Gift extends Experience {
 	final static int MAX_GIFTS = Integer.valueOf(3);

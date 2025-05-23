@@ -1,7 +1,7 @@
-package com.github.SweetTooth.model.events;
+package com.github.sweettooth.model.events;
 
-import com.github.SweetTooth.model.characters.MoneyDealer;
-import com.github.SweetTooth.model.characters.Player;
+import com.github.sweettooth.model.characters.MoneyDealer;
+import com.github.sweettooth.model.characters.Player;
 
 final class Lend extends Event {
 	@Override

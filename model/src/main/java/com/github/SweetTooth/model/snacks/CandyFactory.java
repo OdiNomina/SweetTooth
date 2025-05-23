@@ -1,8 +1,8 @@
-package com.github.SweetTooth.model.snacks;
+package com.github.sweettooth.model.snacks;
 
 import java.util.ArrayList;
 
-import com.github.SweetTooth.model.locations.Location;
+import com.github.sweettooth.model.locations.Location;
 
 public class CandyFactory extends SnackFactory {	
 	private static final ArrayList<Candy> defaultSnacks = new ArrayList<>();

@@ -1,8 +1,8 @@
-package com.github.SweetTooth.model.characters;
+package com.github.sweettooth.model.characters;
 
 import java.util.Objects;
 
-import com.github.SweetTooth.model.locations.Location;
+import com.github.sweettooth.model.locations.Location;
 
 abstract class Character {
 	Location hometown;

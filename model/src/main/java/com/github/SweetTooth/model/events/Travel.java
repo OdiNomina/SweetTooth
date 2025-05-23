@@ -1,11 +1,11 @@
-package com.github.SweetTooth.model.events;
+package com.github.sweettooth.model.events;
 
-import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.model.experiences.Experience;
-import com.github.SweetTooth.model.games.Game;
-import com.github.SweetTooth.model.locations.Location;
-import com.github.SweetTooth.model.snacks.CandyFactory;
-import com.github.SweetTooth.model.snacks.Snackable;
+import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.experiences.Experience;
+import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.snacks.CandyFactory;
+import com.github.sweettooth.model.snacks.Snackable;
 
 final class Travel extends Event {
 	@Override

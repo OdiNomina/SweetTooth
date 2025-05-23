@@ -1,12 +1,12 @@
-package com.github.SweetTooth.launcher.app;
+package com.github.sweettooth.launcher.app;
 
-import com.github.SweetTooth.controller.api.LanternaController;
-import com.github.SweetTooth.model.characters.Bank;
-import com.github.SweetTooth.model.characters.LoanShark;
-import com.github.SweetTooth.model.characters.Player;
-import com.github.SweetTooth.model.games.Game;
+import com.github.sweettooth.controller.api.LanternaController;
+import com.github.sweettooth.model.characters.Bank;
+import com.github.sweettooth.model.characters.LoanShark;
+import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.games.Game;
 
-import com.github.SweetTooth.view.lanternaGUI.GUIManager;
+import com.github.sweettooth.view.lanternaGUI.GUIManager;
 
 public class SweetTooth {
 	SweetTooth(){}

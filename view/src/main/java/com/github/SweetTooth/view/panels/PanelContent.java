@@ -1,4 +1,4 @@
-package com.github.SweetTooth.view.panels;
+package com.github.sweettooth.view.panels;
 
 import java.util.concurrent.ConcurrentHashMap;
 

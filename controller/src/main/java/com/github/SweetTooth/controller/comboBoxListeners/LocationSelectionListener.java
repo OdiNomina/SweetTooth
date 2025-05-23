@@ -1,11 +1,11 @@
-package com.github.SweetTooth.controller.comboBoxListeners;
+package com.github.sweettooth.controller.comboBoxListeners;
 
 import java.io.IOException;
 
-import com.github.SweetTooth.model.events.Event;
-import com.github.SweetTooth.model.events.Observer;
-import com.github.SweetTooth.model.games.Game;
-import com.github.SweetTooth.model.locations.Location;
+import com.github.sweettooth.model.events.Event;
+import com.github.sweettooth.model.events.Observer;
+import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.model.locations.Location;
 
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;

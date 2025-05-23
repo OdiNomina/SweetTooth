@@ -1,8 +1,8 @@
-package com.github.SweetTooth.controller.buttonListeners;
+package com.github.sweettooth.controller.buttonListeners;
 
-import com.github.SweetTooth.model.events.Event;
-import com.github.SweetTooth.model.events.Observer;
-import com.github.SweetTooth.model.games.Game;
+import com.github.sweettooth.model.events.Event;
+import com.github.sweettooth.model.events.Observer;
+import com.github.sweettooth.model.games.Game;
 
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;

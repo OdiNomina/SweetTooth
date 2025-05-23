@@ -1,4 +1,4 @@
-package com.github.SweetTooth.model.locations;
+package com.github.sweettooth.model.locations;
 
 public enum Location {
 	BRONX("Bronx", 1),

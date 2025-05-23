@@ -1,4 +1,4 @@
-package com.github.SweetTooth.model.snacks;
+package com.github.sweettooth.model.snacks;
 
 final class Bonbon extends Candy implements Snackable {
 	static double price;

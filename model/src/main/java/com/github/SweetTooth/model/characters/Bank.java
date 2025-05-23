@@ -1,6 +1,6 @@
-package com.github.SweetTooth.model.characters;
+package com.github.sweettooth.model.characters;
 
-import com.github.SweetTooth.model.locations.Location;
+import com.github.sweettooth.model.locations.Location;
 
 non-sealed public class Bank extends MoneyDealer {
 	final static double INTEREST_CREDIT_PERCENT = Double.valueOf(2);

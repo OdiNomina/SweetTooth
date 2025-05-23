@@ -1,11 +1,11 @@
-package com.github.SweetTooth.controller.api;
+package com.github.sweettooth.controller.api;
 
-import com.github.SweetTooth.controller.comboBoxListeners.BuySelectionListener;
-import com.github.SweetTooth.controller.comboBoxListeners.LocationSelectionListener;
-import com.github.SweetTooth.controller.comboBoxListeners.SellSelectionListener;
+import com.github.sweettooth.controller.comboBoxListeners.BuySelectionListener;
+import com.github.sweettooth.controller.comboBoxListeners.LocationSelectionListener;
+import com.github.sweettooth.controller.comboBoxListeners.SellSelectionListener;
 
-import com.github.SweetTooth.model.events.Event;
-import com.github.SweetTooth.model.games.Game;
+import com.github.sweettooth.model.events.Event;
+import com.github.sweettooth.model.games.Game;
 
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;

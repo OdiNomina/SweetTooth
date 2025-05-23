@@ -1,4 +1,4 @@
-package com.github.SweetTooth.model.events;
+package com.github.sweettooth.model.events;
 
 final class Exit extends Event {
 	@Override

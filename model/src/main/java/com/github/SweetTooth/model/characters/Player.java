@@ -1,11 +1,11 @@
-package com.github.SweetTooth.model.characters;
+package com.github.sweettooth.model.characters;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.github.SweetTooth.model.locations.Location;
-import com.github.SweetTooth.model.snacks.Candy;
-import com.github.SweetTooth.model.snacks.Snackable;
+import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.snacks.Candy;
+import com.github.sweettooth.model.snacks.Snackable;
 
 public class Player extends Character implements PersistentPreference, Logged {
 	final static int MAX_SNACKS = Integer.valueOf(100); //Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen (s. Java Insel - 6.6.4 Eincompilierte Belegungen der Klassenvariablen).
