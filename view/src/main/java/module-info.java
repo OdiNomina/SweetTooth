@@ -1,7 +1,7 @@
-module com.github.SweetTooth.view {
-	exports com.github.SweetTooth.view.lanternaGUI;
+module com.github.sweettooth.view {
+	exports com.github.sweettooth.view.lanternaGUI;
 	
-	requires com.github.SweetTooth.model;
-	requires com.github.SweetTooth.controller;
+	requires com.github.sweettooth.model;
+	requires com.github.sweettooth.controller;
 	requires com.googlecode.lanterna;
 }

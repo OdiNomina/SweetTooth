@@ -1,8 +1,8 @@
-module com.github.SweetTooth.model {
-	exports com.github.SweetTooth.model.characters;
-	exports com.github.SweetTooth.model.events;
-	exports com.github.SweetTooth.model.experiences;
-	exports com.github.SweetTooth.model.games;
-	exports com.github.SweetTooth.model.locations;
-	exports com.github.SweetTooth.model.snacks;
+module com.github.sweettooth.model {
+	exports com.github.sweettooth.model.characters;
+	exports com.github.sweettooth.model.events;
+	exports com.github.sweettooth.model.experiences;
+	exports com.github.sweettooth.model.games;
+	exports com.github.sweettooth.model.locations;
+	exports com.github.sweettooth.model.snacks;
 }

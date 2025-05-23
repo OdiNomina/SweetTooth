@@ -1,6 +1,6 @@
-module com.github.SweetTooth.controller {
-	exports com.github.SweetTooth.controller.api;
+module com.github.sweettooth.controller {
+	exports com.github.sweettooth.controller.api;
 	
-	requires com.github.SweetTooth.model;
+	requires com.github.sweettooth.model;
 	requires com.googlecode.lanterna;
 }
