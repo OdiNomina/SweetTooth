@@ -6,6 +6,9 @@ _LOGFILES/
 _TEMP/
 
 ##### Maven
+.mvn/
+mvnw
+mvnw.cmd
 pom.xml
 target/
 
