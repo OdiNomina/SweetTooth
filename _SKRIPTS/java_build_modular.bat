@@ -4,17 +4,15 @@
 :: - die Zuweisung klar abgeschlossen ist.
 
 :: === Projekt-Wurzelverzeichnis setzen (Verzeichnis des Skripts)
-:: ~: Entfernt umgebende Quotes
 :: d: directory
 :: p: path
 set "BASEDIR=%~dp0"
 
+:: === Globale Einstellungen
 set "LOGFILE_DIR=%BASEDIR%_LOGFILES"
 if not exist "%LOGFILE_DIR%" (
 	mkdir "%LOGFILE_DIR%"
 )
-
-:: === Globale Einstellungen
 set "LOGFILE=%LOGFILE_DIR%\java_build.log"
 set "ENCODING=UTF-8"
 set "JAVA_VERSION=21"
@@ -28,7 +26,6 @@ set "TEMP_DIR=%BASEDIR%_TEMP"
 :: Lokaler Scope der Variablen und verzögerte Auswertung aktivieren (Mit !Variable! erfolgt die Auswertung zur Laufzeit, nicht beim Parsen)
 setlocal EnableDelayedExpansion
 	>> "%LOGFILE%" (
-		echo.
 		echo === Build started =================
 		echo Date: %DATE% Time: %TIME%
 		echo ===================================
@@ -41,7 +38,7 @@ setlocal EnableDelayedExpansion
 			exit /b 1
 		)
 	)
-	:: /b: Spezifiziert, dass nur das aktuelle Batch-Skript oder die aktuelle Unterroutine beendet wird
+	:: /b: Spezifiziert, dass nur das aktuelle Batch-Skript bzw. Unterroutine beendet wird
 	if not exist "%LIB%" (
 		>> "%LOGFILE%" (
 			echo Error: "%LIB%" does not exist.
@@ -100,6 +97,7 @@ setlocal EnableDelayedExpansion
 		echo === Build finished successfully ===
 		echo Date: %DATE% Time: %TIME%
 		echo ===================================
+		echo.
 	)
 endlocal
 exit /b 0
@@ -110,6 +108,7 @@ exit /b 0
 :compileModule
 setlocal
 	:: %1, %2: Platzhalter für Argumente der Funktion
+	:: ~: Entfernt umgebende Quotes, aber nur bei Parametern (Positionsparameter wie %0) oder for-Variablen
 	set "MOD_NAME=%~1"
 	set "MOD_SRC=%~2"
 	set "MOD_BIN=%~3"
