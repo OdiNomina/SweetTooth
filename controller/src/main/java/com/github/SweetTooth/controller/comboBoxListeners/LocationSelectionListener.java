@@ -1,0 +1,69 @@
+package com.github.sweettooth.controller.comboBoxListeners;
+
+import java.io.IOException;
+
+import com.github.sweettooth.model.events.Event;
+import com.github.sweettooth.model.events.Observer;
+import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.model.locations.Location;
+
+import com.googlecode.lanterna.gui2.ComboBox;
+import com.googlecode.lanterna.gui2.Interactable;
+import com.googlecode.lanterna.gui2.Label;
+
+public class LocationSelectionListener extends ComboBoxListener {
+	Game game;
+	Event event;
+	Label[] answerBox;
+	Event applyInterestEvent;
+	
+	public LocationSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus, Game game, Event event, Event applyInterestEvent, Label... answerBox) {
+		super(thisComboBox, nextInFocus);
+		this.game = game;
+		this.event = event;
+		this.answerBox = answerBox;
+		this.applyInterestEvent = applyInterestEvent;
+	}
+	
+	@Override
+	public void onSelectionChanged(int selectedIndex, int previousSelection, boolean changedByUserInteraction) {
+		if(changedByUserInteraction) {
+			if(selectedIndex == previousSelection)
+				answerBox[0].setText("Du bist doch schon da!");
+			else
+				try {
+					game.increaseDayOfGame(1);
+					if(game.isGameOver()) {
+						for(Observer view : game.getViews())
+							view.updateObserver();
+						return;
+					}
+					Location location = Location.valueOfficialName(thisComboBox.getItem(selectedIndex));	
+	    			Event.Answer answer = event.handleMultipleAnswers(location.toString(), null, null);
+	    			
+	    			for(Observer view : game.getViews())
+						view.updateObserver();
+	    			
+	            	answerBox[0].setText(answer.answer1());
+	            	answerBox[1].setText(answer.answer2());
+	            	answerBox[2].setText(answer.answer3());
+	            	
+	            	answerBox[3].setText(applyInterestEvent.handle(null, null, null));
+				}
+				catch(IllegalArgumentException e) {
+					answerBox[0].setText("An exception occurred.");
+					thisComboBox.takeFocus();
+					e.printStackTrace();
+				}
+				catch(ArrayIndexOutOfBoundsException e) {
+					e.printStackTrace();
+					for(Observer view : game.getViews())
+						view.updateObserver();
+				}
+				catch(IOException e) {
+					e.printStackTrace();
+				}
+			nextInFocus.takeFocus();
+		}
+	}
+}
