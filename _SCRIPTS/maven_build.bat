@@ -4,7 +4,7 @@ setlocal
 set "JAVA_HOME=D:\OracleJDK\jdk-21.0.3"
 set "MAVEN_HOME=D:\Maven\apache-maven-3.9.9"
 set "MVNW_VERSION=3.9.9"
-set "SKRIPT_FOLDER=_SKRIPTS"
+set "SCRIPT_FOLDER=_SCRIPTS"
 
 :: === Projekt-Wurzelverzeichnis setzen
 :: ~: Entfernt umgebende Quotes, aber nur bei Parametern (Positionsparameter wie %0) oder for-Variablen
@@ -16,7 +16,7 @@ set "CURRDIR=%CURRDIR:~0,-1%"
 :: n: Extrahiert den letzten Pfadbestandteil (Dateiname ohne Erweiterung)
 for %%X in ("%CURRDIR%") do set "CURR_FOLDER=%%~nX"
 :: /I: Case insensitive
-if /I "%CURR_FOLDER%"=="%SKRIPT_FOLDER%" (
+if /I "%CURR_FOLDER%"=="%SCRIPT_FOLDER%" (
 	:: f: Gibt den vollständig aufgelösten Pfad zurück (hier in das übergeordnete Verzeichnis \..)
     for %%Y in ("%~dp0..") do set "BASEDIR=%%~fY"
 ) else (

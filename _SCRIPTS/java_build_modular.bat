@@ -1,15 +1,25 @@
-:: Anführungszeichen stellen sicher, dass
-:: - keine unbeabsichtigten Leerzeichen am Ende oder Anfang in die Variable gelangen,
-:: - keine Probleme mit Sonderzeichen oder Umgebungsvariablen auftreten,
-:: - die Zuweisung klar abgeschlossen ist.
+:: Anführungszeichen stellen u.a. sicher, dass es keine Probleme mit Leerzeichen gibt.
 
-:: === Projekt-Wurzelverzeichnis setzen (Verzeichnis des Skripts)
+:: === Projekt-Wurzelverzeichnis setzen
+:: ~: Entfernt umgebende Quotes, aber nur bei Parametern (Positionsparameter wie %0) oder for-Variablen
 :: d: directory
 :: p: path
-set "BASEDIR=%~dp0"
+set "SCRIPT_FOLDER=_SCRIPTS"
+set "CURRDIR=%~dp0"
+:: Substring-Modifikation, abschließenden Backslash entfernen.
+set "CURRDIR=%CURRDIR:~0,-1%"
+:: n: Extrahiert den letzten Pfadbestandteil (Dateiname ohne Erweiterung)
+for %%X in ("%CURRDIR%") do set "CURR_FOLDER=%%~nX"
+:: /I: Case insensitive
+if /I "%CURR_FOLDER%"=="%SCRIPT_FOLDER%" (
+	:: f: Gibt den vollständig aufgelösten Pfad zurück (hier in das übergeordnete Verzeichnis \..)
+    for %%Y in ("%~dp0..") do set "BASEDIR=%%~fY"
+) else (
+    set "BASEDIR=%CURRDIR%"
+)
 
 :: === Globale Einstellungen
-set "LOGFILE_DIR=%BASEDIR%_LOGFILES"
+set "LOGFILE_DIR=%BASEDIR%\_LOGFILES"
 if not exist "%LOGFILE_DIR%" (
 	mkdir "%LOGFILE_DIR%"
 )
@@ -20,12 +30,13 @@ set "JAVA_VERSION=21"
 set "MODULES=model controller view launcher"
 set "SRC_DIR=src"
 set "BIN_DIR=bin\main\java"
-set "LIB=%BASEDIR%lib"
-set "TEMP_DIR=%BASEDIR%_TEMP"
+set "LIB=%BASEDIR%\lib"
+set "TEMP_DIR=%BASEDIR%\_TEMP"
 
 :: Lokaler Scope der Variablen und verzögerte Auswertung aktivieren (Mit !Variable! erfolgt die Auswertung zur Laufzeit, nicht beim Parsen)
 setlocal EnableDelayedExpansion
 	>> "%LOGFILE%" (
+		echo(
 		echo === Build started =================
 		echo Date: %DATE% Time: %TIME%
 		echo ===================================
@@ -49,7 +60,7 @@ setlocal EnableDelayedExpansion
 
 	:: === Clean - Output-Ordner vorbereiten
 	for %%B in (%MODULES%) do (
-		set "MOD_DIR=%BASEDIR%%%B"
+		set "MOD_DIR=%BASEDIR%\%%B"
 		if not exist "!MOD_DIR!" (
 			echo Error: Module directory "!MOD_DIR!" does not exist. >> "%LOGFILE%"
 			exit /b 1
@@ -74,7 +85,7 @@ setlocal EnableDelayedExpansion
 	:: %MODULES%: Elemente, über die iteriert wird (getrennt durch Leerzeichen)
 	set "MODULE_PATH=#"
 	for %%A in (%MODULES%) do (
-		set "MOD_DIR=%BASEDIR%%%A"
+		set "MOD_DIR=%BASEDIR%\%%A"
 		set "MOD_BIN_PATH=!MOD_DIR!\%BIN_DIR%"
 		set "MODULE_PATH=!MODULE_PATH!;!MOD_BIN_PATH!"
 	)
@@ -82,7 +93,7 @@ setlocal EnableDelayedExpansion
 	
 	:: === Module kompilieren
 	for %%C in (%MODULES%) do (
-		set "MOD_DIR=%BASEDIR%%%C"
+		set "MOD_DIR=%BASEDIR%\%%C"
 		set "MOD_BIN_PATH=!MOD_DIR!\%BIN_DIR%"
 		set "MOD_SRC_PATH=!MOD_DIR!\%SRC_DIR%"
 		if not exist "!MOD_SRC_PATH!" (
@@ -97,7 +108,6 @@ setlocal EnableDelayedExpansion
 		echo === Build finished successfully ===
 		echo Date: %DATE% Time: %TIME%
 		echo ===================================
-		echo.
 	)
 endlocal
 exit /b 0
