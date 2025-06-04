@@ -3,7 +3,7 @@ package com.github.sweettooth.model.events;
 import java.util.ArrayList;
 
 import com.github.sweettooth.model.api.Processable;
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.apiView.Snackable;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.games.GameData;
 

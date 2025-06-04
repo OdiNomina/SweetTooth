@@ -1,5 +1,7 @@
 package com.github.sweettooth.model.api;
 
+import com.github.sweettooth.model.apiView.FinanciallyInteractable;
+import com.github.sweettooth.model.apiView.Playable;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
 import com.github.sweettooth.model.characters.Player;
@@ -7,14 +9,14 @@ import com.github.sweettooth.model.characters.Player;
 public abstract class ActorFactory {
 	public ActorFactory(){}
 	
-	public static Interactable createInteractable(String interactableName) {
-		Interactable ia = null;
+	public static FinanciallyInteractable createInteractable(String interactableName) {
+		FinanciallyInteractable fi = null;
 		
 		switch(interactableName.toLowerCase()) {
-			case ("bank") -> ia = new Bank();
-			case ("loanshark") -> ia = new LoanShark();
+			case ("bank") -> fi = new Bank();
+			case ("loanshark") -> fi = new LoanShark();
 		}
-		return ia;
+		return fi;
 	}
 	
 	public static Playable createPlayer() {

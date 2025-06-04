@@ -3,7 +3,8 @@ package com.github.sweettooth.view.elements;
 import java.io.IOException;
 
 import com.github.sweettooth.controller.api.Controller;
-import com.github.sweettooth.model.api.Observer;
+import com.github.sweettooth.model.apiView.Observer;
+import com.github.sweettooth.model.apiView.Subject;
 import com.github.sweettooth.view.api.DisplayElement;
 
 import com.googlecode.lanterna.TerminalSize;
@@ -49,7 +50,8 @@ public class LanternaGUI implements Observer, DisplayElement {
 		this.controller = controller;
 		mainPanelContent = new MainPanelContent(new GridLayout(2), controller);
 		
-		controller.getGameData().registerObserver(this);
+		Subject gameData = controller.getGameData();
+		gameData.registerObserver(this);
 	}
 	
 	@Override

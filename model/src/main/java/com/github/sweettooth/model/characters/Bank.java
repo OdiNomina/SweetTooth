@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.characters;
 
-import com.github.sweettooth.model.api.Playable;
-import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.apiView.Playable;
+import com.github.sweettooth.model.apiView.Settings;
 import com.github.sweettooth.model.locations.Location;
 
 non-sealed public class Bank extends MoneyDealer {

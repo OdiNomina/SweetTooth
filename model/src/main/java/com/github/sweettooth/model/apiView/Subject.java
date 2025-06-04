@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.api;
+package com.github.sweettooth.model.apiView;
 
 public interface Subject {
 	void registerObserver(Observer o);

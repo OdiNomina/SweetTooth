@@ -3,10 +3,10 @@ package com.github.sweettooth.model.games;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.api.Interactable;
-import com.github.sweettooth.model.api.Observer;
-import com.github.sweettooth.model.api.Playable;
-import com.github.sweettooth.model.api.Subject;
+import com.github.sweettooth.model.apiView.FinanciallyInteractable;
+import com.github.sweettooth.model.apiView.Observer;
+import com.github.sweettooth.model.apiView.Playable;
+import com.github.sweettooth.model.apiView.Subject;
 
 public class GameData implements Subject {
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);
@@ -19,11 +19,11 @@ public class GameData implements Subject {
 	private int dayOfGame;
 	private ArrayList<Observer> observers;
 	private Playable player;
-	private Interactable bank;
-	private Interactable loanShark;
+	private FinanciallyInteractable bank;
+	private FinanciallyInteractable loanShark;
 	private boolean gameOver;
 	
-	public GameData(Playable player, Interactable bank, Interactable loanShark) {
+	public GameData(Playable player, FinanciallyInteractable bank, FinanciallyInteractable loanShark) {
 		dayOfGame = Integer.valueOf(1);
 		observers = new ArrayList<>();
 		this.player = player;
@@ -31,7 +31,7 @@ public class GameData implements Subject {
 		this.loanShark = loanShark;
 	}
 	
-	public Interactable getBank() {
+	public FinanciallyInteractable getBank() {
 		return bank;
 	}
 	
@@ -39,7 +39,7 @@ public class GameData implements Subject {
 		return dayOfGame;
 	}
 	
-	public Interactable getLoanShark() {
+	public FinanciallyInteractable getLoanShark() {
 		return loanShark;
 	}
 	

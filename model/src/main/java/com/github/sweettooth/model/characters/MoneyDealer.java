@@ -3,11 +3,11 @@ package com.github.sweettooth.model.characters;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.Interactable;
-import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.apiView.FinanciallyInteractable;
+import com.github.sweettooth.model.apiView.Playable;
 import com.github.sweettooth.model.locations.Location;
 
-public abstract sealed class MoneyDealer implements Interactable permits Bank, LoanShark
+public abstract sealed class MoneyDealer implements FinanciallyInteractable permits Bank, LoanShark
 {
 	private Location location;
 	final ArrayList<Client> clients = new ArrayList<>();

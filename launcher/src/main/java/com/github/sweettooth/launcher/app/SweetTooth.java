@@ -2,6 +2,7 @@ package com.github.sweettooth.launcher.app;
 
 import com.github.sweettooth.controller.api.Controller;
 import com.github.sweettooth.controller.api.ControllerFactory;
+
 import com.github.sweettooth.model.api.ActorFactory;
 import com.github.sweettooth.model.games.GameData;
 

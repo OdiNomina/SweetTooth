@@ -4,15 +4,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import com.github.sweettooth.controller.api.Controller;
-
-import com.github.sweettooth.model.api.Interactable;
-import com.github.sweettooth.model.api.Playable;
-import com.github.sweettooth.model.api.Settings;
-import com.github.sweettooth.model.api.SnackFactory;
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.apiView.FinanciallyInteractable;
+import com.github.sweettooth.model.apiView.Playable;
+import com.github.sweettooth.model.apiView.Settings;
+import com.github.sweettooth.model.apiView.SnackFactory;
+import com.github.sweettooth.model.apiView.Snackable;
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
-
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
@@ -31,8 +29,8 @@ public class MainPanelContent extends PanelContent {
 	private Controller controller;
 	private GameData gameData;
 	private Playable player;
-	private Interactable loanShark;
-	private Interactable bank;
+	private FinanciallyInteractable loanShark;
+	private FinanciallyInteractable bank;
 	
 	public MainPanelContent(LayoutManager layoutManager, Controller controller) {
         super(layoutManager);
