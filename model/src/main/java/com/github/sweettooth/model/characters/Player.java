@@ -3,27 +3,47 @@ package com.github.sweettooth.model.characters;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.commons.Logged;
+import com.github.sweettooth.model.commons.PersistentPreference;
+import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.locations.Location;
 import com.github.sweettooth.model.snacks.Candy;
-import com.github.sweettooth.model.snacks.Snackable;
 
-public class Player extends Character implements PersistentPreference, Logged {
-	final static int MAX_SNACKS = Integer.valueOf(100); //Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen (s. Java Insel - 6.6.4 Eincompilierte Belegungen der Klassenvariablen).
+public class Player implements Playable, PersistentPreference, Logged {
+	
 	
 	public static int getMaxSnacks() {
-		return MAX_SNACKS;
+		return Settings.MAX_SNACKS;
 	}
 	
+	private Location hometown;
+	private Location location;
 	private final ArrayList<Candy> candies = new ArrayList<>();
 	private final ArrayList<Candy> candyStash = new ArrayList<>();
 	private double cash = 200;
 	private String name;
 
 	public Player(String name){
-		super(Location.BRONX);
+		hometown = Location.BRONX;
+		location = hometown;
 		this.name = Objects.requireNonNullElse(name, "Anonymer Spieler");
 	}
 
+	public Location getHometown() {
+		return hometown;
+	}
+	
+	public Location getLocation() {
+		return location;
+	}
+	
+	public void setLocation(Location cityName) {
+		this.location = cityName;
+	}
+	
 	/**
 	 * Adds all snacks to the given list and updates each quantity property.
 	 * @param snacks the snacks to add.
@@ -46,7 +66,7 @@ public class Player extends Character implements PersistentPreference, Logged {
 	 * The argument will be rounded to two decimal places.
 	 */
 	public void addCash(double amount) {
-		cash = rounded(cash) + rounded(amount);
+		cash = Tools.rounded(cash) + Tools.rounded(amount);
 	}
 	
 	/**
@@ -118,7 +138,7 @@ public class Player extends Character implements PersistentPreference, Logged {
 	 * Returns player's cash rounded to two decimal places.
 	 */
 	public double getCash() {
-		return rounded(cash);
+		return Tools.rounded(cash);
 	}
 	
 	public String getName() {
@@ -145,9 +165,9 @@ public class Player extends Character implements PersistentPreference, Logged {
 	 * 				if the given amount is greater than player's cash.
 	 */
 	public void reduceCash(double amount) {
-		if(rounded(amount) > rounded(cash))
+		if(Tools.rounded(amount) > Tools.rounded(cash))
 			throw new IllegalArgumentException("Argument is too large.");
-		cash = rounded(cash) - rounded(amount);
+		cash = Tools.rounded(cash) - Tools.rounded(amount);
 	}
 	
 	/**
@@ -195,7 +215,7 @@ public class Player extends Character implements PersistentPreference, Logged {
 	 * Sets player's cash rounded to two decimal places.
 	 */
 	public void setCash(double cash) {
-		this.cash = rounded(cash);
+		this.cash = Tools.rounded(cash);
 	}
 	
 	// Currently for training purposes only

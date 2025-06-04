@@ -1,8 +1,11 @@
-package com.github.sweettooth.controller.api;
+package com.github.sweettooth.controller.controlUnits;
 
-import com.github.sweettooth.model.games.Game;
-import com.github.sweettooth.model.events.EventFactory;
-import com.github.sweettooth.model.events.DefaultEventFactory;
+import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.controller.api.Controller;
+import com.github.sweettooth.controller.buttonListeners.ButtonListenerFactory;
+import com.github.sweettooth.controller.comboBoxListeners.ComboBoxListenerFactory;
+import com.github.sweettooth.controller.textBoxInputFilters.InputFilterFactory;
+import com.github.sweettooth.model.api.EventFactory;
 
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
@@ -11,30 +14,31 @@ import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
 
-@SuppressWarnings("exports")
-public class LanternaController {
-	private Game game;
+public class LanternaController implements Controller {
+	private GameData gameData;
 	private EventFactory eventFactory;
 	private InputFilterFactory inputFilterFactory;
 	private ButtonListenerFactory buttonListenerFactory;
 	private ComboBoxListenerFactory comboBoxListenerFactory;
 	
-	public LanternaController(Game game) {
-		this.game = game;
-		eventFactory = new DefaultEventFactory();
+	public LanternaController(GameData gameData) {
+		this.gameData = gameData;
+		eventFactory = EventFactory.getDefaultFactory();
 	}
 	
-	public void initialize() {
+	@Override
+	public void initializeFactories() {
 		inputFilterFactory = new InputFilterFactory(this);
 		buttonListenerFactory = new ButtonListenerFactory(this);
 		comboBoxListenerFactory = new ComboBoxListenerFactory(this);
 	}
 	
-	public Game getGame() {
-		return game;
+	@Override
+	public GameData getGameData() {
+		return gameData;
 	}
 	
-	EventFactory getEventFactory() {
+	public EventFactory getEventFactory() {
 		return eventFactory;
 	}
 	
@@ -46,8 +50,9 @@ public class LanternaController {
 	 * @param answerBox the Label that shows the answer.
 	 * @return lanterna.gui2.InputFilter
 	 */
+	@Override
 	public InputFilter createInputFilter(String eventName, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerBox) {
-		return inputFilterFactory.createInputFilter(eventName, associatedComboBox, nextInFocus, answerBox);
+		return inputFilterFactory.create(eventName, associatedComboBox, nextInFocus, answerBox);
 	}
 	
 	/**
@@ -58,8 +63,9 @@ public class LanternaController {
 	 * @param answerBox the Label that shows the answer.
 	 * @return ComboBox.Listener
 	 */
+	@Override
 	public ComboBox.Listener createComboBoxListener(ComboBox<String> thisComboBox, String eventName, Interactable nextInFocus, Label... answerBox) {
-		return comboBoxListenerFactory.createComboBoxListener(thisComboBox, eventName, nextInFocus, answerBox);
+		return comboBoxListenerFactory.create(thisComboBox, eventName, nextInFocus, answerBox);
 	}
 	
 	/**
@@ -71,7 +77,8 @@ public class LanternaController {
 	 * @param answerBox the Label that shows the answer.
 	 * @return Button.Listener
 	 */
+	@Override
 	public Button.Listener createButtonListener(String eventName, ComboBox<String> associatedComboBox, TextBox associatedTextBox, Interactable nextInFocus, Label... answerBox) {
-		return buttonListenerFactory.createButtonListener(eventName, associatedComboBox, associatedTextBox, nextInFocus, answerBox);
+		return buttonListenerFactory.create(eventName, associatedComboBox, associatedTextBox, nextInFocus, answerBox);
 	}
 }

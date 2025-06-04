@@ -1,15 +1,17 @@
-package com.github.sweettooth.view.panels;
+package com.github.sweettooth.view.elements;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import com.github.sweettooth.controller.api.LanternaController;
-import com.github.sweettooth.model.characters.MoneyDealer;
-import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.controller.api.Controller;
+
+import com.github.sweettooth.model.api.Interactable;
+import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.SnackFactory;
+import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
-import com.github.sweettooth.model.snacks.CandyFactory;
-import com.github.sweettooth.model.snacks.Snackable;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;
@@ -25,21 +27,20 @@ import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Separator;
 import com.googlecode.lanterna.gui2.TextBox;
 
-@SuppressWarnings("exports")
 public class MainPanelContent extends PanelContent {
-	private LanternaController controller;
-	private Game game;
-	private Player player;
-	private MoneyDealer loanShark;
-	private MoneyDealer bank;
+	private Controller controller;
+	private GameData gameData;
+	private Playable player;
+	private Interactable loanShark;
+	private Interactable bank;
 	
-	public MainPanelContent(LayoutManager layoutManager, LanternaController controller) {
+	public MainPanelContent(LayoutManager layoutManager, Controller controller) {
         super(layoutManager);
         this.controller = controller;
-        game = controller.getGame();
-        player = game.getPlayer();
-        loanShark = game.getLoanShark();
-        bank = game.getBank();
+        gameData = controller.getGameData();
+        player = gameData.getPlayer();
+        loanShark = gameData.getLoanShark();
+        bank = gameData.getBank();
     }
 	
 	@Override
@@ -306,16 +307,16 @@ public class MainPanelContent extends PanelContent {
     
     @Override
 	public void updateContent() {
-		labels.get("currentDay").setText(Integer.toString(game.getDayOfGame()));
+		labels.get("currentDay").setText(Integer.toString(gameData.getDayOfGame()));
 	    labels.get("currentLocation").setText(player.getLocation().getOfficialName());
 	    labels.get("cash").setText(formatMoney(player.getCash()));
 	    labels.get("buySellInfo").setText("");
 	    labels.get("hideSeekInfo").setText("");
-	    labels.get("bankBalance").setText(formatMoney(bank.getBalance(player)));
+	    labels.get("bankBalance").setText(formatMoney(bank.getClientsBalance(player)));
 	    labels.get("bankInfo").setText("");
-	    labels.get("loansharkBalance").setText(formatMoney(loanShark.getBalance(player)));
+	    labels.get("loansharkBalance").setText(formatMoney(loanShark.getClientsBalance(player)));
 	    labels.get("loansharkInfo").setText("");
-	    labels.get("ticketPrice").setText(formatMoney(Game.getTravelCosts()));
+	    labels.get("ticketPrice").setText(formatMoney(GameData.getTravelCosts()));
 	    labels.get("travel1").setText("");
 	    labels.get("travel2").setText("");
 	    labels.get("travel3").setText("");
@@ -348,8 +349,8 @@ public class MainPanelContent extends PanelContent {
     
     private String formatBalanceSheet() {
 		double cash = player.getCash();
-		double loan = loanShark.getBalance(player);
-		double balance = bank.getBalance(player);
+		double loan = loanShark.getClientsBalance(player);
+		double balance = bank.getClientsBalance(player);
 		StringBuffer answer = new StringBuffer();
 		answer.append(String.format("Cash: %,.2f", cash))
 			.append(String.format(" | Kredithai: %,.2f", loan))
@@ -359,16 +360,16 @@ public class MainPanelContent extends PanelContent {
 	}
 	
 	private ArrayList<String> formatDefaultCandies() {
-	    ArrayList<? extends Snackable> candies = new CandyFactory().getDefaultSnacks();
+	    ArrayList<? extends Snackable> candies = SnackFactory.getDefaultSnacks();
 	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
 	    for(Snackable s : candies)
-	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), MoneyDealer.getCurrency()));
+	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), Settings.CURRENCY));
 	    return formattedList;
 	}
 	
 	private String formatMoney(double money) {
-	   return String.format("%,.2f %s", money, MoneyDealer.getCurrency());
+	   return String.format("%,.2f %s", money, Settings.CURRENCY);
     }
 
 	private ArrayList<String> formatSnacks(ArrayList<? extends Snackable> snacks){

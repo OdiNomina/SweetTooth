@@ -1,4 +1,4 @@
-package com.github.sweettooth.view.panels;
+package com.github.sweettooth.view.elements;
 
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.TextBox;

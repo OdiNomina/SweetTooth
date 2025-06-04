@@ -1,8 +1,7 @@
 package com.github.sweettooth.controller.textBoxInputFilters;
 
-import com.github.sweettooth.model.events.Event;
-import com.github.sweettooth.model.events.Observer;
-import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.model.api.Processable;
+import com.github.sweettooth.model.games.GameData;
 
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;
@@ -14,8 +13,8 @@ import com.googlecode.lanterna.input.KeyType;
 public class DealInputFilter extends TextBoxInputFilter {	
 	ComboBox<String> associatedComboBox;
 	
-	public DealInputFilter(Game game, Event event, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerBox) {
-		super(nextInFocus, game, event, answerBox);
+	public DealInputFilter(GameData gameData, Processable event, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerBox) {
+		super(nextInFocus, gameData, event, answerBox);
 		this.associatedComboBox = associatedComboBox;
 	}
 	
@@ -35,8 +34,8 @@ public class DealInputFilter extends TextBoxInputFilter {
 					if(input > 100)
 						throw new NumberFormatException();
 					String eventAnswer = event.handle(associatedComboBox.getSelectedItem(), input, null);
-					for(Observer view : game.getViews())
-						view.updateObserver();
+					gameData.gameDataChanged();
+					
 					associatedComboBox.setEnabled(true);
 					textbox.setEnabled(false);
 					answerBox.setText(eventAnswer);

@@ -1,12 +1,10 @@
 package com.github.sweettooth.model.characters;
 
+import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Settings;
 import com.github.sweettooth.model.locations.Location;
 
 non-sealed public class Bank extends MoneyDealer {
-	final static double INTEREST_CREDIT_PERCENT = Double.valueOf(2);
-	final static double INTEREST_DEBT_PERCENT = Double.valueOf(5);
-	final static double MIN_BALANCE = Double.valueOf(-100);
-	
 	public Bank() {
 		super(Location.BRONX);
 	}
@@ -17,9 +15,9 @@ non-sealed public class Bank extends MoneyDealer {
 		double interest = 0;
 		if(bankClient != null) {
 			if(bankClient.getBalance() < 0)
-				interest = bankClient.getBalance() * INTEREST_DEBT_PERCENT / 100;
+				interest = bankClient.getBalance() * Settings.INTEREST_DEBT_PERCENT / 100;
 			else
-				interest = bankClient.getBalance() * INTEREST_CREDIT_PERCENT / 100;
+				interest = bankClient.getBalance() *Settings.INTEREST_CREDIT_PERCENT / 100;
 			bankClient.addAmount(interest);
 		}
 		return interest;
@@ -39,7 +37,7 @@ non-sealed public class Bank extends MoneyDealer {
 	}
 	
 	@Override
-	public double getBalance(Player player) {
+	public double getClientsBalance(Playable player) {
 		Client bankClient = findClientByIdentity(player);
 		if(bankClient == null)
 			return 0.0;
@@ -48,12 +46,12 @@ non-sealed public class Bank extends MoneyDealer {
 
 	@Override
 	public String getDispoHint() {
-		return String.format("Kredit-Rahmen: %.2f%s (Mehr gibts nicht.)", MIN_BALANCE, Bank.CURRENCY);
+		return String.format("Kredit-Rahmen: %.2f%s (Mehr gibts nicht.)", Settings.BANK_MIN_BALANCE, Settings.CURRENCY);
 	}
 	
 	@Override
 	public String getInterestHint() {
-		return String.format("Kredit Zinsen: -%.1f%% pro Tag.%nGuthaben Zinsen:  +%.1f%% pro Tag.", Bank.INTEREST_DEBT_PERCENT, Bank.INTEREST_CREDIT_PERCENT);
+		return String.format("Kredit Zinsen: -%.1f%% pro Tag.%nGuthaben Zinsen:  +%.1f%% pro Tag.", Settings.INTEREST_DEBT_PERCENT, Settings.INTEREST_CREDIT_PERCENT);
 	}
 
 	@Override
@@ -75,8 +73,7 @@ non-sealed public class Bank extends MoneyDealer {
 	public String toString() {
 		StringBuffer builder = new StringBuffer();
 		builder.append("Bank [clients=").append(clients)
-			.append(", hometown=").append(hometown)
-			.append(", location=").append(location)
+			.append(", location=").append(this.getLocation())
 			.append("]");
 		return builder.toString();
 	}

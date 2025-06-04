@@ -1,10 +1,10 @@
-package com.github.sweettooth.view.lanternaGUI;
+package com.github.sweettooth.view.elements;
 
 import java.io.IOException;
 
-import com.github.sweettooth.controller.api.LanternaController;
-import com.github.sweettooth.model.events.Observer;
-import com.github.sweettooth.view.panels.*;
+import com.github.sweettooth.controller.api.Controller;
+import com.github.sweettooth.model.api.Observer;
+import com.github.sweettooth.view.api.DisplayElement;
 
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.RGB;
@@ -22,12 +22,11 @@ import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
-@SuppressWarnings("exports")
-public class GUIManager implements Observer {
+public class LanternaGUI implements Observer, DisplayElement {
 	private Screen screen;
 	private MultiWindowTextGUI multiWindowTextGUI;
 	private SeparateTextGUIThread guiThread;
-	private LanternaController controller;
+	private Controller controller;
 	private PanelContent mainPanelContent;
 	
 	private SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
@@ -39,7 +38,7 @@ public class GUIManager implements Observer {
 			new RGB(255, 250, 180), // selected back
 			new RGB(255, 140, 80));	// gui
 	
-	public GUIManager(LanternaController controller) throws IOException {
+	public LanternaGUI(Controller controller) throws IOException {
 		DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(127, 60));
 		screen = terminalFactory.createScreen();
 		WindowManager windowManager = new DefaultWindowManager();
@@ -49,10 +48,13 @@ public class GUIManager implements Observer {
 		
 		this.controller = controller;
 		mainPanelContent = new MainPanelContent(new GridLayout(2), controller);
+		
+		controller.getGameData().registerObserver(this);
 	}
 	
-    public void start() throws IOException, InterruptedException {
-        mainPanelContent.createContent();
+	@Override
+	public void display() throws IOException, InterruptedException {
+    	mainPanelContent.createContent();
         mainPanelContent.addContent();
         mainPanelContent.initializeContent();
         mainPanelContent.updateContent();
@@ -68,29 +70,20 @@ public class GUIManager implements Observer {
     	guiThread = (SeparateTextGUIThread)multiWindowTextGUI.getGUIThread();
     	guiThread.start(); // ... this thread will continue while the GUI runs on a separate thread ...
     }
-    
-    @Override
-	public void addObserver() {
-		controller.getGame().getViews().add(this);
+
+	@Override
+	public void update() {
+		if(controller.getGameData().isGameOver())
+    		mainPanelContent.gameOverConfig();
+		
+		mainPanelContent.updateContent();
 	}
-    
-    @Override
-    public void removeObserver() {
-    	controller.getGame().getViews().remove(this);
-    }
-    
-    @Override
-	public void stopObserver() throws IOException {
+	
+	@Override
+	public void stop() throws IOException {
 		if (guiThread != null)
 	        guiThread.stop();
 		
 		screen.stopScreen();
 	}
-
-	@Override
-    public void updateObserver() {
-    	if(controller.getGame().isGameOver())
-    		mainPanelContent.gameOverConfig();
-   		mainPanelContent.updateContent();
-    }
 }

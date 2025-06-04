@@ -1,0 +1,30 @@
+package com.github.sweettooth.controller.buttonListeners;
+
+import com.github.sweettooth.controller.api.Controller;
+import com.github.sweettooth.model.api.Processable;
+import com.github.sweettooth.model.games.GameData;
+
+import com.googlecode.lanterna.gui2.Button;
+import com.googlecode.lanterna.gui2.ComboBox;
+import com.googlecode.lanterna.gui2.Interactable;
+import com.googlecode.lanterna.gui2.Label;
+import com.googlecode.lanterna.gui2.TextBox;
+
+public class ButtonListenerFactory {
+	private Controller controller;
+	
+	public ButtonListenerFactory(Controller controller){
+		this.controller = controller;
+	}
+	
+	public Button.Listener create(String eventName, ComboBox<String> associatedComboBox, TextBox associatedTextBox, Interactable nextInFocus, Label... answerBox) {
+		GameData gameData = controller.getGameData();
+		Processable event = controller.getEventFactory().create(eventName, gameData);
+		switch(eventName) {
+			case "Hide": return new HideListener(nextInFocus, gameData, event, answerBox);
+			case "Seek": return new SeekListener(associatedComboBox, associatedTextBox, nextInFocus, gameData, event, answerBox);
+			case "Exit": return new ExitListener(nextInFocus, gameData, event);
+			default: return null;
+		}
+	}
+}

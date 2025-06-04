@@ -1,24 +1,23 @@
 package com.github.sweettooth.launcher.app;
 
-import com.github.sweettooth.controller.api.LanternaController;
-import com.github.sweettooth.model.characters.Bank;
-import com.github.sweettooth.model.characters.LoanShark;
-import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.controller.api.Controller;
+import com.github.sweettooth.controller.api.ControllerFactory;
+import com.github.sweettooth.model.api.ActorFactory;
+import com.github.sweettooth.model.games.GameData;
 
-import com.github.sweettooth.view.lanternaGUI.GUIManager;
+import com.github.sweettooth.view.api.DisplayElement;
+import com.github.sweettooth.view.api.DisplayFactory;
 
 public class SweetTooth {
 	SweetTooth(){}
 	
 	public static void main(String[] args) {
 		try {
-			Game game = new Game(new Player(null), new Bank(), new LoanShark());
-			LanternaController controller = new LanternaController(game);
-			controller.initialize();
-	    	GUIManager guiManager = new GUIManager(controller);
-	    	guiManager.addObserver();
-	        guiManager.start();
+			GameData gameData = new GameData(ActorFactory.createPlayer(), ActorFactory.createInteractable("bank"), ActorFactory.createInteractable("loanshark"));
+			Controller controller = ControllerFactory.create(gameData);
+			controller.initializeFactories();
+			DisplayElement lanternaGUI = DisplayFactory.create(controller);
+	        lanternaGUI.display();
 	    }
 		catch(RuntimeException e) {
 			e.printStackTrace();

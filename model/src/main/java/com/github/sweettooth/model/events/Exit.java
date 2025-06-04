@@ -1,6 +1,12 @@
 package com.github.sweettooth.model.events;
 
-final class Exit extends Event {
+import com.github.sweettooth.model.games.GameData;
+
+public final class Exit extends Event {
+	Exit(GameData gameData){
+		super(gameData);
+	}
+	
 	@Override
 	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
 		return "";

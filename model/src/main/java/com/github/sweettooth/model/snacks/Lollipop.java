@@ -1,5 +1,7 @@
 package com.github.sweettooth.model.snacks;
 
+import com.github.sweettooth.model.api.Snackable;
+
 final class Lollipop extends Candy implements Snackable {
 	static double price;
 	

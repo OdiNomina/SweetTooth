@@ -3,6 +3,7 @@ package com.github.sweettooth.model.snacks;
 import java.util.Objects;
 import java.util.concurrent.ThreadLocalRandom;
 
+import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.locations.Location;
 
 public abstract sealed class Candy implements Cloneable, Snackable permits
@@ -76,7 +77,7 @@ public abstract sealed class Candy implements Cloneable, Snackable permits
 		this.quantity = quantity > 0 ? quantity : 0;
 	}
 	
-	void setRandomStaticPrice(Location location) {
+	public void setRandomStaticPrice(Location location) {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 		double newPrice = rounded(random.nextDouble(minPrice, maxPrice));
 		newPrice *= location.getPriceFactor();

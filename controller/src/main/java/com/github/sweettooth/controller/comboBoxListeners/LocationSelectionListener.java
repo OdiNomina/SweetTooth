@@ -2,9 +2,8 @@ package com.github.sweettooth.controller.comboBoxListeners;
 
 import java.io.IOException;
 
-import com.github.sweettooth.model.events.Event;
-import com.github.sweettooth.model.events.Observer;
-import com.github.sweettooth.model.games.Game;
+import com.github.sweettooth.model.api.Processable;
+import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
 
 import com.googlecode.lanterna.gui2.ComboBox;
@@ -12,14 +11,14 @@ import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 
 public class LocationSelectionListener extends ComboBoxListener {
-	Game game;
-	Event event;
+	GameData gameData;
+	Processable event;
 	Label[] answerBox;
-	Event applyInterestEvent;
+	Processable applyInterestEvent;
 	
-	public LocationSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus, Game game, Event event, Event applyInterestEvent, Label... answerBox) {
+	public LocationSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus, GameData gameData, Processable event, Processable applyInterestEvent, Label... answerBox) {
 		super(thisComboBox, nextInFocus);
-		this.game = game;
+		this.gameData = gameData;
 		this.event = event;
 		this.answerBox = answerBox;
 		this.applyInterestEvent = applyInterestEvent;
@@ -32,17 +31,15 @@ public class LocationSelectionListener extends ComboBoxListener {
 				answerBox[0].setText("Du bist doch schon da!");
 			else
 				try {
-					game.increaseDayOfGame(1);
-					if(game.isGameOver()) {
-						for(Observer view : game.getViews())
-							view.updateObserver();
+					gameData.increaseDayOfGame(1);
+					if(gameData.isGameOver()) {
+						gameData.gameDataChanged();
 						return;
 					}
 					Location location = Location.valueOfficialName(thisComboBox.getItem(selectedIndex));	
-	    			Event.Answer answer = event.handleMultipleAnswers(location.toString(), null, null);
+					Processable.Answer answer = event.handleMultipleAnswers(location.toString(), null, null);
 	    			
-	    			for(Observer view : game.getViews())
-						view.updateObserver();
+	    			gameData.gameDataChanged();
 	    			
 	            	answerBox[0].setText(answer.answer1());
 	            	answerBox[1].setText(answer.answer2());
@@ -57,8 +54,7 @@ public class LocationSelectionListener extends ComboBoxListener {
 				}
 				catch(ArrayIndexOutOfBoundsException e) {
 					e.printStackTrace();
-					for(Observer view : game.getViews())
-						view.updateObserver();
+					gameData.gameDataChanged();
 				}
 				catch(IOException e) {
 					e.printStackTrace();

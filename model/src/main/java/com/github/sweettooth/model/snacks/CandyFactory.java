@@ -2,44 +2,52 @@ package com.github.sweettooth.model.snacks;
 
 import java.util.ArrayList;
 
+import com.github.sweettooth.model.api.SnackFactory;
+import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.locations.Location;
 
 public class CandyFactory extends SnackFactory {	
-	private static final ArrayList<Candy> defaultSnacks = new ArrayList<>();
+	private final ArrayList<Candy> defaultCandies;
 	
-	public CandyFactory(){}
-	
-	@Override
-	public Candy create(String snackName) {
-		throw new UnsupportedOperationException();
+	public CandyFactory(){
+		defaultCandies = new ArrayList<>();
 	}
 	
-	@Override
-	public ArrayList<Candy> getDefaultSnacks() {
-		if(defaultSnacks.isEmpty()) {
-			defaultSnacks.add(new Lollipop());
-			defaultSnacks.add(new Bonbon());
-			defaultSnacks.add(new BubbleGum());
-			defaultSnacks.add(new ChewyCandy());
-			defaultSnacks.add(new ChocolateBar());
-			defaultSnacks.add(new GummyBears());
-			Snackable.changeCandyPrices(defaultSnacks, Location.BRONX);
-		}
+	private void creatDefaultCandies() {
+		defaultCandies.add(new Lollipop());
+		defaultCandies.add(new Bonbon());
+		defaultCandies.add(new BubbleGum());
+		defaultCandies.add(new ChewyCandy());
+		defaultCandies.add(new ChocolateBar());
+		defaultCandies.add(new GummyBears());
+		Snackable.changeSnackPrices(defaultCandies, Location.BRONX);
+	}
+	
+	public ArrayList<Candy> getDefaultCandies() {
+		if(defaultCandies.isEmpty())
+			creatDefaultCandies();
+		
 		ArrayList<Candy> copy = new ArrayList<>();
-		for(Candy c : defaultSnacks)
+		for(Candy c : defaultCandies)
 			copy.add(c);
 		return copy;
 	}
 	
 	@Override
 	public Candy getRandom() {
-		int randomIdx = (int)(Math.random() * defaultSnacks.size());
-		return defaultSnacks.get(randomIdx).cloneSnack();
+		if(defaultCandies.isEmpty())
+			creatDefaultCandies();
+		
+		int randomIdx = (int)(Math.random() * defaultCandies.size());
+		return defaultCandies.get(randomIdx).cloneSnack();
 	}
 	
 	@Override
 	public Candy valueOf(String snackName) {
-		for(Candy c : getDefaultSnacks()) {
+		if(defaultCandies.isEmpty())
+			creatDefaultCandies();
+		
+		for(Candy c : defaultCandies) {
 			if(c.getName().equalsIgnoreCase(snackName.strip()))
 				return c.cloneSnack();
 		}

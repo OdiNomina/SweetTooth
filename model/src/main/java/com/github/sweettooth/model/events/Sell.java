@@ -1,16 +1,21 @@
 package com.github.sweettooth.model.events;
 
+import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.snacks.Snackable;
+import com.github.sweettooth.model.games.GameData;
 
-final class Sell extends Event {
+public final class Sell extends Event {
+	Sell(GameData gameData){
+		super(gameData);
+	}
+	
 	@Override
 	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
 		stringInput = splitStringInput(stringInput);
 		if(integerInput < 1)
 			return "Nix verkauft";
 		
-		Player player = game.getPlayer();
+		Player player = (Player)gameData.getPlayer();
 		Snackable playersCandy = Snackable.findSnack(player.getCandies(), stringInput);
 		if(playersCandy == null || playersCandy.getQuantity() < integerInput)
 			return "Du kannst nur verkaufen, was du hast.";

@@ -1,12 +1,15 @@
-package com.github.sweettooth.model.snacks;
+package com.github.sweettooth.model.api;
 
 import java.util.ArrayList;
 
+import com.github.sweettooth.model.snacks.CandyFactory;
+
 public abstract class SnackFactory {
-	SnackFactory(){}
+	public SnackFactory(){}
 	
-	public abstract Snackable create(String snackName);
-	public abstract ArrayList<? extends Snackable> getDefaultSnacks(); //Generics sind nicht kovariant
+	public static ArrayList<? extends Snackable> getDefaultSnacks() {
+		return new CandyFactory().getDefaultCandies();
+	}
 	
 	/**
 	 * Returns a random default Snackable.

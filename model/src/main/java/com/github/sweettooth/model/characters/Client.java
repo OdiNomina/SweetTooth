@@ -2,27 +2,26 @@ package com.github.sweettooth.model.characters;
 
 import java.util.Objects;
 
-import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.commons.Tools;
 
-class Client extends Character {
+class Client {
 	final Player identity;
 	private double balance;
 	
 	Client(Player player){
-		super(Location.BRONX);
 		identity = player;
 	}
 	
 	double getBalance() {
-		return rounded(balance);
+		return Tools.rounded(balance);
 	}
 	
 	void addAmount(double amount) {
-		balance = rounded(balance) + rounded(amount);
+		balance = Tools.rounded(balance) + Tools.rounded(amount);
 	}
 	
 	void removeAmount(double amount) {
-		balance = rounded(balance) - rounded(amount);
+		balance = Tools.rounded(balance) - Tools.rounded(amount);
 	}
 
 	@Override
@@ -30,8 +29,6 @@ class Client extends Character {
 		StringBuffer builder = new StringBuffer();
 		builder.append("Client [identity=").append(identity)
 			.append(", balance=").append(balance)
-			.append(", hometown=").append(hometown)
-			.append(", location=").append(location)
 			.append("]");
 		return builder.toString();
 	}
@@ -51,8 +48,6 @@ class Client extends Character {
 		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
-			return false;
-		if (!super.equals(obj))
 			return false;
 		Client other = (Client) obj;
 		long thisBalance = balance == 0.0 ? 0L : Double.doubleToLongBits(balance);

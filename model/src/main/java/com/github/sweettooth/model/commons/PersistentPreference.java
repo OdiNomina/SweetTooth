@@ -1,9 +1,9 @@
-package com.github.sweettooth.model.characters;
+package com.github.sweettooth.model.commons;
 
 //import java.util.prefs.Preferences;
 
 //Currently for training purposes only
-interface PersistentPreference {
+public interface PersistentPreference {
 //	default void store(String key, String value) {
 //		Preferences.userRoot().put(key, value);
 //	}

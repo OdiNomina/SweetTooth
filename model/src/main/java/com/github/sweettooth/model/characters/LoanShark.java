@@ -1,5 +1,6 @@
 package com.github.sweettooth.model.characters;
 
+import com.github.sweettooth.model.api.Playable;
 import com.github.sweettooth.model.locations.Location;
 
 non-sealed public class LoanShark extends MoneyDealer {
@@ -34,7 +35,7 @@ non-sealed public class LoanShark extends MoneyDealer {
 	}
 
 	@Override
-	public double getBalance(Player player) {
+	public double getClientsBalance(Playable player) {
 		Client loanSharkClient = findClientByIdentity(player);
 		if(loanSharkClient == null)
 			return 0.0;
@@ -72,8 +73,7 @@ non-sealed public class LoanShark extends MoneyDealer {
 	public String toString() {
 		StringBuffer builder = new StringBuffer();
 		builder.append("LoanShark [clients=").append(clients)
-			.append(", hometown=").append(hometown)
-			.append(", location=").append(location)
+			.append(", location=").append(this.getLocation())
 			.append("]");
 		return builder.toString();
 	}

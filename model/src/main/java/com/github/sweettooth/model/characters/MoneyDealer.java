@@ -3,27 +3,24 @@ package com.github.sweettooth.model.characters;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import com.github.sweettooth.model.api.Interactable;
+import com.github.sweettooth.model.api.Playable;
 import com.github.sweettooth.model.locations.Location;
 
-public abstract sealed class MoneyDealer extends Character permits Bank, LoanShark
+public abstract sealed class MoneyDealer implements Interactable permits Bank, LoanShark
 {
-	public final static String CURRENCY = "€";
-	
-	public static double getBankMinBalance() {
-		return Bank.MIN_BALANCE;
-	}
-
-	public static String getCurrency() {
-		return CURRENCY;
-	}
-	
+	private Location location;
 	final ArrayList<Client> clients = new ArrayList<>();
 	
-	MoneyDealer(Location hometown){
-		super(hometown);
+	MoneyDealer(Location location){
+		this.location = location;
 	}
 	
-	Client findClientByIdentity(Player player) {
+	public Location getLocation() {
+		return location;
+	}
+	
+	Client findClientByIdentity(Playable player) {
 		for(Client c : clients) {
 			if(c.identity == player)
 				return c;
@@ -56,10 +53,7 @@ public abstract sealed class MoneyDealer extends Character permits Bank, LoanSha
 		return Objects.equals(clients, other.clients);
 	}
 	
-	abstract public Double applyInterestToBalance(Player player);
-	abstract public double getBalance(Player player);
-	abstract public String getDispoHint();
-	abstract public String getInterestHint();
-	abstract public void increaseClientsBalance(Player player, double amount);
-	abstract public void reduceClientsBalance(Player player, double amount);
+	public abstract Double applyInterestToBalance(Player player);
+	public abstract void increaseClientsBalance(Player player, double amount);
+	public abstract void reduceClientsBalance(Player player, double amount);
 }
