@@ -5,6 +5,8 @@ import com.github.sweettooth.model.games.GameData;
 
 @SuppressWarnings("exports")
 public class ControllerFactory {
+	public ControllerFactory(){}
+	
 	public static Controller create(GameData gameData) {
 		return new LanternaController(gameData);
 	}

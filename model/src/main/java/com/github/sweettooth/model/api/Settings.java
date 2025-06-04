@@ -1,6 +1,8 @@
 package com.github.sweettooth.model.api;
 
 public class Settings {
+	public Settings(){}
+	
 	/* Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen
 	 * (s. Java Insel - 6.6.4 Eincompilierte Belegungen der Klassenvariablen).
 	 */

@@ -1,6 +1,4 @@
-package com.github.sweettooth.model.commons;
-
-import com.github.sweettooth.model.api.Observer;
+package com.github.sweettooth.model.api;
 
 public interface Subject {
 	void registerObserver(Observer o);

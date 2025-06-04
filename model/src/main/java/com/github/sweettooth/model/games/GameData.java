@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import com.github.sweettooth.model.api.Interactable;
 import com.github.sweettooth.model.api.Observer;
 import com.github.sweettooth.model.api.Playable;
-import com.github.sweettooth.model.commons.Subject;
+import com.github.sweettooth.model.api.Subject;
 
 public class GameData implements Subject {
 	final static double TRAVEL_COSTS = Double.valueOf(10.00);

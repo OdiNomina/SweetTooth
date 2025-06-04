@@ -7,6 +7,8 @@ import com.github.sweettooth.view.elements.LanternaGUI;
 
 @SuppressWarnings("exports")
 public class DisplayFactory {
+	public DisplayFactory(){}
+	
 	public static DisplayElement create(Controller controller) throws IOException {
 		return new LanternaGUI(controller);
 	}

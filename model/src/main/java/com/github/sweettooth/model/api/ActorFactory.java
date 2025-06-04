@@ -5,6 +5,8 @@ import com.github.sweettooth.model.characters.LoanShark;
 import com.github.sweettooth.model.characters.Player;
 
 public abstract class ActorFactory {
+	public ActorFactory(){}
+	
 	public static Interactable createInteractable(String interactableName) {
 		Interactable ia = null;
 		
