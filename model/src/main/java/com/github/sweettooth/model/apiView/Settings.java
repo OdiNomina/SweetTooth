@@ -11,5 +11,6 @@ public class Settings {
 	public final static double INTEREST_CREDIT_PERCENT = Double.valueOf(2);
 	public final static double INTEREST_DEBT_PERCENT = Double.valueOf(5);
 	public final static double BANK_MIN_BALANCE = Double.valueOf(-100);
-	
+	public final static double TRAVEL_COSTS = Double.valueOf(10.00);
+	public final static int GAME_DURATION_DAYS = Integer.valueOf(30); 
 }

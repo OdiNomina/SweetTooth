@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import com.github.sweettooth.controller.api.Controller;
 import com.github.sweettooth.model.apiView.Observer;
-import com.github.sweettooth.model.apiView.Subject;
+import com.github.sweettooth.model.api.GameInterface;
 import com.github.sweettooth.view.api.DisplayElement;
 
 import com.googlecode.lanterna.TerminalSize;
@@ -27,6 +27,7 @@ public class LanternaGUI implements Observer, DisplayElement {
 	private Screen screen;
 	private MultiWindowTextGUI multiWindowTextGUI;
 	private SeparateTextGUIThread guiThread;
+	
 	private Controller controller;
 	private PanelContent mainPanelContent;
 	
@@ -50,12 +51,12 @@ public class LanternaGUI implements Observer, DisplayElement {
 		this.controller = controller;
 		mainPanelContent = new MainPanelContent(new GridLayout(2), controller);
 		
-		Subject gameData = controller.getGameData();
+		GameInterface gameData = controller.getGameData();
 		gameData.registerObserver(this);
 	}
 	
 	@Override
-	public void display() throws IOException, InterruptedException {
+	public void start() throws IOException, InterruptedException {
     	mainPanelContent.createContent();
         mainPanelContent.addContent();
         mainPanelContent.initializeContent();

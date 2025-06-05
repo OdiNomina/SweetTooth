@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 import com.github.sweettooth.controller.api.Controller;
-import com.github.sweettooth.model.apiView.FinanciallyInteractable;
+import com.github.sweettooth.model.apiView.Interrogable;
 import com.github.sweettooth.model.apiView.Playable;
 import com.github.sweettooth.model.apiView.Settings;
 import com.github.sweettooth.model.apiView.SnackFactory;
@@ -29,8 +29,8 @@ public class MainPanelContent extends PanelContent {
 	private Controller controller;
 	private GameData gameData;
 	private Playable player;
-	private FinanciallyInteractable loanShark;
-	private FinanciallyInteractable bank;
+	private Interrogable loanShark;
+	private Interrogable bank;
 	
 	public MainPanelContent(LayoutManager layoutManager, Controller controller) {
         super(layoutManager);
@@ -314,7 +314,7 @@ public class MainPanelContent extends PanelContent {
 	    labels.get("bankInfo").setText("");
 	    labels.get("loansharkBalance").setText(formatMoney(loanShark.getClientsBalance(player)));
 	    labels.get("loansharkInfo").setText("");
-	    labels.get("ticketPrice").setText(formatMoney(GameData.getTravelCosts()));
+	    labels.get("ticketPrice").setText(formatMoney(Settings.TRAVEL_COSTS));
 	    labels.get("travel1").setText("");
 	    labels.get("travel2").setText("");
 	    labels.get("travel3").setText("");

@@ -1,5 +1,6 @@
 package com.github.sweettooth.model.events;
 
+import com.github.sweettooth.model.apiView.Settings;
 import com.github.sweettooth.model.apiView.SnackFactory;
 import com.github.sweettooth.model.apiView.Snackable;
 import com.github.sweettooth.model.characters.MoneyDealer;
@@ -15,7 +16,7 @@ public final class Travel extends Event {
 	
 	@Override
 	public Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		double travelCosts = GameData.getTravelCosts();
+		double travelCosts = Settings.TRAVEL_COSTS;
 		String payment = "";
 		Player player = (Player)gameData.getPlayer();
 		if(player.getCash() >= travelCosts) {
