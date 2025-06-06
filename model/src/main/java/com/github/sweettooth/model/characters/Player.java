@@ -3,9 +3,10 @@ package com.github.sweettooth.model.characters;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.github.sweettooth.model.apiView.Playable;
-import com.github.sweettooth.model.apiView.Settings;
-import com.github.sweettooth.model.apiView.Snackable;
+import com.github.sweettooth.model.api.LocationInterface;
+import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.Logged;
 import com.github.sweettooth.model.commons.PersistentPreference;
 import com.github.sweettooth.model.commons.Tools;
@@ -16,11 +17,11 @@ public class Player implements Playable, PersistentPreference, Logged {
 	
 	
 	public static int getMaxSnacks() {
-		return Settings.MAX_SNACKS;
+		return InternSettings.MAX_SNACKS;
 	}
 	
-	private Location hometown;
-	private Location location;
+	private LocationInterface hometown;
+	private LocationInterface location;
 	private final ArrayList<Candy> candies = new ArrayList<>();
 	private final ArrayList<Candy> candyStash = new ArrayList<>();
 	private double cash = 200;
@@ -32,11 +33,12 @@ public class Player implements Playable, PersistentPreference, Logged {
 		this.name = Objects.requireNonNullElse(name, "Anonymer Spieler");
 	}
 
-	public Location getHometown() {
+	public LocationInterface getHometown() {
 		return hometown;
 	}
 	
-	public Location getLocation() {
+	@Override
+	public LocationInterface getLocation() {
 		return location;
 	}
 	

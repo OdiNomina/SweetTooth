@@ -1,11 +1,12 @@
 package com.github.sweettooth.controller.controlUnits;
 
-import com.github.sweettooth.model.games.GameData;
-import com.github.sweettooth.controller.api.Controller;
+import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.controller.buttonListeners.ButtonListenerFactory;
 import com.github.sweettooth.controller.comboBoxListeners.ComboBoxListenerFactory;
 import com.github.sweettooth.controller.textBoxInputFilters.InputFilterFactory;
+
 import com.github.sweettooth.model.api.EventFactory;
+import com.github.sweettooth.model.api.GameModelInterface;
 
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
@@ -14,28 +15,24 @@ import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
 
-public class LanternaController implements Controller {
-	private GameData gameData;
+public class LanternaController implements ControllerInterface {
+	private GameModelInterface gameModel;
 	private EventFactory eventFactory;
 	private InputFilterFactory inputFilterFactory;
 	private ButtonListenerFactory buttonListenerFactory;
 	private ComboBoxListenerFactory comboBoxListenerFactory;
 	
-	public LanternaController(GameData gameData) {
-		this.gameData = gameData;
+	public LanternaController(GameModelInterface gameModel) {
+		this.gameModel = gameModel;
+		
 		eventFactory = EventFactory.getDefaultFactory();
-	}
-	
-	@Override
-	public void initializeFactories() {
 		inputFilterFactory = new InputFilterFactory(this);
 		buttonListenerFactory = new ButtonListenerFactory(this);
 		comboBoxListenerFactory = new ComboBoxListenerFactory(this);
 	}
 	
-	@Override
-	public GameData getGameData() {
-		return gameData;
+	public GameModelInterface getGameModel() {
+		return gameModel;
 	}
 	
 	public EventFactory getEventFactory() {

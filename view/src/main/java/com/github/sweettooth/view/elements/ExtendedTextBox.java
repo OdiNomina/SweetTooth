@@ -3,10 +3,10 @@ package com.github.sweettooth.view.elements;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.TextBox;
 
-class TextBoxInitialText extends TextBox {
+class ExtendedTextBox extends TextBox {
 	String initialText;
 	
-	TextBoxInitialText(String initialText){
+	ExtendedTextBox(String initialText){
 		super(initialText);
 		this.initialText = initialText;
 	}

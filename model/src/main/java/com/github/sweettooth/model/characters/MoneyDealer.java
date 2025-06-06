@@ -3,8 +3,8 @@ package com.github.sweettooth.model.characters;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.github.sweettooth.model.apiView.Interrogable;
-import com.github.sweettooth.model.apiView.Playable;
+import com.github.sweettooth.model.api.Interrogable;
+import com.github.sweettooth.model.api.Playable;
 import com.github.sweettooth.model.locations.Location;
 
 public abstract sealed class MoneyDealer implements Interrogable permits Bank, LoanShark

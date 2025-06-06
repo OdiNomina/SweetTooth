@@ -1,7 +1,7 @@
 package com.github.sweettooth.controller.textBoxInputFilters;
 
+import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Processable;
-import com.github.sweettooth.model.games.GameData;
 
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
@@ -10,7 +10,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 public class SeekQuantityInputFilter extends TextBoxInputFilter {	
-	public SeekQuantityInputFilter(GameData gameData, Processable event, Interactable nextInFocus, Label answerBox){
+	public SeekQuantityInputFilter(GameModelInterface gameData, Processable event, Interactable nextInFocus, Label answerBox){
 		super(nextInFocus, gameData, event, answerBox);
 	}
 	

@@ -1,17 +1,17 @@
 package com.github.sweettooth.model.events;
 
+import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.snacks.Candy;
 import com.github.sweettooth.model.snacks.CandyFactory;
 
 public final class Seek extends Event {
-	Seek(GameData gameData){
+	Seek(GameModelInterface gameData){
 		super(gameData);
 	}
 	
 	@Override
-	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
+	public String process(String stringInput, Integer integerInput, Double doubleInput) {
 		if(integerInput == 0)
 			return "";
 		stringInput = splitStringInput(stringInput);
@@ -28,7 +28,7 @@ public final class Seek extends Event {
 	}
 
 	@Override
-	public Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
+	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
 		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

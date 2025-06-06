@@ -1,21 +1,21 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.apiView.Settings;
-import com.github.sweettooth.model.apiView.SnackFactory;
-import com.github.sweettooth.model.apiView.Snackable;
+import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.SnackFactory;
+import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.experiences.Experience;
-import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
 
 public final class Travel extends Event {
-	Travel(GameData gameData){
+	Travel(GameModelInterface gameData){
 		super(gameData);
 	}
 	
 	@Override
-	public Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
+	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
 		double travelCosts = Settings.TRAVEL_COSTS;
 		String payment = "";
 		Player player = (Player)gameData.getPlayer();
@@ -39,7 +39,7 @@ public final class Travel extends Event {
 	}
 
 	@Override
-	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
+	public String process(String stringInput, Integer integerInput, Double doubleInput) {
 		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

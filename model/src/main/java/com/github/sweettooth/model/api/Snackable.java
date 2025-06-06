@@ -1,12 +1,13 @@
-package com.github.sweettooth.model.apiView;
+package com.github.sweettooth.model.api;
 
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.locations.Location;
 import com.github.sweettooth.model.snacks.Candy;
 
 public interface Snackable {
-	public static void changeSnackPrices(ArrayList<? extends Snackable> snacks, Location location) {
+	// --- view
+	
+	public static void changeSnackPrices(ArrayList<? extends Snackable> snacks, LocationInterface location) {
 		for(Snackable s : snacks) {
 			Candy c = (Candy)s;
 			c.setRandomStaticPrice(location);

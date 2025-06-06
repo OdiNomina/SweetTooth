@@ -3,14 +3,16 @@ package com.github.sweettooth.view.elements;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import com.github.sweettooth.controller.api.Controller;
-import com.github.sweettooth.model.apiView.Interrogable;
-import com.github.sweettooth.model.apiView.Playable;
-import com.github.sweettooth.model.apiView.Settings;
-import com.github.sweettooth.model.apiView.SnackFactory;
-import com.github.sweettooth.model.apiView.Snackable;
-import com.github.sweettooth.model.games.GameData;
-import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.controller.api.ControllerInterface;
+
+import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.Interrogable;
+import com.github.sweettooth.model.api.LocationInterface;
+import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.SnackFactory;
+import com.github.sweettooth.model.api.Snackable;
+
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;
@@ -25,17 +27,17 @@ import com.googlecode.lanterna.gui2.LayoutManager;
 import com.googlecode.lanterna.gui2.Separator;
 import com.googlecode.lanterna.gui2.TextBox;
 
-public class MainPanelContent extends PanelContent {
-	private Controller controller;
-	private GameData gameData;
+public class MainViewPanel extends ViewPanel {
+	private ControllerInterface controller;
+	private GameModelInterface gameData;
 	private Playable player;
 	private Interrogable loanShark;
 	private Interrogable bank;
 	
-	public MainPanelContent(LayoutManager layoutManager, Controller controller) {
+	public MainViewPanel(LayoutManager layoutManager, GameModelInterface gameModel, ControllerInterface controller) {
         super(layoutManager);
         this.controller = controller;
-        gameData = controller.getGameData();
+        this.gameData = gameModel;
         player = gameData.getPlayer();
         loanShark = gameData.getLoanShark();
         bank = gameData.getBank();
@@ -211,12 +213,12 @@ public class MainPanelContent extends PanelContent {
 	
 		textBoxes.put("seekQuantity", new TextBox(""));
 		textBoxes.put("balanceSheet", new TextBox("", TextBox.Style.MULTI_LINE));
-		textBoxesIT.put("buyQuantity", new TextBoxInitialText(""));
-		textBoxesIT.put("sellQuantity", new TextBoxInitialText(""));
-		textBoxesIT.put("deposit", new TextBoxInitialText("Natürlich, welchen Betrag?"));
-		textBoxesIT.put("withdraw", new TextBoxInitialText("Gerne, wie viel?"));
-		textBoxesIT.put("lend", new TextBoxInitialText("Wie viel willst du?!"));
-		textBoxesIT.put("giveBack", new TextBoxInitialText("Lass sehn..."));
+		textBoxesIT.put("buyQuantity", new ExtendedTextBox(""));
+		textBoxesIT.put("sellQuantity", new ExtendedTextBox(""));
+		textBoxesIT.put("deposit", new ExtendedTextBox("Natürlich, welchen Betrag?"));
+		textBoxesIT.put("withdraw", new ExtendedTextBox("Gerne, wie viel?"));
+		textBoxesIT.put("lend", new ExtendedTextBox("Wie viel willst du?!"));
+		textBoxesIT.put("giveBack", new ExtendedTextBox("Lass sehn..."));
 	
 		buttons.put("hide", new Button(""));
 		buttons.put("seek", new Button(""));
@@ -273,7 +275,7 @@ public class MainPanelContent extends PanelContent {
 	    comboBoxes.get("sellSelection").setReadOnly(true);
 	    comboBoxes.get("stash").setReadOnly(true);
 	    ArrayList<String> locationList = new ArrayList<>();
-	    for(Location l : Location.values())
+	    for(LocationInterface l : LocationInterface.values())
 	    	locationList.add(l.getOfficialName());
 	    ComboBox<String> locationSelection = comboBoxes.get("locationSelection").setReadOnly(true).clearItems();
 	    for(String s : locationList)

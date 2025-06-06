@@ -1,8 +1,8 @@
 package com.github.sweettooth.controller.buttonListeners;
 
-import com.github.sweettooth.controller.api.Controller;
+import com.github.sweettooth.controller.controlUnits.LanternaController;
+import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Processable;
-import com.github.sweettooth.model.games.GameData;
 
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
@@ -11,14 +11,14 @@ import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
 
 public class ButtonListenerFactory {
-	private Controller controller;
+	private LanternaController controller;
 	
-	public ButtonListenerFactory(Controller controller){
+	public ButtonListenerFactory(LanternaController controller){
 		this.controller = controller;
 	}
 	
 	public Button.Listener create(String eventName, ComboBox<String> associatedComboBox, TextBox associatedTextBox, Interactable nextInFocus, Label... answerBox) {
-		GameData gameData = controller.getGameData();
+		GameModelInterface gameData = controller.getGameModel();
 		Processable event = controller.getEventFactory().create(eventName, gameData);
 		switch(eventName) {
 			case "Hide": return new HideListener(nextInFocus, gameData, event, answerBox);

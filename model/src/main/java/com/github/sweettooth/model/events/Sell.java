@@ -1,16 +1,16 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.apiView.Snackable;
+import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.games.GameData;
 
 public final class Sell extends Event {
-	Sell(GameData gameData){
+	Sell(GameModelInterface gameData){
 		super(gameData);
 	}
 	
 	@Override
-	public String handle(String stringInput, Integer integerInput, Double doubleInput) {
+	public String process(String stringInput, Integer integerInput, Double doubleInput) {
 		stringInput = splitStringInput(stringInput);
 		if(integerInput < 1)
 			return "Nix verkauft";
@@ -28,7 +28,7 @@ public final class Sell extends Event {
 	}
 
 	@Override
-	public Answer handleMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
+	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
 		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
 	}
 }

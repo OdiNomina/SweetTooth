@@ -1,14 +1,15 @@
 package com.github.sweettooth.controller.buttonListeners;
 
+import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Processable;
-import com.github.sweettooth.model.games.GameData;
+
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.Interactable;
 
 public class ExitListener extends ButtonListener {
-	GameData gameData;
+	GameModelInterface gameData;
 	
-	public ExitListener(Interactable nextInFocus, GameData gameData, Processable event) {
+	public ExitListener(Interactable nextInFocus, GameModelInterface gameData, Processable event) {
 		super(nextInFocus);
 		this.gameData = gameData;
 	}

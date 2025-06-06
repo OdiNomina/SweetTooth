@@ -1,7 +1,9 @@
-package com.github.sweettooth.model.apiView;
+package com.github.sweettooth.model.commons;
 
-public class Settings {
-	public Settings(){}
+public class InternSettings {
+	// --- model and view
+	
+	public InternSettings(){}
 	
 	/* Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen
 	 * (s. Java Insel - 6.6.4 Eincompilierte Belegungen der Klassenvariablen).

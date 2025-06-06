@@ -2,18 +2,18 @@ package com.github.sweettooth.model.events;
 
 import java.util.ArrayList;
 
+import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Processable;
-import com.github.sweettooth.model.apiView.Snackable;
+import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.games.GameData;
 
 public abstract sealed class Event implements Processable permits 
 	ApplyInterest, Buy, Deposit, Exit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw //Update factory!
 {
-	GameData gameData;
+	GameModelInterface gameData;
 	String notAtHometown = "Du bist nicht in deiner Heimatstadt.";
 	
-	public Event(GameData gameData) {
+	public Event(GameModelInterface gameData) {
 		this.gameData = gameData;
 	}
 	

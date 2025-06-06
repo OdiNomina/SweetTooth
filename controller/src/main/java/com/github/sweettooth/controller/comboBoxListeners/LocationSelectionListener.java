@@ -2,21 +2,21 @@ package com.github.sweettooth.controller.comboBoxListeners;
 
 import java.io.IOException;
 
+import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.LocationInterface;
 import com.github.sweettooth.model.api.Processable;
-import com.github.sweettooth.model.games.GameData;
-import com.github.sweettooth.model.locations.Location;
 
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 
 public class LocationSelectionListener extends ComboBoxListener {
-	GameData gameData;
+	GameModelInterface gameData;
 	Processable event;
 	Label[] answerBox;
 	Processable applyInterestEvent;
 	
-	public LocationSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus, GameData gameData, Processable event, Processable applyInterestEvent, Label... answerBox) {
+	public LocationSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus, GameModelInterface gameData, Processable event, Processable applyInterestEvent, Label... answerBox) {
 		super(thisComboBox, nextInFocus);
 		this.gameData = gameData;
 		this.event = event;
@@ -36,8 +36,8 @@ public class LocationSelectionListener extends ComboBoxListener {
 						gameData.gameDataChanged();
 						return;
 					}
-					Location location = Location.valueOfficialName(thisComboBox.getItem(selectedIndex));	
-					Processable.Answer answer = event.handleMultipleAnswers(location.toString(), null, null);
+					LocationInterface location = LocationInterface.valueOfficialName(thisComboBox.getItem(selectedIndex));	
+					Processable.Answer answer = event.processMultipleAnswers(location.toString(), null, null);
 	    			
 	    			gameData.gameDataChanged();
 	    			
@@ -45,7 +45,7 @@ public class LocationSelectionListener extends ComboBoxListener {
 	            	answerBox[1].setText(answer.answer2());
 	            	answerBox[2].setText(answer.answer3());
 	            	
-	            	answerBox[3].setText(applyInterestEvent.handle(null, null, null));
+	            	answerBox[3].setText(applyInterestEvent.process(null, null, null));
 				}
 				catch(IllegalArgumentException e) {
 					answerBox[0].setText("An exception occurred.");

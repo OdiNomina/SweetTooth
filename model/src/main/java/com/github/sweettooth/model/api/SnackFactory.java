@@ -1,10 +1,12 @@
-package com.github.sweettooth.model.apiView;
+package com.github.sweettooth.model.api;
 
 import java.util.ArrayList;
 
 import com.github.sweettooth.model.snacks.CandyFactory;
 
 public abstract class SnackFactory {
+	// --- view
+	
 	public SnackFactory(){}
 	
 	public static ArrayList<? extends Snackable> getDefaultSnacks() {

@@ -3,17 +3,17 @@ package com.github.sweettooth.model.games;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.api.GameInterface;
-
-import com.github.sweettooth.model.apiView.Interrogable;
-import com.github.sweettooth.model.apiView.Observer;
-import com.github.sweettooth.model.apiView.Playable;
-import com.github.sweettooth.model.apiView.Settings;
+import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.Interrogable;
+import com.github.sweettooth.model.api.Observer;
+import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Subject;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
 import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.commons.InternSettings;
 
-public class GameData implements GameInterface {
+public class GameData implements Subject, GameModelInterface {
 	private ArrayList<Observer> observers;
 	private int dayOfGame;
 	private Playable player;
@@ -55,7 +55,7 @@ public class GameData implements GameInterface {
 
 	@Override
 	public void increaseDayOfGame(int numberOfDays) throws IOException {
-		if(dayOfGame < Settings.GAME_DURATION_DAYS)
+		if(dayOfGame < InternSettings.GAME_DURATION_DAYS)
 			dayOfGame += numberOfDays;
 		else
 			gameOver = true;
@@ -68,7 +68,7 @@ public class GameData implements GameInterface {
 
 	public void notifyObservers() {
 		for(Observer o : observers) {
-			o.update();
+			o.updateMainView();
 		}
 	}
 
@@ -86,6 +86,4 @@ public class GameData implements GameInterface {
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
-
-	
 }

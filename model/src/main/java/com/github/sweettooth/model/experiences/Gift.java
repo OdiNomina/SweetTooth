@@ -3,7 +3,7 @@ package com.github.sweettooth.model.experiences;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.sweettooth.model.apiView.Snackable;
+import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.snacks.Candy;
 import com.github.sweettooth.model.snacks.CandyFactory;

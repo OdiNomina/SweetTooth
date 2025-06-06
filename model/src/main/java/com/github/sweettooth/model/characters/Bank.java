@@ -1,7 +1,8 @@
 package com.github.sweettooth.model.characters;
 
-import com.github.sweettooth.model.apiView.Playable;
-import com.github.sweettooth.model.apiView.Settings;
+import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.locations.Location;
 
 non-sealed public class Bank extends MoneyDealer {
@@ -15,9 +16,9 @@ non-sealed public class Bank extends MoneyDealer {
 		double interest = 0;
 		if(bankClient != null) {
 			if(bankClient.getBalance() < 0)
-				interest = bankClient.getBalance() * Settings.INTEREST_DEBT_PERCENT / 100;
+				interest = bankClient.getBalance() * InternSettings.INTEREST_DEBT_PERCENT / 100;
 			else
-				interest = bankClient.getBalance() *Settings.INTEREST_CREDIT_PERCENT / 100;
+				interest = bankClient.getBalance() * InternSettings.INTEREST_CREDIT_PERCENT / 100;
 			bankClient.addAmount(interest);
 		}
 		return interest;
@@ -46,12 +47,12 @@ non-sealed public class Bank extends MoneyDealer {
 
 	@Override
 	public String getDispoHint() {
-		return String.format("Kredit-Rahmen: %.2f%s (Mehr gibts nicht.)", Settings.BANK_MIN_BALANCE, Settings.CURRENCY);
+		return String.format("Kredit-Rahmen: %.2f%s (Mehr gibts nicht.)", InternSettings.BANK_MIN_BALANCE, Settings.CURRENCY);
 	}
 	
 	@Override
 	public String getInterestHint() {
-		return String.format("Kredit Zinsen: -%.1f%% pro Tag.%nGuthaben Zinsen:  +%.1f%% pro Tag.", Settings.INTEREST_DEBT_PERCENT, Settings.INTEREST_CREDIT_PERCENT);
+		return String.format("Kredit Zinsen: -%.1f%% pro Tag.%nGuthaben Zinsen:  +%.1f%% pro Tag.", InternSettings.INTEREST_DEBT_PERCENT, InternSettings.INTEREST_CREDIT_PERCENT);
 	}
 
 	@Override
