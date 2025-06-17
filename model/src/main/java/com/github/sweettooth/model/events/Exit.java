@@ -1,9 +1,9 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.games.GameData;
 
 public final class Exit extends Event {
-	Exit(GameModelInterface gameData){
+	Exit(GameData gameData){
 		super(gameData);
 	}
 	

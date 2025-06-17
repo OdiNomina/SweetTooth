@@ -7,9 +7,11 @@ import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Interrogable;
 import com.github.sweettooth.model.api.Observer;
 import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Settings;
 import com.github.sweettooth.model.api.Subject;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
+import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.commons.InternSettings;
 
@@ -17,16 +19,18 @@ public class GameData implements Subject, GameModelInterface {
 	private ArrayList<Observer> observers;
 	private int dayOfGame;
 	private Playable player;
-	private Interrogable bank;
-	private Interrogable loanShark;
+	private MoneyDealer bank;
+	private MoneyDealer loanShark;
 	private boolean gameOver;
+	private Settings settings;
 	
-	public GameData() {
+	public GameData(Settings settings) {
+		this.settings = settings;
 		observers = new ArrayList<>();
 		dayOfGame = Integer.valueOf(1);
 		player = new Player(null);
-		bank = new Bank();
-		loanShark = new LoanShark();
+		bank = new Bank(settings);
+		loanShark = new LoanShark(settings);
 	}
 	
 	public void gameDataChanged() {
@@ -46,6 +50,10 @@ public class GameData implements Subject, GameModelInterface {
 	@Override
 	public Interrogable getLoanShark() {
 		return loanShark;
+	}
+	
+	public Settings getSettings() {
+		return settings;
 	}
 	
 	@Override

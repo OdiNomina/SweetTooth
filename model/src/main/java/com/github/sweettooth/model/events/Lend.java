@@ -1,11 +1,9 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.characters.MoneyDealer;
-import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.games.GameData;
 
 public final class Lend extends Event {
-	Lend(GameModelInterface gameData){
+	Lend(GameData gameData){
 		super(gameData);
 	}
 	
@@ -15,9 +13,6 @@ public final class Lend extends Event {
 			return notAtHometown;
 
 		double amount = doubleInput > 0 ? doubleInput : 0;
-		
-		MoneyDealer loanShark =  (MoneyDealer)gameData.getLoanShark();
-		Player player = (Player)gameData.getPlayer();
 		
 		if(loanShark.getClientsBalance(player) < 0)
 			return "Kannst du vergessen Alder.";

@@ -2,12 +2,14 @@ package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.api.EventFactory;
 import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.games.GameData;
 
 public class DefaultEventFactory extends EventFactory {
 	public DefaultEventFactory(){}
 	
 	@Override
-	public Event create(String event, GameModelInterface gameData) {
+	public Event create(String event, GameModelInterface gameModel) {
+		GameData gameData = (GameData)gameModel;
 		Event instance = null; 
 		switch (event) {
 			case "ApplyInterest" -> instance = new ApplyInterest(gameData);

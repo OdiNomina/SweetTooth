@@ -6,8 +6,8 @@ import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.locations.Location;
 
 non-sealed public class Bank extends MoneyDealer {
-	public Bank() {
-		super(Location.BRONX);
+	public Bank(Settings settings) {
+		super(Location.BRONX, settings);
 	}
 	
 	@Override
@@ -47,12 +47,12 @@ non-sealed public class Bank extends MoneyDealer {
 
 	@Override
 	public String getDispoHint() {
-		return String.format("Kredit-Rahmen: %.2f%s (Mehr gibts nicht.)", InternSettings.BANK_MIN_BALANCE, Settings.CURRENCY);
+		return String.format(settings.getLocale(), "Kredit-Rahmen: %.2f %s (mehr gibts nicht)", InternSettings.BANK_MIN_BALANCE, settings.getCurrency());
 	}
 	
 	@Override
 	public String getInterestHint() {
-		return String.format("Kredit Zinsen: -%.1f%% pro Tag.%nGuthaben Zinsen:  +%.1f%% pro Tag.", InternSettings.INTEREST_DEBT_PERCENT, InternSettings.INTEREST_CREDIT_PERCENT);
+		return String.format(settings.getLocale(), "Kredit Zinsen: -%.1f %% pro Tag%nGuthaben Zinsen:  +%.1f %% pro Tag", InternSettings.INTEREST_DEBT_PERCENT, InternSettings.INTEREST_CREDIT_PERCENT);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ non-sealed public class Bank extends MoneyDealer {
 	public String toString() {
 		StringBuffer builder = new StringBuffer();
 		builder.append("Bank [clients=").append(clients)
-			.append(", location=").append(this.getLocation())
+			.append(", location=").append(location)
 			.append("]");
 		return builder.toString();
 	}

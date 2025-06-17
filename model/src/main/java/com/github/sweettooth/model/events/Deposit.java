@@ -1,11 +1,9 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.characters.MoneyDealer;
-import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.games.GameData;
 
 public final class Deposit extends Event {
-	Deposit(GameModelInterface gameData){
+	Deposit(GameData gameData){
 		super(gameData);
 	}
 	
@@ -14,12 +12,10 @@ public final class Deposit extends Event {
 		double amount = doubleInput > 0 ? doubleInput : 0;
 		amount = Math.round(amount * 100) / 100.00;
 		
-		Player player = (Player)gameData.getPlayer();
 		if(player.getCash() < amount)
 			return "Ups! So viel hab ich gar nicht dabei...";
 		player.reduceCash(amount);
 		
-		MoneyDealer bank = (MoneyDealer)gameData.getBank();
 		bank.increaseClientsBalance(player, amount);
 		return "Betrag einbezahlt.";
 	}

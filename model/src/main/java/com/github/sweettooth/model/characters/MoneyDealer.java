@@ -5,19 +5,18 @@ import java.util.Objects;
 
 import com.github.sweettooth.model.api.Interrogable;
 import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Settings;
 import com.github.sweettooth.model.locations.Location;
 
 public abstract sealed class MoneyDealer implements Interrogable permits Bank, LoanShark
 {
-	private Location location;
+	Settings settings;
+	Location location;
 	final ArrayList<Client> clients = new ArrayList<>();
 	
-	MoneyDealer(Location location){
+	MoneyDealer(Location location, Settings settings){
 		this.location = location;
-	}
-	
-	public Location getLocation() {
-		return location;
+		this.settings = settings;
 	}
 	
 	Client findClientByIdentity(Playable player) {

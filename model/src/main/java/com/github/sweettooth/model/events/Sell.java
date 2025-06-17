@@ -1,11 +1,10 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Snackable;
-import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.games.GameData;
 
 public final class Sell extends Event {
-	Sell(GameModelInterface gameData){
+	Sell(GameData gameData){
 		super(gameData);
 	}
 	
@@ -15,7 +14,6 @@ public final class Sell extends Event {
 		if(integerInput < 1)
 			return "Nix verkauft";
 		
-		Player player = (Player)gameData.getPlayer();
 		Snackable playersCandy = Snackable.findSnack(player.getCandies(), stringInput);
 		if(playersCandy == null || playersCandy.getQuantity() < integerInput)
 			return "Du kannst nur verkaufen, was du hast.";

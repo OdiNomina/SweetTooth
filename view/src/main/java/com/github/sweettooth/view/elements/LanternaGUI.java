@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Observer;
+import com.github.sweettooth.model.api.Settings;
 import com.github.sweettooth.view.api.DisplayElement;
 
 import com.googlecode.lanterna.TerminalSize;
@@ -28,13 +29,14 @@ public class LanternaGUI implements Observer, DisplayElement {
 	
 	private GameModelInterface gameModel;
 	private ControllerInterface controller;
+	private Settings settings;
 	
 	private SeparateTextGUIThread guiThread;
 	private SimpleTheme globalTheme;
 	private ViewPanel mainViewPanel;
 	private Window mainWindow;
 	
-	public LanternaGUI(GameModelInterface gameModel, ControllerInterface controller) throws IOException {
+	public LanternaGUI(GameModelInterface gameModel, ControllerInterface controller, Settings settings) throws IOException {
 		terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(127, 60));
 		screen = terminalFactory.createScreen();
 		windowManager = new DefaultWindowManager();
@@ -42,6 +44,7 @@ public class LanternaGUI implements Observer, DisplayElement {
 		
 		this.gameModel = gameModel;
 		this.controller = controller;
+		this.settings = settings;
 		
 		globalTheme = makeGlobalTheme();
 		multiWindowTextGUI.setTheme(globalTheme);
@@ -65,7 +68,7 @@ public class LanternaGUI implements Observer, DisplayElement {
 	}
 	
 	void createMainView() {
-		mainViewPanel = new MainViewPanel(new GridLayout(2), gameModel, controller);
+		mainViewPanel = new MainViewPanel(new GridLayout(2), gameModel, controller, settings);
 		mainViewPanel.createContent();
         mainViewPanel.addContent();
         mainViewPanel.initializeContent();

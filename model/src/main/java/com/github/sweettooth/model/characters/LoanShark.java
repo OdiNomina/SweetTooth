@@ -1,13 +1,14 @@
 package com.github.sweettooth.model.characters;
 
 import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.Settings;
 import com.github.sweettooth.model.locations.Location;
 
 non-sealed public class LoanShark extends MoneyDealer {
 	final static double INTEREST_DEBT_PERCENT = Double.valueOf(10);
 	
-	public LoanShark() {
-		super(Location.BRONX);
+	public LoanShark(Settings settings) {
+		super(Location.BRONX, settings);
 	}
 	
 	@Override
@@ -49,7 +50,7 @@ non-sealed public class LoanShark extends MoneyDealer {
 
 	@Override
 	public String getInterestHint() {
-		return String.format("Ich will %.1f%% am Tag!", INTEREST_DEBT_PERCENT);
+		return String.format(settings.getLocale(), "Ich will %.1f %% pro Tag!", INTEREST_DEBT_PERCENT);
 	}
 
 	@Override
@@ -73,7 +74,7 @@ non-sealed public class LoanShark extends MoneyDealer {
 	public String toString() {
 		StringBuffer builder = new StringBuffer();
 		builder.append("LoanShark [clients=").append(clients)
-			.append(", location=").append(this.getLocation())
+			.append(", location=").append(location)
 			.append("]");
 		return builder.toString();
 	}

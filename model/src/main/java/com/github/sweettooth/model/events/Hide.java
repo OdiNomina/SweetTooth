@@ -1,10 +1,9 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.games.GameData;
 
 public final class Hide extends Event {
-	Hide(GameModelInterface gameData){
+	Hide(GameData gameData){
 		super(gameData);
 	}
 	
@@ -13,7 +12,6 @@ public final class Hide extends Event {
 		if(!isAtHometown())
 			return notAtHometown;
 
-		Player player = (Player)gameData.getPlayer();
 		player.addAllSnacks(player.getCandies(), player.getCandyStash());
 		player.getCandies().clear();
 		return "Alles versteckt!";

@@ -6,8 +6,8 @@ import com.github.sweettooth.model.games.GameData;
 
 public interface GameModelInterface extends Subject {
 	// --- launcher
-	static GameModelInterface createGameModel() {
-		return new GameData();
+	static GameModelInterface createGameModel(Settings settings) {
+		return new GameData(settings);
 	}
 	
 	// --- controller

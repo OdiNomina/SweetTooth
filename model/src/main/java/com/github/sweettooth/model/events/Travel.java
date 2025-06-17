@@ -1,30 +1,25 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.Settings;
 import com.github.sweettooth.model.api.SnackFactory;
 import com.github.sweettooth.model.api.Snackable;
-import com.github.sweettooth.model.characters.MoneyDealer;
-import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.experiences.Experience;
+import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
 
 public final class Travel extends Event {
-	Travel(GameModelInterface gameData){
+	Travel(GameData gameData){
 		super(gameData);
 	}
 	
 	@Override
 	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		double travelCosts = Settings.TRAVEL_COSTS;
+		double travelCosts = settings.getTravelCosts();
 		String payment = "";
-		Player player = (Player)gameData.getPlayer();
 		if(player.getCash() >= travelCosts) {
 			player.reduceCash(travelCosts);
 			payment = "Du zahlst bar.";
 		}
 		else {
-			MoneyDealer bank = (MoneyDealer)gameData.getBank();
 			bank.reduceClientsBalance(player, travelCosts);
 			payment = "Du zahlst per Bankcard.";
 		}

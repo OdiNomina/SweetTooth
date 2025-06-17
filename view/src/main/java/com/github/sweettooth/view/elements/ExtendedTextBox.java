@@ -4,11 +4,19 @@ import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.TextBox;
 
 class ExtendedTextBox extends TextBox {
-	String initialText;
+	private String initialText;
 	
 	ExtendedTextBox(String initialText){
 		super(initialText);
-		this.initialText = initialText;
+	}
+	
+	public TextBox setInitialText(String text) {
+		this.initialText = text;
+		return this;
+	}
+	
+	public String getInitialText() {
+		return initialText;
 	}
 	
 	@Override

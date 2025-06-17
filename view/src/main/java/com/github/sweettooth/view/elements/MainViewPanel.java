@@ -30,14 +30,18 @@ import com.googlecode.lanterna.gui2.TextBox;
 public class MainViewPanel extends ViewPanel {
 	private ControllerInterface controller;
 	private GameModelInterface gameData;
+	private Settings settings;
+	
 	private Playable player;
 	private Interrogable loanShark;
 	private Interrogable bank;
 	
-	public MainViewPanel(LayoutManager layoutManager, GameModelInterface gameModel, ControllerInterface controller) {
+	public MainViewPanel(LayoutManager layoutManager, GameModelInterface gameModel, ControllerInterface controller, Settings settings) {
         super(layoutManager);
         this.controller = controller;
         this.gameData = gameModel;
+        this.settings = settings;
+        
         player = gameData.getPlayer();
         loanShark = gameData.getLoanShark();
         bank = gameData.getBank();
@@ -215,10 +219,10 @@ public class MainViewPanel extends ViewPanel {
 		textBoxes.put("balanceSheet", new TextBox("", TextBox.Style.MULTI_LINE));
 		textBoxesIT.put("buyQuantity", new ExtendedTextBox(""));
 		textBoxesIT.put("sellQuantity", new ExtendedTextBox(""));
-		textBoxesIT.put("deposit", new ExtendedTextBox("Natürlich, welchen Betrag?"));
-		textBoxesIT.put("withdraw", new ExtendedTextBox("Gerne, wie viel?"));
-		textBoxesIT.put("lend", new ExtendedTextBox("Wie viel willst du?!"));
-		textBoxesIT.put("giveBack", new ExtendedTextBox("Lass sehn..."));
+		textBoxesIT.put("deposit", new ExtendedTextBox(""));
+		textBoxesIT.put("withdraw", new ExtendedTextBox(""));
+		textBoxesIT.put("lend", new ExtendedTextBox(""));
+		textBoxesIT.put("giveBack", new ExtendedTextBox(""));
 	
 		buttons.put("hide", new Button(""));
 		buttons.put("seek", new Button(""));
@@ -267,8 +271,12 @@ public class MainViewPanel extends ViewPanel {
 	    
 	    textBoxes.get("balanceSheet").setEnabled(false).setTheme(new SimpleTheme(new RGB(50, 50, 0), new RGB(250, 220, 100), SGR.BOLD));
 	    
-	    textBoxesIT.get("buyQuantity").setEnabled(false);
-	    textBoxesIT.get("sellQuantity").setEnabled(false);
+	    textBoxesIT.get("buyQuantity").setInitialText("").setEnabled(false);
+	    textBoxesIT.get("sellQuantity").setInitialText("").setEnabled(false);
+	    textBoxesIT.get("deposit").setInitialText("Natürlich, welchen Betrag?");
+	    textBoxesIT.get("withdraw").setInitialText("Gerne, wie viel?");
+		textBoxesIT.get("lend").setInitialText("Wie viel willst du?!");
+		textBoxesIT.get("giveBack").setInitialText("Lass sehn...");
 	    
 		comboBoxes.get("sweetsInPockets").setReadOnly(true);
 	    comboBoxes.get("buySelection").setReadOnly(true);
@@ -316,7 +324,7 @@ public class MainViewPanel extends ViewPanel {
 	    labels.get("bankInfo").setText("");
 	    labels.get("loansharkBalance").setText(formatMoney(loanShark.getClientsBalance(player)));
 	    labels.get("loansharkInfo").setText("");
-	    labels.get("ticketPrice").setText(formatMoney(Settings.TRAVEL_COSTS));
+	    labels.get("ticketPrice").setText(formatMoney(settings.getTravelCosts()));
 	    labels.get("travel1").setText("");
 	    labels.get("travel2").setText("");
 	    labels.get("travel3").setText("");
@@ -324,6 +332,18 @@ public class MainViewPanel extends ViewPanel {
 	    
 	    textBoxes.get("seekQuantity").setText("");
 	    textBoxes.get("balanceSheet").setText(formatBalanceSheet());
+	    
+	    ExtendedTextBox deposit = textBoxesIT.get("deposit");
+	    deposit.setText(deposit.getInitialText());
+	    
+	    ExtendedTextBox withdraw = textBoxesIT.get("withdraw");
+	    withdraw.setText(withdraw.getInitialText());
+	    
+	    ExtendedTextBox lend = textBoxesIT.get("lend");
+	    lend.setText(lend.getInitialText());
+	    
+	    ExtendedTextBox giveBack = textBoxesIT.get("giveBack");
+	    giveBack.setText(giveBack.getInitialText());
 	    
 	    ArrayList<String> sweetsList = formatSnacks(player.getCandies());
 	    ComboBox<String> sweetsInPockets = comboBoxes.get("sweetsInPockets").clearItems();
@@ -347,15 +367,20 @@ public class MainViewPanel extends ViewPanel {
 	    	stash.addItem(s);	
 	}
     
+    /*
+	 * %[flags][.precision]conversion
+	 * Flag ',': The result will include locale-specific grouping separators.
+	 * Conversion 'f': The result is formatted as a decimal number.
+	 */
     private String formatBalanceSheet() {
 		double cash = player.getCash();
 		double loan = loanShark.getClientsBalance(player);
 		double balance = bank.getClientsBalance(player);
 		StringBuffer answer = new StringBuffer();
-		answer.append(String.format("Cash: %,.2f", cash))
-			.append(String.format(" | Kredithai: %,.2f", loan))
-			.append(String.format(" | Bankkonto: %,.2f", balance))
-			.append(String.format("\nSaldo: %,.2f", cash + loan + balance));
+		answer.append(String.format(settings.getLocale(), "Cash: %,.2f %s", cash, settings.getCurrency()))
+		.append(String.format(settings.getLocale(), " | Kredithai: %,.2f %s", loan, settings.getCurrency()))
+		.append(String.format(settings.getLocale(), " | Bankkonto: %,.2f %s", balance, settings.getCurrency()))
+		.append(String.format(settings.getLocale(), "\nSaldo: %,.2f %s", cash + loan + balance, settings.getCurrency()));
 		return answer.toString();
 	}
 	
@@ -364,12 +389,12 @@ public class MainViewPanel extends ViewPanel {
 	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
 	    for(Snackable s : candies)
-	    	formattedList.add(String.format("%s - %.2f %s", s.getName(), s.getStaticPrice(), Settings.CURRENCY));
+	    	formattedList.add(String.format(settings.getLocale(), "%s - %.2f %s", s.getName(), s.getStaticPrice(), settings.getCurrency()));
 	    return formattedList;
 	}
 	
 	private String formatMoney(double money) {
-	   return String.format("%,.2f %s", money, Settings.CURRENCY);
+	   return String.format(settings.getLocale(), "%,.2f %s", money, settings.getCurrency());
     }
 
 	private ArrayList<String> formatSnacks(ArrayList<? extends Snackable> snacks){
@@ -380,7 +405,7 @@ public class MainViewPanel extends ViewPanel {
 			return formattedList;
 		}
 		for(Snackable s : snacks)
-			formattedList.add(String.format("%d | %s", s.getQuantity(), s.getName()));
+			formattedList.add(String.format(settings.getLocale(), "%,d | %s", s.getQuantity(), s.getName()));
 		return formattedList;
 	}
 }
