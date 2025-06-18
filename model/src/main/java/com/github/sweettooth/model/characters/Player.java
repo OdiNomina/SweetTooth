@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.github.sweettooth.model.api.LocationInterface;
+import com.github.sweettooth.model.api.Logged;
 import com.github.sweettooth.model.api.Playable;
 import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.commons.InternSettings;
-import com.github.sweettooth.model.commons.Logged;
 import com.github.sweettooth.model.commons.PersistentPreference;
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.locations.Location;
