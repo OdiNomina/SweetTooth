@@ -76,7 +76,7 @@ public class GameData implements Subject, GameModelInterface {
 
 	public void notifyObservers() {
 		for(Observer o : observers) {
-			o.updateMainView();
+			o.update();
 		}
 	}
 
