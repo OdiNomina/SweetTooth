@@ -4,21 +4,23 @@ import java.io.IOException;
 
 import com.github.sweettooth.model.games.GameData;
 
-public interface GameModelInterface extends Subject {
+public interface GameModelInterface {
 	// --- launcher
-	static GameModelInterface createGameModel(Settings settings) {
-		return new GameData(settings);
+	static GameModelInterface createGameModel() {
+		return new GameData();
 	}
+	void initialize(Settings settings, String namePlayer);
 	
 	// --- controller
-//	void initialize();
 //	void start();
 //	void stop();
-	void gameDataChanged();
+	void notifyObservers();
 	void increaseDayOfGame(int numberOfDays) throws IOException;
 	void setGameOver(boolean gameOver);
 	
 	// --- view
+	void registerObserver(Observer o);
+	void removeObserver(Observer o);
 	Interrogable getBank();
 	Interrogable getLoanShark();
 	Playable getPlayer();

@@ -15,7 +15,6 @@ import com.github.sweettooth.model.api.Processable;
 import com.github.sweettooth.model.api.Settings;
 import com.github.sweettooth.model.api.SnackFactory;
 import com.github.sweettooth.model.api.Snackable;
-import com.github.sweettooth.model.api.Subject;
 import com.github.sweettooth.view.api.DisplayElement;
 import com.github.sweettooth.view.api.DisplayFactory;
 
@@ -43,7 +42,7 @@ public class ClassBrowser {
 		// --- model
 		System.out.println("### Modul: model\n");
 		Class<?>[] model = {EventFactory.class, GameModelInterface.class, Interrogable.class, LocationInterface.class, Observer.class, Playable.class,
-				Processable.class, Settings.class, Snackable.class, SnackFactory.class, Subject.class};
+				Processable.class, Settings.class, Snackable.class, SnackFactory.class};
 		show(model);
 	}
 	

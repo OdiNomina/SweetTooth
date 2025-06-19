@@ -17,6 +17,6 @@ public class ExitListener extends ButtonListener {
 	@Override
 	public void onTriggered(Button button) {
 		gameData.setGameOver(true);
-		gameData.gameDataChanged();
+		gameData.notifyObservers();
 	}
 }

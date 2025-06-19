@@ -3,7 +3,7 @@ package com.github.sweettooth.model.api;
 import com.github.sweettooth.model.locations.Location;
 
 public interface LocationInterface {
-	public static LocationInterface[] values() {
+	static LocationInterface[] values() {
 		return Location.values();
 	}
 	
@@ -25,7 +25,7 @@ public interface LocationInterface {
 	 * @exception IllegalArgumentException
 	 * 				if argument is no valid location name.
 	 */
-	public static LocationInterface valueOfficialName(String officialName) {
+	static LocationInterface valueOfficialName(String officialName) {
 		return Location.valueOfficialName(officialName);
 	}
 	
@@ -33,11 +33,11 @@ public interface LocationInterface {
 	 * Returns the official name of the location represented by enum entity.
 	 * @return 	the locations's official name.
 	 */
-	public String getOfficialName();
+	String getOfficialName();
 	
 	/**
 	 * The prices of the snacks vary by the returned factor. 
 	 * @return the price factor of this location.
 	 */
-	public double getPriceFactor();
+	double getPriceFactor();
 }

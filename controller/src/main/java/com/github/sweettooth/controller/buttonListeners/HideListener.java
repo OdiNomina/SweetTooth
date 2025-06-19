@@ -22,7 +22,7 @@ public class HideListener extends ButtonListener {
 	@Override
 	public void onTriggered(Button button) {
 		String answer = event.process(null, null, null);
-		gameData.gameDataChanged();
+		gameData.notifyObservers();
 		answerBox[0].setText(answer);
 		nextInFocus.takeFocus();
 	}

@@ -34,7 +34,7 @@ public class DealInputFilter extends TextBoxInputFilter {
 					if(input > 100)
 						throw new NumberFormatException();
 					String eventAnswer = event.process(associatedComboBox.getSelectedItem(), input, null);
-					gameData.gameDataChanged();
+					gameData.notifyObservers();
 					
 					associatedComboBox.setEnabled(true);
 					textbox.setEnabled(false);

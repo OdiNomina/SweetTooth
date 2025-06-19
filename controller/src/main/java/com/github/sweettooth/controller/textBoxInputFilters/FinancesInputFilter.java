@@ -27,7 +27,7 @@ public class FinancesInputFilter extends TextBoxInputFilter {
 					if(input > 100_000)
 						throw new NumberFormatException();
 					String eventAnswer = event.process(null, null, input);
-					gameData.gameDataChanged();
+					gameData.notifyObservers();
 					
 					answerBox.setText(eventAnswer);
 					textbox.removeLine(0);

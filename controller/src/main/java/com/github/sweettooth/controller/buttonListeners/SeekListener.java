@@ -37,7 +37,7 @@ public class SeekListener extends ButtonListener {
 			snackQuantity = 0;
 		}
 		String answer = event.process(snackInput, snackQuantity, null);
-		gameData.gameDataChanged();
+		gameData.notifyObservers();
 		answerBox[0].setText(answer);
 		associatedTextBox.setEnabled(true);
 		button.setEnabled(false);

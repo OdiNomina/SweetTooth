@@ -33,13 +33,13 @@ public class LocationSelectionListener extends ComboBoxListener {
 				try {
 					gameData.increaseDayOfGame(1);
 					if(gameData.isGameOver()) {
-						gameData.gameDataChanged();
+						gameData.notifyObservers();
 						return;
 					}
 					LocationInterface location = LocationInterface.valueOfficialName(thisComboBox.getItem(selectedIndex));	
 					Processable.Answer answer = event.processMultipleAnswers(location.toString(), null, null);
 	    			
-	    			gameData.gameDataChanged();
+	    			gameData.notifyObservers();
 	    			
 	            	answerBox[0].setText(answer.answer1());
 	            	answerBox[1].setText(answer.answer2());
@@ -54,7 +54,7 @@ public class LocationSelectionListener extends ComboBoxListener {
 				}
 				catch(ArrayIndexOutOfBoundsException e) {
 					e.printStackTrace();
-					gameData.gameDataChanged();
+					gameData.notifyObservers();
 				}
 				catch(IOException e) {
 					e.printStackTrace();
