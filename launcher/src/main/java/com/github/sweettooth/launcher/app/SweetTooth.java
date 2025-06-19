@@ -23,11 +23,17 @@ public class SweetTooth implements Logged {
 		Settings settings = new Settings(Locale.GERMANY);
 		
 		try {
-			GameModelInterface gameModel = GameModelInterface.createGameModel(settings);
-			ControllerInterface lanternaController = ControllerFactory.create(gameModel);
+			GameModelInterface gameModel = GameModelInterface.createGameModel();
+			gameModel.initialize(settings, null);
 			
-			DisplayElement lanternaGUI = DisplayFactory.create(gameModel, lanternaController, settings);
-	        lanternaGUI.startGuiThread();
+			ControllerInterface lanternaController = ControllerFactory.create();
+			lanternaController.initialize(gameModel);
+			
+			DisplayElement lanternaGUI = DisplayFactory.create();
+			lanternaGUI.initialize(gameModel, lanternaController, settings);
+			
+			Thread guiThread = new Thread(lanternaGUI);
+			guiThread.start();
 	    }
 		catch(RuntimeException e) {
 			logged.warn(null, e);

@@ -1,7 +1,12 @@
 package com.github.sweettooth.view.api;
 
-import java.io.IOException;
+import com.github.sweettooth.controller.api.ControllerInterface;
+import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.Settings;
 
-public interface DisplayElement {
-	void startGuiThread() throws IOException, InterruptedException;
+@SuppressWarnings("exports")
+public interface DisplayElement extends Runnable {
+	void initialize(GameModelInterface gameModel, ControllerInterface controller, Settings settings);
+	
+//	void startGuiThread() throws IOException, InterruptedException;
 }

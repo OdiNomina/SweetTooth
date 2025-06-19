@@ -22,9 +22,11 @@ public class LanternaController implements ControllerInterface {
 	private ButtonListenerFactory buttonListenerFactory;
 	private ComboBoxListenerFactory comboBoxListenerFactory;
 	
-	public LanternaController(GameModelInterface gameModel) {
+	public LanternaController() {}
+	
+	@Override
+	public void initialize(GameModelInterface gameModel) {
 		this.gameModel = gameModel;
-		
 		eventFactory = EventFactory.getDefaultFactory();
 		inputFilterFactory = new InputFilterFactory(this);
 		buttonListenerFactory = new ButtonListenerFactory(this);

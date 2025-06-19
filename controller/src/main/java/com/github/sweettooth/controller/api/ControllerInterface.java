@@ -1,5 +1,6 @@
 package com.github.sweettooth.controller.api;
 
+import com.github.sweettooth.model.api.GameModelInterface;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.InputFilter;
@@ -9,6 +10,8 @@ import com.googlecode.lanterna.gui2.TextBox;
 
 @SuppressWarnings("exports")
 public interface ControllerInterface {
+	void initialize(GameModelInterface gameModel);
+	
 	/**
 	 * Creates the matching input filter for the event.
 	 * @param eventName the name of the corresponding event.
