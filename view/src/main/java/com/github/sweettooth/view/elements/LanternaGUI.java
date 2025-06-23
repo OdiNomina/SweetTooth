@@ -3,12 +3,14 @@ package com.github.sweettooth.view.elements;
 import java.io.IOException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Objects;
+import java.util.logging.Logger;
 
 import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.Logged;
 import com.github.sweettooth.model.api.Observer;
 import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.view.api.DisplayElement;
 
 import com.googlecode.lanterna.TerminalSize;
@@ -22,8 +24,8 @@ import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
-public class LanternaGUI implements Observer, DisplayElement, Runnable, Logged {
-	static Logged logged = new LanternaGUI();
+public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable {
+	private final Logger logger;
 	
 	private Screen screen;
 	private MultiWindowTextGUI multiWindowTextGUI;
@@ -35,33 +37,68 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Logged {
 	
 	private ViewPanel mainViewPanel;
 	
-	public LanternaGUI() {}
-	
-	@Override
-	public void run() {
-		Instant start = Instant.now();
-		
-		DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(127, 60));
-		try {
-			screen = terminalFactory.createScreen();
-			screen.startScreen();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		multiWindowTextGUI = new MultiWindowTextGUI(new SeparateTextGUIThread.Factory(), screen);
-		guiThread = (SeparateTextGUIThread)multiWindowTextGUI.getGUIThread();
-		
-		SimpleTheme globalTheme = makeGlobalTheme();
-		multiWindowTextGUI.setTheme(globalTheme);
-		
-		mainViewPanel = createMainViewPanel();
-		prepareView();
-		
-		guiThread.start();
-		
-		logged.info(String.format(Thread.currentThread() + " stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
+	public LanternaGUI() {
+		logger = Logger.getLogger(LanternaGUI.class.getName());
 	}
 	
+	@Override
+	public Logger getLogger() {	
+		return logger;
+	}
+
+	@Override
+	public void initialize(GameModelInterface gameModel, ControllerInterface controller, Settings settings) throws NullPointerException {
+		this.gameModel = Objects.requireNonNull(gameModel);
+		this.controller = Objects.requireNonNull(controller);
+		this.settings = Objects.requireNonNull(settings);
+		
+		gameModel.registerObserver(this);
+	}
+
+	public void interruptGuiThread() {
+		try { screen.stopScreen(); }
+		catch (IOException e) { error(e.getClass().getName() + " when attemting to stop the screen. ",e); }
+		
+		if (guiThread != null)
+	        guiThread.stop(); // Ändert nur den Thread Status! Es handelt sich nicht um die deprecated Thread stop() Methode.
+	}
+
+	@Override
+	public void run() {
+		try {
+			Instant start = Instant.now();
+			DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(new TerminalSize(127, 60));
+			try {
+				screen = terminalFactory.createScreen();
+				screen.startScreen();
+			}
+			catch (IOException e) { error(e.getClass().getName() + " when attemting to create or start the screen.", e); }
+			
+			multiWindowTextGUI = new MultiWindowTextGUI(new SeparateTextGUIThread.Factory(), screen);
+			guiThread = (SeparateTextGUIThread)multiWindowTextGUI.getGUIThread();
+			
+			SimpleTheme globalTheme = makeGlobalTheme();
+			multiWindowTextGUI.setTheme(globalTheme);
+			
+			mainViewPanel = createMainViewPanel();
+			prepareView();
+			
+			startGuiThread();
+			info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
+		}
+		catch(RuntimeException e) { error(e.getClass().getName() + " when creating lanterna GUI.", e); }
+	}
+	
+	private ViewPanel createMainViewPanel() {
+		ViewPanel panel = new MainViewPanel(new GridLayout(2), gameModel, controller, settings);
+		panel.createContent();
+	    panel.addContent();
+	    panel.initializeContent();
+	    panel.updateContent();
+	    panel.addInputHandling();
+		return panel;
+	}
+
 	private SimpleTheme makeGlobalTheme() {
 		SimpleTheme globalTheme = SimpleTheme.makeTheme(true, 
 				new RGB(0, 0, 0),		// base foreground
@@ -74,45 +111,26 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Logged {
 		return globalTheme;
 	}
 	
-	private ViewPanel createMainViewPanel() {
-		ViewPanel panel = new MainViewPanel(new GridLayout(2), gameModel, controller, settings);
-		panel.createContent();
-        panel.addContent();
-        panel.initializeContent();
-        panel.updateContent();
-        panel.addInputHandling();
-		return panel;
-	}
-	
 	private void prepareView() {
 		Window mainWindow = new BasicWindow("SWEET TOOTH");
 		mainWindow.setFixedSize(new TerminalSize(120, 55));
         mainWindow.setComponent(mainViewPanel);
-		
+        
         multiWindowTextGUI.addWindow(mainWindow);
 	}
 	
 	@Override
-	public void initialize(GameModelInterface gameModel, ControllerInterface controller, Settings settings) {
-		this.gameModel = gameModel;
-		this.controller = controller;
-		this.settings = settings;
-		
-		gameModel.registerObserver(this);
-	}
-
-	public void stopView() throws IOException {
-		screen.stopScreen();
-		
-		if (guiThread != null)
-	        guiThread.stop();
+	public void startGuiThread() {
+		guiThread.start();
 	}
 
 	@Override
 	public void update() {
 		if(gameModel.isGameOver())
     		mainViewPanel.gameOverConfig();
-		
-		mainViewPanel.updateContent();
+    	if(gameModel.isExitButtonClicked())
+    		interruptGuiThread();
+    	else
+    		mainViewPanel.updateContent();
 	}
 }
