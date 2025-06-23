@@ -9,13 +9,12 @@ public interface GameModelInterface {
 	static GameModelInterface createGameModel() {
 		return new GameData();
 	}
-	void initialize(Settings settings, String namePlayer);
+	void initialize(Settings settings, String namePlayer) throws NullPointerException;
 	
 	// --- controller
-//	void start();
-//	void stop();
 	void notifyObservers();
 	void increaseDayOfGame(int numberOfDays) throws IOException;
+	void setExitButtonClicked(boolean exitButtonClicked);
 	void setGameOver(boolean gameOver);
 	
 	// --- view
@@ -25,5 +24,6 @@ public interface GameModelInterface {
 	Interrogable getLoanShark();
 	Playable getPlayer();
 	int getDayOfGame();
+	boolean isExitButtonClicked();
 	boolean isGameOver();
 }

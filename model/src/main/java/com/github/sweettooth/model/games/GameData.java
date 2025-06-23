@@ -2,6 +2,7 @@ package com.github.sweettooth.model.games;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Interrogable;
@@ -18,6 +19,7 @@ public class GameData implements GameModelInterface {
 	private ArrayList<Observer> observers;
 	private int dayOfGame;
 	private boolean gameOver;
+	private boolean exitButtonClicked;
 	
 	private Playable player;
 	private MoneyDealer bank;
@@ -30,8 +32,8 @@ public class GameData implements GameModelInterface {
 	}
 	
 	@Override
-	public void initialize(Settings settings, String namePlayer) {
-		this.settings = settings;
+	public void initialize(Settings settings, String namePlayer) throws NullPointerException {
+		this.settings = Objects.requireNonNull(settings);
 		player = new Player(namePlayer);
 		bank = new Bank(settings);
 		loanShark = new LoanShark(settings);
@@ -70,6 +72,11 @@ public class GameData implements GameModelInterface {
 	}
 	
 	@Override
+	public boolean isExitButtonClicked() {
+		return exitButtonClicked;
+	}
+	
+	@Override
 	public boolean isGameOver() {
 		return gameOver;
 	}
@@ -89,6 +96,11 @@ public class GameData implements GameModelInterface {
 	@Override
 	public void removeObserver(Observer o) {
 		observers.remove(o);
+	}
+	
+	@Override
+	public void setExitButtonClicked(boolean exitButtonClicked) {
+		this.exitButtonClicked = exitButtonClicked;
 	}
 	
 	@Override

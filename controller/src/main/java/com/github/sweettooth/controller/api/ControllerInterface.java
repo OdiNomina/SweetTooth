@@ -10,7 +10,7 @@ import com.googlecode.lanterna.gui2.TextBox;
 
 @SuppressWarnings("exports")
 public interface ControllerInterface {
-	void initialize(GameModelInterface gameModel);
+	void initialize(GameModelInterface gameModel) throws NullPointerException;
 	
 	/**
 	 * Creates the matching input filter for the event.

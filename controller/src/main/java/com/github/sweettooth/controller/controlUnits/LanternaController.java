@@ -1,5 +1,7 @@
 package com.github.sweettooth.controller.controlUnits;
 
+import java.util.Objects;
+
 import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.controller.buttonListeners.ButtonListenerFactory;
 import com.github.sweettooth.controller.comboBoxListeners.ComboBoxListenerFactory;
@@ -25,8 +27,8 @@ public class LanternaController implements ControllerInterface {
 	public LanternaController() {}
 	
 	@Override
-	public void initialize(GameModelInterface gameModel) {
-		this.gameModel = gameModel;
+	public void initialize(GameModelInterface gameModel) throws NullPointerException {
+		this.gameModel = Objects.requireNonNull(gameModel);
 		eventFactory = EventFactory.getDefaultFactory();
 		inputFilterFactory = new InputFilterFactory(this);
 		buttonListenerFactory = new ButtonListenerFactory(this);
