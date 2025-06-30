@@ -6,6 +6,9 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
@@ -26,23 +29,27 @@ public class SweetTooth implements Loggable {
 	public static void main(String[] args) {
 		try {
 			Instant start = Instant.now();
+			ExecutorService executor = Executors.newCachedThreadPool();
 			app = new SweetTooth();
-			LoggingSetup.initialize(SweetTooth.class);
-			app.setDefaultUncaughtExceptionHandler();
-			app.addShutdownHook();
+			
+			executor.submit( () -> LoggingSetup.initialize(SweetTooth.class) );
+			executor.submit( () -> app.setDefaultUncaughtExceptionHandler() );
+			executor.submit( () -> app.addShutdownHook() );
 			
 			Settings settings = new Settings(Locale.GERMANY);
-			GameModelInterface gameModel = GameModelInterface.createGameModel();
-			ControllerInterface lanternaController = ControllerFactory.create();
-			DisplayElement lanternaGUI = DisplayFactory.create();
-			try {
-				gameModel.initialize(settings, null);
-				lanternaController.initialize(gameModel);
-				lanternaGUI.initialize(gameModel, lanternaController, settings);
-			}
-			catch(RuntimeException e) { app.error(e.getClass().getName() + " during initialization of modules.", e); }
 			
-			new Thread(lanternaGUI, "CreateLanternaGUI").start();
+			Future<GameModelInterface> gameModel = executor.submit( () -> 
+				GameModelInterface.createGameModel().initialize(settings, null) );
+			
+			Future<ControllerInterface> lanternaController = executor.submit( () ->
+				ControllerFactory.create().initialize(gameModel.get()) );
+			
+			Future<DisplayElement> lanternaGUI = executor.submit( () ->
+				DisplayFactory.create().initialize(gameModel.get(), lanternaController.get(), settings) );
+		
+			executor.submit(lanternaGUI.get());
+			
+			executor.shutdown();
 			app.info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
 		}
 		catch(Exception e) { app.error(Thread.currentThread().getName() + " thread throws " + e.getClass().getName(), e); }

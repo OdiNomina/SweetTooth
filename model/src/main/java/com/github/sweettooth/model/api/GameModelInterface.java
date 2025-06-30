@@ -9,7 +9,7 @@ public interface GameModelInterface {
 	static GameModelInterface createGameModel() {
 		return new GameData();
 	}
-	void initialize(Settings settings, String namePlayer) throws NullPointerException;
+	GameModelInterface initialize(Settings settings, String namePlayer) throws NullPointerException;
 	
 	// --- controller
 	void notifyObservers();

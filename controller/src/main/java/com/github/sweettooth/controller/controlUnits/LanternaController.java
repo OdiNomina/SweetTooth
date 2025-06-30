@@ -27,12 +27,13 @@ public class LanternaController implements ControllerInterface {
 	public LanternaController() {}
 	
 	@Override
-	public void initialize(GameModelInterface gameModel) throws NullPointerException {
+	public ControllerInterface initialize(GameModelInterface gameModel) throws NullPointerException {
 		this.gameModel = Objects.requireNonNull(gameModel);
 		eventFactory = EventFactory.getDefaultFactory();
 		inputFilterFactory = new InputFilterFactory(this);
 		buttonListenerFactory = new ButtonListenerFactory(this);
 		comboBoxListenerFactory = new ComboBoxListenerFactory(this);
+		return this;
 	}
 	
 	public GameModelInterface getGameModel() {

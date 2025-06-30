@@ -47,12 +47,13 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	}
 
 	@Override
-	public void initialize(GameModelInterface gameModel, ControllerInterface controller, Settings settings) throws NullPointerException {
+	public DisplayElement initialize(GameModelInterface gameModel, ControllerInterface controller, Settings settings) throws NullPointerException {
 		this.gameModel = Objects.requireNonNull(gameModel);
 		this.controller = Objects.requireNonNull(controller);
 		this.settings = Objects.requireNonNull(settings);
 		
 		gameModel.registerObserver(this);
+		return this;
 	}
 
 	public void interruptGuiThread() {

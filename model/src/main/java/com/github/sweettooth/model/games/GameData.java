@@ -32,11 +32,12 @@ public class GameData implements GameModelInterface {
 	}
 	
 	@Override
-	public void initialize(Settings settings, String namePlayer) throws NullPointerException {
+	public GameModelInterface initialize(Settings settings, String namePlayer) throws NullPointerException {
 		this.settings = Objects.requireNonNull(settings);
 		player = new Player(namePlayer);
 		bank = new Bank(settings);
 		loanShark = new LoanShark(settings);
+		return this;
 	}
 	
 	@Override
