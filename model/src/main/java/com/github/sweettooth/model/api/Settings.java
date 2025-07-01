@@ -9,21 +9,27 @@ public class Settings {
 	private Locale locale;
 	private String currency;
 	private double travelCosts;
+	private SnackFactory snackFactory;
 	
-	public Settings(Locale locale) {
+	public Settings(Locale locale, SnackFactory snackFactory) {
 		this.locale = locale;
+		this.snackFactory = snackFactory;
 		currency = Currency.getInstance(locale).getSymbol();
 		travelCosts = Double.valueOf(10);
-	}
-	
-	public Locale getLocale() {
-		return locale;
 	}
 	
 	public String getCurrency() {
 		return currency;
 	}
 	
+	public Locale getLocale() {
+		return locale;
+	}
+	
+	public SnackFactory getSnackFactory() {
+		return snackFactory;
+	}
+
 	public double getTravelCosts() {
 		return travelCosts;
 	}

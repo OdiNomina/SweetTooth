@@ -10,7 +10,6 @@ import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.PersistentPreference;
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.locations.Location;
-import com.github.sweettooth.model.snacks.Candy;
 
 public class Player implements Playable, PersistentPreference {
 	public static int getMaxSnacks() {
@@ -19,8 +18,8 @@ public class Player implements Playable, PersistentPreference {
 	
 	private LocationInterface hometown;
 	private LocationInterface location;
-	private final ArrayList<Candy> candies = new ArrayList<>();
-	private final ArrayList<Candy> candyStash = new ArrayList<>();
+	private final ArrayList<Snackable> candies = new ArrayList<>();
+	private final ArrayList<Snackable> candyStash = new ArrayList<>();
 	private double cash = 200;
 	private String name;
 
@@ -122,14 +121,14 @@ public class Player implements Playable, PersistentPreference {
 	/**
 	 * Returns the list reference of player's candies list.
 	 */
-	public ArrayList<Candy> getCandies() {
+	public ArrayList<Snackable> getCandies() {
 		return candies;
 	}
 	
 	/**
 	 * Returns the list reference of player's candyStash list.
 	 */
-	public ArrayList<Candy> getCandyStash() {
+	public ArrayList<Snackable> getCandyStash() {
 		return candyStash;
 	}
 	

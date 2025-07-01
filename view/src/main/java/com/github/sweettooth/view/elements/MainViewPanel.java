@@ -10,7 +10,6 @@ import com.github.sweettooth.model.api.Interrogable;
 import com.github.sweettooth.model.api.LocationInterface;
 import com.github.sweettooth.model.api.Playable;
 import com.github.sweettooth.model.api.Settings;
-import com.github.sweettooth.model.api.SnackFactory;
 import com.github.sweettooth.model.api.Snackable;
 
 import com.googlecode.lanterna.SGR;
@@ -30,7 +29,7 @@ import com.googlecode.lanterna.gui2.TextBox;
 public class MainViewPanel extends ViewPanel {
 	private ControllerInterface controller;
 	private GameModelInterface gameData;
-	private Settings settings;
+	private Settings gameSettings;
 	
 	private Playable player;
 	private Interrogable loanShark;
@@ -40,7 +39,7 @@ public class MainViewPanel extends ViewPanel {
         super(layoutManager);
         this.controller = controller;
         this.gameData = gameModel;
-        this.settings = settings;
+        this.gameSettings = settings;
         
         player = gameData.getPlayer();
         loanShark = gameData.getLoanShark();
@@ -324,7 +323,7 @@ public class MainViewPanel extends ViewPanel {
 	    labels.get("bankInfo").setText("");
 	    labels.get("loansharkBalance").setText(formatMoney(loanShark.getClientsBalance(player)));
 	    labels.get("loansharkInfo").setText("");
-	    labels.get("ticketPrice").setText(formatMoney(settings.getTravelCosts()));
+	    labels.get("ticketPrice").setText(formatMoney(gameSettings.getTravelCosts()));
 	    labels.get("travel1").setText("");
 	    labels.get("travel2").setText("");
 	    labels.get("travel3").setText("");
@@ -377,24 +376,24 @@ public class MainViewPanel extends ViewPanel {
 		double loan = loanShark.getClientsBalance(player);
 		double balance = bank.getClientsBalance(player);
 		StringBuffer answer = new StringBuffer();
-		answer.append(String.format(settings.getLocale(), "Cash: %,.2f %s", cash, settings.getCurrency()))
-		.append(String.format(settings.getLocale(), " | Kredithai: %,.2f %s", loan, settings.getCurrency()))
-		.append(String.format(settings.getLocale(), " | Bankkonto: %,.2f %s", balance, settings.getCurrency()))
-		.append(String.format(settings.getLocale(), "\nSaldo: %,.2f %s", cash + loan + balance, settings.getCurrency()));
+		answer.append(String.format(gameSettings.getLocale(), "Cash: %,.2f %s", cash, gameSettings.getCurrency()))
+		.append(String.format(gameSettings.getLocale(), " | Kredithai: %,.2f %s", loan, gameSettings.getCurrency()))
+		.append(String.format(gameSettings.getLocale(), " | Bankkonto: %,.2f %s", balance, gameSettings.getCurrency()))
+		.append(String.format(gameSettings.getLocale(), "\nSaldo: %,.2f %s", cash + loan + balance, gameSettings.getCurrency()));
 		return answer.toString();
 	}
 	
 	private ArrayList<String> formatDefaultCandies() {
-	    ArrayList<? extends Snackable> candies = SnackFactory.getDefaultSnacks();
+	    ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().getDefaultSnacks();
 	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
 	    for(Snackable s : candies)
-	    	formattedList.add(String.format(settings.getLocale(), "%s - %.2f %s", s.getName(), s.getStaticPrice(), settings.getCurrency()));
+	    	formattedList.add(String.format(gameSettings.getLocale(), "%s - %.2f %s", s.getName(), s.getStaticPrice(), gameSettings.getCurrency()));
 	    return formattedList;
 	}
 	
 	private String formatMoney(double money) {
-	   return String.format(settings.getLocale(), "%,.2f %s", money, settings.getCurrency());
+	   return String.format(gameSettings.getLocale(), "%,.2f %s", money, gameSettings.getCurrency());
     }
 
 	private ArrayList<String> formatSnacks(ArrayList<? extends Snackable> snacks){
@@ -405,7 +404,7 @@ public class MainViewPanel extends ViewPanel {
 			return formattedList;
 		}
 		for(Snackable s : snacks)
-			formattedList.add(String.format(settings.getLocale(), "%,d | %s", s.getQuantity(), s.getName()));
+			formattedList.add(String.format(gameSettings.getLocale(), "%,d | %s", s.getQuantity(), s.getName()));
 		return formattedList;
 	}
 }

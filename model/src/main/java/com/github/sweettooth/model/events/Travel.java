@@ -1,6 +1,5 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.SnackFactory;
 import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.experiences.Experience;
 import com.github.sweettooth.model.games.GameData;
@@ -13,7 +12,7 @@ public final class Travel extends Event {
 	
 	@Override
 	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		double travelCosts = settings.getTravelCosts();
+		double travelCosts = gameSettings.getTravelCosts();
 		String payment = "";
 		if(player.getCash() >= travelCosts) {
 			player.reduceCash(travelCosts);
@@ -24,11 +23,11 @@ public final class Travel extends Event {
 			payment = "Du zahlst per Bankcard.";
 		}
 		player.setLocation(Location.valueOf(stringInput));
-		Snackable.changeSnackPrices(SnackFactory.getDefaultSnacks(), player.getLocation());
+		Snackable.changeSnackPrices(gameSettings.getSnackFactory().getDefaultSnacks(), player.getLocation());
 		String infoChangePrices = "(Die Marktpreise haben sich geändert.)";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")
-					.append(Experience.randomExperience().process(player))
+					.append(Experience.randomExperience(gameSettings).process(player))
 					.append(" ");
 		return new Answer(eventAnswer.toString(), payment, infoChangePrices);
 	}

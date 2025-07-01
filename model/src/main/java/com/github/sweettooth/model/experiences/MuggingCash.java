@@ -1,8 +1,14 @@
 package com.github.sweettooth.model.experiences;
 
+import com.github.sweettooth.model.api.Settings;
 import com.github.sweettooth.model.characters.Player;
 
 final class MuggingCash extends Experience {
+	
+	MuggingCash(Settings gameSettings) {
+		super(gameSettings);
+	}
+	
 	@Override
 	public String process(Player player) {
 		if(player.getCash() == 0)

@@ -7,11 +7,19 @@ import com.github.sweettooth.model.snacks.CandyFactory;
 public abstract class SnackFactory {
 	// --- view
 	
+	public enum SnackType {
+		Candy
+	}
+	
 	public SnackFactory(){}
 	
-	public static ArrayList<? extends Snackable> getDefaultSnacks() {
-		return new CandyFactory().getDefaultCandies();
+	public static SnackFactory createFactory(SnackType type) {
+		return switch(type) {
+			case Candy -> CandyFactory.getInstance();
+		};
 	}
+	
+	public abstract ArrayList<Snackable> getDefaultSnacks();
 	
 	/**
 	 * Returns a random default Snackable.

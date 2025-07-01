@@ -12,14 +12,14 @@ import com.github.sweettooth.model.games.GameData;
 public abstract sealed class Event implements Processable permits 
 	ApplyInterest, Buy, Deposit, Exit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw //Update factory!
 {
-	Settings settings;
+	Settings gameSettings;
 	Player player;
 	MoneyDealer bank;
 	MoneyDealer loanShark;
 	String notAtHometown;
 	
 	public Event(GameData gameData) {
-		settings = gameData.getSettings();
+		gameSettings = gameData.getSettings();
 		player = (Player)gameData.getPlayer();
 		bank = (MoneyDealer)gameData.getBank();
 		loanShark = (MoneyDealer)gameData.getLoanShark();

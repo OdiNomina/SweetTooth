@@ -7,9 +7,18 @@ import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.locations.Location;
 
 public class CandyFactory extends SnackFactory {	
+	private static CandyFactory uniqueInstance;
+	
+	public static CandyFactory getInstance() {
+		if(uniqueInstance == null)
+			uniqueInstance = new CandyFactory();
+		
+		return uniqueInstance;
+	}
+	
 	private final ArrayList<Candy> defaultCandies;
 	
-	public CandyFactory(){
+	private CandyFactory() {
 		defaultCandies = new ArrayList<>();
 	}
 	
@@ -23,11 +32,12 @@ public class CandyFactory extends SnackFactory {
 		Snackable.changeSnackPrices(defaultCandies, Location.BRONX);
 	}
 	
-	public ArrayList<Candy> getDefaultCandies() {
+	@Override
+	public ArrayList<Snackable> getDefaultSnacks() {
 		if(defaultCandies.isEmpty())
 			creatDefaultCandies();
 		
-		ArrayList<Candy> copy = new ArrayList<>();
+		ArrayList<Snackable> copy = new ArrayList<>();
 		for(Candy c : defaultCandies)
 			copy.add(c);
 		return copy;
