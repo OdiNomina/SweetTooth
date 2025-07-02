@@ -2,13 +2,14 @@ package com.github.sweettooth.model.characters;
 
 import java.util.Objects;
 
+import com.github.sweettooth.model.api.Playable;
 import com.github.sweettooth.model.commons.Tools;
 
 class Client {
-	final Player identity;
+	final Playable identity;
 	private double balance;
 	
-	Client(Player player){
+	Client(Playable player){
 		identity = player;
 	}
 	

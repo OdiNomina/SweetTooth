@@ -1,6 +1,7 @@
 package com.github.sweettooth.model.api;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
 import com.github.sweettooth.model.snacks.Candy;
 
@@ -8,18 +9,11 @@ public interface Snackable {
 	// --- view
 	
 	public static void changeSnackPrices(ArrayList<? extends Snackable> snacks, LocationInterface location) {
-		for(Snackable s : snacks) {
-			Candy c = (Candy)s;
-			c.setRandomStaticPrice(location);
-		}
+		snacks.stream().map( t -> (Candy)t ).forEach(  t -> t.setRandomStaticPrice(location) );
 	}
 	
-	public static Snackable findSnack(ArrayList<? extends Snackable> list, String snackName) {
-		for(Snackable s : list) {
-			if(s.getName().equalsIgnoreCase(snackName.strip()))
-				return s;
-		}
-		return null;
+	public static Snackable findSnack(ArrayList<? extends Snackable> list, String snackName) throws NoSuchElementException {
+		return list.stream().filter( t -> t.getName().equalsIgnoreCase(snackName.strip())).findFirst().get();
 	}
 	
 	<T extends Snackable> T cloneSnack();

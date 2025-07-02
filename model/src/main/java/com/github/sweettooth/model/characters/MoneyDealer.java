@@ -1,6 +1,7 @@
 package com.github.sweettooth.model.characters;
 
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 
 import com.github.sweettooth.model.api.Interrogable;
@@ -19,17 +20,12 @@ public abstract sealed class MoneyDealer implements Interrogable permits Bank, L
 		this.settings = settings;
 	}
 	
-	Client findClientByIdentity(Playable player) {
-		for(Client c : clients) {
-			if(c.identity == player)
-				return c;
+	Client getExistingOrNewClient(Playable player) {
+		Client client = null;
+		try {
+			client = clients.stream().filter( element -> element.identity.equals(player) ).findFirst().get();
 		}
-		return null;
-	}
-	
-	Client getExistingOrNewClient(Player player) {
-		Client client = findClientByIdentity(player);
-		if(client == null) {
+		catch(NoSuchElementException e) {
 			client = new Client(player);
 			clients.add(client);
 		}
