@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.Processable;
 import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.games.GameData;

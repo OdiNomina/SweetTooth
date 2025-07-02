@@ -2,8 +2,7 @@ package com.github.sweettooth.controller.comboBoxListeners;
 
 import com.github.sweettooth.controller.controlUnits.LanternaController;
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.Processable;
-
+import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;

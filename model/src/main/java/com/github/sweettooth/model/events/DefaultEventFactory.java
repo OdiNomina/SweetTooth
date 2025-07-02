@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.EventFactory;
 import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.controllerAPI.EventFactory;
 import com.github.sweettooth.model.games.GameData;
 
 public class DefaultEventFactory extends EventFactory {

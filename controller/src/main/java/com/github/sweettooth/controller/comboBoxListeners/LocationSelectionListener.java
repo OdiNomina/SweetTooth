@@ -4,8 +4,7 @@ import java.io.IOException;
 
 import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.Processable;
-
+import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;

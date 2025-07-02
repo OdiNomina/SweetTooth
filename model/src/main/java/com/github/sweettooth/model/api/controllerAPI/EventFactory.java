@@ -1,10 +1,9 @@
-package com.github.sweettooth.model.api;
+package com.github.sweettooth.model.api.controllerAPI;
 
+import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.events.DefaultEventFactory;
 
 public abstract class EventFactory {
-	// --- controller
-	
 	public static EventFactory getDefaultFactory() {
 		return new DefaultEventFactory();
 	}

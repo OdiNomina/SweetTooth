@@ -5,16 +5,16 @@ import java.util.Arrays;
 import com.github.sweettooth.controller.api.ControllerFactory;
 import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.launcher.app.SweetTooth;
-import com.github.sweettooth.model.api.EventFactory;
 import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.IMoneyDealer;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.Observer;
 import com.github.sweettooth.model.api.IPlayer;
-import com.github.sweettooth.model.api.Processable;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.api.SnackFactory;
 import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.api.controllerAPI.EventFactory;
+import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.github.sweettooth.view.api.DisplayElement;
 import com.github.sweettooth.view.api.DisplayFactory;
 
