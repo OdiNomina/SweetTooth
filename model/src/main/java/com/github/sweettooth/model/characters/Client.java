@@ -2,7 +2,7 @@ package com.github.sweettooth.model.characters;
 
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.IPlayer;
+import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.commons.Tools;
 
 class Client {

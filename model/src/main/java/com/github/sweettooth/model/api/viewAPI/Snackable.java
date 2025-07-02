@@ -1,12 +1,13 @@
-package com.github.sweettooth.model.api;
+package com.github.sweettooth.model.api.viewAPI;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.snacks.Candy;
 
 public interface Snackable {
-	// --- view
+	// --- model
 	
 	public static void changeSnackPrices(ArrayList<? extends Snackable> snacks, ILocation location) {
 		snacks.stream().map( t -> (Candy)t ).forEach(  t -> t.setRandomStaticPrice(location) );
@@ -17,12 +18,13 @@ public interface Snackable {
 	}
 	
 	<T extends Snackable> T cloneSnack();
-	boolean equals(Object obj);
-	String getName();
-	int getQuantity();
-	double getStaticPrice();
-	int hashCode();
 	void increaseQuantity(int number);
 	void reduceQuantity(int number);
 	void setQuantity(int quantity);
+	
+	// --- model and view
+	
+	String getName();
+	int getQuantity();
+	double getStaticPrice();
 }

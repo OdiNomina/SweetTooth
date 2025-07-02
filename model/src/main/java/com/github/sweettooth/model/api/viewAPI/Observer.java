@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.api;
+package com.github.sweettooth.model.api.viewAPI;
 
 public interface Observer {
 	/*

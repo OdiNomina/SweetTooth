@@ -2,8 +2,8 @@ package com.github.sweettooth.model.commons;
 
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.api.IPlayer;
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.api.viewAPI.IPlayer;
+import com.github.sweettooth.model.api.viewAPI.Snackable;
 
 public class Tools {
 	public static boolean isTooMuchToCarry(IPlayer player, int quantity){

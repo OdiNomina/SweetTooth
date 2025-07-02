@@ -2,16 +2,15 @@ package com.github.sweettooth.model.api;
 
 import java.util.ArrayList;
 
+import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.snacks.CandyFactory;
 
 public abstract class SnackFactory {
-	// --- view
+	// --- launcher
 	
 	public enum SnackType {
 		Candy
 	}
-	
-	public SnackFactory(){}
 	
 	public static SnackFactory createFactory(SnackType type) {
 		return switch(type) {
@@ -19,7 +18,11 @@ public abstract class SnackFactory {
 		};
 	}
 	
+	// --- model and launcher
+	
 	public abstract ArrayList<Snackable> getDefaultSnacks();
+	
+	// --- model
 	
 	/**
 	 * Returns a random default Snackable.

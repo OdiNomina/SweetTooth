@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.IMoneyDealer;
-import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
+import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.locations.Location;
 
 public abstract sealed class MoneyDealer implements IMoneyDealer permits Bank, LoanShark

@@ -2,6 +2,9 @@ package com.github.sweettooth.model.api;
 
 import java.io.IOException;
 
+import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
+import com.github.sweettooth.model.api.viewAPI.IPlayer;
+import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.games.GameData;
 
 public interface GameModelInterface {

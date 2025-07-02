@@ -1,9 +1,11 @@
-package com.github.sweettooth.model.api;
+package com.github.sweettooth.model.api.viewAPI;
 
 import java.util.ArrayList;
 
+import com.github.sweettooth.model.api.ILocation;
+
 public interface IPlayer {
-	// --- view
+	// --- model and view
 	
 	public abstract double getCash();
 	public abstract ArrayList<? extends Snackable> getCandies();

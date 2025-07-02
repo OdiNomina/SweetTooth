@@ -1,6 +1,6 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.games.GameData;
 
 public final class Sell extends Event {

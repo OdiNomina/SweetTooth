@@ -1,6 +1,6 @@
 package com.github.sweettooth.model.snacks;
 
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.commons.Tools;
 
 final class BubbleGum extends Candy implements Snackable {

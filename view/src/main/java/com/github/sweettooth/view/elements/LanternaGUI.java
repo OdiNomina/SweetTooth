@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 
 import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.Observer;
 import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.view.api.DisplayElement;
 

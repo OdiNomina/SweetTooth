@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.github.sweettooth.model.api.ModelSettings;
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.characters.Player;
 
 final class Eating extends Experience {

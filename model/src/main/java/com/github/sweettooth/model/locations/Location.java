@@ -17,13 +17,13 @@ public enum Location implements ILocation {
 	 * @exception IllegalArgumentException
 	 * 				if argument is no valid location name.
 	 */
-	public static String getEnumName(String officialName) {
-		for(Location staticObject : Location.values()) {
-			if(staticObject.officialName.equalsIgnoreCase(officialName.strip()))
-				return staticObject.name();
-		}
-		throw new IllegalArgumentException("Invalid argument.");
-	}
+//	public static String getEnumName(String officialName) {
+//		for(Location staticObject : Location.values()) {
+//			if(staticObject.officialName.equalsIgnoreCase(officialName.strip()))
+//				return staticObject.name();
+//		}
+//		throw new IllegalArgumentException("Invalid argument.");
+//	}
 	
 	/**
 	 * Returns the corresponding enum entity.

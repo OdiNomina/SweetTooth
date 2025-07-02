@@ -6,11 +6,11 @@ import java.util.Comparator;
 import com.github.sweettooth.controller.api.ControllerInterface;
 
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.IMoneyDealer;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.ModelSettings;
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
+import com.github.sweettooth.model.api.viewAPI.IPlayer;
+import com.github.sweettooth.model.api.viewAPI.Snackable;
 
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;

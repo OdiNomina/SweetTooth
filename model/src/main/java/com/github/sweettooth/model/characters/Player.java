@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.IPlayer;
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.api.viewAPI.IPlayer;
+import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.PersistentPreference;
 import com.github.sweettooth.model.commons.Tools;

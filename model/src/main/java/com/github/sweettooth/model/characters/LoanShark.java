@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.characters;
 
-import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.commons.InternSettings;
 
 non-sealed public class LoanShark extends MoneyDealer {
