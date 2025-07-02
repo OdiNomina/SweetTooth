@@ -1,12 +1,13 @@
 package com.github.sweettooth.model.snacks;
 
 import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.commons.Tools;
 
 final class ChocolateBar extends Candy implements Snackable {
 	static double price;
 	
-	ChocolateBar(){
-		super("Schokoriegel", 3, 9);
+	ChocolateBar(Double min, Double max){
+		super("Schokoriegel", min, max);
 	}
 	
 	@Override
@@ -24,7 +25,7 @@ final class ChocolateBar extends Candy implements Snackable {
 	
 	@Override
 	public double getStaticPrice() {
-		return rounded(price);
+		return Tools.rounded(price);
 	}
 	
 	@Override

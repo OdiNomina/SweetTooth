@@ -9,7 +9,7 @@ import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Interrogable;
 import com.github.sweettooth.model.api.LocationInterface;
 import com.github.sweettooth.model.api.Playable;
-import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.api.Snackable;
 
 import com.googlecode.lanterna.SGR;
@@ -29,17 +29,17 @@ import com.googlecode.lanterna.gui2.TextBox;
 public class MainViewPanel extends ViewPanel {
 	private ControllerInterface controller;
 	private GameModelInterface gameData;
-	private Settings gameSettings;
+	private ModelSettings modelSettings;
 	
 	private Playable player;
 	private Interrogable loanShark;
 	private Interrogable bank;
 	
-	public MainViewPanel(LayoutManager layoutManager, GameModelInterface gameModel, ControllerInterface controller, Settings settings) {
+	public MainViewPanel(LayoutManager layoutManager, GameModelInterface gameModel, ControllerInterface controller, ModelSettings modelSettings) {
         super(layoutManager);
         this.controller = controller;
         this.gameData = gameModel;
-        this.gameSettings = settings;
+        this.modelSettings = modelSettings;
         
         player = gameData.getPlayer();
         loanShark = gameData.getLoanShark();
@@ -323,7 +323,7 @@ public class MainViewPanel extends ViewPanel {
 	    labels.get("bankInfo").setText("");
 	    labels.get("loansharkBalance").setText(formatMoney(loanShark.getClientsBalance(player)));
 	    labels.get("loansharkInfo").setText("");
-	    labels.get("ticketPrice").setText(formatMoney(gameSettings.getTravelCosts()));
+	    labels.get("ticketPrice").setText(formatMoney(modelSettings.getTravelCosts()));
 	    labels.get("travel1").setText("");
 	    labels.get("travel2").setText("");
 	    labels.get("travel3").setText("");
@@ -376,24 +376,24 @@ public class MainViewPanel extends ViewPanel {
 		double loan = loanShark.getClientsBalance(player);
 		double balance = bank.getClientsBalance(player);
 		StringBuffer answer = new StringBuffer();
-		answer.append(String.format(gameSettings.getLocale(), "Cash: %,.2f %s", cash, gameSettings.getCurrency()))
-		.append(String.format(gameSettings.getLocale(), " | Kredithai: %,.2f %s", loan, gameSettings.getCurrency()))
-		.append(String.format(gameSettings.getLocale(), " | Bankkonto: %,.2f %s", balance, gameSettings.getCurrency()))
-		.append(String.format(gameSettings.getLocale(), "\nSaldo: %,.2f %s", cash + loan + balance, gameSettings.getCurrency()));
+		answer.append(String.format(modelSettings.getLocale(), "Cash: %,.2f %s", cash, modelSettings.getCurrency()))
+		.append(String.format(modelSettings.getLocale(), " | Kredithai: %,.2f %s", loan, modelSettings.getCurrency()))
+		.append(String.format(modelSettings.getLocale(), " | Bankkonto: %,.2f %s", balance, modelSettings.getCurrency()))
+		.append(String.format(modelSettings.getLocale(), "\nSaldo: %,.2f %s", cash + loan + balance, modelSettings.getCurrency()));
 		return answer.toString();
 	}
 	
 	private ArrayList<String> formatDefaultCandies() {
-	    ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().getDefaultSnacks();
+	    ArrayList<? extends Snackable> candies = modelSettings.getSnackFactory().getDefaultSnacks();
 	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
 	    for(Snackable s : candies)
-	    	formattedList.add(String.format(gameSettings.getLocale(), "%s - %.2f %s", s.getName(), s.getStaticPrice(), gameSettings.getCurrency()));
+	    	formattedList.add(String.format(modelSettings.getLocale(), "%s - %.2f %s", s.getName(), s.getStaticPrice(), modelSettings.getCurrency()));
 	    return formattedList;
 	}
 	
 	private String formatMoney(double money) {
-	   return String.format(gameSettings.getLocale(), "%,.2f %s", money, gameSettings.getCurrency());
+	   return String.format(modelSettings.getLocale(), "%,.2f %s", money, modelSettings.getCurrency());
     }
 
 	private ArrayList<String> formatSnacks(ArrayList<? extends Snackable> snacks){
@@ -404,7 +404,7 @@ public class MainViewPanel extends ViewPanel {
 			return formattedList;
 		}
 		for(Snackable s : snacks)
-			formattedList.add(String.format(gameSettings.getLocale(), "%,d | %s", s.getQuantity(), s.getName()));
+			formattedList.add(String.format(modelSettings.getLocale(), "%,d | %s", s.getQuantity(), s.getName()));
 		return formattedList;
 	}
 }

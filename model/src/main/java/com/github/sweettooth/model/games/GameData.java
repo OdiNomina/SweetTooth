@@ -8,7 +8,7 @@ import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Interrogable;
 import com.github.sweettooth.model.api.Observer;
 import com.github.sweettooth.model.api.Playable;
-import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
 import com.github.sweettooth.model.characters.MoneyDealer;
@@ -24,7 +24,7 @@ public class GameData implements GameModelInterface {
 	private Playable player;
 	private MoneyDealer bank;
 	private MoneyDealer loanShark;
-	private Settings settings;
+	private ModelSettings modelSettings;
 	
 	public GameData() {
 		observers = new ArrayList<>();
@@ -32,11 +32,11 @@ public class GameData implements GameModelInterface {
 	}
 	
 	@Override
-	public GameModelInterface initialize(Settings settings, String namePlayer) throws NullPointerException {
-		this.settings = Objects.requireNonNull(settings);
+	public GameModelInterface initialize(ModelSettings modelSettings, String namePlayer) throws NullPointerException {
+		this.modelSettings = Objects.requireNonNull(modelSettings);
 		player = new Player(namePlayer);
-		bank = new Bank(settings);
-		loanShark = new LoanShark(settings);
+		bank = new Bank(modelSettings);
+		loanShark = new LoanShark(modelSettings);
 		return this;
 	}
 	
@@ -55,8 +55,8 @@ public class GameData implements GameModelInterface {
 		return loanShark;
 	}
 	
-	public Settings getSettings() {
-		return settings;
+	public ModelSettings getSettings() {
+		return modelSettings;
 	}
 	
 	@Override

@@ -12,10 +12,6 @@ import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.locations.Location;
 
 public class Player implements Playable, PersistentPreference {
-	public static int getMaxSnacks() {
-		return InternSettings.MAX_SNACKS;
-	}
-	
 	private LocationInterface hometown;
 	private LocationInterface location;
 	private final ArrayList<Snackable> candies = new ArrayList<>();
@@ -24,7 +20,7 @@ public class Player implements Playable, PersistentPreference {
 	private String name;
 
 	public Player(String name){
-		hometown = Location.BRONX;
+		hometown = InternSettings.HOMETOWN;
 		location = hometown;
 		this.name = Objects.requireNonNullElse(name, "Anonymer Spieler");
 	}

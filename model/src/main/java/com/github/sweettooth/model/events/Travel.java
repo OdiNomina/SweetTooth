@@ -12,7 +12,7 @@ public final class Travel extends Event {
 	
 	@Override
 	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		double travelCosts = gameSettings.getTravelCosts();
+		double travelCosts = modelSettings.getTravelCosts();
 		String payment = "";
 		if(player.getCash() >= travelCosts) {
 			player.reduceCash(travelCosts);
@@ -23,11 +23,11 @@ public final class Travel extends Event {
 			payment = "Du zahlst per Bankcard.";
 		}
 		player.setLocation(Location.valueOf(stringInput));
-		Snackable.changeSnackPrices(gameSettings.getSnackFactory().getDefaultSnacks(), player.getLocation());
+		Snackable.changeSnackPrices(modelSettings.getSnackFactory().getDefaultSnacks(), player.getLocation());
 		String infoChangePrices = "(Die Marktpreise haben sich geändert.)";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")
-					.append(Experience.randomExperience(gameSettings).process(player))
+					.append(Experience.randomExperience(modelSettings).process(player))
 					.append(" ");
 		return new Answer(eventAnswer.toString(), payment, infoChangePrices);
 	}

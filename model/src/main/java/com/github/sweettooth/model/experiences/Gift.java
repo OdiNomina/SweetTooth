@@ -1,18 +1,16 @@
 package com.github.sweettooth.model.experiences;
 
-import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.commons.InternSettings;
+import com.github.sweettooth.model.commons.Tools;
 
 final class Gift extends Experience {
-	final static int MAX_GIFTS = Integer.valueOf(3);
-	final static int MAX_QUANTITY = Integer.valueOf(6);
-	
-	Gift(Settings gameSettings) {
-		super(gameSettings);
+	Gift(ModelSettings modelSettings) {
+		super(modelSettings);
 	}
 	
 	@Override
@@ -21,10 +19,10 @@ final class Gift extends Experience {
 		Snackable randomCandy = null;
 		int randomQuantity = 0;
 		int gift = 0;
-		for(int i = 0; i <= random.nextInt(0, MAX_GIFTS); i++) {
-			randomQuantity = random.nextInt(1, MAX_QUANTITY + 1);
-			randomCandy = gameSettings.getSnackFactory().getRandom();
-			if(isNotTooMuch(player, randomQuantity)) {
+		for(int i = 0; i <= random.nextInt(0, InternSettings.MAX_GIFT_TYPES); i++) {
+			randomQuantity = random.nextInt(1,InternSettings.MAX_GIFT_QUANTITY + 1);
+			randomCandy = modelSettings.getSnackFactory().getRandom();
+			if(!Tools.isTooMuchToCarry(player, randomQuantity)) {
 				player.addSnack(randomCandy, player.getCandies(), randomQuantity);
 				gift++;
 			}
@@ -32,13 +30,5 @@ final class Gift extends Experience {
 		if(gift > 0)
 			return "Du Glückspilz! Jemand schenkt dir Süßigkeiten.";
 		return "Jemand möchte dir Süßigkeiten schenken, aber deine Taschen sind voll.";
-	}
-	
-	boolean isNotTooMuch(Player player, int quantity){
-		int sumCandies = 0;
-		ArrayList<? extends Snackable> candies =  player.getCandies();
-		for(int i = 0; i < candies.size(); i++)
-			sumCandies += candies.get(i).getQuantity();
-		return sumCandies + quantity <= Player.getMaxSnacks();
 	}
 }

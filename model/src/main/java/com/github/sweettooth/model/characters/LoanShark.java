@@ -1,20 +1,18 @@
 package com.github.sweettooth.model.characters;
 
 import com.github.sweettooth.model.api.Playable;
-import com.github.sweettooth.model.api.Settings;
-import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.commons.InternSettings;
 
 non-sealed public class LoanShark extends MoneyDealer {
-	final static double INTEREST_DEBT_PERCENT = Double.valueOf(10);
-	
-	public LoanShark(Settings settings) {
-		super(Location.BRONX, settings);
+	public LoanShark(ModelSettings modelSettings) {
+		super(InternSettings.HOMETOWN, modelSettings);
 	}
 	
 	@Override
 	public Double applyInterestToBalance(Player player) {
 		Client client = getExistingOrNewClient(player);
-		double interest = client.getBalance() * INTEREST_DEBT_PERCENT / 100;
+		double interest = client.getBalance() * InternSettings.LOANSHARK_INTEREST_DEBT_PERCENT / 100;
 		client.addAmount(interest);
 		return interest;
 	}
@@ -44,7 +42,7 @@ non-sealed public class LoanShark extends MoneyDealer {
 
 	@Override
 	public String getInterestHint() {
-		return String.format(settings.getLocale(), "Ich will %.1f %% pro Tag!", INTEREST_DEBT_PERCENT);
+		return String.format(modelSettings.getLocale(), "Ich will %.1f %% pro Tag!", InternSettings.LOANSHARK_INTEREST_DEBT_PERCENT);
 	}
 
 	@Override

@@ -3,20 +3,20 @@ package com.github.sweettooth.model.api;
 import java.util.Currency;
 import java.util.Locale;
 
-public class Settings {
-	// --- view
-	
+import com.github.sweettooth.model.commons.InternSettings;
+
+public class ModelSettings {
 	private Locale locale;
 	private String currency;
-	private double travelCosts;
 	private SnackFactory snackFactory;
 	
-	public Settings(Locale locale, SnackFactory snackFactory) {
+	public ModelSettings(Locale locale, SnackFactory snackFactory) {
 		this.locale = locale;
 		this.snackFactory = snackFactory;
 		currency = Currency.getInstance(locale).getSymbol();
-		travelCosts = Double.valueOf(10);
 	}
+	
+	// --- model and view
 	
 	public String getCurrency() {
 		return currency;
@@ -31,6 +31,6 @@ public class Settings {
 	}
 
 	public double getTravelCosts() {
-		return travelCosts;
+		return InternSettings.TRAVEL_COSTS;
 	}
 }

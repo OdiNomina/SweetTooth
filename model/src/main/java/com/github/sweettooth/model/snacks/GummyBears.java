@@ -1,12 +1,13 @@
 package com.github.sweettooth.model.snacks;
 
 import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.commons.Tools;
 
 final class GummyBears extends Candy implements Snackable {
 	static double price;
 	
-	GummyBears(){
-		super("Gummibärchen", 0.7, 2.5);
+	GummyBears(Double min, Double max){
+		super("Gummibärchen", min, max);
 	}
 	
 	@Override
@@ -24,7 +25,7 @@ final class GummyBears extends Candy implements Snackable {
 	
 	@Override
 	public double getStaticPrice() {
-		return rounded(price);
+		return Tools.rounded(price);
 	}
 	
 	@Override

@@ -1,10 +1,7 @@
 package com.github.sweettooth.model.events;
 
-import java.util.ArrayList;
-
 import com.github.sweettooth.model.api.Processable;
-import com.github.sweettooth.model.api.Settings;
-import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.games.GameData;
@@ -12,26 +9,19 @@ import com.github.sweettooth.model.games.GameData;
 public abstract sealed class Event implements Processable permits 
 	ApplyInterest, Buy, Deposit, Exit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw //Update factory!
 {
-	Settings gameSettings;
+	ModelSettings modelSettings;
 	Player player;
 	MoneyDealer bank;
 	MoneyDealer loanShark;
 	String notAtHometown;
 	
 	public Event(GameData gameData) {
-		gameSettings = gameData.getSettings();
+		modelSettings = gameData.getSettings();
 		player = (Player)gameData.getPlayer();
 		bank = (MoneyDealer)gameData.getBank();
 		loanShark = (MoneyDealer)gameData.getLoanShark();
 		
 		notAtHometown = "Du bist nicht in deiner Heimatstadt.";
-	}
-	
-	boolean isTooMuchToCarry(int quantity){
-		ArrayList<? extends Snackable> candies = player.getCandies();
-		Integer sumInPockets = candies.stream().reduce(0, (sum, element) -> sum + element.getQuantity(), Integer::sum);
-		
-		return sumInPockets + quantity > Player.getMaxSnacks();
 	}
 	
 	boolean isAtHometown() {

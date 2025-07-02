@@ -1,6 +1,7 @@
 package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.api.Snackable;
+import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.games.GameData;
 
 public final class Buy extends Event {
@@ -13,9 +14,9 @@ public final class Buy extends Event {
 		stringInput = splitStringInput(stringInput);
 		if(integerInput < 1)
 			return "Nix gekauft";
-		if(isTooMuchToCarry(integerInput))
+		if(Tools.isTooMuchToCarry(player, integerInput))
 			return "Soviel kannst du gar nicht tragen.";
-		Snackable kindOfCandy = gameSettings.getSnackFactory().valueOf(stringInput);
+		Snackable kindOfCandy = modelSettings.getSnackFactory().valueOf(stringInput);
 		if(player.getCash() < kindOfCandy.getStaticPrice() * integerInput)
 			return "Soviel Geld hast du nicht dabei, musst du erst besorgen...";
 		player.addSnack(kindOfCandy, player.getCandies(), integerInput);

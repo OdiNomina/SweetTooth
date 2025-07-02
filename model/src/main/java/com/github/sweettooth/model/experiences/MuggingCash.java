@@ -1,12 +1,12 @@
 package com.github.sweettooth.model.experiences;
 
-import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.characters.Player;
 
 final class MuggingCash extends Experience {
 	
-	MuggingCash(Settings gameSettings) {
-		super(gameSettings);
+	MuggingCash(ModelSettings modelSettings) {
+		super(modelSettings);
 	}
 	
 	@Override

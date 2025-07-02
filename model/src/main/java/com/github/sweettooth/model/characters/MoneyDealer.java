@@ -6,18 +6,18 @@ import java.util.Objects;
 
 import com.github.sweettooth.model.api.Interrogable;
 import com.github.sweettooth.model.api.Playable;
-import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.locations.Location;
 
 public abstract sealed class MoneyDealer implements Interrogable permits Bank, LoanShark
 {
-	Settings settings;
+	ModelSettings modelSettings;
 	Location location;
 	final ArrayList<Client> clients = new ArrayList<>();
 	
-	MoneyDealer(Location location, Settings settings){
+	MoneyDealer(Location location, ModelSettings modelSettings){
 		this.location = location;
-		this.settings = settings;
+		this.modelSettings = modelSettings;
 	}
 	
 	Client getExistingOrNewClient(Playable player) {

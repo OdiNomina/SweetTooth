@@ -1,15 +1,24 @@
 package com.github.sweettooth.model.commons;
 
+import com.github.sweettooth.model.locations.Location;
+
 public class InternSettings {
-	// --- model and view
-	
-	/* Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen
+	/* Integer.valueOf() Änderung der Konstanten erzwingt keine neue Übersetzung von abhängigen Klassen
 	 * (s. Java Insel - 6.6.4 Eincompilierte Belegungen der Klassenvariablen).
 	 */
+	public final static int GAME_DURATION_DAYS = Integer.valueOf(30);
+	public final static Location HOMETOWN = Location.BRONX;
+	
 	public final static int MAX_SNACKS = Integer.valueOf(100); 
-	public final static double INTEREST_CREDIT_PERCENT = Double.valueOf(2);
-	public final static double INTEREST_DEBT_PERCENT = Double.valueOf(5);
+	
+	public final static int MAX_GIFT_TYPES = Integer.valueOf(3);
+	public final static int MAX_GIFT_QUANTITY = Integer.valueOf(6);
+	
 	public final static double BANK_MIN_BALANCE = Double.valueOf(-100);
-	public final static int GAME_DURATION_DAYS = Integer.valueOf(30); 
+	public final static double BANK_INTEREST_CREDIT_PERCENT = Double.valueOf(2);
+	public final static double BANK_INTEREST_DEBT_PERCENT = Double.valueOf(5);
+	public final static double LOANSHARK_INTEREST_DEBT_PERCENT = Double.valueOf(10);
+	
+	public final static double TRAVEL_COSTS = Double.valueOf(10);;
 }	
 	

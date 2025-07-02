@@ -14,7 +14,7 @@ import java.util.logging.LogManager;
 
 import com.github.sweettooth.controller.api.ControllerFactory;
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.api.SnackFactory;
 import com.github.sweettooth.model.api.SnackFactory.SnackType;
 import com.github.sweettooth.shared.api.Loggable;
@@ -38,16 +38,16 @@ public class SweetTooth implements Loggable {
 			executor.submit( () -> app.setDefaultUncaughtExceptionHandler() );
 			executor.submit( () -> app.addShutdownHook() );
 			
-			Settings gameSettings = new Settings(Locale.GERMANY, SnackFactory.createFactory(SnackType.Candy));
+			ModelSettings modelSettings = new ModelSettings(Locale.GERMANY, SnackFactory.createFactory(SnackType.Candy));
 			
 			Future<GameModelInterface> gameModel = executor.submit( () -> 
-				GameModelInterface.createGameModel().initialize(gameSettings, null) );
+				GameModelInterface.createGameModel().initialize(modelSettings, null) );
 			
 			Future<ControllerInterface> lanternaController = executor.submit( () ->
 				ControllerFactory.create().initialize(gameModel.get()) );
 			
 			Future<DisplayElement> lanternaGUI = executor.submit( () ->
-				DisplayFactory.create().initialize(gameModel.get(), lanternaController.get(), gameSettings) );
+				DisplayFactory.create().initialize(gameModel.get(), lanternaController.get(), modelSettings) );
 		
 			executor.submit(lanternaGUI.get());
 			

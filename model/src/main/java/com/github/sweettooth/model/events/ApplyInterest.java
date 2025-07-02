@@ -11,9 +11,9 @@ public final class ApplyInterest extends Event {
 	public String process(String stringInput, Integer integerInput, Double doubleInput) {
 		StringBuffer answer = new StringBuffer();
 		answer.append("Fällige Zinsen für gestern: Bank ")
-			.append(String.format(gameSettings.getLocale(), "%.2f %s", bank.applyInterestToBalance(player), gameSettings.getCurrency()))
+			.append(String.format(modelSettings.getLocale(), "%.2f %s", bank.applyInterestToBalance(player), modelSettings.getCurrency()))
 			.append(" | Kredithai ")
-			.append(String.format(gameSettings.getLocale(), "%.2f %s", loanShark.applyInterestToBalance(player), gameSettings.getCurrency()));
+			.append(String.format(modelSettings.getLocale(), "%.2f %s", loanShark.applyInterestToBalance(player), modelSettings.getCurrency()));
 		return answer.toString();
 	}
 

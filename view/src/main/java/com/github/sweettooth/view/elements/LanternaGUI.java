@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.Observer;
-import com.github.sweettooth.model.api.Settings;
+import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.view.api.DisplayElement;
 
@@ -33,7 +33,7 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	
 	private GameModelInterface gameModel;
 	private ControllerInterface controller;
-	private Settings settings;
+	private ModelSettings modelSettings;
 	
 	private ViewPanel mainViewPanel;
 	
@@ -47,10 +47,10 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	}
 
 	@Override
-	public DisplayElement initialize(GameModelInterface gameModel, ControllerInterface controller, Settings settings) throws NullPointerException {
+	public DisplayElement initialize(GameModelInterface gameModel, ControllerInterface controller, ModelSettings modelSettings) throws NullPointerException {
 		this.gameModel = Objects.requireNonNull(gameModel);
 		this.controller = Objects.requireNonNull(controller);
-		this.settings = Objects.requireNonNull(settings);
+		this.modelSettings = Objects.requireNonNull(modelSettings);
 		
 		gameModel.registerObserver(this);
 		return this;
@@ -91,7 +91,7 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	}
 	
 	private ViewPanel createMainViewPanel() {
-		ViewPanel panel = new MainViewPanel(new GridLayout(2), gameModel, controller, settings);
+		ViewPanel panel = new MainViewPanel(new GridLayout(2), gameModel, controller, modelSettings);
 		panel.createContent();
 	    panel.addContent();
 	    panel.initializeContent();

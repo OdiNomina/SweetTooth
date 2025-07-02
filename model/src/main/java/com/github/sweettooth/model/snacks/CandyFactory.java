@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.github.sweettooth.model.api.SnackFactory;
 import com.github.sweettooth.model.api.Snackable;
-import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.commons.InternSettings;
 
 public class CandyFactory extends SnackFactory {	
 	private static CandyFactory uniqueInstance;
@@ -23,13 +23,13 @@ public class CandyFactory extends SnackFactory {
 	}
 	
 	private void creatDefaultCandies() {
-		defaultCandies.add(new Lollipop());
-		defaultCandies.add(new Bonbon());
-		defaultCandies.add(new BubbleGum());
-		defaultCandies.add(new ChewyCandy());
-		defaultCandies.add(new ChocolateBar());
-		defaultCandies.add(new GummyBears());
-		Snackable.changeSnackPrices(defaultCandies, Location.BRONX);
+		defaultCandies.add(new Lollipop(0.6, 1.2));
+		defaultCandies.add(new Bonbon(0.15, 0.3));
+		defaultCandies.add(new BubbleGum(0.25, 0.5));
+		defaultCandies.add(new ChewyCandy(0.2, 0.4));
+		defaultCandies.add(new ChocolateBar(1.5, 3.0));
+		defaultCandies.add(new GummyBears(0.8, 1.6));
+		Snackable.changeSnackPrices(defaultCandies, InternSettings.HOMETOWN);
 	}
 	
 	@Override
