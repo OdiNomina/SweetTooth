@@ -12,15 +12,15 @@ non-sealed public class Bank extends MoneyDealer {
 	
 	@Override
 	public Double applyInterestToBalance(Player player) {
-		Client bankClient = findClientByIdentity(player);
+		Client bankClient = getExistingOrNewClient(player);
 		double interest = 0;
-		if(bankClient != null) {
-			if(bankClient.getBalance() < 0)
-				interest = bankClient.getBalance() * InternSettings.INTEREST_DEBT_PERCENT / 100;
-			else
-				interest = bankClient.getBalance() * InternSettings.INTEREST_CREDIT_PERCENT / 100;
-			bankClient.addAmount(interest);
-		}
+		
+		if(bankClient.getBalance() < 0)
+			interest = bankClient.getBalance() * InternSettings.INTEREST_DEBT_PERCENT / 100;
+		else
+			interest = bankClient.getBalance() * InternSettings.INTEREST_CREDIT_PERCENT / 100;
+		
+		bankClient.addAmount(interest);
 		return interest;
 	}
 	
@@ -39,9 +39,7 @@ non-sealed public class Bank extends MoneyDealer {
 	
 	@Override
 	public double getClientsBalance(Playable player) {
-		Client bankClient = findClientByIdentity(player);
-		if(bankClient == null)
-			return 0.0;
+		Client bankClient = getExistingOrNewClient(player);
 		return bankClient.getBalance();
 	}
 

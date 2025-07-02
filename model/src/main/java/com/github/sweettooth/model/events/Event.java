@@ -28,10 +28,9 @@ public abstract sealed class Event implements Processable permits
 	}
 	
 	boolean isTooMuchToCarry(int quantity){
-		int sumInPockets = 0;
 		ArrayList<? extends Snackable> candies = player.getCandies();
-		for(int i = 0; i < candies.size(); i++)
-			sumInPockets += candies.get(i).getQuantity();
+		Integer sumInPockets = candies.stream().reduce(0, (sum, element) -> sum + element.getQuantity(), Integer::sum);
+		
 		return sumInPockets + quantity > Player.getMaxSnacks();
 	}
 	
