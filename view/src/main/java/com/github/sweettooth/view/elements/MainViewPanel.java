@@ -6,9 +6,9 @@ import java.util.Comparator;
 import com.github.sweettooth.controller.api.ControllerInterface;
 
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.Interrogable;
-import com.github.sweettooth.model.api.LocationInterface;
-import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.IMoneyDealer;
+import com.github.sweettooth.model.api.ILocation;
+import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.api.Snackable;
 
@@ -31,9 +31,9 @@ public class MainViewPanel extends ViewPanel {
 	private GameModelInterface gameData;
 	private ModelSettings modelSettings;
 	
-	private Playable player;
-	private Interrogable loanShark;
-	private Interrogable bank;
+	private IPlayer player;
+	private IMoneyDealer loanShark;
+	private IMoneyDealer bank;
 	
 	public MainViewPanel(LayoutManager layoutManager, GameModelInterface gameModel, ControllerInterface controller, ModelSettings modelSettings) {
         super(layoutManager);
@@ -282,7 +282,7 @@ public class MainViewPanel extends ViewPanel {
 	    comboBoxes.get("sellSelection").setReadOnly(true);
 	    comboBoxes.get("stash").setReadOnly(true);
 	    ArrayList<String> locationList = new ArrayList<>();
-	    for(LocationInterface l : LocationInterface.values())
+	    for(ILocation l : ILocation.values())
 	    	locationList.add(l.getOfficialName());
 	    ComboBox<String> locationSelection = comboBoxes.get("locationSelection").setReadOnly(true).clearItems();
 	    for(String s : locationList)

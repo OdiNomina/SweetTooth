@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.Interrogable;
-import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.IMoneyDealer;
+import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.locations.Location;
 
-public abstract sealed class MoneyDealer implements Interrogable permits Bank, LoanShark
+public abstract sealed class MoneyDealer implements IMoneyDealer permits Bank, LoanShark
 {
 	ModelSettings modelSettings;
 	Location location;
@@ -20,7 +20,7 @@ public abstract sealed class MoneyDealer implements Interrogable permits Bank, L
 		this.modelSettings = modelSettings;
 	}
 	
-	Client getExistingOrNewClient(Playable player) {
+	Client getExistingOrNewClient(IPlayer player) {
 		Client client = null;
 		try {
 			client = clients.stream().filter( element -> element.identity.equals(player) ).findFirst().get();

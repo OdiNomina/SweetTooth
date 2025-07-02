@@ -1,6 +1,6 @@
 package com.github.sweettooth.model.characters;
 
-import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 
@@ -31,7 +31,7 @@ non-sealed public class LoanShark extends MoneyDealer {
 	}
 
 	@Override
-	public double getClientsBalance(Playable player) {
+	public double getClientsBalance(IPlayer player) {
 		return getExistingOrNewClient(player).getBalance();
 	}
 

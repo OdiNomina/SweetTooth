@@ -20,9 +20,9 @@ public interface GameModelInterface {
 	// --- view
 	void registerObserver(Observer o);
 	void removeObserver(Observer o);
-	Interrogable getBank();
-	Interrogable getLoanShark();
-	Playable getPlayer();
+	IMoneyDealer getBank();
+	IMoneyDealer getLoanShark();
+	IPlayer getPlayer();
 	int getDayOfGame();
 	boolean isExitButtonClicked();
 	boolean isGameOver();

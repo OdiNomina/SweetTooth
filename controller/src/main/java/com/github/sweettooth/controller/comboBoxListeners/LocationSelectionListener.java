@@ -3,7 +3,7 @@ package com.github.sweettooth.controller.comboBoxListeners;
 import java.io.IOException;
 
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.LocationInterface;
+import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.Processable;
 
 import com.googlecode.lanterna.gui2.ComboBox;
@@ -36,7 +36,7 @@ public class LocationSelectionListener extends ComboBoxListener {
 						gameData.notifyObservers();
 						return;
 					}
-					LocationInterface location = LocationInterface.valueOfficialName(thisComboBox.getItem(selectedIndex));	
+					ILocation location = ILocation.valueOfficialName(thisComboBox.getItem(selectedIndex));	
 					Processable.Answer answer = event.processMultipleAnswers(location.toString(), null, null);
 	    			
 	    			gameData.notifyObservers();

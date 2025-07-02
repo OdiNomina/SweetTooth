@@ -3,17 +3,17 @@ package com.github.sweettooth.model.characters;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.LocationInterface;
-import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.ILocation;
+import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.Snackable;
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.PersistentPreference;
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.locations.Location;
 
-public class Player implements Playable, PersistentPreference {
-	private LocationInterface hometown;
-	private LocationInterface location;
+public class Player implements IPlayer, PersistentPreference {
+	private ILocation hometown;
+	private ILocation location;
 	private final ArrayList<Snackable> candies = new ArrayList<>();
 	private final ArrayList<Snackable> candyStash = new ArrayList<>();
 	private double cash = 200;
@@ -25,12 +25,12 @@ public class Player implements Playable, PersistentPreference {
 		this.name = Objects.requireNonNullElse(name, "Anonymer Spieler");
 	}
 
-	public LocationInterface getHometown() {
+	public ILocation getHometown() {
 		return hometown;
 	}
 	
 	@Override
-	public LocationInterface getLocation() {
+	public ILocation getLocation() {
 		return location;
 	}
 	

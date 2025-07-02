@@ -1,6 +1,6 @@
 package com.github.sweettooth.model.characters;
 
-import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 
@@ -38,7 +38,7 @@ non-sealed public class Bank extends MoneyDealer {
 	}
 	
 	@Override
-	public double getClientsBalance(Playable player) {
+	public double getClientsBalance(IPlayer player) {
 		Client bankClient = getExistingOrNewClient(player);
 		return bankClient.getBalance();
 	}

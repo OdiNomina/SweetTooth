@@ -1,8 +1,8 @@
 package com.github.sweettooth.model.locations;
 
-import com.github.sweettooth.model.api.LocationInterface;
+import com.github.sweettooth.model.api.ILocation;
 
-public enum Location implements LocationInterface {
+public enum Location implements ILocation {
 	BRONX("Bronx", 1),
 	GHETTO("Ghetto", 1.1),
 	CENTRAL_PARK("Central Park", 1.3),

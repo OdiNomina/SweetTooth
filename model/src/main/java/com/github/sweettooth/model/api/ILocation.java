@@ -2,8 +2,8 @@ package com.github.sweettooth.model.api;
 
 import com.github.sweettooth.model.locations.Location;
 
-public interface LocationInterface {
-	static LocationInterface[] values() {
+public interface ILocation {
+	static ILocation[] values() {
 		return Location.values();
 	}
 	
@@ -25,7 +25,7 @@ public interface LocationInterface {
 	 * @exception IllegalArgumentException
 	 * 				if argument is no valid location name.
 	 */
-	static LocationInterface valueOfficialName(String officialName) {
+	static ILocation valueOfficialName(String officialName) {
 		return Location.valueOfficialName(officialName);
 	}
 	

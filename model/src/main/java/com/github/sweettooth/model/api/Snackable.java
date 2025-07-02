@@ -8,7 +8,7 @@ import com.github.sweettooth.model.snacks.Candy;
 public interface Snackable {
 	// --- view
 	
-	public static void changeSnackPrices(ArrayList<? extends Snackable> snacks, LocationInterface location) {
+	public static void changeSnackPrices(ArrayList<? extends Snackable> snacks, ILocation location) {
 		snacks.stream().map( t -> (Candy)t ).forEach(  t -> t.setRandomStaticPrice(location) );
 	}
 	

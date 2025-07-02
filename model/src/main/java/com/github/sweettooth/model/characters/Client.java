@@ -2,14 +2,14 @@ package com.github.sweettooth.model.characters;
 
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.commons.Tools;
 
 class Client {
-	final Playable identity;
+	final IPlayer identity;
 	private double balance;
 	
-	Client(Playable player){
+	Client(IPlayer player){
 		identity = player;
 	}
 	

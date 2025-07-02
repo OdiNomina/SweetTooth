@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.Interrogable;
+import com.github.sweettooth.model.api.IMoneyDealer;
 import com.github.sweettooth.model.api.Observer;
-import com.github.sweettooth.model.api.Playable;
+import com.github.sweettooth.model.api.IPlayer;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
@@ -21,7 +21,7 @@ public class GameData implements GameModelInterface {
 	private boolean gameOver;
 	private boolean exitButtonClicked;
 	
-	private Playable player;
+	private IPlayer player;
 	private MoneyDealer bank;
 	private MoneyDealer loanShark;
 	private ModelSettings modelSettings;
@@ -41,7 +41,7 @@ public class GameData implements GameModelInterface {
 	}
 	
 	@Override
-	public Interrogable getBank() {
+	public IMoneyDealer getBank() {
 		return bank;
 	}
 	
@@ -51,7 +51,7 @@ public class GameData implements GameModelInterface {
 	}
 	
 	@Override
-	public Interrogable getLoanShark() {
+	public IMoneyDealer getLoanShark() {
 		return loanShark;
 	}
 	
@@ -60,7 +60,7 @@ public class GameData implements GameModelInterface {
 	}
 	
 	@Override
-	public Playable getPlayer() {
+	public IPlayer getPlayer() {
 		return player;
 	}
 
