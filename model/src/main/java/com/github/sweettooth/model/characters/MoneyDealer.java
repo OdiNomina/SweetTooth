@@ -6,7 +6,6 @@ import java.util.Objects;
 
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
-import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.locations.Location;
 
 public abstract sealed class MoneyDealer implements IMoneyDealer permits Bank, LoanShark
@@ -20,7 +19,7 @@ public abstract sealed class MoneyDealer implements IMoneyDealer permits Bank, L
 		this.modelSettings = modelSettings;
 	}
 	
-	Client getExistingOrNewClient(IPlayer player) {
+	Client getExistingOrNewClient(Player player) {
 		Client client = null;
 		try {
 			client = clients.stream().filter( element -> element.identity.equals(player) ).findFirst().get();
@@ -51,4 +50,5 @@ public abstract sealed class MoneyDealer implements IMoneyDealer permits Bank, L
 	public abstract Double applyInterestToBalance(Player player);
 	public abstract void increaseClientsBalance(Player player, double amount);
 	public abstract void reduceClientsBalance(Player player, double amount);
+	public abstract double getClientsBalance(Player player);
 }

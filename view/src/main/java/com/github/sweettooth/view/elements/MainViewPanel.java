@@ -41,7 +41,7 @@ public class MainViewPanel extends ViewPanel {
         this.gameData = gameModel;
         this.modelSettings = modelSettings;
         
-        player = gameData.getPlayer();
+        player = gameData.player();
         loanShark = gameData.getLoanShark();
         bank = gameData.getBank();
     }
@@ -315,13 +315,13 @@ public class MainViewPanel extends ViewPanel {
     @Override
 	public void updateContent() {
 		labels.get("currentDay").setText(Integer.toString(gameData.getDayOfGame()));
-	    labels.get("currentLocation").setText(player.getLocation().getOfficialName());
-	    labels.get("cash").setText(formatMoney(player.getCash()));
+	    labels.get("currentLocation").setText(player.location().getOfficialName());
+	    labels.get("cash").setText(formatMoney(player.cash()));
 	    labels.get("buySellInfo").setText("");
 	    labels.get("hideSeekInfo").setText("");
-	    labels.get("bankBalance").setText(formatMoney(bank.getClientsBalance(player)));
+	    labels.get("bankBalance").setText(formatMoney(bank.clientsBalance(player)));
 	    labels.get("bankInfo").setText("");
-	    labels.get("loansharkBalance").setText(formatMoney(loanShark.getClientsBalance(player)));
+	    labels.get("loansharkBalance").setText(formatMoney(loanShark.clientsBalance(player)));
 	    labels.get("loansharkInfo").setText("");
 	    labels.get("ticketPrice").setText(formatMoney(modelSettings.getTravelCosts()));
 	    labels.get("travel1").setText("");
@@ -344,7 +344,7 @@ public class MainViewPanel extends ViewPanel {
 	    ExtendedTextBox giveBack = textBoxesIT.get("giveBack");
 	    giveBack.setText(giveBack.getInitialText());
 	    
-	    ArrayList<String> sweetsList = formatSnacks(player.getCandies());
+	    ArrayList<String> sweetsList = formatSnacks(player.snacks());
 	    ComboBox<String> sweetsInPockets = comboBoxes.get("sweetsInPockets").clearItems();
 	    for(String s : sweetsList)
 	    	sweetsInPockets.addItem(s);
@@ -360,7 +360,7 @@ public class MainViewPanel extends ViewPanel {
 	    for(String s : sellList)
 	    	sellSelection.addItem(s);
 	
-	    ArrayList<String> stashList = formatSnacks(player.getCandyStash());
+	    ArrayList<String> stashList = formatSnacks(player.stash());
 	    ComboBox<String> stash = comboBoxes.get("stash").clearItems();
 	    for(String s : stashList)
 	    	stash.addItem(s);	
@@ -372,9 +372,9 @@ public class MainViewPanel extends ViewPanel {
 	 * Conversion 'f': The result is formatted as a decimal number.
 	 */
     private String formatBalanceSheet() {
-		double cash = player.getCash();
-		double loan = loanShark.getClientsBalance(player);
-		double balance = bank.getClientsBalance(player);
+		double cash = player.cash();
+		double loan = loanShark.clientsBalance(player);
+		double balance = bank.clientsBalance(player);
 		StringBuffer answer = new StringBuffer();
 		answer.append(String.format(modelSettings.getLocale(), "Cash: %,.2f %s", cash, modelSettings.getCurrency()))
 		.append(String.format(modelSettings.getLocale(), " | Kredithai: %,.2f %s", loan, modelSettings.getCurrency()))

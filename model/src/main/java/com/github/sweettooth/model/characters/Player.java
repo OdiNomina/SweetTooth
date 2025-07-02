@@ -29,7 +29,6 @@ public class Player implements IPlayer, PersistentPreference {
 		return hometown;
 	}
 	
-	@Override
 	public ILocation getLocation() {
 		return location;
 	}
