@@ -1,8 +1,9 @@
 package com.github.sweettooth.model.snacks;
 
+import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.locations.Location;
 
-public abstract class SnackFactory {
+public abstract class SnackFactory implements ISnackFactory {
 	
 	public abstract void changeSnackPrices(Location location);
 	

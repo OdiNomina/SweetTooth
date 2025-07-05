@@ -2,11 +2,10 @@ package com.github.sweettooth.model.snacks;
 
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.locations.Location;
 
-public class CandyFactory extends SnackFactory implements ISnackFactory {	
+public class CandyFactory extends SnackFactory {	
 	private static CandyFactory uniqueInstance;
 	
 	public static CandyFactory getInstance() {
