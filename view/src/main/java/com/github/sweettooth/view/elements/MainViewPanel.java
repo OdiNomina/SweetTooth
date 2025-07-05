@@ -7,7 +7,7 @@ import com.github.sweettooth.controller.api.ControllerInterface;
 
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
@@ -29,13 +29,13 @@ import com.googlecode.lanterna.gui2.TextBox;
 public class MainViewPanel extends ViewPanel {
 	private ControllerInterface controller;
 	private IGameData gameData;
-	private ModelSettings modelSettings;
+	private GameSettings modelSettings;
 	
 	private IPlayer player;
 	private IMoneyDealer loanShark;
 	private IMoneyDealer bank;
 	
-	public MainViewPanel(LayoutManager layoutManager, IGameData gameModel, ControllerInterface controller, ModelSettings modelSettings) {
+	public MainViewPanel(LayoutManager layoutManager, IGameData gameModel, ControllerInterface controller, GameSettings modelSettings) {
         super(layoutManager);
         this.controller = controller;
         this.gameData = gameModel;

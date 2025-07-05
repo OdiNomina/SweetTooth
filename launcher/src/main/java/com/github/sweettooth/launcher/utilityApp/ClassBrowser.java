@@ -7,7 +7,7 @@ import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.launcher.app.SweetTooth;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.controllerAPI.EventFactory;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
@@ -42,7 +42,7 @@ public class ClassBrowser {
 		// --- model
 		System.out.println("### Modul: model\n");
 		Class<?>[] model = {EventFactory.class, IGameData.class, IMoneyDealer.class, ILocation.class, Observer.class, IPlayer.class,
-				Processable.class, ModelSettings.class, Snackable.class,ISnackFactory.class};
+				Processable.class, GameSettings.class, Snackable.class,ISnackFactory.class};
 		show(model);
 	}
 	

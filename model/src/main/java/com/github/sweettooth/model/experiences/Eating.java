@@ -3,13 +3,13 @@ package com.github.sweettooth.model.experiences;
 import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.snacks.Snack;
 
 final class Eating extends Experience {
 	
-	Eating(ModelSettings modelSettings) {
+	Eating(GameSettings modelSettings) {
 		super(modelSettings);
 	}
 	

@@ -2,7 +2,7 @@ package com.github.sweettooth.model.experiences;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.Tools;
@@ -10,7 +10,7 @@ import com.github.sweettooth.model.snacks.Snack;
 import com.github.sweettooth.model.snacks.SnackFactory;
 
 final class Gift extends Experience {
-	Gift(ModelSettings modelSettings) {
+	Gift(GameSettings modelSettings) {
 		super(modelSettings);
 	}
 	

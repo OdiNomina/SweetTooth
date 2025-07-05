@@ -14,7 +14,7 @@ public interface IGameData {
 		return new GameData();
 	}
 	
-	IGameData initialize(ModelSettings modelSettings, String namePlayer) throws NullPointerException;
+	IGameData initialize(GameSettings modelSettings, String namePlayer) throws NullPointerException;
 	
 	// --- controller
 	

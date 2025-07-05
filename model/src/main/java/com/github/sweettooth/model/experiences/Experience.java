@@ -1,13 +1,13 @@
 package com.github.sweettooth.model.experiences;
 
-import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.characters.Player;
 
 public abstract sealed class Experience permits 
 	Eating, Gift, MuggingCandies, MuggingCash, NoopEvent
 {	
 
-	public static Experience randomExperience(ModelSettings modelSettings){
+	public static Experience randomExperience(GameSettings modelSettings){
 		double random = Math.random();
 		if(random < 0.1) return new MuggingCash(modelSettings);
 		if(random < 0.2) return new MuggingCandies(modelSettings);
@@ -16,11 +16,11 @@ public abstract sealed class Experience permits
 		return new NoopEvent();
 	}
 	
-	ModelSettings modelSettings;
+	GameSettings modelSettings;
 	
 	Experience() {}
 	
-	Experience(ModelSettings modelSettings) {
+	Experience(GameSettings modelSettings) {
 		this.modelSettings = modelSettings;
 	}
 

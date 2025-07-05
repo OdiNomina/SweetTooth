@@ -16,7 +16,7 @@ import com.github.sweettooth.controller.api.ControllerFactory;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.api.ISnackFactory.SnackType;
-import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.LoggingSetup;
 import com.github.sweettooth.view.api.DisplayElement;
@@ -38,7 +38,7 @@ public class SweetTooth implements Loggable {
 			executor.submit( () -> app.setDefaultUncaughtExceptionHandler() );
 			executor.submit( () -> app.addShutdownHook() );
 			
-			ModelSettings modelSettings = new ModelSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
+			GameSettings modelSettings = new GameSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
 			
 			Future<IGameData> gameModel = executor.submit( () -> 
 				IGameData.createGameData().initialize(modelSettings, null) );

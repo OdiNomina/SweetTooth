@@ -5,12 +5,12 @@ import java.util.Locale;
 
 import com.github.sweettooth.model.commons.InternSettings;
 
-public class ModelSettings {
+public class GameSettings {
 	private Locale locale;
 	private String currency;
 	private ISnackFactory snackFactory;
 	
-	public ModelSettings(Locale locale, ISnackFactory snackFactory) {
+	public GameSettings(Locale locale, ISnackFactory snackFactory) {
 		this.locale = locale;
 		this.snackFactory = snackFactory;
 		currency = Currency.getInstance(locale).getSymbol();

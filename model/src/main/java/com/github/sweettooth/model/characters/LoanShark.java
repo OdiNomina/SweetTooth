@@ -1,10 +1,10 @@
 package com.github.sweettooth.model.characters;
 
-import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 
 non-sealed public class LoanShark extends MoneyDealer {
-	public LoanShark(ModelSettings modelSettings) {
+	public LoanShark(GameSettings modelSettings) {
 		super(InternSettings.HOMETOWN, modelSettings);
 	}
 	

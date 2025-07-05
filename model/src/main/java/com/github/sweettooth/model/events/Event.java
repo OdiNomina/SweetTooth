@@ -1,6 +1,6 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.ModelSettings;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
@@ -9,7 +9,7 @@ import com.github.sweettooth.model.games.GameData;
 public abstract sealed class Event implements Processable permits 
 	ApplyInterest, Buy, Deposit, Exit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw //Update factory!
 {
-	ModelSettings modelSettings;
+	GameSettings modelSettings;
 	Player player;
 	MoneyDealer bank;
 	MoneyDealer loanShark;
