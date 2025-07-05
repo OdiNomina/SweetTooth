@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.github.sweettooth.model.api.GameModelInterface;
-import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.characters.Bank;
@@ -39,7 +38,7 @@ public class GameData implements GameModelInterface {
 		return this;
 	}
 	
-	public IMoneyDealer getBank() {
+	public MoneyDealer getBank() {
 		return bank;
 	}
 	
@@ -48,7 +47,7 @@ public class GameData implements GameModelInterface {
 		return dayOfGame;
 	}
 	
-	public IMoneyDealer getLoanShark() {
+	public MoneyDealer getLoanShark() {
 		return loanShark;
 	}
 	

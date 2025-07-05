@@ -2,12 +2,12 @@ package com.github.sweettooth.model.commons;
 
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.snacks.Snack;
 
 public class Tools {
 	public static boolean isTooMuchToCarry(Player player, int quantity){
-		ArrayList<? extends Snackable> candies = player.getCandies();
+		ArrayList<? extends Snack> candies = player.getCandies();
 		Integer sumInPockets = candies.stream().reduce(0, (sum, element) -> sum + element.quantity(), Integer::sum);
 		
 		return sumInPockets + quantity > InternSettings.MAX_SNACKS;

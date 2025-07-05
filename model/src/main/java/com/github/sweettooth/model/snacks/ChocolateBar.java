@@ -1,9 +1,8 @@
 package com.github.sweettooth.model.snacks;
 
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.commons.Tools;
 
-final class ChocolateBar extends Candy implements Snackable {
+final class ChocolateBar extends Candy {
 	static double price;
 	
 	ChocolateBar(Double min, Double max){
