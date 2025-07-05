@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.controller.api.ControllerInterface;
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.shared.api.Loggable;
@@ -31,7 +31,7 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	private MultiWindowTextGUI multiWindowTextGUI;
 	private SeparateTextGUIThread guiThread;
 	
-	private GameModelInterface gameModel;
+	private IGameData gameModel;
 	private ControllerInterface controller;
 	private ModelSettings modelSettings;
 	
@@ -47,7 +47,7 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	}
 
 	@Override
-	public DisplayElement initialize(GameModelInterface gameModel, ControllerInterface controller, ModelSettings modelSettings) throws NullPointerException {
+	public DisplayElement initialize(IGameData gameModel, ControllerInterface controller, ModelSettings modelSettings) throws NullPointerException {
 		this.gameModel = Objects.requireNonNull(gameModel);
 		this.controller = Objects.requireNonNull(controller);
 		this.modelSettings = Objects.requireNonNull(modelSettings);

@@ -2,7 +2,7 @@ package com.github.sweettooth.controller.comboBoxListeners;
 
 import java.io.IOException;
 
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.googlecode.lanterna.gui2.ComboBox;
@@ -10,12 +10,12 @@ import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 
 public class LocationSelectionListener extends ComboBoxListener {
-	GameModelInterface gameData;
+	IGameData gameData;
 	Processable event;
 	Label[] answerBox;
 	Processable applyInterestEvent;
 	
-	public LocationSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus, GameModelInterface gameData, Processable event, Processable applyInterestEvent, Label... answerBox) {
+	public LocationSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus, IGameData gameData, Processable event, Processable applyInterestEvent, Label... answerBox) {
 		super(thisComboBox, nextInFocus);
 		this.gameData = gameData;
 		this.event = event;

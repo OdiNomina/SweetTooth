@@ -1,17 +1,17 @@
 package com.github.sweettooth.controller.buttonListeners;
 
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 
 public class HideListener extends ButtonListener {
-	GameModelInterface gameData;
+	IGameData gameData;
 	Processable event;
 	Label[] answerBox;
 	
-	public HideListener(Interactable nextInFocus, GameModelInterface gameData, Processable event, Label... answerBox) {
+	public HideListener(Interactable nextInFocus, IGameData gameData, Processable event, Label... answerBox) {
 		super(nextInFocus);
 		this.gameData = gameData;
 		this.event = event;

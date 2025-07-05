@@ -1,6 +1,6 @@
 package com.github.sweettooth.controller.textBoxInputFilters;
 
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;
@@ -12,7 +12,7 @@ import com.googlecode.lanterna.input.KeyType;
 public class DealInputFilter extends TextBoxInputFilter {	
 	ComboBox<String> associatedComboBox;
 	
-	public DealInputFilter(GameModelInterface gameData, Processable event, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerBox) {
+	public DealInputFilter(IGameData gameData, Processable event, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerBox) {
 		super(nextInFocus, gameData, event, answerBox);
 		this.associatedComboBox = associatedComboBox;
 	}

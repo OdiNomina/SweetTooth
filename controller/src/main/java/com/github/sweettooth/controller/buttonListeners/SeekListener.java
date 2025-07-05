@@ -1,6 +1,6 @@
 package com.github.sweettooth.controller.buttonListeners;
 
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
@@ -11,11 +11,11 @@ import com.googlecode.lanterna.gui2.TextBox;
 public class SeekListener extends ButtonListener {
 	ComboBox<String> associatedComboBox;
 	TextBox associatedTextBox;
-	GameModelInterface gameData;
+	IGameData gameData;
 	Processable event;
 	Label[] answerBox;
 	
-	public SeekListener(ComboBox<String> associatedComboBox, TextBox associatedTextBox, Interactable nextInFocus, GameModelInterface gameData, Processable event, Label... answerBox) {
+	public SeekListener(ComboBox<String> associatedComboBox, TextBox associatedTextBox, Interactable nextInFocus, IGameData gameData, Processable event, Label... answerBox) {
 		super(nextInFocus);
 		this.associatedComboBox = associatedComboBox;
 		this.associatedTextBox = associatedTextBox;

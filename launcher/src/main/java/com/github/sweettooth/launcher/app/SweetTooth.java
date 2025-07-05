@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
 import com.github.sweettooth.controller.api.ControllerFactory;
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.api.ISnackFactory.SnackType;
 import com.github.sweettooth.model.api.ModelSettings;
@@ -40,8 +40,8 @@ public class SweetTooth implements Loggable {
 			
 			ModelSettings modelSettings = new ModelSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
 			
-			Future<GameModelInterface> gameModel = executor.submit( () -> 
-				GameModelInterface.createGameModel().initialize(modelSettings, null) );
+			Future<IGameData> gameModel = executor.submit( () -> 
+				IGameData.createGameData().initialize(modelSettings, null) );
 			
 			Future<ControllerInterface> lanternaController = executor.submit( () ->
 				ControllerFactory.create().initialize(gameModel.get()) );

@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.characters.Bank;
@@ -13,7 +13,7 @@ import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.commons.InternSettings;
 
-public class GameData implements GameModelInterface {
+public class GameData implements IGameData {
 	private ArrayList<Observer> observers;
 	private int dayOfGame;
 	private boolean gameOver;
@@ -30,7 +30,7 @@ public class GameData implements GameModelInterface {
 	}
 	
 	@Override
-	public GameModelInterface initialize(ModelSettings modelSettings, String namePlayer) throws NullPointerException {
+	public IGameData initialize(ModelSettings modelSettings, String namePlayer) throws NullPointerException {
 		this.modelSettings = Objects.requireNonNull(modelSettings);
 		player = new Player(namePlayer);
 		bank = new Bank(modelSettings);

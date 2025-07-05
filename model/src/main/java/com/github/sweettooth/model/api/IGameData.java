@@ -7,14 +7,14 @@ import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.games.GameData;
 
-public interface GameModelInterface {
+public interface IGameData {
 	// --- launcher
 	
-	static GameModelInterface createGameModel() {
+	static IGameData createGameData() {
 		return new GameData();
 	}
 	
-	GameModelInterface initialize(ModelSettings modelSettings, String namePlayer) throws NullPointerException;
+	IGameData initialize(ModelSettings modelSettings, String namePlayer) throws NullPointerException;
 	
 	// --- controller
 	

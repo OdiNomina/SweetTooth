@@ -1,7 +1,7 @@
 package com.github.sweettooth.controller.comboBoxListeners;
 
 import com.github.sweettooth.controller.controlUnits.LanternaController;
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;
@@ -19,7 +19,7 @@ public class ComboBoxListenerFactory {
 			case "Buy": return new BuySelectionListener(thisComboBox, nextInFocus);
 			case "Sell": return new SellSelectionListener(thisComboBox, nextInFocus);
 			case "Travel": {
-				GameModelInterface gameData = controller.getGameModel();
+				IGameData gameData = controller.getGameModel();
 				Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 				Processable applyInterestEvent = controller.getEventFactory().createEvent("ApplyInterest", gameData);
 				return new LocationSelectionListener(thisComboBox, nextInFocus, gameData, event, applyInterestEvent, answerBox);

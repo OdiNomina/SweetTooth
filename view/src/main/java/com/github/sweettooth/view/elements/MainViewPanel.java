@@ -5,7 +5,7 @@ import java.util.Comparator;
 
 import com.github.sweettooth.controller.api.ControllerInterface;
 
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.ModelSettings;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
@@ -28,14 +28,14 @@ import com.googlecode.lanterna.gui2.TextBox;
 
 public class MainViewPanel extends ViewPanel {
 	private ControllerInterface controller;
-	private GameModelInterface gameData;
+	private IGameData gameData;
 	private ModelSettings modelSettings;
 	
 	private IPlayer player;
 	private IMoneyDealer loanShark;
 	private IMoneyDealer bank;
 	
-	public MainViewPanel(LayoutManager layoutManager, GameModelInterface gameModel, ControllerInterface controller, ModelSettings modelSettings) {
+	public MainViewPanel(LayoutManager layoutManager, IGameData gameModel, ControllerInterface controller, ModelSettings modelSettings) {
         super(layoutManager);
         this.controller = controller;
         this.gameData = gameModel;

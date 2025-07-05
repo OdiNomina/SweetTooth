@@ -1,6 +1,6 @@
 package com.github.sweettooth.controller.api;
 
-import com.github.sweettooth.model.api.GameModelInterface;
+import com.github.sweettooth.model.api.IGameData;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.InputFilter;
@@ -10,7 +10,7 @@ import com.googlecode.lanterna.gui2.TextBox;
 
 @SuppressWarnings("exports")
 public interface ControllerInterface {
-	ControllerInterface initialize(GameModelInterface gameModel) throws NullPointerException;
+	ControllerInterface initialize(IGameData gameModel) throws NullPointerException;
 	
 	/**
 	 * Creates the matching input filter for the event.
