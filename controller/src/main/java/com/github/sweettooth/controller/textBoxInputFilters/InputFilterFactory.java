@@ -17,7 +17,7 @@ public class InputFilterFactory {
 	
 	public InputFilter create(String eventName, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerBox) {
 		GameModelInterface gameData = controller.getGameModel();
-		Processable event = controller.getEventFactory().create(eventName, gameData);
+		Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 		switch(eventName) {
 			case "Seek": return new SeekQuantityInputFilter(gameData, event, nextInFocus, answerBox);
 			case "Buy": return new DealInputFilter(gameData, event, associatedComboBox, nextInFocus, answerBox);

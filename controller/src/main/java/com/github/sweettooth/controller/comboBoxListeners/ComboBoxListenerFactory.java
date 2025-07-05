@@ -20,8 +20,8 @@ public class ComboBoxListenerFactory {
 			case "Sell": return new SellSelectionListener(thisComboBox, nextInFocus);
 			case "Travel": {
 				GameModelInterface gameData = controller.getGameModel();
-				Processable event = controller.getEventFactory().create(eventName, gameData);
-				Processable applyInterestEvent = controller.getEventFactory().create("ApplyInterest", gameData);
+				Processable event = controller.getEventFactory().createEvent(eventName, gameData);
+				Processable applyInterestEvent = controller.getEventFactory().createEvent("ApplyInterest", gameData);
 				return new LocationSelectionListener(thisComboBox, nextInFocus, gameData, event, applyInterestEvent, answerBox);
 			}
 			default: return null;

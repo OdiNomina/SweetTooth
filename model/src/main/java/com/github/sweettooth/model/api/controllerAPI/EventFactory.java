@@ -10,5 +10,5 @@ public abstract class EventFactory {
 	
 	public EventFactory(){}
 	
-	public abstract Processable create(String event, GameModelInterface gameData);
+	public abstract Processable createEvent(String event, GameModelInterface gameData);
 }

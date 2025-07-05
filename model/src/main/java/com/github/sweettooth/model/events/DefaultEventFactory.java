@@ -8,7 +8,7 @@ public class DefaultEventFactory extends EventFactory {
 	public DefaultEventFactory(){}
 	
 	@Override
-	public Event create(String event, GameModelInterface gameModel) {
+	public Event createEvent(String event, GameModelInterface gameModel) {
 		GameData gameData = (GameData)gameModel;
 		Event instance = null; 
 		switch (event) {

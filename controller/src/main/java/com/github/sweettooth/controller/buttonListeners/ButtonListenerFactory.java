@@ -18,7 +18,7 @@ public class ButtonListenerFactory {
 	
 	public Button.Listener create(String eventName, ComboBox<String> associatedComboBox, TextBox associatedTextBox, Interactable nextInFocus, Label... answerBox) {
 		GameModelInterface gameData = controller.getGameModel();
-		Processable event = controller.getEventFactory().create(eventName, gameData);
+		Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 		switch(eventName) {
 			case "Hide": return new HideListener(nextInFocus, gameData, event, answerBox);
 			case "Seek": return new SeekListener(associatedComboBox, associatedTextBox, nextInFocus, gameData, event, answerBox);
