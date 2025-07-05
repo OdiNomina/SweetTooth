@@ -42,8 +42,8 @@ public class MainViewPanel extends ViewPanel {
         this.modelSettings = modelSettings;
         
         player = gameData.player();
-        loanShark = gameData.getLoanShark();
-        bank = gameData.getBank();
+        loanShark = gameData.loanShark();
+        bank = gameData.bank();
     }
 	
 	@Override
@@ -384,11 +384,11 @@ public class MainViewPanel extends ViewPanel {
 	}
 	
 	private ArrayList<String> formatDefaultCandies() {
-	    ArrayList<? extends Snackable> candies = modelSettings.getSnackFactory().getDefaultSnacks();
-	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
+	    ArrayList<? extends Snackable> candies = modelSettings.getSnackFactory().defaultSnacks();
+	    candies.sort(Comparator.comparing(Snackable::name)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
 	    for(Snackable s : candies)
-	    	formattedList.add(String.format(modelSettings.getLocale(), "%s - %.2f %s", s.getName(), s.getStaticPrice(), modelSettings.getCurrency()));
+	    	formattedList.add(String.format(modelSettings.getLocale(), "%s - %.2f %s", s.name(), s.staticPrice(), modelSettings.getCurrency()));
 	    return formattedList;
 	}
 	
@@ -397,14 +397,14 @@ public class MainViewPanel extends ViewPanel {
     }
 
 	private ArrayList<String> formatSnacks(ArrayList<? extends Snackable> snacks){
-		snacks.sort(Comparator.comparing(Snackable::getName));
+		snacks.sort(Comparator.comparing(Snackable::name));
 		ArrayList<String> formattedList = new ArrayList<>();
 		if(snacks.isEmpty()) {
 			formattedList.add("Nix drin!");
 			return formattedList;
 		}
 		for(Snackable s : snacks)
-			formattedList.add(String.format(modelSettings.getLocale(), "%,d | %s", s.getQuantity(), s.getName()));
+			formattedList.add(String.format(modelSettings.getLocale(), "%,d | %s", s.quantity(), s.name()));
 		return formattedList;
 	}
 }

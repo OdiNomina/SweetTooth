@@ -27,12 +27,4 @@ public interface ILocation {
 	static ILocation valueOfficialName(String officialName) {
 		return Location.valueOfficialName(officialName);
 	}
-	
-	// --- model
-	
-	/**
-	 * The prices of the snacks vary by the returned factor. 
-	 * @return the price factor of this location.
-	 */
-	double getPriceFactor();
 }

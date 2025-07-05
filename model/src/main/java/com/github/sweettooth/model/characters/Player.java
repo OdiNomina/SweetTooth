@@ -3,19 +3,18 @@ package com.github.sweettooth.model.characters;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.PersistentPreference;
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.snacks.Snack;
 
 public class Player implements IPlayer, PersistentPreference {
-	private ILocation hometown;
-	private ILocation location;
-	private final ArrayList<Snackable> candies = new ArrayList<>();
-	private final ArrayList<Snackable> candyStash = new ArrayList<>();
+	private Location hometown;
+	private Location location;
+	private final ArrayList<Snack> candies = new ArrayList<>();
+	private final ArrayList<Snack> candyStash = new ArrayList<>();
 	private double cash = 200;
 	private String name;
 
@@ -25,11 +24,11 @@ public class Player implements IPlayer, PersistentPreference {
 		this.name = Objects.requireNonNullElse(name, "Anonymer Spieler");
 	}
 
-	public ILocation getHometown() {
+	public Location getHometown() {
 		return hometown;
 	}
 	
-	public ILocation getLocation() {
+	public Location getLocation() {
 		return location;
 	}
 	
@@ -43,9 +42,9 @@ public class Player implements IPlayer, PersistentPreference {
 	 * @param list the list to be added to.
 	 * @exception IllegalArgumentException
 	 * 				if one of the arguments is null.
-	 * @see #addSnack(Snackable, ArrayList, int)
+	 * @see #addSnack(Snack, ArrayList, int)
 	 */
-	public <E extends Snackable> void addAllSnacks(ArrayList<E> snacks, ArrayList<E> list) {
+	public <E extends Snack> void addAllSnacks(ArrayList<E> snacks, ArrayList<E> list) {
 		if(snacks == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
 		
@@ -72,12 +71,12 @@ public class Player implements IPlayer, PersistentPreference {
 	 * @exception IllegalArgumentException
 	 * 				if the type or the list argument is null.
 	 */
-	public <E extends Snackable> void addSnack(E snack, ArrayList<E> list, int quantity) {
+	public <E extends Snack> void addSnack(E snack, ArrayList<E> list, int quantity) {
 		if(snack == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
 		if(quantity == 0) 
 			return;
-		for(Snackable s : list) {
+		for(Snack s : list) {
 			if(s.getName().equalsIgnoreCase(snack.getName().strip())) {
 				s.increaseQuantity(quantity);
 				return;
@@ -116,14 +115,14 @@ public class Player implements IPlayer, PersistentPreference {
 	/**
 	 * Returns the list reference of player's candies list.
 	 */
-	public ArrayList<Snackable> getCandies() {
+	public ArrayList<Snack> getCandies() {
 		return candies;
 	}
 	
 	/**
 	 * Returns the list reference of player's candyStash list.
 	 */
-	public ArrayList<Snackable> getCandyStash() {
+	public ArrayList<Snack> getCandyStash() {
 		return candyStash;
 	}
 	
@@ -169,13 +168,13 @@ public class Player implements IPlayer, PersistentPreference {
 	 * @param list the list to remove from.
 	 * @exception IllegalArgumentException
 	 * 				if one of the arguments is null.
-	 * @see #removeSnack(Snackable, ArrayList, int)
+	 * @see #removeSnack(Snack, ArrayList, int)
 	 */
-	public void removeAllSnacks(ArrayList<? extends Snackable> snacks, ArrayList<? extends Snackable> list) {
+	public void removeAllSnacks(ArrayList<? extends Snack> snacks, ArrayList<? extends Snack> list) {
 		if(snacks == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
 		
-		for(Snackable s : snacks) {
+		for(Snack s : snacks) {
 			removeSnack(s, list, s.getQuantity());
 		}
 	}
@@ -188,12 +187,12 @@ public class Player implements IPlayer, PersistentPreference {
 	 * @exception IllegalArgumentException
 	 * 				if the type or the list argument is null.
 	 */
-	public void removeSnack(Snackable snack, ArrayList<? extends Snackable> list, int quantity) {
+	public void removeSnack(Snack snack, ArrayList<? extends Snack> list, int quantity) {
 		if(snack == null || list == null)
 			throw new IllegalArgumentException("The arguments must not be null.");
 		if(quantity == 0)
 			return;
-		for(Snackable s : list) {
+		for(Snack s : list) {
 			if(s.getName().equalsIgnoreCase(snack.getName())) {
 				if(s.getQuantity() > quantity)
 					s.reduceQuantity(quantity);

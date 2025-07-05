@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.snacks.Snack;
 
 public final class Sell extends Event {
 	Sell(GameData gameData){
@@ -14,7 +14,7 @@ public final class Sell extends Event {
 		if(integerInput < 1)
 			return "Nix verkauft";
 		
-		Snackable playersCandy = Snackable.findSnack(player.getCandies(), stringInput);
+		Snack playersCandy = Snack.findSnack(player.getCandies(), stringInput);
 		if(playersCandy == null || playersCandy.getQuantity() < integerInput)
 			return "Du kannst nur verkaufen, was du hast.";
 		if(playersCandy.getQuantity() > integerInput)

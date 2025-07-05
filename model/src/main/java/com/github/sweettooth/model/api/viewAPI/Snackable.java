@@ -1,30 +1,19 @@
 package com.github.sweettooth.model.api.viewAPI;
 
-import java.util.ArrayList;
-import java.util.NoSuchElementException;
-
-import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.snacks.Candy;
+import com.github.sweettooth.model.snacks.Snack;
 
 public interface Snackable {
-	// --- model
+	// --- view
 	
-	public static void changeSnackPrices(ArrayList<? extends Snackable> snacks, ILocation location) {
-		snacks.stream().map( t -> (Candy)t ).forEach(  t -> t.setRandomStaticPrice(location) );
+	public default String name() {
+		return ((Snack)this).getName();
 	}
 	
-	public static Snackable findSnack(ArrayList<? extends Snackable> list, String snackName) throws NoSuchElementException {
-		return list.stream().filter( t -> t.getName().equalsIgnoreCase(snackName.strip())).findFirst().get();
+	public default int quantity() {
+		return ((Snack)this).getQuantity();
 	}
 	
-	<T extends Snackable> T cloneSnack();
-	void increaseQuantity(int number);
-	void reduceQuantity(int number);
-	void setQuantity(int quantity);
-	
-	// --- model and view
-	
-	String getName();
-	int getQuantity();
-	double getStaticPrice();
+	public default double staticPrice() {
+		return ((Snack)this).getStaticPrice();
+	}
 }

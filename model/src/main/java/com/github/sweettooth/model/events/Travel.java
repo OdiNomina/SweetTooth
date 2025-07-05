@@ -1,9 +1,9 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.experiences.Experience;
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.snacks.SnackFactory;
 
 public final class Travel extends Event {
 	Travel(GameData gameData){
@@ -23,7 +23,8 @@ public final class Travel extends Event {
 			payment = "Du zahlst per Bankcard.";
 		}
 		player.setLocation(Location.valueOf(stringInput));
-		Snackable.changeSnackPrices(modelSettings.getSnackFactory().getDefaultSnacks(), player.getLocation());
+		SnackFactory snackFactory = (SnackFactory)modelSettings.getSnackFactory();
+		snackFactory.changeSnackPrices(player.getLocation());
 		String infoChangePrices = "(Die Marktpreise haben sich geändert.)";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")

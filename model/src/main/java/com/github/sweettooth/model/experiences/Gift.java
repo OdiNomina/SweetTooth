@@ -3,10 +3,11 @@ package com.github.sweettooth.model.experiences;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.github.sweettooth.model.api.ModelSettings;
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.Tools;
+import com.github.sweettooth.model.snacks.Snack;
+import com.github.sweettooth.model.snacks.SnackFactory;
 
 final class Gift extends Experience {
 	Gift(ModelSettings modelSettings) {
@@ -16,12 +17,13 @@ final class Gift extends Experience {
 	@Override
 	public String process(Player player) {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
-		Snackable randomCandy = null;
+		SnackFactory snackFactory = (SnackFactory)modelSettings.getSnackFactory();
+		Snack randomCandy = null;
 		int randomQuantity = 0;
 		int gift = 0;
 		for(int i = 0; i <= random.nextInt(0, InternSettings.MAX_GIFT_TYPES); i++) {
 			randomQuantity = random.nextInt(1,InternSettings.MAX_GIFT_QUANTITY + 1);
-			randomCandy = modelSettings.getSnackFactory().getRandom();
+			randomCandy = snackFactory.getRandom();
 			if(!Tools.isTooMuchToCarry(player, randomQuantity)) {
 				player.addSnack(randomCandy, player.getCandies(), randomQuantity);
 				gift++;

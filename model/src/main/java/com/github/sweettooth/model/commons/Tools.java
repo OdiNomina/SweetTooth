@@ -8,7 +8,7 @@ import com.github.sweettooth.model.characters.Player;
 public class Tools {
 	public static boolean isTooMuchToCarry(Player player, int quantity){
 		ArrayList<? extends Snackable> candies = player.getCandies();
-		Integer sumInPockets = candies.stream().reduce(0, (sum, element) -> sum + element.getQuantity(), Integer::sum);
+		Integer sumInPockets = candies.stream().reduce(0, (sum, element) -> sum + element.quantity(), Integer::sum);
 		
 		return sumInPockets + quantity > InternSettings.MAX_SNACKS;
 	}

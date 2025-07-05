@@ -8,13 +8,13 @@ import com.github.sweettooth.launcher.app.SweetTooth;
 import com.github.sweettooth.model.api.GameModelInterface;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.ModelSettings;
-import com.github.sweettooth.model.api.SnackFactory;
 import com.github.sweettooth.model.api.controllerAPI.EventFactory;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
+import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.view.api.DisplayElement;
 import com.github.sweettooth.view.api.DisplayFactory;
 
@@ -42,7 +42,7 @@ public class ClassBrowser {
 		// --- model
 		System.out.println("### Modul: model\n");
 		Class<?>[] model = {EventFactory.class, GameModelInterface.class, IMoneyDealer.class, ILocation.class, Observer.class, IPlayer.class,
-				Processable.class, ModelSettings.class, Snackable.class, SnackFactory.class};
+				Processable.class, ModelSettings.class, Snackable.class,ISnackFactory.class};
 		show(model);
 	}
 	

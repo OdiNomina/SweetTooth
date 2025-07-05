@@ -39,7 +39,6 @@ public class GameData implements GameModelInterface {
 		return this;
 	}
 	
-	@Override
 	public IMoneyDealer getBank() {
 		return bank;
 	}
@@ -49,7 +48,6 @@ public class GameData implements GameModelInterface {
 		return dayOfGame;
 	}
 	
-	@Override
 	public IMoneyDealer getLoanShark() {
 		return loanShark;
 	}
@@ -91,19 +89,9 @@ public class GameData implements GameModelInterface {
 	public void registerObserver(Observer o) {
 		observers.add(o);
 	}
-
-	@Override
-	public void removeObserver(Observer o) {
-		observers.remove(o);
-	}
 	
 	@Override
 	public void setExitButtonClicked(boolean exitButtonClicked) {
 		this.exitButtonClicked = exitButtonClicked;
-	}
-	
-	@Override
-	public void setGameOver(boolean gameOver) {
-		this.gameOver = gameOver;
 	}
 }

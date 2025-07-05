@@ -2,11 +2,11 @@ package com.github.sweettooth.model.snacks;
 
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.api.SnackFactory;
-import com.github.sweettooth.model.api.viewAPI.Snackable;
+import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.commons.InternSettings;
+import com.github.sweettooth.model.locations.Location;
 
-public class CandyFactory extends SnackFactory {	
+public class CandyFactory extends SnackFactory implements ISnackFactory {	
 	private static CandyFactory uniqueInstance;
 	
 	public static CandyFactory getInstance() {
@@ -29,15 +29,20 @@ public class CandyFactory extends SnackFactory {
 		defaultCandies.add(new ChewyCandy(0.2, 0.4));
 		defaultCandies.add(new ChocolateBar(1.5, 3.0));
 		defaultCandies.add(new GummyBears(0.8, 1.6));
-		Snackable.changeSnackPrices(defaultCandies, InternSettings.HOMETOWN);
+		changeSnackPrices(InternSettings.HOMETOWN);
 	}
 	
 	@Override
-	public ArrayList<Snackable> getDefaultSnacks() {
+	public void changeSnackPrices(Location location) {
+		getDefaultSnacks().stream().forEach(  t -> t.setRandomStaticPrice(location) );
+	}
+	
+	@Override
+	public ArrayList<Snack> getDefaultSnacks() {
 		if(defaultCandies.isEmpty())
 			creatDefaultCandies();
 		
-		ArrayList<Snackable> copy = new ArrayList<>();
+		ArrayList<Snack> copy = new ArrayList<>();
 		for(Candy c : defaultCandies)
 			copy.add(c);
 		return copy;

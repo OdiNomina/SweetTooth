@@ -1,8 +1,9 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.snacks.Snack;
+import com.github.sweettooth.model.snacks.SnackFactory;
 
 public final class Seek extends Event {
 	Seek(GameData gameData){
@@ -19,7 +20,8 @@ public final class Seek extends Event {
 
 		if(Tools.isTooMuchToCarry(player, integerInput))
 			return "Soviel kannst du nicht tragen.";
-		Snackable snack = modelSettings.getSnackFactory().valueOf(stringInput);
+		SnackFactory snackFactory = (SnackFactory)modelSettings.getSnackFactory();
+		Snack snack = snackFactory.valueOf(stringInput);
 		player.addSnack(snack, player.getCandies(), integerInput);
 		player.removeSnack(snack, player.getCandyStash(), integerInput);
 		return "Eingepackt";

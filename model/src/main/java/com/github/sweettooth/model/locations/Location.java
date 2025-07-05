@@ -61,7 +61,6 @@ public enum Location implements ILocation {
 	 * The prices of the snacks vary by the returned factor. 
 	 * @return the price factor of this location.
 	 */
-	@Override
 	public double getPriceFactor() {
 		return priceFactor;
 	}

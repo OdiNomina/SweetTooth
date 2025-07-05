@@ -8,9 +8,9 @@ import com.github.sweettooth.model.commons.InternSettings;
 public class ModelSettings {
 	private Locale locale;
 	private String currency;
-	private SnackFactory snackFactory;
+	private ISnackFactory snackFactory;
 	
-	public ModelSettings(Locale locale, SnackFactory snackFactory) {
+	public ModelSettings(Locale locale, ISnackFactory snackFactory) {
 		this.locale = locale;
 		this.snackFactory = snackFactory;
 		currency = Currency.getInstance(locale).getSymbol();
@@ -26,7 +26,7 @@ public class ModelSettings {
 		return locale;
 	}
 	
-	public SnackFactory getSnackFactory() {
+	public ISnackFactory getSnackFactory() {
 		return snackFactory;
 	}
 
