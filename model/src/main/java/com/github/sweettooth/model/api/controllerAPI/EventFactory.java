@@ -12,9 +12,9 @@ public abstract class EventFactory {
 	public EventFactory(){}
 	
 	public Processable createEvent(String event, IGameData gameData) {
-		return createEvent(event, gameData);
+		return getEvent(event, (GameData)gameData);
 	}
 	
 	@SuppressWarnings("exports")
-	public abstract Processable createEvent(String event, GameData gameData);
+	public abstract Processable getEvent(String event, GameData gameData);
 }

@@ -38,16 +38,16 @@ public class SweetTooth implements Loggable {
 			executor.submit( () -> app.setDefaultUncaughtExceptionHandler() );
 			executor.submit( () -> app.addShutdownHook() );
 			
-			GameSettings modelSettings = new GameSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
+			GameSettings gameSettings = new GameSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
 			
 			Future<IGameData> gameModel = executor.submit( () -> 
-				IGameData.createGameData().initialize(modelSettings, null) );
+				IGameData.createGameData().initialize(gameSettings, null) );
 			
 			Future<ControllerInterface> lanternaController = executor.submit( () ->
 				ControllerFactory.create().initialize(gameModel.get()) );
 			
 			Future<DisplayElement> lanternaGUI = executor.submit( () ->
-				DisplayFactory.create().initialize(gameModel.get(), lanternaController.get(), modelSettings) );
+				DisplayFactory.create().initialize(gameModel.get(), lanternaController.get(), gameSettings) );
 		
 			executor.submit(lanternaGUI.get());
 			

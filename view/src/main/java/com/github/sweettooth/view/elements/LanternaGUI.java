@@ -33,7 +33,7 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	
 	private IGameData gameModel;
 	private ControllerInterface controller;
-	private GameSettings modelSettings;
+	private GameSettings gameSettings;
 	
 	private ViewPanel mainViewPanel;
 	
@@ -47,10 +47,10 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	}
 
 	@Override
-	public DisplayElement initialize(IGameData gameModel, ControllerInterface controller, GameSettings modelSettings) throws NullPointerException {
+	public DisplayElement initialize(IGameData gameModel, ControllerInterface controller, GameSettings gameSettings) throws NullPointerException {
 		this.gameModel = Objects.requireNonNull(gameModel);
 		this.controller = Objects.requireNonNull(controller);
-		this.modelSettings = Objects.requireNonNull(modelSettings);
+		this.gameSettings = Objects.requireNonNull(gameSettings);
 		
 		gameModel.registerObserver(this);
 		return this;
@@ -91,13 +91,19 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	}
 	
 	private ViewPanel createMainViewPanel() {
-		ViewPanel panel = new MainViewPanel(new GridLayout(2), gameModel, controller, modelSettings);
-		panel.createContent();
-	    panel.addContent();
-	    panel.initializeContent();
-	    panel.updateContent();
-	    panel.addInputHandling();
-		return panel;
+		try {
+			ViewPanel panel = new MainViewPanel(new GridLayout(2), gameModel, controller, gameSettings);
+			panel.createContent();
+		    panel.addContent();
+		    panel.initializeContent();
+		    panel.updateContent();
+		    panel.addInputHandling();
+			return panel;
+		}
+		catch(RuntimeException e) {
+			error(e.getClass().getName() + " when creating 'main view panel'.", e);
+			return null;
+		}
 	}
 
 	private SimpleTheme makeGlobalTheme() {
@@ -113,11 +119,14 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	}
 	
 	private void prepareView() {
-		Window mainWindow = new BasicWindow("SWEET TOOTH");
-		mainWindow.setFixedSize(new TerminalSize(120, 55));
-        mainWindow.setComponent(mainViewPanel);
-        
-        multiWindowTextGUI.addWindow(mainWindow);
+		try {
+			Window mainWindow = new BasicWindow("SWEET TOOTH");
+			mainWindow.setFixedSize(new TerminalSize(120, 55));
+	        mainWindow.setComponent(Objects.requireNonNull(mainViewPanel));
+	        
+	        multiWindowTextGUI.addWindow(mainWindow);
+		}
+		catch(NullPointerException e) { error(e.getClass().getName() + " when preparing view.", e); }
 	}
 	
 	@Override

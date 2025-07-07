@@ -7,7 +7,7 @@ public class DefaultEventFactory extends EventFactory {
 	public DefaultEventFactory(){}
 	
 	@Override
-	public Event createEvent(String event, GameData gameData) {
+	public Event getEvent(String event, GameData gameData) {
 		Event instance = null; 
 		switch (event) {
 			case "ApplyInterest" -> instance = new ApplyInterest(gameData);
