@@ -1,5 +1,6 @@
 package com.github.sweettooth.model.events;
 
+import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.experiences.Experience;
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
@@ -12,7 +13,7 @@ public final class Travel extends Event {
 	
 	@Override
 	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		double travelCosts = modelSettings.getTravelCosts();
+		double travelCosts = InternSettings.TRAVEL_COSTS;
 		String payment = "";
 		if(player.getCash() >= travelCosts) {
 			player.reduceCash(travelCosts);

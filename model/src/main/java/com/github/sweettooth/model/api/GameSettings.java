@@ -13,6 +13,12 @@ public class GameSettings {
 		this.snackFactory = snackFactory;
 	}
 	
+	// --- view
+	
+	public double getTravelCosts() {
+		return InternSettings.TRAVEL_COSTS;
+	}
+	
 	// --- model and view
 	
 	public Locale getLocale() {
@@ -21,9 +27,5 @@ public class GameSettings {
 	
 	public ISnackFactory getSnackFactory() {
 		return snackFactory;
-	}
-
-	public double getTravelCosts() {
-		return InternSettings.TRAVEL_COSTS;
 	}
 }
