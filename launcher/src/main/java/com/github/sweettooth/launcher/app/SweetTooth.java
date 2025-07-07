@@ -60,7 +60,7 @@ public class SweetTooth implements Loggable {
 	private void addShutdownHook() {
 		try {
 			Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-				app.info("Shutdown hook is executed - Logger is reset.");
+				app.info("Shutdown hook is executed - Logger is reset.\n");
 		        try { LogManager.getLogManager().reset(); } // Schließt alle globalen Handler (z.B. FileHandler)
 		        catch(SecurityException e) { error(e.getClass().getName() + " when attempting to reset log manager.", e); }
 		    }));

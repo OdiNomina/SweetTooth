@@ -1,5 +1,8 @@
 package com.github.sweettooth.model.characters;
 
+import java.util.Currency;
+import java.util.Locale;
+
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 
@@ -44,7 +47,8 @@ non-sealed public class Bank extends MoneyDealer {
 
 	@Override
 	public String getDispoHint() {
-		return String.format(modelSettings.getLocale(), "Kredit-Rahmen: %.2f %s (mehr gibts nicht)", InternSettings.BANK_MIN_BALANCE, modelSettings.getCurrency());
+		Locale locale = modelSettings.getLocale();
+		return String.format(locale, "Kredit-Rahmen: %.2f %s (mehr gibts nicht)", InternSettings.BANK_MIN_BALANCE, Currency.getInstance(locale).getSymbol());
 	}
 	
 	@Override
