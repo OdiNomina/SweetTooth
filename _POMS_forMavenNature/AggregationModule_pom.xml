@@ -18,6 +18,7 @@
 		<module>controller</module>
 		<module>view</module>
 		<module>launcher</module>
+		<module>shared</module>
 	</modules>
 	
 </project>
