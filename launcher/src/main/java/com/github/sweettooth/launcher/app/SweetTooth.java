@@ -21,6 +21,7 @@ import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.LoggingSetup;
 import com.github.sweettooth.view.api.DisplayElement;
 import com.github.sweettooth.view.api.DisplayFactory;
+import com.github.sweettooth.view.api.DisplayFactory.DisplayStyle;
 
 public class SweetTooth implements Loggable {
 	private static final Logger LOGGER = Logger.getLogger(SweetTooth.class.getName());
@@ -43,13 +44,13 @@ public class SweetTooth implements Loggable {
 			Future<IGameData> gameModel = executor.submit( () -> 
 				IGameData.createGameData().initialize(gameSettings, null) );
 			
-			Future<ControllerInterface> lanternaController = executor.submit( () ->
+			Future<ControllerInterface> controller = executor.submit( () ->
 				ControllerFactory.create().initialize(gameModel.get()) );
 			
-			Future<DisplayElement> lanternaGUI = executor.submit( () ->
-				DisplayFactory.create().initialize(gameModel.get(), lanternaController.get(), gameSettings) );
-		
-			executor.submit(lanternaGUI.get());
+			Future<DisplayElement> gui = executor.submit( () ->
+				DisplayFactory.create(DisplayStyle.LANTERNA).initialize(gameModel.get(), controller.get(), gameSettings) );
+			
+			executor.submit(gui.get());
 			
 			executor.shutdown();
 			app.info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));

@@ -24,7 +24,7 @@ import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
-public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable {
+public class LanternaGUI implements Observer, DisplayElement, Loggable {
 	private final Logger logger;
 	
 	private Screen screen;
@@ -84,7 +84,7 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 			mainViewPanel = createMainViewPanel();
 			prepareView();
 			
-			startGuiThread();
+			guiThread.start();
 			info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
 		}
 		catch(RuntimeException e) { error(e.getClass().getName() + " when creating lanterna GUI.", e); }
@@ -127,11 +127,6 @@ public class LanternaGUI implements Observer, DisplayElement, Runnable, Loggable
 	        multiWindowTextGUI.addWindow(mainWindow);
 		}
 		catch(NullPointerException e) { error(e.getClass().getName() + " when preparing view.", e); }
-	}
-	
-	@Override
-	public void startGuiThread() {
-		guiThread.start();
 	}
 
 	@Override

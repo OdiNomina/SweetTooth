@@ -5,7 +5,8 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.GameSettings;
 
 @SuppressWarnings("exports")
-public interface DisplayElement extends Runnable{
+public interface DisplayElement extends Runnable {
+	
 	DisplayElement initialize(IGameData gameModel, ControllerInterface controller, GameSettings modelSettings) throws NullPointerException;
-	void startGuiThread();
+	void run();
 }
