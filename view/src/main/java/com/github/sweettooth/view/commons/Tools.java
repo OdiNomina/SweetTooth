@@ -54,7 +54,7 @@ public class Tools {
 	 * Flag ',': The result will include locale-specific grouping separators.
 	 * Conversion 'f': The result is formatted as a decimal number.
 	 */
-	public static String formatBalanceSheet(IGameData gameData, GameSettings gameSettings) {
+	public static String formatBalanceSheet(GameSettings gameSettings, IGameData gameData) {
     	IPlayer player = gameData.player();
     	double cash = player.cash();
 		double loan = gameData.loanShark().clientsBalance(player);

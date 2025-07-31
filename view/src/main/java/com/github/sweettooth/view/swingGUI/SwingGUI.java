@@ -1,5 +1,16 @@
 package com.github.sweettooth.view.swingGUI;
 
+import com.github.sweettooth.controller.api.ControllerInterface;
+import com.github.sweettooth.model.api.GameSettings;
+import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.ILocation;
+import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
+import com.github.sweettooth.model.api.viewAPI.IPlayer;
+import com.github.sweettooth.model.api.viewAPI.Observer;
+import com.github.sweettooth.shared.api.Loggable;
+import com.github.sweettooth.view.api.DisplayElement;
+import com.github.sweettooth.view.commons.Tools;
+
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -7,16 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
-
-import com.github.sweettooth.controller.api.ControllerInterface;
-import com.github.sweettooth.model.api.GameSettings;
-import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.viewAPI.Observer;
-import com.github.sweettooth.shared.api.Loggable;
-import com.github.sweettooth.view.api.DisplayElement;
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.logging.Logger;
 import java.awt.Color;
@@ -26,36 +30,119 @@ import javax.swing.JComboBox;
 import java.awt.Font;
 import javax.swing.JPanel;
 import java.awt.Component;
-import java.awt.ComponentOrientation;
 
 public class SwingGUI implements Observer, DisplayElement, Loggable  {
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					BingFrame window = new BingFrame();
-//					window.frmBing.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-	
 	private final Logger logger;
 	
-	private IGameData gameModel;
 	private ControllerInterface controller;
+	private IGameData gameData;
 	private GameSettings gameSettings;
 	
+	private IPlayer player;
+	private IMoneyDealer loanShark;
+	private IMoneyDealer bank;
+	
 	private JFrame mainFrame;
+	// Title Panel
+	private JLabel title1Label;
+	private JLabel title2Label;
+	private JLabel gameOverLabel;
+	// Current Panel
+	private JLabel currentDayLabel;
+	private JLabel currentDay;
+	private JLabel currentLocationLabel;
+	private JLabel currentLocation;
+	private JLabel cashLabel;
+	private JLabel cash;
+	private JLabel pocketsLabel;
+	private JComboBox<String> pockets;
+	// Buy Sell Panel
+	private JLabel buyTitle;
+	private JLabel buySelectionLabel;
+	private JComboBox<String> buySelection;
 	private JTextField buyQuantity;
+	private JLabel sellTitel;
+	private JLabel sellSelectionLabel;
+	private JComboBox<String> sellSelection;
 	private JTextField sellQuantity;
+	private JLabel buySellInfo;
+	// Hide Seek Panel
+	private JLabel hideSeekTitel;
+	private JButton hideButton;
+	private JLabel stashLabel;
+	private JComboBox<String> stash;
+	private JLabel seekQuantityLabel;
 	private JTextField seekQuantity;
+	private JButton seekButton;
+	private JLabel hideSeekInfo;
+	// Bank Panel
+	private JLabel bankTitle;
+	private JLabel bankBalanceLabel;
+	private JLabel bankBalance;
+	private JLabel depositLabel;
+	private JTextField deposit;
+	private String initTextDeposit = "Natürlich, welchen Betrag?";
+	private JLabel withdrawLabel;
+	private JTextField withdraw;
+	private String initTextWithdraw = "Gerne, wie viel?";
+	private JLabel bankInfo;
+	private JLabel bankDispoHint;
+	private JLabel bankInterestHint;
+	// Loanshark Panel
+	private JLabel loansharkTitle;
+	private JLabel loansharkBalanceLabel;
+	private JLabel loansharkBalance;
+	private JLabel lendLabel;
+	private JTextField lend;
+	private String initTextLend = "Wie viel willst du?!";
+	private JLabel giveBackLabel;
+	private JTextField giveBack;
+	private String initTextGiveBack = "Lass sehn...";
+	private JLabel loansharkInfo;
+	private JLabel loansharkInterestHint;
+	// Travel Panel
+	private JLabel travelTitle1;
+	private JLabel travelTitle2;
+	private JLabel ticketLabel;
+	private JLabel ticketPrice;
+	private JLabel locationSelectionLabel;
+	private JComboBox<String> locationSelection;
+	private JLabel travelInfo1;
+	private JLabel travelInfo2;
+	private JLabel travelInfo3;
+	private JLabel travelInterest;
+	// Info Panel
+	private JTextField balanceSheet;
+	private JButton exitButton;
 
 	public SwingGUI() {
 		logger = Logger.getLogger(SwingGUI.class.getName());
 	}
+	
+    private void gameOverConfig() {
+    	try {
+    		// Title Panel
+    		gameOverLabel.setVisible(true);
+    		// Buy Sell Panel
+    		buySelection.setEnabled(false);
+			sellSelection.setEnabled(false);
+			// Hide Seek Panel
+			seekQuantity.setEnabled(false);
+			hideButton.setEnabled(false);
+			seekButton.setEnabled(false);
+			// Bank Panel
+			deposit.setEnabled(false);
+		    withdraw.setEnabled(false);
+		    // Loanshark Panel
+		    lend.setEnabled(false);
+		    giveBack.setEnabled(false);
+			// Travel Panel
+			locationSelection.setEnabled(false);
+			// Info Panel
+//			balanceSheet.setTheme(new SimpleTheme(new RGB(0, 0, 0), new RGB(255, 240, 140), SGR.BOLD));
+    	}
+    	catch(RuntimeException e) { error(e.getClass().getName() + " when setting 'game over configuration'.", e); }
+    }
 	
 	@Override
 	public Logger getLogger() {	
@@ -64,12 +151,58 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	
 	@Override
 	public void update() {
-//		if(gameModel.isGameOver())
-//    		mainViewPanel.gameOverConfig();
-//    	if(gameModel.isExitButtonClicked())
-//    		interruptGuiThread();
-//    	else
-//    		mainViewPanel.updateContent();
+		if(gameData.isGameOver())
+    		gameOverConfig();
+    	else
+    		updateContent();
+	}
+	
+	private void updateContent() {
+    	try {
+    		// Current Panel
+			currentDay.setText(Integer.toString(gameData.getDayOfGame()));
+		    currentLocation.setText(player.location().getOfficialName());
+		    cash.setText(Tools.formatMoney(gameSettings, player.cash()));
+		    pockets.removeAllItems();
+		    ArrayList<String> pocketItems = Tools.formatSnacks(gameSettings, player.snacks());
+		    for(String pi : pocketItems)
+		    	pockets.addItem(pi);
+		    // Buy Sell Panel
+		    buySelection.removeAllItems();
+		    sellSelection.removeAllItems();
+		    ArrayList<String> availableSnacks = Tools.formatDefaultSnacks(gameSettings);
+		    for(String as : availableSnacks) { // Will be updated because prices change.
+		    	buySelection.addItem(as);
+		    	sellSelection.addItem(as);
+		    }
+		    buySellInfo.setText("");
+		    // Hide Seek Panel
+		    stash.removeAllItems();
+		    ArrayList<String> stashedItems = Tools.formatSnacks(gameSettings, player.stash());
+		    for(String si : stashedItems)
+		    	stash.addItem(si);
+		    seekQuantity.setText("");
+		    hideSeekInfo.setText("");
+//		    // Bank Panel
+//		    deposit.setText(initTextDeposit);
+//		    withdraw.setText(initTextWithdraw);
+//		    bankBalance.setText(Tools.formatMoney(gameSettings, bank.clientsBalance(player)));
+//		    bankInfo.setText("");
+//		    // Loanshark Panel
+//		    lend.setText(initTextLend);
+//		    giveBack.setText(initTextGiveBack);
+//		    loansharkBalance.setText(Tools.formatMoney(gameSettings, loanShark.clientsBalance(player)));
+//		    loansharkInfo.setText("");
+//		    // Travel Panel
+//		    ticketPrice.setText(Tools.formatMoney(gameSettings, gameSettings.getTravelCosts()));
+//		    travelInfo1.setText("");
+//		    travelInfo2.setText("");
+//		    travelInfo3.setText("");
+//		    travelInterest.setText("");
+//		    // Info Panel
+//		    balanceSheet.setText(Tools.formatBalanceSheet(gameSettings, gameData));   
+    	}
+    	catch(RuntimeException e) { error(e.getClass().getName() + " when updating content.", e); }
 	}
 	
 	@Override
@@ -77,6 +210,8 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		Instant start = Instant.now();
 		try {
 			createMainFrame();
+			initializeContent();
+			updateContent();
 			mainFrame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -85,37 +220,103 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	}
 
 	@Override
-	public DisplayElement initialize(IGameData gameModel, ControllerInterface controller, GameSettings gameSettings) throws NullPointerException {
-		this.gameModel = Objects.requireNonNull(gameModel);
+	public DisplayElement initialize(IGameData gameData, ControllerInterface controller, GameSettings gameSettings) throws NullPointerException {
+		this.gameData = Objects.requireNonNull(gameData);
 		this.controller = Objects.requireNonNull(controller);
 		this.gameSettings = Objects.requireNonNull(gameSettings);
 		
-		gameModel.registerObserver(this);
+		player = gameData.player();
+        loanShark = gameData.loanShark();
+        bank = gameData.bank();
+		
+		gameData.registerObserver(this);
 		return this;
+	}
+	
+	private void initializeContent() {
+    	try {
+    		// Title Panel
+    		title1Label.setText("Du dealst mit Süßis?");
+    		title2Label.setText("Mal sehen was du in einem Monat verdienst...");
+    		gameOverLabel.setText(" Das wars... NICHTS GEHT MEHR ! ");
+    		gameOverLabel.setVisible(false);
+			// Current Panel
+    		currentDayLabel.setText("Tag:");
+			currentLocationLabel.setText("Wo bin ich eigentlich...?");
+			cashLabel.setText("Cash dabei:");
+			pocketsLabel.setText("Was hab ich in den Taschen?"); 
+			// Buy Sell Panel
+			buyTitle.setText("Hast du was für mich?");
+			buySelectionLabel.setText("Ich mag..."); 
+			buyQuantity.setText("");
+			sellTitel.setText("Hey! Willst du was Süßes?");
+			sellSelectionLabel.setText("Ich verkaufe dir...");
+		    sellQuantity.setText("");
+			// Hide Seek Panel
+			hideSeekTitel.setText("Du hast ein echt gutes Versteck für deine Süßis, da sind sie sicher!");
+			stashLabel.setText("Was liegt schon im Versteck?");
+			seekQuantityLabel.setText("hmm... wie viel");
+			hideButton.setText("Alles Verstecken");
+		    seekButton.setText("Aus dem Versteck holen");
+//			// Bank Panel
+//			bankTitle.setText("BANK:");
+//		    bankBalanceLabel.setText("Kontostand:");
+//		    depositLabel.setText("Ich möchte Geld einzahlen.");
+//		    deposit.setText(initTextDeposit);
+//		    withdrawLabel.setText("Ich würde gerne Geld abheben.");
+//		    withdraw.setText(initTextWithdraw);
+//		    bankInterestHint.setText(bank.getInterestHint());
+//		    bankDispoHint.setText(bank.getDispoHint());
+//		    // Loanshark Panel
+//		    loansharkTitle.setText("KREDITHAI:");
+//		    loansharkBalanceLabel.setText("Schulden:");
+//		    lendLabel.setText("Ich brauch Geld.");
+//		    lend.setText(initTextLend);
+//		    giveBackLabel.setText("Hier, ich hab dein Geld dabei.");
+//		    giveBack.setText(initTextGiveBack);
+//		    loansharkInterestHint.setText(loanShark.getInterestHint());
+//		    // Travel Panel
+//		    travelTitle1.setText("Du willst dich mal umschauen?");
+//		    travelTitle2.setText("Klar, aber du wirst den ganzen Tag unterwegs sein.");
+//		    ticketLabel.setText("Eine Fahrt mit deinem EasyTicket kostet pauschal:");
+//		    locationSelectionLabel.setText("Wohin gehts?");
+//		    locationSelection.removeAllItems();
+//		    ArrayList<String> locations = new ArrayList<>();
+//		    for(ILocation l : ILocation.values())
+//		    	locations.add(l.getOfficialName());
+//		    for(String s : locations)
+//		    	locationSelection.addItem(s);
+//		    // Info Panel
+//		    balanceSheet.setEnabled(false);
+//		    exitButton.setText("Ich hau ab, kein Bock mehr...");
+    	}
+    	catch(RuntimeException e) { error(e.getClass().getName() + " when initializing content.", e); }
 	}
 
 	/**
 	 * @wbp.parser.entryPoint
 	 */
 	private void createMainFrame() {
+		String sampleText = "Sample text for formatting purposes.";
+		
 		mainFrame = new JFrame();
 		mainFrame.setPreferredSize(new Dimension(450, 0));
 		mainFrame.getContentPane().setBackground(new Color(0, 102, 153));
 		mainFrame.setTitle("Sweet Tooth");
-		mainFrame.setBounds(100, 100, 942, 752);
+		mainFrame.setBounds(100, 100, 940, 730);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		// Title Panel
-		JPanel titelPanel = new JPanel();
-		titelPanel.setBackground(new Color(0, 102, 153));
+		JPanel titlePanel = new JPanel();
+		titlePanel.setBackground(new Color(0, 102, 153));
 		
-		JLabel titel1Label = new JLabel("Du dealst mit Süßis?");
-		titel1Label.setForeground(new Color(255, 255, 0));
-		titel1Label.setFont(new Font("Broadway", Font.BOLD, 24));
-		JLabel titel2Label = new JLabel("Mal sehen was du in einem Monat verdienst...");
-		titel2Label.setForeground(new Color(255, 255, 0));
-		titel2Label.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
-		JLabel gameOverLabel = new JLabel("Game Over ");
+		title1Label = new JLabel(sampleText);
+		title1Label.setForeground(new Color(255, 255, 0));
+		title1Label.setFont(new Font("Broadway", Font.BOLD, 24));
+		title2Label = new JLabel(sampleText);
+		title2Label.setForeground(new Color(255, 255, 0));
+		title2Label.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
+		gameOverLabel = new JLabel(sampleText);
 		gameOverLabel.setBackground(new Color(240, 240, 240));
 		gameOverLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		gameOverLabel.setForeground(new Color(255, 153, 51));
@@ -125,95 +326,94 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		JPanel currentPanel = new JPanel();
 		currentPanel.setBackground(new Color(0, 102, 153));
 		
-		JLabel currentDayLabel = new JLabel("Tag:");
+		currentDayLabel = new JLabel(sampleText);
 		currentDayLabel.setForeground(new Color(153, 204, 255));
 		currentDayLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		currentDayLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		currentDayLabel.setPreferredSize(new Dimension(300, 14));
 		currentDayLabel.setMinimumSize(new Dimension(300, 14));
 		currentDayLabel.setMaximumSize(new Dimension(300, 14));
-		JLabel currentLocationLabel = new JLabel("Wo bin ich eigentlich...?");
+		currentLocationLabel = new JLabel(sampleText);
 		currentLocationLabel.setForeground(new Color(153, 204, 255));
 		currentLocationLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		currentLocationLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		currentLocationLabel.setPreferredSize(new Dimension(300, 14));
 		currentLocationLabel.setMinimumSize(new Dimension(300, 14));
 		currentLocationLabel.setMaximumSize(new Dimension(300, 14));
-		JLabel cashLabel = new JLabel("Cash dabei:");
+		cashLabel = new JLabel(sampleText);
 		cashLabel.setForeground(new Color(153, 204, 255));
 		cashLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		cashLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		cashLabel.setPreferredSize(new Dimension(300, 14));
 		cashLabel.setMinimumSize(new Dimension(300, 14));
 		cashLabel.setMaximumSize(new Dimension(300, 14));
-		JLabel cash = new JLabel("cash");
+		cash = new JLabel(sampleText);
 		cash.setForeground(new Color(255, 255, 0));
 		cash.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		cash.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JLabel pocketsLabel = new JLabel("Was hab ich in den Taschen?");
+		pocketsLabel = new JLabel(sampleText);
 		pocketsLabel.setForeground(new Color(153, 204, 255));
 		pocketsLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		pocketsLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		pocketsLabel.setPreferredSize(new Dimension(300, 14));
 		pocketsLabel.setMinimumSize(new Dimension(300, 14));
 		pocketsLabel.setMaximumSize(new Dimension(300, 14));
-		JLabel currentLocation = new JLabel("currentLocation");
+		currentLocation = new JLabel(sampleText);
 		currentLocation.setForeground(new Color(255, 255, 0));
 		currentLocation.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		currentLocation.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JLabel currentDay = new JLabel("currentDay");
+		currentDay = new JLabel();
 		currentDay.setForeground(new Color(255, 255, 0));
 		currentDay.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		currentDay.setAlignmentX(Component.CENTER_ALIGNMENT);
-		
-		JComboBox<String> sweetsInPockets = new JComboBox<String>();
-		sweetsInPockets.setPreferredSize(new Dimension(250, 22));
-		sweetsInPockets.setMaximumSize(new Dimension(250, 22));
-		sweetsInPockets.setBackground(new Color(51, 102, 153));
-		sweetsInPockets.setForeground(new Color(255, 255, 0));
-		sweetsInPockets.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+		pockets = new JComboBox<String>();
+		pockets.setPreferredSize(new Dimension(250, 22));
+		pockets.setMaximumSize(new Dimension(250, 22));
+		pockets.setBackground(new Color(51, 102, 153));
+		pockets.setForeground(new Color(255, 255, 0));
+		pockets.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		
 		// Buy Sell Panel
 		JPanel buySellPanel = new JPanel();
 		buySellPanel.setBackground(new Color(102, 153, 204));
 		
-		JLabel buyTitel = new JLabel("Hast du was für mich?");
-		buyTitel.setForeground(new Color(255, 255, 0));
-		buyTitel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		JLabel buySelectionLabel = new JLabel("Ich mag...");
+		buyTitle = new JLabel(sampleText);
+		buyTitle.setForeground(new Color(255, 255, 0));
+		buyTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		buySelectionLabel = new JLabel(sampleText);
 		buySelectionLabel.setPreferredSize(new Dimension(200, 14));
 		buySelectionLabel.setMinimumSize(new Dimension(200, 14));
 		buySelectionLabel.setMaximumSize(new Dimension(200, 14));
 		buySelectionLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		buySelectionLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		JLabel sellTitel = new JLabel("Hey! Willst du was Süßes?");
+		sellTitel = new JLabel(sampleText);
 		sellTitel.setForeground(new Color(255, 255, 0));
 		sellTitel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		JLabel sellSelectionLabel = new JLabel("Ich verkaufe dir...");
+		sellSelectionLabel = new JLabel(sampleText);
 		sellSelectionLabel.setMinimumSize(new Dimension(200, 14));
 		sellSelectionLabel.setMaximumSize(new Dimension(200, 14));
 		sellSelectionLabel.setPreferredSize(new Dimension(200, 14));
 		sellSelectionLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		sellSelectionLabel.setHorizontalAlignment(SwingConstants.TRAILING);
-		JLabel buySellInfo = new JLabel("buySellInfo");
+		buySellInfo = new JLabel(sampleText);
 		buySellInfo.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
-		
 		buyQuantity = new JTextField();
 		buyQuantity.setPreferredSize(new Dimension(100, 20));
 		buyQuantity.setMaximumSize(new Dimension(100, 20));
 		buyQuantity.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		buyQuantity.setColumns(10);
+		buyQuantity.setEnabled(false);
 		sellQuantity = new JTextField();
 		sellQuantity.setPreferredSize(new Dimension(100, 20));
 		sellQuantity.setMaximumSize(new Dimension(100, 20));
 		sellQuantity.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		sellQuantity.setColumns(10);
-		
-		JComboBox<String> buySelection = new JComboBox<String>();
+		sellQuantity.setEnabled(false);
+		buySelection = new JComboBox<String>();
 		buySelection.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		buySelection.setPreferredSize(new Dimension(250, 22));
 		buySelection.setMaximumSize(new Dimension(250, 22));
-		JComboBox<String> sellSelection = new JComboBox<String>();
+		sellSelection = new JComboBox<String>();
 		sellSelection.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		sellSelection.setPreferredSize(new Dimension(250, 22));
 		sellSelection.setMaximumSize(new Dimension(250, 22));
@@ -222,57 +422,55 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		JPanel hideSeekPanel = new JPanel();
 		hideSeekPanel.setBackground(new Color(102, 153, 204));
 		
-		JLabel hideSeekTitel = new JLabel("Du hast ein echt gutes Versteck für deine Süßis, da sind sie sicher!");
+		hideSeekTitel = new JLabel(sampleText);
 		hideSeekTitel.setForeground(new Color(255, 255, 0));
 		hideSeekTitel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
-		JLabel stashLabel = new JLabel("Was liegt schon im Versteck?");
+		stashLabel = new JLabel(sampleText);
 		stashLabel.setBackground(new Color(255, 255, 153));
 		stashLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		stashLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		stashLabel.setMinimumSize(new Dimension(200, 14));
 		stashLabel.setMaximumSize(new Dimension(200, 14));
 		stashLabel.setPreferredSize(new Dimension(200, 14));
-		JLabel seekQuantityLabel = new JLabel("hm... wie viel nehm ich mit...");
+		seekQuantityLabel = new JLabel(sampleText);
 		seekQuantityLabel.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		seekQuantityLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		seekQuantityLabel.setMinimumSize(new Dimension(200, 14));
 		seekQuantityLabel.setMaximumSize(new Dimension(200, 14));
 		seekQuantityLabel.setPreferredSize(new Dimension(200, 14));
-		JLabel hideSeekInfo = new JLabel("hideSeekInfo");
+		hideSeekInfo = new JLabel(sampleText);
 		hideSeekInfo.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
-		
 		seekQuantity = new JTextField();
 		seekQuantity.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		seekQuantity.setColumns(10);
 		seekQuantity.setPreferredSize(new Dimension(100, 20));
 		seekQuantity.setMaximumSize(new Dimension(100, 20));
-		
-		JComboBox<String> stash = new JComboBox<String>();
+		stash = new JComboBox<String>();
 		stash.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		stash.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		stash.setPreferredSize(new Dimension(250, 22));
 		stash.setMaximumSize(new Dimension(250, 22));
-		
-		JButton hideButton = new JButton("Alles verstecken");
+		hideButton = new JButton(sampleText);
 		hideButton.setBackground(new Color(102, 153, 204));
 		hideButton.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
-		JButton seekButton = new JButton("Aus dem Versteck holen");
+		seekButton = new JButton(sampleText);
 		seekButton.setFont(new Font("Trebuchet MS", Font.BOLD, 12));
 		seekButton.setBackground(new Color(102, 153, 204));
 		seekButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+		seekButton.setEnabled(false);
 		
-		
-		GroupLayout gl_titelPanel = new GroupLayout(titelPanel);
+		// Grouping and positioning
+		GroupLayout gl_titelPanel = new GroupLayout(titlePanel);
 		gl_titelPanel.setHorizontalGroup(
 			gl_titelPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_titelPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_titelPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_titelPanel.createSequentialGroup()
-							.addComponent(titel1Label)
+							.addComponent(title1Label)
 							.addPreferredGap(ComponentPlacement.RELATED, 490, Short.MAX_VALUE)
 							.addComponent(gameOverLabel))
-						.addComponent(titel2Label))
+						.addComponent(title2Label))
 					.addContainerGap())
 		);
 		gl_titelPanel.setVerticalGroup(
@@ -280,12 +478,12 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 				.addGroup(gl_titelPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_titelPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(titel1Label)
+						.addComponent(title1Label)
 						.addComponent(gameOverLabel))
-					.addComponent(titel2Label)
+					.addComponent(title2Label)
 					.addContainerGap())
 		);
-		titelPanel.setLayout(gl_titelPanel);
+		titlePanel.setLayout(gl_titelPanel);
 		
 		GroupLayout gl_currentPanel = new GroupLayout(currentPanel);
 		gl_currentPanel.setHorizontalGroup(
@@ -300,7 +498,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(gl_currentPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(cash)
-						.addComponent(sweetsInPockets)
+						.addComponent(pockets)
 						.addComponent(currentLocation)
 						.addComponent(currentDay))
 					.addContainerGap())
@@ -322,7 +520,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 						.addComponent(cashLabel))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_currentPanel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(sweetsInPockets)
+						.addComponent(pockets)
 						.addComponent(pocketsLabel))
 					.addContainerGap())
 		);
@@ -334,7 +532,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 				.addGroup(gl_buySellPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_buySellPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(buyTitel)
+						.addComponent(buyTitle)
 						.addComponent(sellTitel)
 						.addGroup(gl_buySellPanel.createSequentialGroup()
 							.addComponent(buySelectionLabel)
@@ -357,7 +555,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 			gl_buySellPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_buySellPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(buyTitel)
+					.addComponent(buyTitle)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_buySellPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(buySelectionLabel)
@@ -430,7 +628,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(titelPanel, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
+						.addComponent(titlePanel, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
 						.addComponent(currentPanel, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
 						.addComponent(buySellPanel, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
 						.addComponent(hideSeekPanel, GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE))
@@ -440,7 +638,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(titelPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(titlePanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(currentPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
