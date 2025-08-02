@@ -63,9 +63,9 @@ public class Tools {
 		String currency = Currency.getInstance(locale).getSymbol();
 		StringBuffer answer = new StringBuffer();
 		answer.append(String.format(locale, "Cash: %,.2f %s", cash, currency))
-		.append(String.format(locale, " | Kredithai: %,.2f %s", loan, currency))
-		.append(String.format(locale, " | Bankkonto: %,.2f %s", balance, currency))
-		.append(String.format(locale, "\nSaldo: %,.2f %s", cash + loan + balance, currency));
+		.append(String.format(locale, "\tKredithai: %,.2f %s", loan, currency))
+		.append(String.format(locale, "\tBankkonto: %,.2f %s", balance, currency))
+		.append(String.format(locale, "\t=>      SALDO: %,.2f %s", cash + loan + balance, currency));
 		return answer.toString();
 	}
 }
