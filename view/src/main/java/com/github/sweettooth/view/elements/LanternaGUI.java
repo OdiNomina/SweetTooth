@@ -6,9 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import com.github.sweettooth.controller.api.ControllerFactory;
-import com.github.sweettooth.controller.api.ControllerInterface;
-import com.github.sweettooth.controller.api.ControllerFactory.ControlUnit;
+import com.github.sweettooth.controller.api.IController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
@@ -32,7 +30,7 @@ public class LanternaGUI implements Observer, DisplayElement, Loggable {
 	private SeparateTextGUIThread guiThread;
 	
 	private final Logger logger;
-	private ControllerInterface controller;
+	private IController controller;
 	
 	private IGameData gameModel;
 	private GameSettings gameSettings;
@@ -42,7 +40,7 @@ public class LanternaGUI implements Observer, DisplayElement, Loggable {
 		logger = Logger.getLogger(LanternaGUI.class.getName());
 		this.gameModel = Objects.requireNonNull(gameModel);
 		
-		controller = ControllerFactory.createController(ControlUnit.LANTERNA);
+		controller = IController.getInstance();
 		controller.initialize(gameModel);
 	}
 	

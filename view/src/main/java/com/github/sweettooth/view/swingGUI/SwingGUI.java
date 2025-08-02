@@ -1,8 +1,6 @@
 package com.github.sweettooth.view.swingGUI;
 
-import com.github.sweettooth.controller.api.ControllerInterface;
-import com.github.sweettooth.controller.api.ControllerFactory;
-import com.github.sweettooth.controller.api.ControllerFactory.ControlUnit;
+import com.github.sweettooth.controllerSwing.api.IController;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
@@ -40,7 +38,7 @@ import javax.swing.UIManager;
 public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	private final Logger logger;
 	
-	private ControllerInterface controller;
+	private IController controller;
 	private IGameData gameData;
 	private GameSettings gameSettings;
 	
@@ -126,8 +124,8 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		logger = Logger.getLogger(SwingGUI.class.getName());
 		this.gameData = Objects.requireNonNull(gameData);
 		
-		controller = ControllerFactory.createController(ControlUnit.SWING);
-		controller.initialize(gameData);
+		controller = IController.getInstance();
+//		controller.initialize(gameData);
 	}
 	
     @Override
