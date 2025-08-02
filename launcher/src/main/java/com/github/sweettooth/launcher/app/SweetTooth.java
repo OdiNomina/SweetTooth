@@ -1,7 +1,5 @@
 package com.github.sweettooth.launcher.app;
 
-import com.github.sweettooth.controller.api.ControllerInterface;
-
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -12,7 +10,6 @@ import java.util.concurrent.Future;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
-import com.github.sweettooth.controller.api.ControllerFactory;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.api.ISnackFactory.SnackType;
@@ -35,20 +32,16 @@ public class SweetTooth implements Loggable {
 			ExecutorService executor = Executors.newCachedThreadPool();
 			app = new SweetTooth();
 			
-			executor.submit( () -> LoggingSetup.initialize(SweetTooth.class) );
-			executor.submit( () -> app.setDefaultUncaughtExceptionHandler() );
-			executor.submit( () -> app.addShutdownHook() );
+			LoggingSetup.initialize(SweetTooth.class);
+			app.setDefaultUncaughtExceptionHandler();
+			app.addShutdownHook();
 			
 			GameSettings gameSettings = new GameSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
 			
-			Future<IGameData> gameModel = executor.submit( () -> 
-				IGameData.createGameData().initialize(gameSettings, null) );
-			
-			Future<ControllerInterface> controller = executor.submit( () ->
-				ControllerFactory.create().initialize(gameModel.get()) );
+			IGameData gameModel = IGameData.createGameData().initialize(gameSettings, null);
 			
 			Future<DisplayElement> gui = executor.submit( () ->
-				DisplayFactory.create(DisplayStyle.LANTERNA).initialize(gameModel.get(), controller.get(), gameSettings) );
+				DisplayFactory.createDisplay(DisplayStyle.LANTERNA, gameModel).initialize(gameSettings) );
 			
 			executor.submit(gui.get());
 			

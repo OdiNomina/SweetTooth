@@ -1,5 +1,6 @@
 package com.github.sweettooth.view.api;
 
+import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.view.elements.LanternaGUI;
 import com.github.sweettooth.view.swingGUI.SwingGUI;
 
@@ -10,10 +11,11 @@ public class DisplayFactory {
 	
 	public DisplayFactory(){}
 	
-	public static DisplayElement create(DisplayStyle display) {
-		return switch(display) {
-			case LANTERNA -> new LanternaGUI();
-			case SWING -> new SwingGUI();
+	@SuppressWarnings("exports")
+	public static DisplayElement createDisplay(DisplayStyle displayStyle, IGameData gameData) {
+		return switch(displayStyle) {
+			case LANTERNA -> new LanternaGUI(gameData);
+			case SWING -> new SwingGUI(gameData);
 		};
 	}
 }

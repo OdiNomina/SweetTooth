@@ -6,7 +6,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import com.github.sweettooth.controller.api.ControllerFactory;
 import com.github.sweettooth.controller.api.ControllerInterface;
+import com.github.sweettooth.controller.api.ControllerFactory.ControlUnit;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
@@ -25,20 +27,23 @@ import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
 
 public class LanternaGUI implements Observer, DisplayElement, Loggable {
-	private final Logger logger;
-	
 	private Screen screen;
 	private MultiWindowTextGUI multiWindowTextGUI;
 	private SeparateTextGUIThread guiThread;
 	
-	private IGameData gameModel;
+	private final Logger logger;
 	private ControllerInterface controller;
-	private GameSettings gameSettings;
 	
+	private IGameData gameModel;
+	private GameSettings gameSettings;
 	private ViewPanel mainViewPanel;
 	
-	public LanternaGUI() {
+	public LanternaGUI(IGameData gameModel) throws NullPointerException {
 		logger = Logger.getLogger(LanternaGUI.class.getName());
+		this.gameModel = Objects.requireNonNull(gameModel);
+		
+		controller = ControllerFactory.createController(ControlUnit.LANTERNA);
+		controller.initialize(gameModel);
 	}
 	
 	@Override
@@ -47,9 +52,7 @@ public class LanternaGUI implements Observer, DisplayElement, Loggable {
 	}
 
 	@Override
-	public DisplayElement initialize(IGameData gameModel, ControllerInterface controller, GameSettings gameSettings) throws NullPointerException {
-		this.gameModel = Objects.requireNonNull(gameModel);
-		this.controller = Objects.requireNonNull(controller);
+	public DisplayElement initialize(GameSettings gameSettings) throws NullPointerException {
 		this.gameSettings = Objects.requireNonNull(gameSettings);
 		
 		gameModel.registerObserver(this);

@@ -1,6 +1,8 @@
 package com.github.sweettooth.view.swingGUI;
 
 import com.github.sweettooth.controller.api.ControllerInterface;
+import com.github.sweettooth.controller.api.ControllerFactory;
+import com.github.sweettooth.controller.api.ControllerFactory.ControlUnit;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
@@ -120,8 +122,12 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	private JButton seekButton;
 	private JLabel hideSeekInfo;
 	
-	public SwingGUI() {
+	public SwingGUI(IGameData gameData) {
 		logger = Logger.getLogger(SwingGUI.class.getName());
+		this.gameData = Objects.requireNonNull(gameData);
+		
+		controller = ControllerFactory.createController(ControlUnit.SWING);
+		controller.initialize(gameData);
 	}
 	
     @Override
@@ -130,9 +136,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	}
 
 	@Override
-	public DisplayElement initialize(IGameData gameData, ControllerInterface controller, GameSettings gameSettings) throws NullPointerException {
-		this.gameData = Objects.requireNonNull(gameData);
-		this.controller = Objects.requireNonNull(controller);
+	public DisplayElement initialize(GameSettings gameSettings) throws NullPointerException {
 		this.gameSettings = Objects.requireNonNull(gameSettings);
 		
 		player = gameData.player();
@@ -272,7 +276,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		}
 		catch(RuntimeException e) { error(e.getClass().getName() + " when updating content.", e); }
 	}
-
+	
 	private void gameOverConfig() {
 	    	try {
 	    		gameOverLabel.setVisible(true);

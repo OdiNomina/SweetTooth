@@ -15,10 +15,10 @@ public class ComboBoxListenerFactory {
 	}
 	
 	public ComboBox.Listener create(ComboBox<String> thisComboBox, String eventName, Interactable nextInFocus, Label... answerBox) {
-		switch(eventName) {
-			case "Buy": return new BuySelectionListener(thisComboBox, nextInFocus);
-			case "Sell": return new SellSelectionListener(thisComboBox, nextInFocus);
-			case "Travel": {
+		switch(eventName.toLowerCase()) {
+			case "buy": return new BuySelectionListener(thisComboBox, nextInFocus);
+			case "sell": return new SellSelectionListener(thisComboBox, nextInFocus);
+			case "travel": {
 				IGameData gameData = controller.getGameModel();
 				Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 				Processable applyInterestEvent = controller.getEventFactory().createEvent("ApplyInterest", gameData);
