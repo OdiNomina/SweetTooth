@@ -124,89 +124,23 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		logger = Logger.getLogger(SwingGUI.class.getName());
 	}
 	
-    private void gameOverConfig() {
-    	try {
-    		gameOverLabel.setVisible(true);
-    		
-    		buySelection.setEnabled(false);
-			sellSelection.setEnabled(false);
-
-			seekQuantity.setEnabled(false);
-			hideButton.setEnabled(false);
-			seekButton.setEnabled(false);
-
-			deposit.setEnabled(false);
-		    withdraw.setEnabled(false);
-
-		    lend.setEnabled(false);
-		    giveBack.setEnabled(false);
-
-			locationSelection.setEnabled(false);
-
-//			balanceSheet.setTheme(new SimpleTheme(new RGB(0, 0, 0), new RGB(255, 240, 140), SGR.BOLD));
-    	}
-    	catch(RuntimeException e) { error(e.getClass().getName() + " when setting 'game over configuration'.", e); }
-    }
-	
-	@Override
+    @Override
 	public Logger getLogger() {	
 		return logger;
 	}
-	
+
 	@Override
-	public void update() {
-		if(gameData.isGameOver())
-    		gameOverConfig();
-    	else
-    		updateContent();
-	}
-	
-	private void updateContent() {
-    	try {
-    		// Current Panel
-			currentDay.setText(Integer.toString(gameData.getDayOfGame()));
-		    currentLocation.setText(player.location().getOfficialName());
-		    cash.setText(Tools.formatMoney(gameSettings, player.cash()));
-		    pockets.removeAllItems();
-		    ArrayList<String> pocketItems = Tools.formatSnacks(gameSettings, player.snacks());
-		    for(String pi : pocketItems)
-		    	pockets.addItem(pi);
-		    // Buy Sell Panel
-		    buySelection.removeAllItems();
-		    sellSelection.removeAllItems();
-		    ArrayList<String> availableSnacks = Tools.formatDefaultSnacks(gameSettings);
-		    for(String as : availableSnacks) { // Will be updated because prices change.
-		    	buySelection.addItem(as);
-		    	sellSelection.addItem(as);
-		    }
-		    buySellInfo.setText("");
-		    // Hide Seek Panel
-		    stash.removeAllItems();
-		    ArrayList<String> stashedItems = Tools.formatSnacks(gameSettings, player.stash());
-		    for(String si : stashedItems)
-		    	stash.addItem(si);
-		    seekQuantity.setText("");
-		    hideSeekInfo.setText("");
-		    // Bank Panel
-		    deposit.setText(initTextDeposit);
-		    withdraw.setText(initTextWithdraw);
-		    bankBalance.setText(Tools.formatMoney(gameSettings, bank.clientsBalance(player)));
-		    bankInfo.setText("");
-		    // Loanshark Panel
-		    lend.setText(initTextLend);
-		    giveBack.setText(initTextGiveBack);
-		    loansharkBalance.setText(Tools.formatMoney(gameSettings, loanShark.clientsBalance(player)));
-		    loansharkInfo.setText("");
-		    // Travel Panel
-		    ticketPrice.setText(Tools.formatMoney(gameSettings, gameSettings.getTravelCosts()));
-		    travelInfo1.setText("");
-		    travelInfo2.setText("");
-		    travelInfo3.setText("");
-		    travelInterest.setText("");
-		    // Info Panel
-		    balanceSheet.setText(Tools.formatBalanceSheet(gameSettings, gameData));   
-    	}
-    	catch(RuntimeException e) { error(e.getClass().getName() + " when updating content.", e); }
+	public DisplayElement initialize(IGameData gameData, ControllerInterface controller, GameSettings gameSettings) throws NullPointerException {
+		this.gameData = Objects.requireNonNull(gameData);
+		this.controller = Objects.requireNonNull(controller);
+		this.gameSettings = Objects.requireNonNull(gameSettings);
+		
+		player = gameData.player();
+        loanShark = gameData.loanShark();
+        bank = gameData.bank();
+		
+		gameData.registerObserver(this);
+		return this;
 	}
 	
 	@Override
@@ -224,19 +158,13 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	}
 
 	@Override
-	public DisplayElement initialize(IGameData gameData, ControllerInterface controller, GameSettings gameSettings) throws NullPointerException {
-		this.gameData = Objects.requireNonNull(gameData);
-		this.controller = Objects.requireNonNull(controller);
-		this.gameSettings = Objects.requireNonNull(gameSettings);
-		
-		player = gameData.player();
-        loanShark = gameData.loanShark();
-        bank = gameData.bank();
-		
-		gameData.registerObserver(this);
-		return this;
+	public void update() {
+		if(gameData.isGameOver())
+			gameOverConfig();
+		else
+			updateContent();
 	}
-	
+
 	private void initializeContent() {
     	try {
     		// Title Panel
@@ -292,11 +220,82 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		    for(String s : locations)
 		    	locationSelection.addItem(s);
 		    // Balance Panel
-		    balanceSheet.setEnabled(false);
 		    exitButton.setText("Ich hau ab, kein Bock mehr...");
     	}
     	catch(RuntimeException e) { error(e.getClass().getName() + " when initializing content.", e); }
 	}
+
+	private void updateContent() {
+		try {
+			// Current Panel
+			currentDay.setText(Integer.toString(gameData.getDayOfGame()));
+		    currentLocation.setText(player.location().getOfficialName());
+		    cash.setText(Tools.formatMoney(gameSettings, player.cash()));
+		    pockets.removeAllItems();
+		    ArrayList<String> pocketItems = Tools.formatSnacks(gameSettings, player.snacks());
+		    for(String pi : pocketItems)
+		    	pockets.addItem(pi);
+		    // Buy Sell Panel
+		    buySelection.removeAllItems();
+		    sellSelection.removeAllItems();
+		    ArrayList<String> availableSnacks = Tools.formatDefaultSnacks(gameSettings);
+		    for(String as : availableSnacks) { // Will be updated because prices change.
+		    	buySelection.addItem(as);
+		    	sellSelection.addItem(as);
+		    }
+		    buySellInfo.setText("");
+		    // Hide Seek Panel
+		    stash.removeAllItems();
+		    ArrayList<String> stashedItems = Tools.formatSnacks(gameSettings, player.stash());
+		    for(String si : stashedItems)
+		    	stash.addItem(si);
+		    seekQuantity.setText("");
+		    hideSeekInfo.setText("");
+		    // Bank Panel
+		    deposit.setText(initTextDeposit);
+		    withdraw.setText(initTextWithdraw);
+		    bankBalance.setText(Tools.formatMoney(gameSettings, bank.clientsBalance(player)));
+		    bankInfo.setText("");
+		    // Loanshark Panel
+		    lend.setText(initTextLend);
+		    giveBack.setText(initTextGiveBack);
+		    loansharkBalance.setText(Tools.formatMoney(gameSettings, loanShark.clientsBalance(player)));
+		    loansharkInfo.setText("");
+		    // Travel Panel
+		    ticketPrice.setText(Tools.formatMoney(gameSettings, gameSettings.getTravelCosts()));
+		    travelInfo1.setText("");
+		    travelInfo2.setText("");
+		    travelInfo3.setText("");
+		    travelInterest.setText("");
+		    // Info Panel
+		    balanceSheet.setText(Tools.formatBalanceSheet(gameSettings, gameData));   
+		}
+		catch(RuntimeException e) { error(e.getClass().getName() + " when updating content.", e); }
+	}
+
+	private void gameOverConfig() {
+	    	try {
+	    		gameOverLabel.setVisible(true);
+	    		
+	    		buySelection.setEnabled(false);
+				sellSelection.setEnabled(false);
+	
+				seekQuantity.setEnabled(false);
+				hideButton.setEnabled(false);
+				seekButton.setEnabled(false);
+	
+				deposit.setEnabled(false);
+			    withdraw.setEnabled(false);
+	
+			    lend.setEnabled(false);
+			    giveBack.setEnabled(false);
+	
+				locationSelection.setEnabled(false);
+	
+				balanceSheet.setEnabled(false);
+	    	}
+	    	catch(RuntimeException e) { error(e.getClass().getName() + " when setting 'game over configuration'.", e); }
+	    }
 
 	/**
 	 * @wbp.parser.entryPoint
@@ -542,7 +541,8 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		JPanel balancePanel = new JPanel();
 		balancePanel.setBackground(new Color(0, 102, 153));
 		balanceSheet = new JTextArea(sampleText);
-		balanceSheet.setDisabledTextColor(new Color(153, 204, 255));
+		balanceSheet.setEditable(false);
+		balanceSheet.setDisabledTextColor(new Color(255, 153, 0));
 		balanceSheet.setTabSize(6);
 		balanceSheet.setBackground(new Color(0, 102, 153));
 		balanceSheet.setForeground(new Color(153, 204, 255));
