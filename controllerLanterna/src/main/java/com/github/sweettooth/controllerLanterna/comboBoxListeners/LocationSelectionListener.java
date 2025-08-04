@@ -1,4 +1,4 @@
-package com.github.sweettooth.controller.comboBoxListeners;
+package com.github.sweettooth.controllerLanterna.comboBoxListeners;
 
 import java.io.IOException;
 

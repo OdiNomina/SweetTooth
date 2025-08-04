@@ -1,11 +1,11 @@
-package com.github.sweettooth.controller.controllers;
+package com.github.sweettooth.controllerLanterna.controllers;
 
 import java.util.Objects;
 
-import com.github.sweettooth.controller.api.IController;
-import com.github.sweettooth.controller.buttonListeners.ButtonListenerFactory;
-import com.github.sweettooth.controller.comboBoxListeners.ComboBoxListenerFactory;
-import com.github.sweettooth.controller.textBoxInputFilters.InputFilterFactory;
+import com.github.sweettooth.controllerLanterna.api.IController;
+import com.github.sweettooth.controllerLanterna.buttonListeners.ButtonListenerFactory;
+import com.github.sweettooth.controllerLanterna.comboBoxListeners.ComboBoxListenerFactory;
+import com.github.sweettooth.controllerLanterna.textBoxInputFilters.InputFilterFactory;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.EventFactory;
 import com.googlecode.lanterna.gui2.Button;

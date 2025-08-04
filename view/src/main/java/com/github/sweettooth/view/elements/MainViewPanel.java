@@ -6,8 +6,7 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.logging.Logger;
 
-import com.github.sweettooth.controller.api.IController;
-
+import com.github.sweettooth.controllerLanterna.api.IController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.GameSettings;

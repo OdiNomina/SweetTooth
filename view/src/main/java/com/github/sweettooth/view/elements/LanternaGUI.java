@@ -6,8 +6,8 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import com.github.sweettooth.controller.api.IController;
 import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.controllerLanterna.api.IController;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.shared.api.Loggable;

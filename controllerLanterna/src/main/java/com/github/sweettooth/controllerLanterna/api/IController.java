@@ -1,6 +1,6 @@
-package com.github.sweettooth.controller.api;
+package com.github.sweettooth.controllerLanterna.api;
 
-import com.github.sweettooth.controller.controllers.LanternaController;
+import com.github.sweettooth.controllerLanterna.controllers.LanternaController;
 import com.github.sweettooth.model.api.IGameData;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;

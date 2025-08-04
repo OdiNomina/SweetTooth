@@ -1,11 +1,10 @@
-package com.github.sweettooth.controller.comboBoxListeners;
+package com.github.sweettooth.controllerLanterna.comboBoxListeners;
 
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.Interactable;
 
-
-public class BuySelectionListener extends ComboBoxListener {
-	public BuySelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus) {
+public class SellSelectionListener extends ComboBoxListener {
+	public SellSelectionListener(ComboBox<String> thisComboBox, Interactable nextInFocus) {
 		super(thisComboBox, nextInFocus);
 	}
 	

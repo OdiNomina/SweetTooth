@@ -1,4 +1,4 @@
-package com.github.sweettooth.controller.textBoxInputFilters;
+package com.github.sweettooth.controllerLanterna.textBoxInputFilters;
 
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
