@@ -70,8 +70,8 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	private JComboBox<String> sellSelection;
 	private JTextField sellQuantity;
 	private JLabel buySellInfo;
-	private String initTextDeposit = "Natürlich, welchen Betrag?";
-	private String initTextWithdraw = "Gerne, wie viel?";
+	private String initTextDeposit;
+	private String initTextWithdraw;
 	// Bank Panel
 	private JLabel bankTitle;
 	private JLabel bankBalanceLabel;
@@ -90,10 +90,10 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	private JLabel loansharkBalance;
 	private JLabel lendLabel;
 	private JTextField lend;
-	private String initTextLend = "Wie viel willst du?!";
+	private String initTextLend;
 	private JLabel giveBackLabel;
 	private JTextField giveBack;
-	private String initTextGiveBack = "Lass sehn...";
+	private String initTextGiveBack;
 	private JLabel loansharkInfo;
 	private JLabel loansharkInterestHint;
 	// Travel Panel
@@ -125,7 +125,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		this.gameData = Objects.requireNonNull(gameData);
 		
 		controller = IController.getInstance();
-//		controller.initialize(gameData);
+		controller.initialize(gameData);
 	}
 	
     @Override
@@ -169,6 +169,10 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 
 	private void initializeContent() {
     	try {
+    		initTextDeposit = "Natürlich, welchen Betrag?";
+    		initTextWithdraw = "Gerne, wie viel?";
+    		initTextLend = "Wie viel willst du?!";
+    		initTextGiveBack = "Lass sehn...";
     		// Title Panel
     		title1Label.setText("Du dealst mit Süßis?");
     		title2Label.setText("Mal sehen was du in einem Monat verdienst...");
