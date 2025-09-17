@@ -36,9 +36,11 @@ public class DealTextFieldListener extends TextFieldListener {
 	            String eventAnswer = event.process((String)associatedComboBox.getSelectedItem(), input, null);
 	            gameData.notifyObservers();
 
-	            associatedComboBox.setEnabled(true);
-	            textField.setEnabled(false);
 	            answerBox.setText(eventAnswer);
+	            textField.setText("");
+	            textField.setEnabled(false);
+	            associatedComboBox.setEnabled(true);
+	            associatedComboBox.requestFocusInWindow();
 
 	        } catch (NumberFormatException ex) {
 	            textField.setText("");

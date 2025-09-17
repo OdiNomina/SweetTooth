@@ -11,10 +11,12 @@ public class DealSelectionListener extends ComboBoxListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JComponent comboBox = (JComponent) e.getSource();
-		
-	    comboBox.setEnabled(false);
-	    nextInFocus.setEnabled(true);
-	    nextInFocus.requestFocusInWindow();
+		if(e.getModifiers() != 0) {
+			JComponent comboBox = (JComponent) e.getSource();
+			
+		    comboBox.setEnabled(false);
+		    nextInFocus.setEnabled(true);
+		    nextInFocus.requestFocusInWindow();
+		}
 	}
 }
