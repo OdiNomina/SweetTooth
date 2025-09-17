@@ -34,6 +34,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	private final Logger logger;
@@ -152,6 +154,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 			createMainFrame();
 			initializeContent();
 			updateContent();
+			addInputHandling();
 			mainFrame.setVisible(true);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -277,6 +280,29 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		    balanceSheet.setText(Tools.formatBalanceSheet(gameSettings, gameData));   
 		}
 		catch(RuntimeException e) { error(e.getClass().getName() + " when updating content.", e); }
+	}
+	
+	private void addInputHandling() {
+		try {
+			buySelection.addActionListener(controller.createComboBoxListener(null, "Buy", buyQuantity, buySellInfo));
+			sellSelection.addActionListener(controller.createComboBoxListener(null, "Sell", sellQuantity, buySellInfo));
+			locationSelection.addActionListener(
+					controller.createComboBoxListener(currentLocation.toString(), "Travel", locationSelection, travelInfo1, travelInfo2, travelInfo3, travelInterest));
+	
+			hideButton.addActionListener(controller.createButtonListener("Hide", null, null, hideButton, hideSeekInfo));
+			seekButton.addActionListener(controller.createButtonListener("Seek", stash, seekQuantity, stash, hideSeekInfo));
+			exitButton.addActionListener(controller.createButtonListener("Exit", null, null, exitButton, gameOverLabel));
+			
+			seekQuantity.addActionListener(controller.createTextFieldListener("Seek", stash, seekButton, hideSeekInfo));
+			
+			buyQuantity.addActionListener(controller.createTextFieldListener("Buy", buySelection, buySelection, buySellInfo));
+			sellQuantity.addActionListener(controller.createTextFieldListener("Sell", sellSelection, sellSelection, buySellInfo));
+			deposit.addActionListener(controller.createTextFieldListener("Deposit", null, deposit, bankInfo));
+			withdraw.addActionListener(controller.createTextFieldListener("Withdraw", null, withdraw, bankInfo));
+			lend.addActionListener(controller.createTextFieldListener("Lend", null, lend, loansharkInfo));
+			giveBack.addActionListener(controller.createTextFieldListener("GiveMoneyBack", null, giveBack, loansharkInfo));
+		}
+		catch(RuntimeException e)  { error(e.getClass().getName() + " when adding input handling.", e); }
 	}
 	
 	private void gameOverConfig() {
