@@ -34,8 +34,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	private final Logger logger;
@@ -248,7 +246,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		    buySelection.removeAllItems();
 		    sellSelection.removeAllItems();
 		    ArrayList<String> availableSnacks = Tools.formatDefaultSnacks(gameSettings);
-		    for(String as : availableSnacks) { // Will be updated because prices change.
+		    for(String as : availableSnacks) { // Will be updated because prices change!
 		    	buySelection.addItem(as);
 		    	sellSelection.addItem(as);
 		    }
@@ -287,7 +285,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 			buySelection.addActionListener(controller.createComboBoxListener(null, "Buy", buyQuantity, buySellInfo));
 			sellSelection.addActionListener(controller.createComboBoxListener(null, "Sell", sellQuantity, buySellInfo));
 			locationSelection.addActionListener(
-					controller.createComboBoxListener(currentLocation.toString(), "Travel", locationSelection, travelInfo1, travelInfo2, travelInfo3, travelInterest));
+					controller.createComboBoxListener(currentLocation, "Travel", locationSelection, travelInfo1, travelInfo2, travelInfo3, travelInterest));
 	
 			hideButton.addActionListener(controller.createButtonListener("Hide", null, null, hideButton, hideSeekInfo));
 			seekButton.addActionListener(controller.createButtonListener("Seek", stash, seekQuantity, stash, hideSeekInfo));

@@ -46,8 +46,8 @@ public class SwingController implements IController {
 	}
 
 	@Override
-	public ActionListener createComboBoxListener(String previousSelection, String eventName, JComponent nextInFocus, JLabel... answerBox) {
-		return comboBoxListenerFactory.create(previousSelection, eventName, nextInFocus, answerBox);
+	public ActionListener createComboBoxListener(JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
+		return comboBoxListenerFactory.create(currentLocation, eventName, nextInFocus, answerBox);
 	}
 
 	@Override

@@ -18,7 +18,7 @@ public class ComboBoxListenerFactory {
 		this.controller = controller;
 	}
 	
-	public ActionListener create(String previousSelection, String eventName, JComponent nextInFocus, JLabel... answerBox) {
+	public ActionListener create(JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
 		try {
 			switch(eventName.toLowerCase()) {
 				case "buy": return new DealSelectionListener(nextInFocus);
@@ -27,7 +27,7 @@ public class ComboBoxListenerFactory {
 					IGameData gameData = controller.getGameModel();
 					Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 					Processable applyInterestEvent = controller.getEventFactory().createEvent("ApplyInterest", gameData);
-					return new LocationSelectionListener(Objects.requireNonNull(previousSelection), nextInFocus, gameData, event, applyInterestEvent, answerBox);
+					return new LocationSelectionListener(Objects.requireNonNull(currentLocation), nextInFocus, gameData, event, applyInterestEvent, answerBox);
 				}
 				default: return null;
 			}

@@ -37,7 +37,7 @@ public interface IController {
 	 * @param answerBox the label that shows the answer.
 	 * @return java.awt.event.ActionListener
 	 */
-	ActionListener createComboBoxListener(String previousSelection, String eventName, JComponent nextInFocus, JLabel... answerBox);
+	ActionListener createComboBoxListener(JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox);
 	
 	/**
 	 * Creates the matching button listener for the event.

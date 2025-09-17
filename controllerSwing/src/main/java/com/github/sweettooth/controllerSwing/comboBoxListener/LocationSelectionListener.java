@@ -12,15 +12,15 @@ import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 
 public class LocationSelectionListener extends ComboBoxListener {
-	String previousSelection;
+	JLabel currentLocation;
 	IGameData gameData;
 	Processable event;
 	JLabel[] answerBox;
 	Processable applyInterestEvent;
 	
-	public LocationSelectionListener(String previousSelection, JComponent nextInFocus, IGameData gameData, Processable event, Processable applyInterestEvent, JLabel... answerBox) {
+	public LocationSelectionListener(JLabel currentLocation, JComponent nextInFocus, IGameData gameData, Processable event, Processable applyInterestEvent, JLabel... answerBox) {
 		super(nextInFocus);
-		this.previousSelection = previousSelection;
+		this.currentLocation = currentLocation;
 		this.gameData = gameData;
 		this.event = event;
 		this.answerBox = answerBox;
@@ -31,7 +31,7 @@ public class LocationSelectionListener extends ComboBoxListener {
 	public void actionPerformed(ActionEvent e) {
 		JComboBox<String> comboBox = (JComboBox<String>)e.getSource();
 		
-		if(comboBox.getSelectedItem().equals(previousSelection))
+		if(comboBox.getSelectedItem().equals(currentLocation.getText()))
 			answerBox[0].setText("Du bist doch schon da!");
 		else
 			try {
