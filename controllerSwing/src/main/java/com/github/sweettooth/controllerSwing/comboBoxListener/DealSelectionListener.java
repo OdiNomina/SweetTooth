@@ -4,19 +4,21 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JComponent;
 
+import com.github.sweettooth.shared.api.UpdateGuard;
+
 public class DealSelectionListener extends ComboBoxListener {
-	public DealSelectionListener(JComponent nextInFocus) {
-		super(nextInFocus);
+	public DealSelectionListener(UpdateGuard guard, JComponent nextInFocus) {
+		super(guard, nextInFocus);
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getModifiers() != 0) {
-			JComponent comboBox = (JComponent) e.getSource();
-			
-		    comboBox.setEnabled(false);
-		    nextInFocus.setEnabled(true);
-		    nextInFocus.requestFocusInWindow();
-		}
+		if(guard.isUpdating()) return; // programmatisches Event ignorieren
+		
+		JComponent comboBox = (JComponent) e.getSource();
+		
+	    comboBox.setEnabled(false);
+	    nextInFocus.setEnabled(true);
+	    nextInFocus.requestFocusInWindow();
 	}
 }

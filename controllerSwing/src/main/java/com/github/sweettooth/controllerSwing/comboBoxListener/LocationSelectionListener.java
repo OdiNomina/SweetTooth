@@ -10,6 +10,7 @@ import javax.swing.JLabel;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class LocationSelectionListener extends ComboBoxListener {
 	JLabel currentLocation;
@@ -18,8 +19,8 @@ public class LocationSelectionListener extends ComboBoxListener {
 	JLabel[] answerBox;
 	Processable applyInterestEvent;
 	
-	public LocationSelectionListener(JLabel currentLocation, JComponent nextInFocus, IGameData gameData, Processable event, Processable applyInterestEvent, JLabel... answerBox) {
-		super(nextInFocus);
+	public LocationSelectionListener(UpdateGuard guard, JLabel currentLocation, JComponent nextInFocus, IGameData gameData, Processable event, Processable applyInterestEvent, JLabel... answerBox) {
+		super(guard, nextInFocus);
 		this.currentLocation = currentLocation;
 		this.gameData = gameData;
 		this.event = event;
@@ -29,6 +30,9 @@ public class LocationSelectionListener extends ComboBoxListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(guard.isUpdating()) return; // programmatisches Event ignorieren
+		
+		@SuppressWarnings("unchecked")
 		JComboBox<String> comboBox = (JComboBox<String>)e.getSource();
 		
 		if(comboBox.getSelectedItem().equals(currentLocation.getText()))

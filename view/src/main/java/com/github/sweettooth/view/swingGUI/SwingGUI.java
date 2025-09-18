@@ -8,6 +8,7 @@ import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.shared.api.Loggable;
+import com.github.sweettooth.shared.api.UpdateGuard;
 import com.github.sweettooth.view.api.DisplayElement;
 import com.github.sweettooth.view.commons.Tools;
 
@@ -35,8 +36,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
-public class SwingGUI implements Observer, DisplayElement, Loggable  {
+public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard {
 	private final Logger logger;
+	private boolean updating = false;
 	
 	private IController controller;
 	private IGameData gameData;
@@ -132,6 +134,11 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 	public Logger getLogger() {	
 		return logger;
 	}
+    
+    @Override
+    public boolean isUpdating() {
+        return updating;
+    }
 
 	@Override
 	public DisplayElement initialize(GameSettings gameSettings) throws NullPointerException {
@@ -234,6 +241,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 
 	private void updateContent() {
 		try {
+			updating = true;
 			// Current Panel
 			currentDay.setText(Integer.toString(gameData.getDayOfGame()));
 		    currentLocation.setText(player.location().getOfficialName());
@@ -275,17 +283,22 @@ public class SwingGUI implements Observer, DisplayElement, Loggable  {
 		    travelInfo3.setText("");
 		    travelInterest.setText("");
 		    // Info Panel
-		    balanceSheet.setText(Tools.formatBalanceSheet(gameSettings, gameData));   
+		    balanceSheet.setText(Tools.formatBalanceSheet(gameSettings, gameData));
 		}
-		catch(RuntimeException e) { error(e.getClass().getName() + " when updating content.", e); }
+		catch(RuntimeException e) {
+			error(e.getClass().getName() + " when updating content.", e);
+		}
+		finally {
+            updating = false;
+        }
 	}
 	
 	private void addInputHandling() {
 		try {
-			buySelection.addActionListener(controller.createComboBoxListener(null, "Buy", buyQuantity, buySellInfo));
-			sellSelection.addActionListener(controller.createComboBoxListener(null, "Sell", sellQuantity, buySellInfo));
+			buySelection.addActionListener(controller.createComboBoxListener(this, null, "Buy", buyQuantity, buySellInfo));
+			sellSelection.addActionListener(controller.createComboBoxListener(this, null, "Sell", sellQuantity, buySellInfo));
 			locationSelection.addActionListener(
-					controller.createComboBoxListener(currentLocation, "Travel", locationSelection, travelInfo1, travelInfo2, travelInfo3, travelInterest));
+					controller.createComboBoxListener(this, currentLocation, "Travel", locationSelection, travelInfo1, travelInfo2, travelInfo3, travelInterest));
 	
 			hideButton.addActionListener(controller.createButtonListener("Hide", null, null, hideButton, hideSeekInfo));
 			seekButton.addActionListener(controller.createButtonListener("Seek", stash, seekQuantity, stash, hideSeekInfo));

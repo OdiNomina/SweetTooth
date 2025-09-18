@@ -1,6 +1,7 @@
 package com.github.sweettooth.controllerSwing.api;
 
 import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.shared.api.UpdateGuard;
 
 import java.awt.event.ActionListener;
 
@@ -37,7 +38,7 @@ public interface IController {
 	 * @param answerBox the label that shows the answer.
 	 * @return java.awt.event.ActionListener
 	 */
-	ActionListener createComboBoxListener(JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox);
+	ActionListener createComboBoxListener(UpdateGuard guard, JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox);
 	
 	/**
 	 * Creates the matching button listener for the event.

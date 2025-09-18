@@ -9,6 +9,7 @@ import javax.swing.JLabel;
 import com.github.sweettooth.controllerSwing.controllers.SwingController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.shared.api.UpdateGuard;
 
 
 public class ComboBoxListenerFactory {
@@ -18,16 +19,16 @@ public class ComboBoxListenerFactory {
 		this.controller = controller;
 	}
 	
-	public ActionListener create(JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
+	public ActionListener create(UpdateGuard guard, JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
 		try {
 			switch(eventName.toLowerCase()) {
-				case "buy": return new DealSelectionListener(nextInFocus);
-				case "sell": return new DealSelectionListener(nextInFocus);
+				case "buy": return new DealSelectionListener(guard,nextInFocus);
+				case "sell": return new DealSelectionListener(guard,nextInFocus);
 				case "travel": {
 					IGameData gameData = controller.getGameModel();
 					Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 					Processable applyInterestEvent = controller.getEventFactory().createEvent("ApplyInterest", gameData);
-					return new LocationSelectionListener(Objects.requireNonNull(currentLocation), nextInFocus, gameData, event, applyInterestEvent, answerBox);
+					return new LocationSelectionListener(guard, Objects.requireNonNull(currentLocation), nextInFocus, gameData, event, applyInterestEvent, answerBox);
 				}
 				default: return null;
 			}

@@ -14,6 +14,7 @@ import com.github.sweettooth.controllerSwing.comboBoxListener.ComboBoxListenerFa
 import com.github.sweettooth.controllerSwing.textFieldListener.TextFieldListenerFactory;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.EventFactory;
+import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class SwingController implements IController {
 	private IGameData gameData;
@@ -46,8 +47,8 @@ public class SwingController implements IController {
 	}
 
 	@Override
-	public ActionListener createComboBoxListener(JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
-		return comboBoxListenerFactory.create(currentLocation, eventName, nextInFocus, answerBox);
+	public ActionListener createComboBoxListener(UpdateGuard guard, JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
+		return comboBoxListenerFactory.create(guard, currentLocation, eventName, nextInFocus, answerBox);
 	}
 
 	@Override
