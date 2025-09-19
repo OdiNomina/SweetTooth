@@ -72,16 +72,16 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 	private JComboBox<String> sellSelection;
 	private JTextField sellQuantity;
 	private JLabel buySellInfo;
-	private String initTextDeposit;
-	private String initTextWithdraw;
 	// Bank Panel
 	private JLabel bankTitle;
 	private JLabel bankBalanceLabel;
 	private JLabel bankBalance;
 	private JLabel depositLabel;
 	private JTextField deposit;
+	private JLabel depositAnswer;
 	private JLabel withdrawLabel;
 	private JTextField withdraw;
+	private JLabel withdrawAnswer;
 	private JLabel bankInfo;
 	private JLabel bankDispoHint;
 	private JLabel bankInterestHint1;
@@ -179,8 +179,6 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 
 	private void initializeContent() {
     	try {
-    		initTextDeposit = "Natürlich, welchen Betrag?";
-    		initTextWithdraw = "Gerne, wie viel?";
     		initTextLend = "Wie viel willst du?!";
     		initTextGiveBack = "Lass sehn...";
     		// Title Panel
@@ -210,12 +208,12 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 			bankTitle.setText("BANK:");
 		    bankBalanceLabel.setText("Kontostand:");
 		    depositLabel.setText("Ich möchte Geld einzahlen.");
-		    deposit.setText(initTextDeposit);
+		    depositAnswer.setText("Natürlich, welchen Betrag?");
 		    withdrawLabel.setText("Ich würde gerne Geld abheben.");
-		    withdraw.setText(initTextWithdraw);
+		    withdrawAnswer.setText("Gerne, wie viel?");
 		    bankDispoHint.setText(bank.getDispoHint());
-		    bankInterestHint1.setText(bank.getInterestHint());
-		    bankInterestHint2.setText(bank.getInterestHint());
+		    bankInterestHint1.setText(bank.getCreditInterestHint());
+		    bankInterestHint2.setText(bank.getDebitInterestHint());
 		    // Loanshark Panel
 		    loansharkTitle.setText("KREDITHAI:");
 		    loansharkBalanceLabel.setText("Schulden:");
@@ -223,7 +221,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		    lend.setText(initTextLend);
 		    giveBackLabel.setText("Hier, ich hab dein Geld dabei.");
 		    giveBack.setText(initTextGiveBack);
-		    loansharkInterestHint.setText(loanShark.getInterestHint());
+		    loansharkInterestHint.setText(loanShark.getDebitInterestHint());
 		    // Travel Panel
 		    travelTitle1.setText("Du willst dich mal umschauen?");
 		    travelTitle2.setText("Klar, aber du wirst den ganzen Tag unterwegs sein.");
@@ -269,8 +267,8 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		    seekQuantity.setText("");
 		    hideSeekInfo.setText("");
 		    // Bank Panel
-		    deposit.setText(initTextDeposit);
-		    withdraw.setText(initTextWithdraw);
+		    deposit.setText("");
+		    withdraw.setText("");
 		    bankBalance.setText(Tools.formatMoney(gameSettings, bank.clientsBalance(player)));
 		    bankInfo.setText("");
 		    // Loanshark Panel
@@ -620,50 +618,69 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		bankPanel.setBackground(new Color(102, 153, 204));
 		bankTitle = new JLabel(sampleText);
 		bankTitle.setForeground(Color.YELLOW);
-		bankTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		bankTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		bankBalanceLabel = new JLabel(sampleText);
 		bankBalanceLabel.setPreferredSize(new Dimension(300, 16));
 		bankBalanceLabel.setMinimumSize(new Dimension(300, 16));
 		bankBalanceLabel.setMaximumSize(new Dimension(300, 16));
 		bankBalanceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		bankBalanceLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		bankBalanceLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		bankBalanceLabel.setBackground(new Color(255, 255, 153));
 		depositLabel = new JLabel(sampleText);
 		depositLabel.setPreferredSize(new Dimension(300, 16));
 		depositLabel.setMinimumSize(new Dimension(300, 16));
 		depositLabel.setMaximumSize(new Dimension(300, 16));
 		depositLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		depositLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		depositLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		depositLabel.setBackground(new Color(255, 255, 153));
 		withdrawLabel = new JLabel(sampleText);
 		withdrawLabel.setPreferredSize(new Dimension(300, 16));
 		withdrawLabel.setMinimumSize(new Dimension(300, 16));
 		withdrawLabel.setMaximumSize(new Dimension(300, 16));
 		withdrawLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		withdrawLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		withdrawLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		withdrawLabel.setBackground(new Color(255, 255, 153));
 		bankBalance = new JLabel(sampleText);
-		bankBalance.setPreferredSize(new Dimension(178, 16));
-		bankBalance.setMinimumSize(new Dimension(178, 16));
-		bankBalance.setMaximumSize(new Dimension(178, 16));
+		bankBalance.setPreferredSize(new Dimension(100, 16));
+		bankBalance.setMinimumSize(new Dimension(100, 16));
+		bankBalance.setMaximumSize(new Dimension(100, 16));
 		bankBalance.setForeground(Color.BLACK);
 		bankBalance.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		bankBalance.setAlignmentX(0.5f);
 		deposit = new JTextField(sampleText);
-		deposit.setMaximumSize(new Dimension(200, 20));
+		deposit.setPreferredSize(new Dimension(100, 20));
+		deposit.setMinimumSize(new Dimension(100, 20));
+		deposit.setMaximumSize(new Dimension(100, 20));
 		deposit.setForeground(Color.BLACK);
 		deposit.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		deposit.setAlignmentX(0.5f);
+		depositAnswer = new JLabel(sampleText);
+		depositAnswer.setPreferredSize(new Dimension(200, 16));
+		depositAnswer.setMinimumSize(new Dimension(200, 16));
+		depositAnswer.setMaximumSize(new Dimension(200, 16));
+		depositAnswer.setForeground(Color.BLACK);
+		depositAnswer.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		depositAnswer.setAlignmentX(0.5f);
 		withdraw = new JTextField(sampleText);
-		withdraw.setMaximumSize(new Dimension(200, 20));
+		withdraw.setPreferredSize(new Dimension(100, 20));
+		withdraw.setMinimumSize(new Dimension(100, 20));
+		withdraw.setMaximumSize(new Dimension(100, 20));
 		withdraw.setForeground(Color.BLACK);
 		withdraw.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		withdraw.setAlignmentX(0.5f);
+		withdrawAnswer = new JLabel(sampleText);
+		withdrawAnswer.setPreferredSize(new Dimension(200, 16));
+		withdrawAnswer.setMinimumSize(new Dimension(200, 16));
+		withdrawAnswer.setMaximumSize(new Dimension(200, 16));
+		withdrawAnswer.setForeground(Color.BLACK);
+		withdrawAnswer.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		withdrawAnswer.setAlignmentX(0.5f);
 		bankInfo = new JLabel(sampleText);
+		bankInfo.setForeground(new Color(153, 255, 51));
 		bankInfo.setPreferredSize(new Dimension(178, 16));
 		bankInfo.setMinimumSize(new Dimension(178, 16));
 		bankInfo.setMaximumSize(new Dimension(178, 16));
-		bankInfo.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		bankInfo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		bankDispoHint = new JLabel(sampleText);
 		bankDispoHint.setPreferredSize(new Dimension(178, 16));
 		bankDispoHint.setMinimumSize(new Dimension(178, 16));
@@ -679,33 +696,38 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		bankInterestHint2.setMinimumSize(new Dimension(178, 16));
 		bankInterestHint2.setMaximumSize(new Dimension(178, 16));
 		bankInterestHint2.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		
 		GroupLayout gl_bankPanel = new GroupLayout(bankPanel);
 		gl_bankPanel.setHorizontalGroup(
 			gl_bankPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_bankPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(bankTitle)
+						.addComponent(bankInterestHint1, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
+						.addComponent(bankInterestHint2, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
 						.addGroup(gl_bankPanel.createSequentialGroup()
 							.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(bankTitle)
 								.addGroup(gl_bankPanel.createSequentialGroup()
 									.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
 										.addComponent(bankBalanceLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(depositLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(withdrawLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(bankBalance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(deposit, 200, 200, 200)
-										.addComponent(withdraw, 200, 200, 200)))
-								.addComponent(bankInterestHint1, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-								.addComponent(bankInterestHint2, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE))
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, gl_bankPanel.createSequentialGroup()
-							.addGroup(gl_bankPanel.createParallelGroup(Alignment.TRAILING)
-								.addComponent(bankDispoHint, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-								.addComponent(bankInfo, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE))
-							.addContainerGap())))
+									.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(withdraw, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(deposit, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(bankBalance, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addComponent(bankDispoHint, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(bankInfo, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(gl_bankPanel.createSequentialGroup()
+									.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(withdrawAnswer, 0, 0, Short.MAX_VALUE)
+										.addComponent(depositAnswer, GroupLayout.PREFERRED_SIZE, 164, Short.MAX_VALUE))
+									.addGap(441)))))
+					.addContainerGap())
 		);
 		gl_bankPanel.setVerticalGroup(
 			gl_bankPanel.createParallelGroup(Alignment.LEADING)
@@ -719,15 +741,20 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_bankPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(depositLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(deposit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(deposit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(depositAnswer, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_bankPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(withdrawLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(withdraw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(bankInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(bankDispoHint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(withdraw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(withdrawAnswer, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_bankPanel.createSequentialGroup()
+							.addGap(33)
+							.addComponent(bankDispoHint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_bankPanel.createSequentialGroup()
+							.addGap(18)
+							.addComponent(bankInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(bankInterestHint1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
