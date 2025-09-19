@@ -52,8 +52,13 @@ non-sealed public class Bank extends MoneyDealer {
 	}
 	
 	@Override
-	public String getInterestHint() {
-		return String.format(modelSettings.getLocale(), "Kredit Zinsen: -%.1f %% pro Tag%nGuthaben Zinsen:  +%.1f %% pro Tag", InternSettings.BANK_INTEREST_DEBT_PERCENT, InternSettings.BANK_INTEREST_CREDIT_PERCENT);
+	public String getCreditInterestHint() {
+		return String.format(modelSettings.getLocale(), "Guthaben Zinsen:  +%.1f %% pro Tag", InternSettings.BANK_INTEREST_CREDIT_PERCENT);
+	}
+
+	@Override
+	public String getDebitInterestHint() {
+		return String.format(modelSettings.getLocale(), "Kredit Zinsen: -%.1f %% pro Tag", InternSettings.BANK_INTEREST_DEBT_PERCENT);
 	}
 
 	@Override

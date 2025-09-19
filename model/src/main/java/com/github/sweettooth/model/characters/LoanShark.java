@@ -40,7 +40,12 @@ non-sealed public class LoanShark extends MoneyDealer {
 	}
 
 	@Override
-	public String getInterestHint() {
+	public String getCreditInterestHint() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String getDebitInterestHint() {
 		return String.format(modelSettings.getLocale(), "Ich will %.1f %% pro Tag!", InternSettings.LOANSHARK_INTEREST_DEBT_PERCENT);
 	}
 
