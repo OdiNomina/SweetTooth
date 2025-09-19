@@ -488,7 +488,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		buySellPanel.setBackground(new Color(102, 153, 204));
 		buyTitle = new JLabel(sampleText);
 		buyTitle.setForeground(new Color(255, 255, 0));
-		buyTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		buyTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		buySelectionLabel = new JLabel(sampleText);
 		buySelectionLabel.setPreferredSize(new Dimension(200, 16));
 		buySelectionLabel.setMinimumSize(new Dimension(200, 16));
@@ -497,7 +497,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		buySelectionLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		sellTitel = new JLabel(sampleText);
 		sellTitel.setForeground(new Color(255, 255, 0));
-		sellTitel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		sellTitel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		sellSelectionLabel = new JLabel(sampleText);
 		sellSelectionLabel.setMinimumSize(new Dimension(200, 16));
 		sellSelectionLabel.setMaximumSize(new Dimension(200, 16));
@@ -505,10 +505,11 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		sellSelectionLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		sellSelectionLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		buySellInfo = new JLabel(sampleText);
+		buySellInfo.setForeground(new Color(153, 255, 51));
 		buySellInfo.setPreferredSize(new Dimension(178, 16));
 		buySellInfo.setMinimumSize(new Dimension(178, 16));
 		buySellInfo.setMaximumSize(new Dimension(178, 16));
-		buySellInfo.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		buySellInfo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		buyQuantity = new JTextField(sampleText);
 		buyQuantity.setPreferredSize(new Dimension(100, 20));
 		buyQuantity.setMaximumSize(new Dimension(100, 20));
@@ -984,10 +985,10 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		travelPanel.setBackground(new Color(102, 153, 204));
 		travelTitle1 = new JLabel(sampleText);
 		travelTitle1.setForeground(Color.YELLOW);
-		travelTitle1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		travelTitle1.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		travelTitle2 = new JLabel(sampleText);
 		travelTitle2.setForeground(Color.YELLOW);
-		travelTitle2.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
+		travelTitle2.setFont(new Font("Trebuchet MS", Font.PLAIN, 14));
 		travelTitle2.setAlignmentX(0.5f);
 		locationSelectionLabel = new JLabel(sampleText);
 		locationSelectionLabel.setPreferredSize(new Dimension(400, 16));
@@ -1031,7 +1032,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		travelInfo1.setPreferredSize(new Dimension(178, 16));
 		travelInfo1.setMinimumSize(new Dimension(178, 16));
 		travelInfo1.setMaximumSize(new Dimension(178, 16));
-		travelInfo1.setForeground(new Color(255, 153, 102));
+		travelInfo1.setForeground(new Color(153, 255, 51));
 		travelInfo1.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		GroupLayout gl_travelPanel = new GroupLayout(travelPanel);
 		gl_travelPanel.setHorizontalGroup(
