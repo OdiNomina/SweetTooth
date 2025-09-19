@@ -676,9 +676,9 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		withdrawAnswer.setAlignmentX(0.5f);
 		bankInfo = new JLabel(sampleText);
 		bankInfo.setForeground(new Color(153, 255, 51));
-		bankInfo.setPreferredSize(new Dimension(178, 16));
-		bankInfo.setMinimumSize(new Dimension(178, 16));
-		bankInfo.setMaximumSize(new Dimension(178, 16));
+		bankInfo.setPreferredSize(new Dimension(250, 16));
+		bankInfo.setMinimumSize(new Dimension(250, 16));
+		bankInfo.setMaximumSize(new Dimension(250, 16));
 		bankInfo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		bankDispoHint = new JLabel(sampleText);
 		bankDispoHint.setPreferredSize(new Dimension(178, 16));
@@ -701,39 +701,37 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 			gl_bankPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_bankPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(bankTitle)
-						.addComponent(bankInterestHint1, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-						.addComponent(bankInterestHint2, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
+					.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_bankPanel.createSequentialGroup()
+							.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(bankBalanceLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(depositLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(withdrawLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_bankPanel.createSequentialGroup()
 									.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(bankBalanceLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(depositLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(withdrawLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED)
+										.addComponent(deposit, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(withdraw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
 									.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(withdraw, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(deposit, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(bankBalance, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-								.addComponent(bankDispoHint, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(bankInfo, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(gl_bankPanel.createSequentialGroup()
-									.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(withdrawAnswer, 0, 0, Short.MAX_VALUE)
-										.addComponent(depositAnswer, GroupLayout.PREFERRED_SIZE, 164, Short.MAX_VALUE))
-									.addGap(441)))))
-					.addContainerGap())
+										.addComponent(bankInfo, GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
+										.addComponent(withdrawAnswer, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(depositAnswer, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addComponent(bankBalance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addComponent(bankTitle)
+						.addGroup(gl_bankPanel.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(bankDispoHint, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 751, GroupLayout.PREFERRED_SIZE)
+							.addComponent(bankInterestHint1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 751, GroupLayout.PREFERRED_SIZE)
+							.addComponent(bankInterestHint2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 751, GroupLayout.PREFERRED_SIZE)))
+					.addGap(666))
 		);
 		gl_bankPanel.setVerticalGroup(
 			gl_bankPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_bankPanel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(bankTitle)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(11)
 					.addGroup(gl_bankPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(bankBalanceLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(bankBalance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -747,13 +745,10 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 						.addComponent(withdrawLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(withdraw, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(withdrawAnswer, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_bankPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_bankPanel.createSequentialGroup()
-							.addGap(33)
-							.addComponent(bankDispoHint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_bankPanel.createSequentialGroup()
-							.addGap(18)
-							.addComponent(bankInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(23)
+					.addComponent(bankInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(bankDispoHint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(bankInterestHint1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
@@ -811,9 +806,9 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		giveBack.setAlignmentX(0.5f);
 		loansharkInfo = new JLabel(sampleText);
 		loansharkInfo.setForeground(new Color(153, 255, 51));
-		loansharkInfo.setPreferredSize(new Dimension(178, 16));
-		loansharkInfo.setMinimumSize(new Dimension(178, 16));
-		loansharkInfo.setMaximumSize(new Dimension(178, 16));
+		loansharkInfo.setPreferredSize(new Dimension(250, 16));
+		loansharkInfo.setMinimumSize(new Dimension(250, 16));
+		loansharkInfo.setMaximumSize(new Dimension(250, 16));
 		loansharkInfo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		loansharkInterestHint = new JLabel(sampleText);
 		loansharkInterestHint.setPreferredSize(new Dimension(178, 16));
@@ -840,11 +835,15 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		gl_loansharkPanel.setHorizontalGroup(
 			gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_loansharkPanel.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(loansharkTitle)
+					.addGap(10)
+					.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_loansharkPanel.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(loansharkInterestHint, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+						.addGroup(gl_loansharkPanel.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(loansharkTitle)
 								.addGroup(gl_loansharkPanel.createSequentialGroup()
 									.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
 										.addComponent(loansharkBalanceLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -854,17 +853,13 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 									.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING, false)
 										.addComponent(giveBack, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 										.addComponent(lend, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(loansharkBalance, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-								.addComponent(loansharkInterestHint, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(loansharkInfo, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(gl_loansharkPanel.createSequentialGroup()
-									.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(lendAnswer, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
-										.addComponent(giveBackAnswer, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
-									.addGap(437)))))
-					.addContainerGap())
+										.addComponent(loansharkBalance, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(giveBackAnswer, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lendAnswer, GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+										.addComponent(loansharkInfo, GroupLayout.PREFERRED_SIZE, 345, GroupLayout.PREFERRED_SIZE))))))
+					.addContainerGap(266, Short.MAX_VALUE))
 		);
 		gl_loansharkPanel.setVerticalGroup(
 			gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
@@ -885,14 +880,11 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 						.addComponent(giveBackLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(giveBack, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(giveBackAnswer, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-					.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_loansharkPanel.createSequentialGroup()
-							.addGap(33)
-							.addComponent(loansharkInterestHint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_loansharkPanel.createSequentialGroup()
-							.addGap(18)
-							.addComponent(loansharkInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap())
+					.addGap(18)
+					.addComponent(loansharkInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(loansharkInterestHint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(12))
 		);
 		loansharkPanel.setLayout(gl_loansharkPanel);
 		
@@ -900,7 +892,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		hideSeekPanel.setBackground(new Color(102, 153, 204));
 		hideSeekTitle = new JLabel(sampleText);
 		hideSeekTitle.setForeground(Color.YELLOW);
-		hideSeekTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		hideSeekTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		stashLabel = new JLabel(sampleText);
 		stashLabel.setPreferredSize(new Dimension(200, 14));
 		stashLabel.setMinimumSize(new Dimension(200, 14));
@@ -934,17 +926,18 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		seekButton.setBackground(new Color(153, 204, 255));
 		seekButton.setAlignmentX(0.5f);
 		hideSeekInfo = new JLabel(sampleText);
+		hideSeekInfo.setForeground(new Color(153, 255, 51));
 		hideSeekInfo.setPreferredSize(new Dimension(178, 16));
 		hideSeekInfo.setMinimumSize(new Dimension(178, 16));
 		hideSeekInfo.setMaximumSize(new Dimension(178, 16));
-		hideSeekInfo.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		hideSeekInfo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		GroupLayout gl_hideSeekPanel = new GroupLayout(hideSeekPanel);
 		gl_hideSeekPanel.setHorizontalGroup(
 			gl_hideSeekPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_hideSeekPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_hideSeekPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(hideSeekTitle)
+						.addComponent(hideSeekTitle, GroupLayout.PREFERRED_SIZE, 589, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_hideSeekPanel.createSequentialGroup()
 							.addGroup(gl_hideSeekPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(stashLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -955,15 +948,15 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 								.addComponent(stash, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(seekQuantity, 100, 100, 100)
 								.addComponent(seekButton)
-								.addComponent(hideSeekInfo, GroupLayout.PREFERRED_SIZE, 749, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap())
+								.addComponent(hideSeekInfo, GroupLayout.PREFERRED_SIZE, 539, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(282, Short.MAX_VALUE))
 		);
 		gl_hideSeekPanel.setVerticalGroup(
 			gl_hideSeekPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_hideSeekPanel.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(hideSeekTitle)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(26)
 					.addComponent(hideButton)
 					.addGap(20)
 					.addGroup(gl_hideSeekPanel.createParallelGroup(Alignment.BASELINE)
@@ -975,9 +968,9 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 						.addComponent(seekQuantity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(seekButton)
-					.addGap(20)
+					.addGap(18)
 					.addComponent(hideSeekInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addGap(25))
 		);
 		hideSeekPanel.setLayout(gl_hideSeekPanel);
 		
@@ -1130,12 +1123,12 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		financesScrollPaneViewPanel.setBackground(new Color(0, 102, 153));
 		GroupLayout gl_financesScrollPaneViewPanel = new GroupLayout(financesScrollPaneViewPanel);
 		gl_financesScrollPaneViewPanel.setHorizontalGroup(
-			gl_financesScrollPaneViewPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_financesScrollPaneViewPanel.createSequentialGroup()
+			gl_financesScrollPaneViewPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_financesScrollPaneViewPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_financesScrollPaneViewPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(bankPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
-						.addComponent(loansharkPanel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE))
+					.addGroup(gl_financesScrollPaneViewPanel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(loansharkPanel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 1020, Short.MAX_VALUE)
+						.addComponent(bankPanel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 1020, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_financesScrollPaneViewPanel.setVerticalGroup(
@@ -1144,7 +1137,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 					.addContainerGap()
 					.addComponent(bankPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(loansharkPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(loansharkPanel, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		financesScrollPaneViewPanel.setLayout(gl_financesScrollPaneViewPanel);
@@ -1163,7 +1156,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 			gl_stashScrollPaneViewPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_stashScrollPaneViewPanel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(hideSeekPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addComponent(hideSeekPanel, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		stashScrollPaneViewPanel.setLayout(gl_stashScrollPaneViewPanel);
