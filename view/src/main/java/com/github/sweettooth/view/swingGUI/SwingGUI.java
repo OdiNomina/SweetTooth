@@ -92,10 +92,10 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 	private JLabel loansharkBalance;
 	private JLabel lendLabel;
 	private JTextField lend;
-	private String initTextLend;
+	private JLabel lendAnswer;
 	private JLabel giveBackLabel;
 	private JTextField giveBack;
-	private String initTextGiveBack;
+	private JLabel giveBackAnswer;
 	private JLabel loansharkInfo;
 	private JLabel loansharkInterestHint;
 	// Travel Panel
@@ -179,8 +179,6 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 
 	private void initializeContent() {
     	try {
-    		initTextLend = "Wie viel willst du?!";
-    		initTextGiveBack = "Lass sehn...";
     		// Title Panel
     		title1Label.setText("Du dealst mit Süßis?");
     		title2Label.setText("Mal sehen was du in einem Monat verdienst...");
@@ -218,9 +216,9 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		    loansharkTitle.setText("KREDITHAI:");
 		    loansharkBalanceLabel.setText("Schulden:");
 		    lendLabel.setText("Ich brauch Geld.");
-		    lend.setText(initTextLend);
+		    lendAnswer.setText("Wie viel willst du?!");
 		    giveBackLabel.setText("Hier, ich hab dein Geld dabei.");
-		    giveBack.setText(initTextGiveBack);
+		    giveBackAnswer.setText("Lass sehn...");
 		    loansharkInterestHint.setText(loanShark.getDebitInterestHint());
 		    // Travel Panel
 		    travelTitle1.setText("Du willst dich mal umschauen?");
@@ -272,8 +270,8 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		    bankBalance.setText(Tools.formatMoney(gameSettings, bank.clientsBalance(player)));
 		    bankInfo.setText("");
 		    // Loanshark Panel
-		    lend.setText(initTextLend);
-		    giveBack.setText(initTextGiveBack);
+		    lend.setText("");
+		    giveBack.setText("");
 		    loansharkBalance.setText(Tools.formatMoney(gameSettings, loanShark.clientsBalance(player)));
 		    loansharkInfo.setText("");
 		    // Travel Panel
@@ -767,74 +765,104 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 		loansharkPanel.setBackground(new Color(102, 153, 204));
 		loansharkTitle = new JLabel(sampleText);
 		loansharkTitle.setForeground(Color.YELLOW);
-		loansharkTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 16));
+		loansharkTitle.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
 		loansharkBalanceLabel = new JLabel(sampleText);
 		loansharkBalanceLabel.setPreferredSize(new Dimension(300, 16));
 		loansharkBalanceLabel.setMinimumSize(new Dimension(300, 16));
 		loansharkBalanceLabel.setMaximumSize(new Dimension(300, 16));
 		loansharkBalanceLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		loansharkBalanceLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		loansharkBalanceLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		loansharkBalanceLabel.setBackground(new Color(255, 255, 153));
 		lendLabel = new JLabel(sampleText);
 		lendLabel.setPreferredSize(new Dimension(300, 16));
 		lendLabel.setMinimumSize(new Dimension(300, 16));
 		lendLabel.setMaximumSize(new Dimension(300, 16));
 		lendLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lendLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		lendLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		lendLabel.setBackground(new Color(255, 255, 153));
 		giveBackLabel = new JLabel(sampleText);
 		giveBackLabel.setPreferredSize(new Dimension(300, 16));
 		giveBackLabel.setMinimumSize(new Dimension(300, 16));
 		giveBackLabel.setMaximumSize(new Dimension(300, 16));
 		giveBackLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		giveBackLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		giveBackLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		giveBackLabel.setBackground(new Color(255, 255, 153));
 		loansharkBalance = new JLabel(sampleText);
-		loansharkBalance.setPreferredSize(new Dimension(178, 16));
-		loansharkBalance.setMinimumSize(new Dimension(178, 16));
-		loansharkBalance.setMaximumSize(new Dimension(178, 16));
+		loansharkBalance.setPreferredSize(new Dimension(100, 16));
+		loansharkBalance.setMinimumSize(new Dimension(100, 16));
+		loansharkBalance.setMaximumSize(new Dimension(100, 16));
 		loansharkBalance.setForeground(Color.BLACK);
 		loansharkBalance.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		loansharkBalance.setAlignmentX(0.5f);
 		lend = new JTextField(sampleText);
-		lend.setMaximumSize(new Dimension(200, 20));
+		lend.setPreferredSize(new Dimension(100, 20));
+		lend.setMinimumSize(new Dimension(100, 20));
+		lend.setMaximumSize(new Dimension(100, 20));
 		lend.setForeground(Color.BLACK);
 		lend.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		lend.setAlignmentX(0.5f);
 		giveBack = new JTextField(sampleText);
-		giveBack.setMaximumSize(new Dimension(200, 20));
+		giveBack.setMinimumSize(new Dimension(100, 20));
+		giveBack.setPreferredSize(new Dimension(100, 20));
+		giveBack.setMaximumSize(new Dimension(100, 20));
 		giveBack.setForeground(Color.BLACK);
 		giveBack.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		giveBack.setAlignmentX(0.5f);
 		loansharkInfo = new JLabel(sampleText);
+		loansharkInfo.setForeground(new Color(153, 255, 51));
 		loansharkInfo.setPreferredSize(new Dimension(178, 16));
 		loansharkInfo.setMinimumSize(new Dimension(178, 16));
 		loansharkInfo.setMaximumSize(new Dimension(178, 16));
-		loansharkInfo.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		loansharkInfo.setFont(new Font("Trebuchet MS", Font.BOLD, 14));
 		loansharkInterestHint = new JLabel(sampleText);
 		loansharkInterestHint.setPreferredSize(new Dimension(178, 16));
 		loansharkInterestHint.setMinimumSize(new Dimension(178, 16));
 		loansharkInterestHint.setMaximumSize(new Dimension(178, 16));
 		loansharkInterestHint.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		
+		lendAnswer = new JLabel("Sample text for formatting purposes.");
+		lendAnswer.setPreferredSize(new Dimension(200, 16));
+		lendAnswer.setMinimumSize(new Dimension(200, 16));
+		lendAnswer.setMaximumSize(new Dimension(200, 16));
+		lendAnswer.setForeground(Color.BLACK);
+		lendAnswer.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		lendAnswer.setAlignmentX(0.5f);
+		
+		giveBackAnswer = new JLabel("Sample text for formatting purposes.");
+		giveBackAnswer.setPreferredSize(new Dimension(200, 16));
+		giveBackAnswer.setMinimumSize(new Dimension(200, 16));
+		giveBackAnswer.setMaximumSize(new Dimension(200, 16));
+		giveBackAnswer.setForeground(Color.BLACK);
+		giveBackAnswer.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
+		giveBackAnswer.setAlignmentX(0.5f);
 		GroupLayout gl_loansharkPanel = new GroupLayout(loansharkPanel);
 		gl_loansharkPanel.setHorizontalGroup(
 			gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_loansharkPanel.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(loansharkInfo, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
 						.addComponent(loansharkTitle)
 						.addGroup(gl_loansharkPanel.createSequentialGroup()
 							.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(loansharkBalanceLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lendLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(giveBackLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_loansharkPanel.createSequentialGroup()
+									.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(loansharkBalanceLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lendLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(giveBackLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(giveBack, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lend, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(loansharkBalance, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+								.addComponent(loansharkInterestHint, GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(loansharkBalance, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lend, 200, 200, 200)
-								.addComponent(giveBack, 200, 200, 200)))
-						.addComponent(loansharkInterestHint, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE))
+								.addComponent(loansharkInfo, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGroup(gl_loansharkPanel.createSequentialGroup()
+									.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(lendAnswer, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE)
+										.addComponent(giveBackAnswer, GroupLayout.PREFERRED_SIZE, 164, GroupLayout.PREFERRED_SIZE))
+									.addGap(437)))))
 					.addContainerGap())
 		);
 		gl_loansharkPanel.setVerticalGroup(
@@ -849,15 +877,20 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lendLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lend, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(lend, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lendAnswer, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(giveBackLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(giveBack, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(loansharkInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(loansharkInterestHint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(giveBack, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(giveBackAnswer, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_loansharkPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_loansharkPanel.createSequentialGroup()
+							.addGap(33)
+							.addComponent(loansharkInterestHint, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_loansharkPanel.createSequentialGroup()
+							.addGap(18)
+							.addComponent(loansharkInfo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		loansharkPanel.setLayout(gl_loansharkPanel);
