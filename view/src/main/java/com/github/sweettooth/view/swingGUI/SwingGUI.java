@@ -38,7 +38,7 @@ import javax.swing.UIManager;
 
 public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard {
 	private final Logger logger;
-	private boolean updating = false;
+	private boolean updating;
 	
 	private IController controller;
 	private IGameData gameData;
@@ -169,8 +169,10 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 
 	@Override
 	public void update() {
-		if(gameData.isGameOver())
+		if(gameData.isGameOver() || gameData.isExitButtonClicked()) {
+			updateContent();
 			gameOverConfig();
+		}
 		else
 			updateContent();
 	}
@@ -370,8 +372,8 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 					.addGroup(gl_titelPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_titelPanel.createSequentialGroup()
 							.addComponent(title1Label)
-							.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-							.addComponent(gameOverLabel))
+							.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+							.addComponent(gameOverLabel, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE))
 						.addComponent(title2Label))
 					.addContainerGap())
 		);
@@ -381,7 +383,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 					.addContainerGap()
 					.addGroup(gl_titelPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(title1Label)
-						.addComponent(gameOverLabel))
+						.addComponent(gameOverLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addComponent(title2Label)
 					.addContainerGap())
 		);
@@ -976,32 +978,32 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 			gl_travelPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_travelPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_travelPanel.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_travelPanel.createParallelGroup(Alignment.LEADING)
 						.addComponent(travelTitle2, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
 						.addComponent(travelTitle1, GroupLayout.DEFAULT_SIZE, 1017, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_travelPanel.createSequentialGroup()
-							.addGroup(gl_travelPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_travelPanel.createSequentialGroup()
+							.addGroup(gl_travelPanel.createParallelGroup(Alignment.LEADING, false)
 								.addComponent(locationSelectionLabel, GroupLayout.PREFERRED_SIZE, 321, GroupLayout.PREFERRED_SIZE)
-								.addComponent(ticketLabel, 0, 0, Short.MAX_VALUE))
+								.addComponent(ticketLabel, GroupLayout.PREFERRED_SIZE, 323, GroupLayout.PREFERRED_SIZE))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_travelPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(travelInfo1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 686, Short.MAX_VALUE)
+								.addComponent(travelInfo1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
 								.addGroup(gl_travelPanel.createSequentialGroup()
 									.addGroup(gl_travelPanel.createParallelGroup(Alignment.LEADING)
 										.addComponent(locationSelection, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
 										.addComponent(ticketPrice, GroupLayout.PREFERRED_SIZE, 178, GroupLayout.PREFERRED_SIZE))
 									.addGap(18)
 									.addGroup(gl_travelPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(travelInfo3, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE)
-										.addComponent(travelInfo2, GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
-										.addComponent(travelInterest, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))))))
+										.addComponent(travelInfo3, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+										.addComponent(travelInfo2, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)
+										.addComponent(travelInterest, GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE))))))
 					.addContainerGap())
 		);
 		gl_travelPanel.setVerticalGroup(
 			gl_travelPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_travelPanel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_travelPanel.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_travelPanel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_travelPanel.createSequentialGroup()
 							.addComponent(travelTitle1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -1022,7 +1024,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
 										.addComponent(ticketLabel, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 										.addComponent(ticketPrice, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))))
 							.addGap(11))
-						.addGroup(Alignment.TRAILING, gl_travelPanel.createSequentialGroup()
+						.addGroup(gl_travelPanel.createSequentialGroup()
 							.addComponent(travelInfo3, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
 							.addGap(33)))
 					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
