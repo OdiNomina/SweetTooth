@@ -41,7 +41,7 @@ public class SweetTooth implements Loggable {
 			IGameData gameModel = IGameData.createGameData().initialize(gameSettings, null);
 			
 			Future<DisplayElement> gui = executor.submit( () ->
-				DisplayFactory.createDisplay(DisplayStyle.LANTERNA, gameModel).initialize(gameSettings) );
+				DisplayFactory.createDisplay(DisplayStyle.SWING, gameModel).initialize(gameSettings) );
 			
 			executor.submit(gui.get());
 			
