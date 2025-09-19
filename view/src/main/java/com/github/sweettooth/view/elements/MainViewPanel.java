@@ -267,14 +267,14 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	    labels.get("bankBalanceLabel").addStyle(SGR.BOLD).setText("Kontostand:");
 	    labels.get("depositLabel").setText("Ich möchte Geld einzahlen.");
 	    labels.get("withdrawLabel").setText("Ich würde gerne Geld abheben.");
-	    labels.get("bankInterestHint").addStyle(SGR.ITALIC).setText(bank.getInterestHint());
+	    labels.get("bankInterestHint").addStyle(SGR.ITALIC).setText(bank.getCreditInterestHint() + "  |  " + bank.getDebitInterestHint());
 	    labels.get("bankDispoHint").addStyle(SGR.ITALIC).setText(bank.getDispoHint());
 	    
 	    labels.get("loansharkTitel").addStyle(SGR.BOLD).setText("KREDITHAI:");
 	    labels.get("loansharkBalanceLabel").addStyle(SGR.BOLD).setText("Schulden:");
 	    labels.get("lendLabel").setText("Ich brauch Geld.");
 	    labels.get("giveBackLabel").setText("Hier, ich hab dein Geld dabei.");
-	    labels.get("loansharkInterestHint").addStyle(SGR.ITALIC).setText(loanShark.getInterestHint());
+	    labels.get("loansharkInterestHint").addStyle(SGR.ITALIC).setText(loanShark.getDebitInterestHint());
 	    
 	    labels.get("travelTitel1").addStyle(SGR.BOLD).setText("Du willst dich mal umschauen?");
 	    labels.get("travelTitel2").addStyle(SGR.BOLD).setText("Klar, aber du wirst den ganzen Tag unterwegs sein.");
