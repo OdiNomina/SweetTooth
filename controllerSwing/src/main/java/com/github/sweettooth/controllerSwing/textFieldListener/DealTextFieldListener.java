@@ -32,7 +32,6 @@ public class DealTextFieldListener extends TextFieldListener {
 	            if (input > 100) {
 	                throw new NumberFormatException();
 	            }
-
 	            String eventAnswer = event.process((String)associatedComboBox.getSelectedItem(), input, null);
 	            gameData.notifyObservers();
 
