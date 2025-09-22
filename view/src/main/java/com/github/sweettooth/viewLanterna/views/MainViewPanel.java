@@ -1,4 +1,4 @@
-package com.github.sweettooth.view.elements;
+package com.github.sweettooth.viewLanterna.views;
 
 import java.util.ArrayList;
 import java.util.Comparator;

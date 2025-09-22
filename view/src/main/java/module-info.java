@@ -1,5 +1,5 @@
 module com.github.sweettooth.view {
-	exports com.github.sweettooth.view.api;
+	exports com.github.sweettooth.viewLanterna.api;
 	
 	requires java.desktop;
 	requires com.github.sweettooth.model;

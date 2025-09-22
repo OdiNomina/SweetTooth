@@ -1,4 +1,4 @@
-package com.github.sweettooth.view.elements;
+package com.github.sweettooth.viewLanterna.views;
 
 import java.io.IOException;
 import java.time.Instant;
@@ -11,8 +11,7 @@ import com.github.sweettooth.controllerLanterna.api.ILanternaController;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.shared.api.Loggable;
-import com.github.sweettooth.view.api.DisplayElement;
-
+import com.github.sweettooth.viewLanterna.api.DisplayElement;
 import com.googlecode.lanterna.TerminalSize;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;

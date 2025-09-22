@@ -12,8 +12,8 @@ import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
+import com.github.sweettooth.viewLanterna.api.DisplayElement;
 import com.github.sweettooth.model.api.ISnackFactory;
-import com.github.sweettooth.view.api.DisplayElement;
 
 public class ClassBrowser {
 	public static void main(String... args) {

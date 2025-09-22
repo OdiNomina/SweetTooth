@@ -1,4 +1,4 @@
-package com.github.sweettooth.view.commons;
+package com.github.sweettooth.viewLanterna.commons;
 
 import java.util.ArrayList;
 import java.util.Comparator;

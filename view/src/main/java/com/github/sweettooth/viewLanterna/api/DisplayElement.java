@@ -1,8 +1,8 @@
-package com.github.sweettooth.view.api;
+package com.github.sweettooth.viewLanterna.api;
 
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.view.elements.LanternaGUI;
+import com.github.sweettooth.viewLanterna.views.LanternaGUI;
 
 public interface DisplayElement extends Runnable {
 	@SuppressWarnings("exports")
