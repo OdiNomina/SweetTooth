@@ -10,12 +10,12 @@ import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
 
 @SuppressWarnings("exports")
-public interface IController {
-	static IController getInstance() {
+public interface ILanternaController {
+	static ILanternaController getInstance() {
 		return new LanternaController();
 	}
 	
-	IController initialize(IGameData gameModel) throws NullPointerException;
+	ILanternaController initialize(IGameData gameModel) throws NullPointerException;
 	
 	/**
 	 * Creates the matching input filter for the event.

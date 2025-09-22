@@ -8,7 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.github.sweettooth.controllerSwing.api.IController;
+import com.github.sweettooth.controllerSwing.api.ISwingController;
 import com.github.sweettooth.controllerSwing.buttonListener.ButtonListenerFactory;
 import com.github.sweettooth.controllerSwing.comboBoxListener.ComboBoxListenerFactory;
 import com.github.sweettooth.controllerSwing.textFieldListener.TextFieldListenerFactory;
@@ -16,7 +16,7 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.EventFactory;
 import com.github.sweettooth.shared.api.UpdateGuard;
 
-public class SwingController implements IController {
+public class SwingController implements ISwingController {
 	private IGameData gameData;
 	private EventFactory eventFactory;
 	private TextFieldListenerFactory textFieldListenerFactory;
@@ -32,7 +32,7 @@ public class SwingController implements IController {
 	}
 
 	@Override
-	public IController initialize(IGameData gameData) throws NullPointerException {
+	public ISwingController initialize(IGameData gameData) throws NullPointerException {
 		this.gameData = Objects.requireNonNull(gameData);
 		eventFactory = EventFactory.getDefaultFactory();
 		textFieldListenerFactory = new TextFieldListenerFactory(this);

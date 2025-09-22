@@ -13,12 +13,12 @@ import javax.swing.JTextField;
 import com.github.sweettooth.controllerSwing.controllers.SwingController;
 
 @SuppressWarnings("exports")
-public interface IController {
-	static IController getInstance() {
+public interface ISwingController {
+	static ISwingController getInstance() {
 		return new SwingController();
 	}
 	
-	IController initialize(IGameData gameModel) throws NullPointerException;
+	ISwingController initialize(IGameData gameModel) throws NullPointerException;
 	
 	/**
 	 * Creates the matching text field listener for the event.

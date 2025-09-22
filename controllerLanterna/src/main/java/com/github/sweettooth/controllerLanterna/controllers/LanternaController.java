@@ -2,7 +2,7 @@ package com.github.sweettooth.controllerLanterna.controllers;
 
 import java.util.Objects;
 
-import com.github.sweettooth.controllerLanterna.api.IController;
+import com.github.sweettooth.controllerLanterna.api.ILanternaController;
 import com.github.sweettooth.controllerLanterna.buttonListeners.ButtonListenerFactory;
 import com.github.sweettooth.controllerLanterna.comboBoxListeners.ComboBoxListenerFactory;
 import com.github.sweettooth.controllerLanterna.textBoxInputFilters.InputFilterFactory;
@@ -15,7 +15,7 @@ import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
 
-public class LanternaController implements IController {
+public class LanternaController implements ILanternaController {
 	private IGameData gameModel;
 	private EventFactory eventFactory;
 	private InputFilterFactory inputFilterFactory;
@@ -25,7 +25,7 @@ public class LanternaController implements IController {
 	public LanternaController() {}
 	
 	@Override
-	public IController initialize(IGameData gameModel) throws NullPointerException {
+	public ILanternaController initialize(IGameData gameModel) throws NullPointerException {
 		this.gameModel = Objects.requireNonNull(gameModel);
 		eventFactory = EventFactory.getDefaultFactory();
 		inputFilterFactory = new InputFilterFactory(this);

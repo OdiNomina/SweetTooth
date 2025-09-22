@@ -6,7 +6,7 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.logging.Logger;
 
-import com.github.sweettooth.controllerLanterna.api.IController;
+import com.github.sweettooth.controllerLanterna.api.ILanternaController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.GameSettings;
@@ -32,7 +32,7 @@ import com.googlecode.lanterna.gui2.TextBox;
 public class MainViewPanel extends ViewPanel implements Loggable {
 	private final Logger logger;
 	
-	private IController controller;
+	private ILanternaController controller;
 	private IGameData gameData;
 	private GameSettings modelSettings;
 	
@@ -40,7 +40,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	private IMoneyDealer loanShark;
 	private IMoneyDealer bank;
 	
-	public MainViewPanel(LayoutManager layoutManager, IGameData gameModel, IController controller, GameSettings modelSettings) {
+	public MainViewPanel(LayoutManager layoutManager, IGameData gameModel, ILanternaController controller, GameSettings modelSettings) {
         super(layoutManager);
         logger = Logger.getLogger(LanternaGUI.class.getName());
         this.controller = controller;

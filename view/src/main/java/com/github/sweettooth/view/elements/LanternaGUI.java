@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.controllerLanterna.api.IController;
+import com.github.sweettooth.controllerLanterna.api.ILanternaController;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.shared.api.Loggable;
@@ -30,7 +30,7 @@ public class LanternaGUI implements Observer, DisplayElement, Loggable {
 	private SeparateTextGUIThread guiThread;
 	
 	private final Logger logger;
-	private IController controller;
+	private ILanternaController controller;
 	
 	private IGameData gameModel;
 	private GameSettings gameSettings;
@@ -40,7 +40,7 @@ public class LanternaGUI implements Observer, DisplayElement, Loggable {
 		logger = Logger.getLogger(LanternaGUI.class.getName());
 		this.gameModel = Objects.requireNonNull(gameModel);
 		
-		controller = IController.getInstance();
+		controller = ILanternaController.getInstance();
 		controller.initialize(gameModel);
 	}
 	
