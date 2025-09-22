@@ -16,9 +16,7 @@ import com.github.sweettooth.model.api.ISnackFactory.SnackType;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.LoggingSetup;
-import com.github.sweettooth.view.api.DisplayElement;
-import com.github.sweettooth.view.api.DisplayFactory;
-import com.github.sweettooth.view.api.DisplayFactory.DisplayStyle;
+import com.github.sweettooth.viewSwing.api.SwingDisplay;
 
 public class SweetTooth implements Loggable {
 	private static final Logger LOGGER = Logger.getLogger(SweetTooth.class.getName());
@@ -40,8 +38,8 @@ public class SweetTooth implements Loggable {
 			
 			IGameData gameModel = IGameData.createGameData().initialize(gameSettings, null);
 			
-			Future<DisplayElement> gui = executor.submit( () ->
-				DisplayFactory.createDisplay(DisplayStyle.SWING, gameModel).initialize(gameSettings) );
+			Future<SwingDisplay> gui = executor.submit( () ->
+				SwingDisplay.getInstance(gameModel).initialize(gameSettings) );
 			
 			executor.submit(gui.get());
 			

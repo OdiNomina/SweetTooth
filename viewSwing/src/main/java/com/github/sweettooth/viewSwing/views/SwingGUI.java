@@ -1,4 +1,4 @@
-package com.github.sweettooth.view.swingGUI;
+package com.github.sweettooth.viewSwing.views;
 
 import com.github.sweettooth.controllerSwing.api.ISwingController;
 import com.github.sweettooth.model.api.GameSettings;
@@ -9,8 +9,8 @@ import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.UpdateGuard;
-import com.github.sweettooth.view.api.DisplayElement;
-import com.github.sweettooth.view.commons.Tools;
+import com.github.sweettooth.viewSwing.api.SwingDisplay;
+import com.github.sweettooth.viewSwing.commons.Tools;
 
 import javax.swing.JFrame;
 import javax.swing.GroupLayout;
@@ -36,7 +36,7 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
-public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard {
+public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 	private final Logger logger;
 	private boolean updating;
 	
@@ -141,7 +141,7 @@ public class SwingGUI implements Observer, DisplayElement, Loggable, UpdateGuard
     }
 
 	@Override
-	public DisplayElement initialize(GameSettings gameSettings) throws NullPointerException {
+	public SwingDisplay initialize(GameSettings gameSettings) throws NullPointerException {
 		this.gameSettings = Objects.requireNonNull(gameSettings);
 		
 		player = gameData.player();

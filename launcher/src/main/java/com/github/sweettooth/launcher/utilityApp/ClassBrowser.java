@@ -14,7 +14,6 @@ import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.view.api.DisplayElement;
-import com.github.sweettooth.view.api.DisplayFactory;
 
 public class ClassBrowser {
 	public static void main(String... args) {
@@ -29,7 +28,7 @@ public class ClassBrowser {
 		
 		// --- view
 		System.out.println("### Modul: view\n");
-		Class<?>[] view = {DisplayElement.class, DisplayFactory.class};
+		Class<?>[] view = {DisplayElement.class};
 		show(view);
 		
 		// --- model
