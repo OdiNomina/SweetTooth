@@ -1,4 +1,4 @@
-module com.github.sweettooth.view {
+module com.github.sweettooth.viewLanterna {
 	exports com.github.sweettooth.viewLanterna.api;
 	
 	requires java.desktop;

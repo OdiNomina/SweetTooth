@@ -19,7 +19,7 @@
 		<module>launcher</module>
 		<module>model</module>
 		<module>shared</module>
-		<module>view</module>
+		<module>viewLanterna</module>
 		<module>viewSwing</module>
 	</modules>
 </project>
