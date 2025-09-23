@@ -33,7 +33,7 @@
 		</dependency>
 		<dependency>
 		    <groupId>com.github.sweettooth</groupId>
-		    <artifactId>view</artifactId>
+		    <artifactId>viewLanterna</artifactId>
 		    <version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
