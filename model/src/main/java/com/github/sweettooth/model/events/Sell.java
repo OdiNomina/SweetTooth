@@ -13,7 +13,7 @@ public final class Sell extends Event {
 	@Override
 	public String process(String stringInput, Integer integerInput, Double doubleInput) {
 		try {
-			stringInput = splitStringInput(stringInput);
+			stringInput = clearStringInput(stringInput);
 			if(integerInput < 1)
 				return "Nix verkauft";
 			

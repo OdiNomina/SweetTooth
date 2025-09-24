@@ -21,7 +21,7 @@ public final class Seek extends Event {
 			ArrayList<? extends Snack> snackStash = player.getCandyStash();
 			if(snackStash.isEmpty()) return "Hä...?!";
 			
-			final String snackInput = splitStringInput(stringInput);
+			final String snackInput = clearStringInput(stringInput);
 			Snack selectedSnack = snackStash.stream()
 					.filter(e -> e.getName().equalsIgnoreCase(snackInput))
 					.findFirst()

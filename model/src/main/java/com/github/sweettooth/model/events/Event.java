@@ -37,16 +37,25 @@ public abstract sealed class Event implements Processable, Loggable permits
 	boolean isAtHometown() {
 		return player.getLocation() == player.getHometown();
 	}
-
-	String splitStringInput(String input) {
-		int separatorIdx = input.indexOf("-");
-		if(separatorIdx > -1)
-			return input.substring(0, separatorIdx).strip();
-		else {
-			separatorIdx = input.indexOf("|");
+	
+	/**
+	 * The Lanterna view displays combo box items in combination with their quantities, separated by "-" or "|".
+	 * @param input
+	 * @return Returns a string whose value is this string, with all leading and trailing white space removed.
+	 * If the string contains "-" or "|" then a substring containing the name of the snack will be returned.
+	 */
+	String clearStringInput(String input) {
+		if(input.contains("-") || input.contains("|")) {
+			int separatorIdx = input.indexOf("-");
 			if(separatorIdx > -1)
-				return input.substring(separatorIdx + 1, input.length()).strip();
-			else return input.strip();
+				return input.substring(0, separatorIdx).strip();
+			else {
+				separatorIdx = input.indexOf("|");
+				if(separatorIdx > -1)
+					return input.substring(separatorIdx + 1, input.length()).strip();
+				else return input.strip();
+			}
 		}
+		return input.strip();
 	}
 }
