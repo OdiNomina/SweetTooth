@@ -14,13 +14,12 @@ import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class LocationSelectionListener extends ComboBoxListener {
 	JLabel currentLocation;
-	IGameData gameData;
 	Processable event;
 	JLabel[] answerBox;
 	Processable applyInterestEvent;
 	
 	public LocationSelectionListener(UpdateGuard guard, JLabel currentLocation, JComponent nextInFocus, IGameData gameData, Processable event, Processable applyInterestEvent, JLabel... answerBox) {
-		super(guard, nextInFocus);
+		super(gameData, guard, nextInFocus);
 		this.currentLocation = currentLocation;
 		this.gameData = gameData;
 		this.event = event;

@@ -11,21 +11,21 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.github.sweettooth.shared.api.UpdateGuard;
 
-
 public class ComboBoxListenerFactory {
 	private SwingController controller;
+	private IGameData gameData;
 	
 	public ComboBoxListenerFactory(SwingController controller){
 		this.controller = controller;
+		gameData = controller.getGameModel();
 	}
 	
 	public ActionListener create(UpdateGuard guard, JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
 		try {
 			switch(eventName.toLowerCase()) {
-				case "buy": return new DealSelectionListener(guard,nextInFocus);
-				case "sell": return new DealSelectionListener(guard,nextInFocus);
+				case "buy": return new DealSelectionListener(gameData, guard,nextInFocus);
+				case "sell": return new DealSelectionListener(gameData, guard,nextInFocus);
 				case "travel": {
-					IGameData gameData = controller.getGameModel();
 					Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 					Processable applyInterestEvent = controller.getEventFactory().createEvent("ApplyInterest", gameData);
 					return new LocationSelectionListener(guard, Objects.requireNonNull(currentLocation), nextInFocus, gameData, event, applyInterestEvent, answerBox);

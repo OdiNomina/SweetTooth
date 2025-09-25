@@ -7,6 +7,7 @@ import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
+import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.UpdateGuard;
 import com.github.sweettooth.viewSwing.api.SwingDisplay;
@@ -22,6 +23,7 @@ import javax.swing.JButton;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Objects;
 import java.util.logging.Logger;
 import java.awt.Color;
@@ -66,10 +68,14 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 	private JLabel buyTitle;
 	private JLabel buySelectionLabel;
 	private JComboBox<String> buySelection;
+	private JLabel buyPriceLabel;
+	private JLabel buyPrice;
 	private JTextField buyQuantity;
 	private JLabel sellTitel;
 	private JLabel sellSelectionLabel;
 	private JComboBox<String> sellSelection;
+	private JLabel sellPriceLabel;
+	private JLabel sellPrice;
 	private JTextField sellQuantity;
 	private JLabel buySellInfo;
 	// Bank Panel
@@ -191,11 +197,18 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 			pocketsLabel.setText("Was hab ich in den Taschen?"); 
 			// Buy Sell Panel
 			buyTitle.setText("Hast du was für mich?");
-			buySelectionLabel.setText("Ich mag..."); 
-			buyQuantity.setText("");
 			sellTitel.setText("Hey! Willst du was Süßes?");
+			buySelectionLabel.setText("Ich mag...");
 			sellSelectionLabel.setText("Ich verkaufe dir...");
-		    sellQuantity.setText("");
+			gameSettings.getSnackFactory().defaultSnacks().stream()
+				.sorted(Comparator.comparing(Snackable::name))
+				.forEach(e -> { buySelection.addItem(e.name()); sellSelection.addItem(e.name()); });
+			buySelection.setSelectedIndex(0);
+			sellSelection.setSelectedIndex(0);
+			buyPriceLabel.setText("Was kosten die?");
+			sellPriceLabel.setText("für");
+			buyQuantity.setText("");
+			sellQuantity.setText("");
 			// Hide Seek Panel
 			hideSeekTitle.setText("Du hast ein echt gutes Versteck für deine Süßis, da sind sie sicher!");
 			stashLabel.setText("Was liegt schon im Versteck?");
@@ -249,13 +262,20 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 		    for(String pi : pocketItems)
 		    	pockets.addItem(pi);
 		    // Buy Sell Panel
-		    buySelection.removeAllItems();
-		    sellSelection.removeAllItems();
-		    ArrayList<String> availableSnacks = Tools.formatDefaultSnacks(gameSettings);
-		    for(String as : availableSnacks) { // Will be updated because prices change!
-		    	buySelection.addItem(as);
-		    	sellSelection.addItem(as);
-		    }
+		    String buySelectedItem = buySelection.getSelectedItem().toString().strip();
+		    Double buyPriceValue = gameSettings.getSnackFactory().defaultSnacks().stream()
+		    	.filter(e -> e.name().equalsIgnoreCase(buySelectedItem))
+		    	.findFirst()
+		    	.orElseThrow(() -> new IllegalArgumentException("Snack nicht gefunden: " + buySelectedItem))
+		    	.staticPrice();
+		    buyPrice.setText(Tools.formatMoney(gameSettings, buyPriceValue));
+		    String sellSelectedItem = sellSelection.getSelectedItem().toString().strip();
+		    Double sellPriceValue = gameSettings.getSnackFactory().defaultSnacks().stream()
+		    		.filter(e -> e.name().equalsIgnoreCase(sellSelectedItem))
+		    		.findFirst()
+		    		.orElseThrow(() -> new IllegalArgumentException("Snack nicht gefunden: " + sellSelectedItem))
+		    		.staticPrice();
+		    sellPrice.setText(Tools.formatMoney(gameSettings, sellPriceValue));
 		    buySellInfo.setText("");
 		    // Hide Seek Panel
 		    stash.removeAllItems();
@@ -495,6 +515,17 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 		buySelectionLabel.setMaximumSize(new Dimension(200, 16));
 		buySelectionLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
 		buySelectionLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		buyPriceLabel = new JLabel(sampleText);
+		buyPriceLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		buyPriceLabel.setPreferredSize(new Dimension(100, 16));
+		buyPriceLabel.setMinimumSize(new Dimension(100, 16));
+		buyPriceLabel.setMaximumSize(new Dimension(100, 16));
+		buyPriceLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		buyPrice = new JLabel(sampleText);
+		buyPrice.setPreferredSize(new Dimension(100, 16));
+		buyPrice.setMinimumSize(new Dimension(100, 16));
+		buyPrice.setMaximumSize(new Dimension(100, 16));
+		buyPrice.setFont(new Font("Trebuchet MS", Font.ITALIC, 14));
 		sellTitel = new JLabel(sampleText);
 		sellTitel.setForeground(new Color(255, 255, 0));
 		sellTitel.setFont(new Font("Tempus Sans ITC", Font.BOLD, 18));
@@ -530,6 +561,18 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 		sellSelection.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		sellSelection.setPreferredSize(new Dimension(250, 22));
 		sellSelection.setMaximumSize(new Dimension(250, 22));
+		sellPriceLabel = new JLabel("Sample text for formatting purposes.");
+		sellPriceLabel.setPreferredSize(new Dimension(100, 16));
+		sellPriceLabel.setMinimumSize(new Dimension(100, 16));
+		sellPriceLabel.setMaximumSize(new Dimension(100, 16));
+		sellPriceLabel.setHorizontalAlignment(SwingConstants.TRAILING);
+		sellPriceLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		sellPrice = new JLabel("Sample text for formatting purposes.");
+		sellPrice.setPreferredSize(new Dimension(100, 16));
+		sellPrice.setMinimumSize(new Dimension(100, 16));
+		sellPrice.setMaximumSize(new Dimension(100, 16));
+		sellPrice.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
+		
 		GroupLayout gl_buySellPanel = new GroupLayout(buySellPanel);
 		gl_buySellPanel.setHorizontalGroup(
 			gl_buySellPanel.createParallelGroup(Alignment.LEADING)
@@ -543,7 +586,12 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_buySellPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(buyQuantity, 100, 100, 100)
-								.addComponent(buySelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+								.addGroup(gl_buySellPanel.createSequentialGroup()
+									.addComponent(buySelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(buyPriceLabel, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(buyPrice, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_buySellPanel.createSequentialGroup()
 							.addComponent(sellSelectionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)
@@ -551,8 +599,13 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 								.addGroup(gl_buySellPanel.createSequentialGroup()
 									.addComponent(sellQuantity, 100, 100, 100)
 									.addGap(200)
-									.addComponent(buySellInfo, GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
-								.addComponent(sellSelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(buySellInfo, GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE))
+								.addGroup(gl_buySellPanel.createSequentialGroup()
+									.addComponent(sellSelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(sellPriceLabel, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(sellPrice, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)))))
 					.addContainerGap())
 		);
 		gl_buySellPanel.setVerticalGroup(
@@ -563,7 +616,9 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_buySellPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(buySelectionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(buySelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(buySelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(buyPriceLabel, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(buyPrice, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(buyQuantity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -571,7 +626,9 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_buySellPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(sellSelectionLabel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(sellSelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addComponent(sellSelection, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(sellPriceLabel, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+						.addComponent(sellPrice, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addGroup(gl_buySellPanel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(sellQuantity, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -724,7 +781,7 @@ public class SwingGUI implements Observer, SwingDisplay, Loggable, UpdateGuard {
 							.addComponent(bankDispoHint, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 751, GroupLayout.PREFERRED_SIZE)
 							.addComponent(bankInterestHint1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 751, GroupLayout.PREFERRED_SIZE)
 							.addComponent(bankInterestHint2, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 751, GroupLayout.PREFERRED_SIZE)))
-					.addGap(666))
+					.addContainerGap())
 		);
 		gl_bankPanel.setVerticalGroup(
 			gl_bankPanel.createParallelGroup(Alignment.LEADING)
