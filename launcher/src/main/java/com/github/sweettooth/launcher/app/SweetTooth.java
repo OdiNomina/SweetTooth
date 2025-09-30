@@ -39,25 +39,36 @@ public class SweetTooth implements Loggable {
 			IGameData gameModel = IGameData.createGameData().initialize(gameSettings, null);
 			
 			Future<SwingDisplay> gui = executor.submit( () ->
-				SwingDisplay.getInstance(gameModel).initialize(gameSettings) );
-			
+													SwingDisplay.getInstance(gameModel)
+													.initialize(gameSettings)
+												);
 			executor.submit(gui.get());
 			
 			executor.shutdown();
 			app.info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
 		}
-		catch(Exception e) { app.error(Thread.currentThread().getName() + " thread throws " + e.getClass().getName(), e); }
+		catch(Exception ex) {
+			app.error(Thread.currentThread().getName() + " thread throws " + ex.getClass().getName(), ex);
+		}
 	}
 
 	private void addShutdownHook() {
 		try {
-			Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-				app.info("Shutdown hook is executed - Logger is reset.\n");
-		        try { LogManager.getLogManager().reset(); } // Schließt alle globalen Handler (z.B. FileHandler)
-		        catch(SecurityException e) { error(e.getClass().getName() + " when attempting to reset log manager.", e); }
-		    }));
+			Runtime.getRuntime()
+				.addShutdownHook(new Thread( () -> {
+						app.info(Thread.currentThread().getName() + " shutdown hook is executed: Logger is reset.\n");
+				        try {
+				        	LogManager.getLogManager().reset();  // Schließt alle globalen Handler (z.B. FileHandler)
+				        }
+				        catch(SecurityException e) {
+				        	error(e.getClass().getName() + " when attempting to reset log manager.", e);
+				        }
+			        }
+				));
 		}
-		catch(IllegalArgumentException | IllegalStateException | SecurityException e) { error(e.getClass().getName() + " when adding 'shutdown hook'.", e); }
+		catch(IllegalArgumentException | IllegalStateException | SecurityException ex) {
+			error(ex.getClass().getName() + " when adding 'shutdown hook'.", ex);
+		}
 	}
 	
 	@Override
@@ -67,9 +78,13 @@ public class SweetTooth implements Loggable {
 	
 	private void setDefaultUncaughtExceptionHandler() {
 		UncaughtExceptionHandler ueh = (thread, exception) -> {
-			error("Uncaught exception in thread '" + thread.getName() + "': ", exception);
-		};
-		try { Thread.setDefaultUncaughtExceptionHandler(ueh); }
-		catch(SecurityException e) { error(e.getClass().getName() + " when setting 'default uncaught exception handler'.", e); }
+											error("Uncaught exception in thread '" + thread.getName() + "': ", exception);
+										};
+		try {
+			Thread.setDefaultUncaughtExceptionHandler(ueh);
+		}
+		catch(SecurityException ex) {
+			error(ex.getClass().getName() + " when setting 'default uncaught exception handler'.", ex);
+		}
 	}
 }
