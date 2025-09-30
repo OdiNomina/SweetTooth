@@ -2,10 +2,12 @@ package com.github.sweettooth.model.games;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.viewAPI.Observer;
+import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
@@ -15,6 +17,7 @@ import com.github.sweettooth.model.commons.InternSettings;
 
 public class GameData implements IGameData {
 	private ArrayList<Observer> observers;
+	private ScoreManager scoreManager;
 	private int dayOfGame;
 	private boolean gameOver;
 	private boolean exitButtonClicked;
@@ -26,7 +29,12 @@ public class GameData implements IGameData {
 	
 	public GameData() {
 		observers = new ArrayList<>();
+		scoreManager = new ScoreManager();
 		dayOfGame = Integer.valueOf(1);
+	}
+	
+	public void addScore(Double score) {
+		scoreManager.addScore(player.getName(), score);
 	}
 	
 	@Override
@@ -51,14 +59,19 @@ public class GameData implements IGameData {
 		return loanShark;
 	}
 	
-	public GameSettings getSettings() {
-		return modelSettings;
-	}
 	
 	public Player getPlayer() {
 		return player;
 	}
+	
+	public List<ScoreData> getScores() {
+        return scoreManager.getScores();
+    }
 
+	public GameSettings getSettings() {
+		return modelSettings;
+	}
+	
 	@Override
 	public void increaseDayOfGame(int numberOfDays) throws IOException {
 		if(dayOfGame < InternSettings.GAME_DURATION_DAYS)
@@ -79,9 +92,7 @@ public class GameData implements IGameData {
 
 	@Override
 	public void notifyObservers() {
-		for(Observer o : observers) {
-			o.update();
-		}
+		observers.forEach(Observer::update);
 	}
 
 	@Override
