@@ -20,8 +20,9 @@ import javax.swing.UIManager;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class TabbedPaneDesign {
+public class TabbedFrameDesign {
 	JFrame tabbedFrame;
+	JTabbedPane tabbedPane;
 	// Title Panel
 	JLabel title1Label;
 	JLabel title2Label;
@@ -302,13 +303,13 @@ public class TabbedPaneDesign {
 		sellSelection.setFont(new Font("Trebuchet MS", Font.PLAIN, 13));
 		sellSelection.setPreferredSize(new Dimension(250, 22));
 		sellSelection.setMaximumSize(new Dimension(250, 22));
-		sellPriceLabel = new JLabel("Sample text for formatting purposes.");
+		sellPriceLabel = new JLabel(sampleText);
 		sellPriceLabel.setPreferredSize(new Dimension(100, 16));
 		sellPriceLabel.setMinimumSize(new Dimension(100, 16));
 		sellPriceLabel.setMaximumSize(new Dimension(100, 16));
 		sellPriceLabel.setHorizontalAlignment(SwingConstants.TRAILING);
 		sellPriceLabel.setFont(new Font("Trebuchet MS", Font.BOLD, 13));
-		sellPrice = new JLabel("Sample text for formatting purposes.");
+		sellPrice = new JLabel(sampleText);
 		sellPrice.setPreferredSize(new Dimension(100, 16));
 		sellPrice.setMinimumSize(new Dimension(100, 16));
 		sellPrice.setMaximumSize(new Dimension(100, 16));
@@ -614,7 +615,7 @@ public class TabbedPaneDesign {
 		loansharkInterestHint.setMaximumSize(new Dimension(178, 16));
 		loansharkInterestHint.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
 		
-		lendAnswer = new JLabel("Sample text for formatting purposes.");
+		lendAnswer = new JLabel(sampleText);
 		lendAnswer.setPreferredSize(new Dimension(200, 16));
 		lendAnswer.setMinimumSize(new Dimension(200, 16));
 		lendAnswer.setMaximumSize(new Dimension(200, 16));
@@ -622,7 +623,7 @@ public class TabbedPaneDesign {
 		lendAnswer.setFont(new Font("Trebuchet MS", Font.ITALIC, 13));
 		lendAnswer.setAlignmentX(0.5f);
 		
-		giveBackAnswer = new JLabel("Sample text for formatting purposes.");
+		giveBackAnswer = new JLabel(sampleText);
 		giveBackAnswer.setPreferredSize(new Dimension(200, 16));
 		giveBackAnswer.setMinimumSize(new Dimension(200, 16));
 		giveBackAnswer.setMaximumSize(new Dimension(200, 16));
@@ -968,15 +969,14 @@ public class TabbedPaneDesign {
 		JScrollPane stashScrollPane = new JScrollPane();
 		stashScrollPane.setViewportView(stashScrollPaneViewPanel);
 			
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.addTab("START", null, startScrollPane, null);
-		tabbedPane.addTab("GELD", null, financesScrollPane, null);
-		tabbedPane.addTab("IM VERSTECK", null, stashScrollPane, null);
+		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane.addTab("", null, startScrollPane, null);
+		tabbedPane.addTab("", null, financesScrollPane, null);
+		tabbedPane.addTab("", null, stashScrollPane, null);
 		
 		tabbedFrame = new JFrame();
 		tabbedFrame.setPreferredSize(new Dimension(1000, 700));
 		tabbedFrame.getContentPane().setBackground(new Color(0, 102, 153));
-		tabbedFrame.setTitle("Sweet Tooth");
 		tabbedFrame.setBounds(100, 100, 1100, 815);
 		tabbedFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		GroupLayout gl_contentPane = new GroupLayout(tabbedFrame.getContentPane());

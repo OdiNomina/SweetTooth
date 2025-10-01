@@ -12,11 +12,11 @@ import javax.swing.JFrame;
 
 public class SwingGUI implements SwingDisplay, Loggable {
 	private final Logger logger;
-	private TabbedPaneManager tabbedPane;
+	private TabbedFrameManager tabbedPane;
 	
 	public SwingGUI(IGameData gameData) throws NullPointerException {
 		logger = Logger.getLogger(SwingGUI.class.getName());
-        tabbedPane = new TabbedPaneManager(Objects.requireNonNull(gameData), new GameSettings());
+        tabbedPane = new TabbedFrameManager(Objects.requireNonNull(gameData), new GameSettings());
 		
 		gameData.registerObserver(tabbedPane);
 	}
@@ -36,9 +36,7 @@ public class SwingGUI implements SwingDisplay, Loggable {
 	public void run() {
 		info(String.format(Thread.currentThread().getName() + " 'tabbed frame' is running."));
 		try {
-			JFrame tabbedFrame = tabbedPane.createDesign();
-			tabbedPane.initializeContent();
-			tabbedPane.addInputHandling();
+			JFrame tabbedFrame = tabbedPane.createTabbedFrame();
 			tabbedFrame.setVisible(true);
 		} catch (Exception ex) {
 			error("Error when running " + ex.getClass().getName(), ex);

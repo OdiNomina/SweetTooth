@@ -18,11 +18,11 @@ import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.UpdateGuard;
 import com.github.sweettooth.viewSwing.commons.Tools;
 
-public class TabbedPaneManager implements Observer, UpdateGuard, Loggable {
+public class TabbedFrameManager implements Observer, UpdateGuard, Loggable {
 	private final Logger logger;
 	private IGameData gameData;
 	private GameSettings settings;
-	private TabbedPaneDesign design;
+	private TabbedFrameDesign design;
 	private ISwingController controller;
 	private boolean updating;
 	
@@ -30,20 +30,52 @@ public class TabbedPaneManager implements Observer, UpdateGuard, Loggable {
 	private IMoneyDealer loanShark;
 	private IMoneyDealer bank;
 	
-	TabbedPaneManager(IGameData gameData, GameSettings settings) {
-		logger = Logger.getLogger(TabbedPaneManager.class.getName());
+	TabbedFrameManager(IGameData gameData, GameSettings settings) {
+		logger = Logger.getLogger(TabbedFrameManager.class.getName());
 		this.gameData = gameData;
 		this.settings = settings;
 		controller = ISwingController.getInstance();
 		controller.initialize(gameData);
-		design = new TabbedPaneDesign();
+		design = new TabbedFrameDesign();
 		
 		player = gameData.player();
 		loanShark = gameData.loanShark();
 		bank = gameData.bank();
 	}
 	
-	void addInputHandling() {
+	JFrame createTabbedFrame() {
+		JFrame frame = design.createGroupLayoutDesign();
+		initializeContent();
+		updateContent();
+		addInputHandling();
+		return frame;
+	}
+
+	@Override
+	public Logger getLogger() {
+		return logger;
+	}
+
+	@Override
+    public boolean isUpdating() {
+        return updating;
+    }
+	
+	void setGameSettings(GameSettings settings) {
+		this.settings = settings;
+	}
+	
+	@Override
+	public void update() {
+		if(gameData.isGameOver() || gameData.isExitButtonClicked()) {
+			updateContent();
+			gameOverConfig();
+		}
+		else
+			updateContent();
+	}
+
+	private void addInputHandling() {
 		try {
 			design.buySelection.addActionListener(controller.createComboBoxListener(this, null, "Buy", design.buyQuantity, design.buySellInfo));
 			design.sellSelection.addActionListener(controller.createComboBoxListener(this, null, "Sell", design.sellQuantity, design.buySellInfo));
@@ -66,10 +98,6 @@ public class TabbedPaneManager implements Observer, UpdateGuard, Loggable {
 		catch(RuntimeException ex)  {
 			error("Error when adding input handling " + ex.getClass().getName(), ex);
 		}
-	}
-	
-	JFrame createDesign() {
-		return design.createGroupLayoutDesign();
 	}
 
 	private void gameOverConfig() {
@@ -98,29 +126,28 @@ public class TabbedPaneManager implements Observer, UpdateGuard, Loggable {
 		}
 	}
 
-	@Override
-	public Logger getLogger() {
-		return logger;
-	}
-
-	void initializeContent() {
-    	try {
-    		// Title Panel
-    		design.title1Label.setText("Du dealst mit Süßis?");
-    		design.title2Label.setText("Mal sehen was du in einem Monat verdienst...");
-    		design.gameOverLabel.setText(" Das wars... NICHTS GEHT MEHR ! ");
-    		design.gameOverLabel.setVisible(false);
+	private void initializeContent() {
+		try {
+			design.tabbedFrame.setTitle("Sweet Tooth");
+			design.tabbedPane.setTitleAt(0, "START");
+			design.tabbedPane.setTitleAt(1, "GELD");
+			design.tabbedPane.setTitleAt(2, "IM VERSTECK");
+			// Title Panel
+			design.title1Label.setText("Du dealst mit Süßis?");
+			design.title2Label.setText("Mal sehen was du in einem Monat verdienst...");
+			design.gameOverLabel.setText(" Das wars... NICHTS GEHT MEHR ! ");
+			design.gameOverLabel.setVisible(false);
 			// Current Panel
-    		design.currentDayLabel.setText("Tag:");
-    		design.currentLocationLabel.setText("Wo bin ich eigentlich...?");
-    		design.cashLabel.setText("Cash dabei:");
-    		design.pocketsLabel.setText("Was hab ich in den Taschen?"); 
+			design.currentDayLabel.setText("Tag:");
+			design.currentLocationLabel.setText("Wo bin ich eigentlich...?");
+			design.cashLabel.setText("Cash dabei:");
+			design.pocketsLabel.setText("Was hab ich in den Taschen?"); 
 			// Buy Sell Panel
-    		design.buyTitle.setText("Hast du was für mich?");
-    		design.sellTitel.setText("Hey! Willst du was Süßes?");
-    		design.buySelectionLabel.setText("Ich mag...");
-    		design.sellSelectionLabel.setText("Ich verkaufe dir...");
-    		settings.getSnackFactory().defaultSnacks().stream()
+			design.buyTitle.setText("Hast du was für mich?");
+			design.sellTitel.setText("Hey! Willst du was Süßes?");
+			design.buySelectionLabel.setText("Ich mag...");
+			design.sellSelectionLabel.setText("Ich verkaufe dir...");
+			settings.getSnackFactory().defaultSnacks().stream()
 				.sorted(Comparator.comparing(Snackable::name))
 				.forEach(e -> { design.buySelection.addItem(e.name()); design.sellSelection.addItem(e.name()); });
 			design.buySelection.setSelectedIndex(0);
@@ -166,31 +193,10 @@ public class TabbedPaneManager implements Observer, UpdateGuard, Loggable {
 		    	design.locationSelection.addItem(s);
 		    // Balance Panel
 		    design.exitButton.setText("Ich hau ab, kein Bock mehr...");
-		    
-		    updateContent();
-    	}
-    	catch(RuntimeException ex) { 
-    		error("Error when initializing content " + ex.getClass().getName(), ex);
-    	}
-	}
-	
-	@Override
-    public boolean isUpdating() {
-        return updating;
-    }
-	
-	void setGameSettings(GameSettings settings) {
-		this.settings = settings;
-	}
-	
-	@Override
-	public void update() {
-		if(gameData.isGameOver() || gameData.isExitButtonClicked()) {
-			updateContent();
-			gameOverConfig();
 		}
-		else
-			updateContent();
+		catch(RuntimeException ex) { 
+			error("Error when initializing content " + ex.getClass().getName(), ex);
+		}
 	}
 
 	private void updateContent() {
@@ -209,14 +215,14 @@ public class TabbedPaneManager implements Observer, UpdateGuard, Loggable {
 		    Double buyPriceValue = settings.getSnackFactory().defaultSnacks().stream()
 		    	.filter(e -> e.name().equalsIgnoreCase(buySelectedItem))
 		    	.findFirst()
-		    	.orElseThrow(() -> new IllegalArgumentException("Snack nicht gefunden: " + buySelectedItem))
+		    	.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + buySelectedItem))
 		    	.staticPrice();
 		    design.buyPrice.setText(Tools.formatMoney(settings, buyPriceValue));
 		    String sellSelectedItem = design.sellSelection.getSelectedItem().toString().strip();
 		    Double sellPriceValue = settings.getSnackFactory().defaultSnacks().stream()
 		    		.filter(e -> e.name().equalsIgnoreCase(sellSelectedItem))
 		    		.findFirst()
-		    		.orElseThrow(() -> new IllegalArgumentException("Snack nicht gefunden: " + sellSelectedItem))
+		    		.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + sellSelectedItem))
 		    		.staticPrice();
 		    design.sellPrice.setText(Tools.formatMoney(settings, sellPriceValue));
 		    design.buySellInfo.setText("");
