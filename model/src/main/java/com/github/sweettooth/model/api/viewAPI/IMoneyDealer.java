@@ -8,6 +8,7 @@ public interface IMoneyDealer {
 		return ((MoneyDealer)this).getClientsBalance((Player)player);
 	}
 	
-	public abstract String getInterestHint();
+	public abstract String getCreditInterestHint();
+	public abstract String getDebitInterestHint();
 	public abstract String getDispoHint();
 }

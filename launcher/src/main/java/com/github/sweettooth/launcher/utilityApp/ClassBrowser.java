@@ -2,8 +2,6 @@ package com.github.sweettooth.launcher.utilityApp;
 
 import java.util.Arrays;
 
-import com.github.sweettooth.controller.api.ControllerFactory;
-import com.github.sweettooth.controller.api.ControllerInterface;
 import com.github.sweettooth.launcher.app.SweetTooth;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
@@ -14,9 +12,8 @@ import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
+import com.github.sweettooth.viewLanterna.api.DisplayElement;
 import com.github.sweettooth.model.api.ISnackFactory;
-import com.github.sweettooth.view.api.DisplayElement;
-import com.github.sweettooth.view.api.DisplayFactory;
 
 public class ClassBrowser {
 	public static void main(String... args) {
@@ -29,14 +26,9 @@ public class ClassBrowser {
 		Class<?>[] launcher = {SweetTooth.class};
 		show(launcher);
 		
-		// --- controller
-		System.out.println("### Modul: controller\n");
-		Class<?>[] controller = {ControllerInterface.class, ControllerFactory.class};
-		show(controller);
-		
 		// --- view
 		System.out.println("### Modul: view\n");
-		Class<?>[] view = {DisplayElement.class, DisplayFactory.class};
+		Class<?>[] view = {DisplayElement.class};
 		show(view);
 		
 		// --- model

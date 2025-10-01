@@ -12,7 +12,7 @@ public final class Buy extends Event {
 	
 	@Override
 	public String process(String stringInput, Integer integerInput, Double doubleInput) {
-		stringInput = splitStringInput(stringInput);
+		stringInput = clearStringInput(stringInput);
 		if(integerInput < 1)
 			return "Nix gekauft";
 		if(Tools.isTooMuchToCarry(player, integerInput))

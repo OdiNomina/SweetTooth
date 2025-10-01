@@ -14,11 +14,12 @@
 	</properties>
 	
 	<modules>
-		<module>model</module>
-		<module>controller</module>
-		<module>view</module>
+		<module>controllerLanterna</module>
+		<module>controllerSwing</module>
 		<module>launcher</module>
+		<module>model</module>
 		<module>shared</module>
+		<module>viewLanterna</module>
+		<module>viewSwing</module>
 	</modules>
-	
 </project>

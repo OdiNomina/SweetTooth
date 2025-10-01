@@ -1,5 +1,7 @@
 package com.github.sweettooth.model.events;
 
+import java.util.NoSuchElementException;
+
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.snacks.Snack;
 
@@ -10,19 +12,23 @@ public final class Sell extends Event {
 	
 	@Override
 	public String process(String stringInput, Integer integerInput, Double doubleInput) {
-		stringInput = splitStringInput(stringInput);
-		if(integerInput < 1)
-			return "Nix verkauft";
-		
-		Snack playersCandy = Snack.findSnack(player.getCandies(), stringInput);
-		if(playersCandy == null || playersCandy.getQuantity() < integerInput)
-			return "Du kannst nur verkaufen, was du hast.";
-		if(playersCandy.getQuantity() > integerInput)
-			playersCandy.reduceQuantity(integerInput);
-		else
-			player.getCandies().remove(playersCandy);
-		player.addCash(playersCandy.getStaticPrice() * integerInput);			
-		return "Verkauft";
+		try {
+			stringInput = clearStringInput(stringInput);
+			if(integerInput < 1)
+				return "Nix verkauft";
+			
+			Snack playersCandy = Snack.findSnack(player.getCandies(), stringInput);
+			if(playersCandy.getQuantity() < integerInput)
+				return "Kannst du nicht zählen?";
+			if(playersCandy.getQuantity() > integerInput)
+				playersCandy.reduceQuantity(integerInput);
+			else
+				player.getCandies().remove(playersCandy);
+			player.addCash(playersCandy.getStaticPrice() * integerInput);			
+			return "Verkauft";
+		} catch(NoSuchElementException ex) {
+			return "Lass sehen... das hast du doch gar nicht!";
+		}
 	}
 
 	@Override

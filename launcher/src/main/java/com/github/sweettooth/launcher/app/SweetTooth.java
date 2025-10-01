@@ -1,7 +1,5 @@
 package com.github.sweettooth.launcher.app;
 
-import com.github.sweettooth.controller.api.ControllerInterface;
-
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -12,15 +10,13 @@ import java.util.concurrent.Future;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
-import com.github.sweettooth.controller.api.ControllerFactory;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.api.ISnackFactory.SnackType;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.LoggingSetup;
-import com.github.sweettooth.view.api.DisplayElement;
-import com.github.sweettooth.view.api.DisplayFactory;
+import com.github.sweettooth.viewSwing.api.SwingDisplay;
 
 public class SweetTooth implements Loggable {
 	private static final Logger LOGGER = Logger.getLogger(SweetTooth.class.getName());
@@ -34,22 +30,18 @@ public class SweetTooth implements Loggable {
 			ExecutorService executor = Executors.newCachedThreadPool();
 			app = new SweetTooth();
 			
-			executor.submit( () -> LoggingSetup.initialize(SweetTooth.class) );
-			executor.submit( () -> app.setDefaultUncaughtExceptionHandler() );
-			executor.submit( () -> app.addShutdownHook() );
+			LoggingSetup.initialize(SweetTooth.class);
+			app.setDefaultUncaughtExceptionHandler();
+			app.addShutdownHook();
 			
 			GameSettings gameSettings = new GameSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
 			
-			Future<IGameData> gameModel = executor.submit( () -> 
-				IGameData.createGameData().initialize(gameSettings, null) );
+			IGameData gameModel = IGameData.createGameData().initialize(gameSettings, null);
 			
-			Future<ControllerInterface> lanternaController = executor.submit( () ->
-				ControllerFactory.create().initialize(gameModel.get()) );
+			Future<SwingDisplay> gui = executor.submit( () ->
+				SwingDisplay.getInstance(gameModel).initialize(gameSettings) );
 			
-			Future<DisplayElement> lanternaGUI = executor.submit( () ->
-				DisplayFactory.create().initialize(gameModel.get(), lanternaController.get(), gameSettings) );
-		
-			executor.submit(lanternaGUI.get());
+			executor.submit(gui.get());
 			
 			executor.shutdown();
 			app.info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
