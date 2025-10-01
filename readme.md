@@ -1,3 +1,5 @@
+A playground for trying things out, learning, and thinking ahead.
+
 Version 2.0.0 (tag v2.0.0) Swing-GUI implementation
 
 Inspired by the game Jawbreaker, which is used as a practice project in “Java ist auch eine Insel” by Christian Ullenboom.
