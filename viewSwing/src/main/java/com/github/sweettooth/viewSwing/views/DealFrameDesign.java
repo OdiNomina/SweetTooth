@@ -20,8 +20,8 @@ import javax.swing.UIManager;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-public class TabbedFrameDesign {
-	JFrame tabbedFrame;
+public class DealFrameDesign {
+	JFrame frame;
 	JTabbedPane tabbedPane;
 	// Title Panel
 	JLabel title1Label;
@@ -100,10 +100,7 @@ public class TabbedFrameDesign {
 	JButton seekButton;
 	JLabel hideSeekInfo;
 	
-	/**
-	 * @wbp.parser.entryPoint
-	 */
-	JFrame createGroupLayoutDesign() {
+	JFrame createDesign() {
 		String sampleText = "Sample text for formatting purposes.";
 
 		JPanel titlePanel = new JPanel();
@@ -974,12 +971,12 @@ public class TabbedFrameDesign {
 		tabbedPane.addTab("", null, financesScrollPane, null);
 		tabbedPane.addTab("", null, stashScrollPane, null);
 		
-		tabbedFrame = new JFrame();
-		tabbedFrame.setPreferredSize(new Dimension(1000, 700));
-		tabbedFrame.getContentPane().setBackground(new Color(0, 102, 153));
-		tabbedFrame.setBounds(100, 100, 1100, 815);
-		tabbedFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GroupLayout gl_contentPane = new GroupLayout(tabbedFrame.getContentPane());
+		frame = new JFrame();
+		frame.setPreferredSize(new Dimension(1000, 700));
+		frame.getContentPane().setBackground(new Color(0, 102, 153));
+		frame.setBounds(100, 100, 1100, 815);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		GroupLayout gl_contentPane = new GroupLayout(frame.getContentPane());
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -994,7 +991,7 @@ public class TabbedFrameDesign {
 					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		tabbedFrame.getContentPane().setLayout(gl_contentPane);
-		return tabbedFrame;
+		frame.getContentPane().setLayout(gl_contentPane);
+		return frame;
 	}
 }

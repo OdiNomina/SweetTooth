@@ -2,11 +2,11 @@ package com.github.sweettooth.viewSwing.views;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.logging.Logger;
+import java.util.concurrent.Callable;
 
 import javax.swing.JFrame;
 
-import com.github.sweettooth.controllerSwing.api.ISwingController;
+import com.github.sweettooth.controllerSwing.api.IDealController;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
@@ -14,55 +14,43 @@ import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
-import com.github.sweettooth.shared.api.Loggable;
-import com.github.sweettooth.shared.api.UpdateGuard;
 import com.github.sweettooth.viewSwing.commons.Tools;
 
-public class TabbedFrameManager implements Observer, UpdateGuard, Loggable {
-	private final Logger logger;
-	private IGameData gameData;
-	private GameSettings settings;
-	private TabbedFrameDesign design;
-	private ISwingController controller;
-	private boolean updating;
+public class DealFrameManager extends FrameManager implements Observer, Callable<JFrame> {
+	SwingGUI gui;
+	DealFrameDesign design;
+	IDealController controller;
 	
 	private IPlayer player;
 	private IMoneyDealer loanShark;
 	private IMoneyDealer bank;
 	
-	TabbedFrameManager(IGameData gameData, GameSettings settings) {
-		logger = Logger.getLogger(TabbedFrameManager.class.getName());
-		this.gameData = gameData;
-		this.settings = settings;
-		controller = ISwingController.getInstance();
-		controller.initialize(gameData);
-		design = new TabbedFrameDesign();
+	DealFrameManager(SwingGUI gui, IGameData gameData, GameSettings settings) {
+		super(gameData, settings);
+		this.gui = gui;
+		design = new DealFrameDesign();
+		controller = IDealController.getInstance().initialize(gameData);
 		
 		player = gameData.player();
 		loanShark = gameData.loanShark();
 		bank = gameData.bank();
 	}
 	
-	JFrame createTabbedFrame() {
-		JFrame frame = design.createGroupLayoutDesign();
-		initializeContent();
-		updateContent();
-		addInputHandling();
-		return frame;
-	}
-
 	@Override
-	public Logger getLogger() {
-		return logger;
-	}
-
-	@Override
-    public boolean isUpdating() {
-        return updating;
-    }
-	
-	void setGameSettings(GameSettings settings) {
-		this.settings = settings;
+	public JFrame call() throws Exception {
+		info(String.format(Thread.currentThread().getName() + " is running: "+ getClass().getSimpleName() + " > " + Thread.currentThread().getStackTrace()[1].getMethodName()));
+		
+		JFrame dealFrame = gui.getDealFrame();
+		JFrame newFrame = null;
+		
+		if (dealFrame == null || !dealFrame.isDisplayable()) {
+			newFrame = design.createDesign();
+			initializeContent();
+			updateContent();
+			addInputHandling();
+			return newFrame;
+		}
+		return dealFrame;
 	}
 	
 	@Override
@@ -84,7 +72,7 @@ public class TabbedFrameManager implements Observer, UpdateGuard, Loggable {
 	
 			design.hideButton.addActionListener(controller.createButtonListener("Hide", null, null, design.hideButton, design.hideSeekInfo));
 			design.seekButton.addActionListener(controller.createButtonListener("Seek", design.stash, design.seekQuantity, design.stash, design.hideSeekInfo));
-			design.exitButton.addActionListener(controller.createButtonListener("Exit", null, null, design.exitButton, design.gameOverLabel));
+			design.exitButton.addActionListener(controller.createButtonListener("Exit", null, null, null));
 			
 			design.seekQuantity.addActionListener(controller.createTextFieldListener("Seek", design.stash, design.seekButton, design.hideSeekInfo));
 			
@@ -128,7 +116,7 @@ public class TabbedFrameManager implements Observer, UpdateGuard, Loggable {
 
 	private void initializeContent() {
 		try {
-			design.tabbedFrame.setTitle("Sweet Tooth");
+			design.frame.setTitle("Sweet Tooth");
 			design.tabbedPane.setTitleAt(0, "START");
 			design.tabbedPane.setTitleAt(1, "GELD");
 			design.tabbedPane.setTitleAt(2, "IM VERSTECK");
