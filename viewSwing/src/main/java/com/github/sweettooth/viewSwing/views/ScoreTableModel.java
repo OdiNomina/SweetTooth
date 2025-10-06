@@ -1,5 +1,6 @@
 package com.github.sweettooth.viewSwing.views;
 
+import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -7,16 +8,16 @@ import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
 
 public class ScoreTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
-	private final List<ScoreData> scores;
+	private final List<ScoreData> scoreList;
     private final String[] columns = {"Rang", "Name", "Score"};
 
-    public ScoreTableModel(List<ScoreData> scores) {
-        this.scores = scores;
+    public ScoreTableModel() {
+        scoreList = new LinkedList<ScoreData>();
     }
 	
 	@Override
 	public int getRowCount() {
-		return scores.size();
+		return scoreList.size();
 	}
 
 	@Override
@@ -31,12 +32,17 @@ public class ScoreTableModel extends AbstractTableModel {
 	
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		ScoreData entry = scores.get(rowIndex);
+		ScoreData entry = scoreList.get(rowIndex);
         return switch(columnIndex) {
             case 0 -> rowIndex + 1;
             case 1 -> entry.name();
             case 2 -> entry.score();
             default -> null;
         };
+	}
+	
+	void updateScores(List<ScoreData> scores) {
+		scoreList.clear();
+		scores.stream().forEach(scoreList::add);
 	}
 }
