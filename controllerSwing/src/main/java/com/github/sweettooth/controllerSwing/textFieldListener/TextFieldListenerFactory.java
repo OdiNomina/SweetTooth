@@ -6,14 +6,14 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-import com.github.sweettooth.controllerSwing.controllers.SwingController;
+import com.github.sweettooth.controllerSwing.controllers.DealController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 
 public class TextFieldListenerFactory {
-	private SwingController controller;
+	private DealController controller;
 	
-	public TextFieldListenerFactory(SwingController controller){
+	public TextFieldListenerFactory(DealController controller){
 		this.controller = controller;
 	}
 	

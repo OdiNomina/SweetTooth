@@ -1,4 +1,4 @@
-package com.github.sweettooth.controllerSwing.buttonListener;
+package com.github.sweettooth.controllerSwing.dealButtonListener;
 
 import java.awt.event.ActionEvent;
 
@@ -14,15 +14,13 @@ import com.github.sweettooth.model.api.controllerAPI.Processable;
 public class SeekListener extends ButtonListener {
 	JComboBox<String> associatedComboBox;
 	JTextField associatedTextBox;
-	IGameData gameData;
 	Processable event;
 	JLabel[] answerBox;
 	
 	public SeekListener(JComboBox<String> associatedComboBox, JTextField associatedTextBox, JComponent nextInFocus, IGameData gameData, Processable event, JLabel... answerBox) {
-		super(nextInFocus);
+		super(gameData, nextInFocus);
 		this.associatedComboBox = associatedComboBox;
 		this.associatedTextBox = associatedTextBox;
-		this.gameData = gameData;
 		this.event = event;
 		this.answerBox = answerBox;
 	}

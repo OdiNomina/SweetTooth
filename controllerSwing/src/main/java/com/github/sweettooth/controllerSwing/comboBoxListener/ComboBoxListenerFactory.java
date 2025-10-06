@@ -6,16 +6,16 @@ import java.util.Objects;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-import com.github.sweettooth.controllerSwing.controllers.SwingController;
+import com.github.sweettooth.controllerSwing.controllers.DealController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class ComboBoxListenerFactory {
-	private SwingController controller;
+	private DealController controller;
 	private IGameData gameData;
 	
-	public ComboBoxListenerFactory(SwingController controller){
+	public ComboBoxListenerFactory(DealController controller){
 		this.controller = controller;
 		gameData = controller.getGameModel();
 	}

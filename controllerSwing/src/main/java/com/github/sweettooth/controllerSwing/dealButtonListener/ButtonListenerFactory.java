@@ -1,4 +1,4 @@
-package com.github.sweettooth.controllerSwing.buttonListener;
+package com.github.sweettooth.controllerSwing.dealButtonListener;
 
 import java.awt.event.ActionListener;
 
@@ -7,15 +7,15 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.github.sweettooth.controllerSwing.controllers.SwingController;
+import com.github.sweettooth.controllerSwing.controllers.DealController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 
 
 public class ButtonListenerFactory {
-	private SwingController controller;
+	private DealController controller;
 	
-	public ButtonListenerFactory(SwingController controller){
+	public ButtonListenerFactory(DealController controller){
 		this.controller = controller;
 	}
 	

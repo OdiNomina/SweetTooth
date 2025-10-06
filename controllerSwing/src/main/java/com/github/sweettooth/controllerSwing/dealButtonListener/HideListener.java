@@ -1,4 +1,4 @@
-package com.github.sweettooth.controllerSwing.buttonListener;
+package com.github.sweettooth.controllerSwing.dealButtonListener;
 
 import java.awt.event.ActionEvent;
 
@@ -9,13 +9,11 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 
 public class HideListener extends ButtonListener {
-	IGameData gameData;
 	Processable event;
 	JLabel[] answerBox;
 	
 	public HideListener(JComponent nextInFocus, IGameData gameData, Processable event, JLabel... answerBox) {
-		super(nextInFocus);
-		this.gameData = gameData;
+		super(gameData, nextInFocus);
 		this.event = event;
 		this.answerBox = answerBox;
 	}

@@ -1,4 +1,4 @@
-package com.github.sweettooth.controllerSwing.buttonListener;
+package com.github.sweettooth.controllerSwing.dealButtonListener;
 
 import java.awt.event.ActionEvent;
 
@@ -8,11 +8,9 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.controllerAPI.Processable;
 
 public class ExitListener extends ButtonListener {
-	IGameData gameData;
 	
 	public ExitListener(JComponent nextInFocus, IGameData gameData, Processable event) {
-		super(nextInFocus);
-		this.gameData = gameData;
+		super(gameData, nextInFocus);
 	}
 	
 	@Override

@@ -10,15 +10,15 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.github.sweettooth.controllerSwing.controllers.SwingController;
+import com.github.sweettooth.controllerSwing.controllers.DealController;
 
 @SuppressWarnings("exports")
-public interface ISwingController {
-	static ISwingController getInstance() {
-		return new SwingController();
+public interface IDealController {
+	static IDealController getInstance() {
+		return new DealController();
 	}
 	
-	ISwingController initialize(IGameData gameModel) throws NullPointerException;
+	IDealController initialize(IGameData gameModel) throws NullPointerException;
 	
 	/**
 	 * Creates the matching text field listener for the event.
