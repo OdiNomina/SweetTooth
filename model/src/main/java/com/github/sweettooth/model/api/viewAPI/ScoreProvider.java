@@ -7,4 +7,5 @@ public interface ScoreProvider {
 	public record ScoreData(String name, Double score) {}
 	
 	List<ScoreData> getScores();
+	public void readScores();
 }

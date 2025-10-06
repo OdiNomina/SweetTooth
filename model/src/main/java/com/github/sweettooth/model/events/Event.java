@@ -19,6 +19,7 @@ public abstract sealed class Event implements Processable, Loggable permits
 	MoneyDealer loanShark;
 	String notAtHometown;
 	
+	
 	public Event(GameData gameData) {
 		logger = Logger.getLogger(Event.class.getName());
 		modelSettings = gameData.getSettings();

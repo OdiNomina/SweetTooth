@@ -34,6 +34,7 @@ public class ScoreManager implements Loggable, ScoreProvider {
         writeScores();
     }
     
+    @Override
     public void readScores() {
         try {
         	if(Files.notExists(appDir))
@@ -56,6 +57,8 @@ public class ScoreManager implements Loggable, ScoreProvider {
     		scores = scores.stream().limit(50).toList();
         } catch(IOException ex) {
         	error("IOException while reading score file.", ex);
+        } catch(RuntimeException ex) {
+        	error("Exception while reading scores ", ex);
         }
     }
     

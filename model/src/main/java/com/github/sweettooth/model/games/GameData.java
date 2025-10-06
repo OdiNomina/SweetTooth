@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.viewAPI.Observer;
+import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.characters.Bank;
@@ -64,9 +65,15 @@ public class GameData implements IGameData {
 		return player;
 	}
 	
+	@Override
 	public List<ScoreData> getScores() {
         return scoreManager.getScores();
     }
+	
+	@Override
+	public ScoreProvider getScoreProvider() {
+		return scoreManager;
+	}
 
 	public GameSettings getSettings() {
 		return modelSettings;
