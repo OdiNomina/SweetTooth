@@ -6,7 +6,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
@@ -38,11 +37,10 @@ public class SweetTooth implements Loggable {
 			
 			IGameData gameModel = IGameData.createGameData().initialize(gameSettings, null);
 			
-			Future<SwingDisplay> gui = executor.submit( () ->
-													SwingDisplay.getInstance(gameModel)
-													.initialize(gameSettings)
-												);
-			executor.submit(gui.get());
+			SwingDisplay gui = SwingDisplay.getInstance(gameModel);
+			gui.initialize(gameSettings);
+			
+			executor.submit(gui);
 			
 			executor.shutdown();
 			app.info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
