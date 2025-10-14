@@ -1,10 +1,11 @@
 package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.session.SessionData;
 
 public final class Hide extends Event {
-	Hide(GameData gameData){
-		super(gameData);
+	Hide(SessionData sessionData, GameData gameData){
+		super(sessionData, gameData);
 	}
 	
 	@Override
@@ -12,8 +13,8 @@ public final class Hide extends Event {
 		if(!isAtHometown())
 			return notAtHometown;
 
-		player.addAllSnacks(player.getCandies(), player.getCandyStash());
-		player.getCandies().clear();
+		player.addAllSnacks(player.getSnacksInPockets(), player.getSnacksInStash());
+		player.getSnacksInPockets().clear();
 		return "Alles versteckt!";
 	}
 

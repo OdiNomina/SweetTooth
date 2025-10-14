@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.games;
+package com.github.sweettooth.model.session;
 
 public record ScoreEntry(String name, Double score) implements Comparable<ScoreEntry> {
 	
@@ -10,7 +10,7 @@ public record ScoreEntry(String name, Double score) implements Comparable<ScoreE
 		try {
 			String[] parts = line.split(" : ");
 			if (parts.length != 2) {
-				return new ScoreEntry(parts[0].strip(), 0.0);
+				return new ScoreEntry(parts[0].strip(), null);
 	        }
 			return new ScoreEntry(parts[0].strip(), Double.parseDouble(parts[1].strip()));
 		}

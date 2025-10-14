@@ -1,10 +1,11 @@
 package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.session.SessionData;
 
 public final class Lend extends Event {
-	Lend(GameData gameData){
-		super(gameData);
+	Lend(SessionData sessionData, GameData gameData){
+		super(sessionData, gameData);
 	}
 	
 	@Override

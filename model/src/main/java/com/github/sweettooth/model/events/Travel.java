@@ -4,11 +4,12 @@ import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.experiences.Experience;
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.session.SessionData;
 import com.github.sweettooth.model.snacks.SnackFactory;
 
 public final class Travel extends Event {
-	Travel(GameData gameData){
-		super(gameData);
+	Travel(SessionData sessionData, GameData gameData){
+		super(sessionData, gameData);
 	}
 	
 	@Override
@@ -24,12 +25,12 @@ public final class Travel extends Event {
 			payment = "Du zahlst per Bankcard.";
 		}
 		player.setLocation(Location.valueOf(stringInput));
-		SnackFactory snackFactory = (SnackFactory)modelSettings.getSnackFactory();
+		SnackFactory snackFactory = (SnackFactory)settings.getSnackFactory();
 		snackFactory.changeSnackPrices(player.getLocation());
 		String infoChangePrices = "(Die Marktpreise haben sich geändert.)";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")
-					.append(Experience.randomExperience(modelSettings).process(player))
+					.append(Experience.randomExperience(settings).process(player))
 					.append(" ");
 		return new Answer(eventAnswer.toString(), payment, infoChangePrices);
 	}

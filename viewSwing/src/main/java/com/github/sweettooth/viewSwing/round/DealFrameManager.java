@@ -1,57 +1,61 @@
-package com.github.sweettooth.viewSwing.views;
+package com.github.sweettooth.viewSwing.round;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.concurrent.Callable;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
 import com.github.sweettooth.controllerSwing.api.IDealController;
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
-import com.github.sweettooth.model.api.viewAPI.IPlayer;
+import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
+import com.github.sweettooth.shared.api.FrameNavigator;
+import com.github.sweettooth.shared.api.Loggable;
+import com.github.sweettooth.shared.api.UpdateGuard;
 import com.github.sweettooth.viewSwing.commons.Tools;
 
-public class DealFrameManager extends FrameManager implements Observer, Callable<JFrame> {
-	SwingGUI gui;
+public class DealFrameManager implements Observer, UpdateGuard, Loggable {
+	private final Logger logger;
 	DealFrameDesign design;
 	IDealController controller;
+	ISessionData sessionData;
+	IGameData gameData;
+	private JFrame dealFrame;
+	boolean updating;
 	
-	private IPlayer player;
-	private IMoneyDealer loanShark;
-	private IMoneyDealer bank;
-	
-	DealFrameManager(SwingGUI gui, IGameData gameData, GameSettings settings) {
-		super(gameData, settings);
-		this.gui = gui;
+	public DealFrameManager(FrameNavigator frameNavigator, ISessionData sessionData, IGameData gameData) {
+		logger = Logger.getLogger(DealFrameManager.class.getName());
 		design = new DealFrameDesign();
-		controller = IDealController.getInstance().initialize(gameData);
-		
-		player = gameData.player();
-		loanShark = gameData.loanShark();
-		bank = gameData.bank();
+		controller = IDealController.getInstance(frameNavigator, sessionData, gameData);
+		this.sessionData = sessionData;
+		this.gameData = gameData;
+
+		gameData.registerObserver(this);
+	}
+	
+	public void createFrame() {
+		dealFrame = design.createFrame();
+		initializeContent();
+		updateContent();
+		addInputHandling();
+	}
+	
+	public JFrame getDealFrame() {
+		return dealFrame;
 	}
 	
 	@Override
-	public JFrame call() throws Exception {
-		info(String.format(Thread.currentThread().getName() + " is running: "+ getClass().getSimpleName() + " > " + Thread.currentThread().getStackTrace()[1].getMethodName()));
-		
-		JFrame dealFrame = gui.getDealFrame();
-		JFrame newFrame = null;
-		
-		if (dealFrame == null || !dealFrame.isDisplayable()) {
-			newFrame = design.createDesign();
-			initializeContent();
-			updateContent();
-			addInputHandling();
-			return newFrame;
-		}
-		return dealFrame;
+	public Logger getLogger() {
+		return logger;
 	}
+	
+	@Override
+    public boolean isUpdating() {
+        return updating;
+    }
 	
 	@Override
 	public void update() {
@@ -82,6 +86,7 @@ public class DealFrameManager extends FrameManager implements Observer, Callable
 			design.withdraw.addActionListener(controller.createTextFieldListener("Withdraw", null, design.withdraw, design.bankInfo));
 			design.lend.addActionListener(controller.createTextFieldListener("Lend", null, design.lend, design.loansharkInfo));
 			design.giveBack.addActionListener(controller.createTextFieldListener("GiveMoneyBack", null, design.giveBack, design.loansharkInfo));
+			design.dealFrame.addWindowListener(controller.createWindowCloseListener());
 		}
 		catch(RuntimeException ex)  {
 			error("Error when adding input handling " + ex.getClass().getName(), ex);
@@ -116,7 +121,7 @@ public class DealFrameManager extends FrameManager implements Observer, Callable
 
 	private void initializeContent() {
 		try {
-			design.frame.setTitle("Sweet Tooth");
+			design.dealFrame.setTitle("Sweet Tooth");
 			design.tabbedPane.setTitleAt(0, "START");
 			design.tabbedPane.setTitleAt(1, "GELD");
 			design.tabbedPane.setTitleAt(2, "IM VERSTECK");
@@ -135,7 +140,7 @@ public class DealFrameManager extends FrameManager implements Observer, Callable
 			design.sellTitel.setText("Hey! Willst du was Süßes?");
 			design.buySelectionLabel.setText("Ich mag...");
 			design.sellSelectionLabel.setText("Ich verkaufe dir...");
-			settings.getSnackFactory().defaultSnacks().stream()
+			sessionData.getSettings().getSnackFactory().defaultSnacks().stream()
 				.sorted(Comparator.comparing(Snackable::name))
 				.forEach(e -> { design.buySelection.addItem(e.name()); design.sellSelection.addItem(e.name()); });
 			design.buySelection.setSelectedIndex(0);
@@ -157,9 +162,9 @@ public class DealFrameManager extends FrameManager implements Observer, Callable
 			design.depositAnswer.setText("Natürlich, welchen Betrag?");
 			design.withdrawLabel.setText("Ich würde gerne Geld abheben.");
 			design.withdrawAnswer.setText("Gerne, wie viel?");
-			design.bankDispoHint.setText(bank.getDispoHint());
-			design.bankInterestHint1.setText(bank.getCreditInterestHint());
-			design.bankInterestHint2.setText(bank.getDebitInterestHint());
+			design.bankDispoHint.setText(gameData.bank().getDispoHint());
+			design.bankInterestHint1.setText(gameData.bank().getCreditInterestHint());
+			design.bankInterestHint2.setText(gameData.bank().getDebitInterestHint());
 		    // Loanshark Panel
 			design.loansharkTitle.setText("KREDITHAI:");
 			design.loansharkBalanceLabel.setText("Schulden:");
@@ -167,7 +172,7 @@ public class DealFrameManager extends FrameManager implements Observer, Callable
 			design.lendAnswer.setText("Wie viel willst du?!");
 			design.giveBackLabel.setText("Hier, ich hab dein Geld dabei.");
 			design.giveBackAnswer.setText("Lass sehn...");
-			design.loansharkInterestHint.setText(loanShark.getDebitInterestHint());
+			design.loansharkInterestHint.setText(gameData.loanShark().getDebitInterestHint());
 		    // Travel Panel
 			design.travelTitle1.setText("Du willst dich mal umschauen?");
 			design.travelTitle2.setText("Klar, aber du wirst den ganzen Tag unterwegs sein.");
@@ -192,31 +197,31 @@ public class DealFrameManager extends FrameManager implements Observer, Callable
 			updating = true;
 			// Current Panel
 			design.currentDay.setText(Integer.toString(gameData.getDayOfGame()));
-			design.currentLocation.setText(player.location().getOfficialName());
-			design.cash.setText(Tools.formatMoney(settings, player.cash()));
+			design.currentLocation.setText(sessionData.getPlayer().getLocation().getOfficialName());
+			design.cash.setText(Tools.formatMoney(sessionData.getSettings(), sessionData.getPlayer().getCash()));
 			design.pockets.removeAllItems();
-		    ArrayList<String> pocketItems = Tools.formatSnacks(settings, player.snacks());
+		    ArrayList<String> pocketItems = Tools.formatSnacks(sessionData.getSettings(), sessionData.getPlayer().snacks());
 		    for(String pi : pocketItems)
 		    	design.pockets.addItem(pi);
 		    // Buy Sell Panel
 		    String buySelectedItem = design.buySelection.getSelectedItem().toString().strip();
-		    Double buyPriceValue = settings.getSnackFactory().defaultSnacks().stream()
+		    Double buyPriceValue = sessionData.getSettings().getSnackFactory().defaultSnacks().stream()
 		    	.filter(e -> e.name().equalsIgnoreCase(buySelectedItem))
 		    	.findFirst()
 		    	.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + buySelectedItem))
 		    	.staticPrice();
-		    design.buyPrice.setText(Tools.formatMoney(settings, buyPriceValue));
+		    design.buyPrice.setText(Tools.formatMoney(sessionData.getSettings(), buyPriceValue));
 		    String sellSelectedItem = design.sellSelection.getSelectedItem().toString().strip();
-		    Double sellPriceValue = settings.getSnackFactory().defaultSnacks().stream()
+		    Double sellPriceValue = sessionData.getSettings().getSnackFactory().defaultSnacks().stream()
 		    		.filter(e -> e.name().equalsIgnoreCase(sellSelectedItem))
 		    		.findFirst()
 		    		.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + sellSelectedItem))
 		    		.staticPrice();
-		    design.sellPrice.setText(Tools.formatMoney(settings, sellPriceValue));
+		    design.sellPrice.setText(Tools.formatMoney(sessionData.getSettings(), sellPriceValue));
 		    design.buySellInfo.setText("");
 		    // Hide Seek Panel
 		    design.stash.removeAllItems();
-		    ArrayList<String> stashedItems = Tools.formatSnacks(settings, player.stash());
+		    ArrayList<String> stashedItems = Tools.formatSnacks(sessionData.getSettings(), sessionData.getPlayer().stash());
 		    for(String si : stashedItems)
 		    	design.stash.addItem(si);
 		    design.seekQuantity.setText("");
@@ -224,21 +229,21 @@ public class DealFrameManager extends FrameManager implements Observer, Callable
 		    // Bank Panel
 		    design.deposit.setText("");
 		    design.withdraw.setText("");
-		    design.bankBalance.setText(Tools.formatMoney(settings, bank.clientsBalance(player)));
+		    design.bankBalance.setText(Tools.formatMoney(sessionData.getSettings(), gameData.bank().clientsBalance(sessionData.getPlayer())));
 		    design.bankInfo.setText("");
 		    // Loanshark Panel
 		    design.lend.setText("");
 		    design.giveBack.setText("");
-		    design.loansharkBalance.setText(Tools.formatMoney(settings, loanShark.clientsBalance(player)));
+		    design.loansharkBalance.setText(Tools.formatMoney(sessionData.getSettings(), gameData.loanShark().clientsBalance(sessionData.getPlayer())));
 		    design.loansharkInfo.setText("");
 		    // Travel Panel
-		    design.ticketPrice.setText(Tools.formatMoney(settings, settings.getTravelCosts()));
+		    design.ticketPrice.setText(Tools.formatMoney(sessionData.getSettings(), sessionData.getSettings().getTravelCosts()));
 		    design.travelInfo1.setText("");
 		    design.travelInfo2.setText("");
 		    design.travelInfo3.setText("");
 		    design.travelInterest.setText("");
 		    // Info Panel
-		    design.balanceSheet.setText(Tools.formatBalanceSheet(settings, gameData));
+		    design.balanceSheet.setText(Tools.formatBalanceSheet(sessionData, gameData));
 		}
 		catch(RuntimeException ex) {
 			error("Error when updating content " + ex.getClass().getName(), ex);

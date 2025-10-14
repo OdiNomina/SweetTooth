@@ -3,48 +3,30 @@ package com.github.sweettooth.model.games;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.viewAPI.Observer;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
 import com.github.sweettooth.model.characters.MoneyDealer;
-import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.commons.InternSettings;
 
 public class GameData implements IGameData {
-	private ArrayList<Observer> observers;
-	private ScoreManager scoreManager;
+	private final List<Observer> observers;
+	private final MoneyDealer bank;
+	private final MoneyDealer loanShark;
+	
 	private int dayOfGame;
 	private boolean gameOver;
 	private boolean exitButtonClicked;
 	
-	private Player player;
-	private MoneyDealer bank;
-	private MoneyDealer loanShark;
-	private GameSettings modelSettings;
-	
-	public GameData() {
+	public GameData(GameSettings gameSettings) {
 		observers = new ArrayList<>();
-		scoreManager = new ScoreManager();
+		
+		bank = new Bank(gameSettings);
+		loanShark = new LoanShark(gameSettings);
 		dayOfGame = Integer.valueOf(1);
-	}
-	
-	public void addScore(Double score) {
-		scoreManager.addScore(player.getName(), score);
-	}
-	
-	@Override
-	public IGameData initialize(GameSettings modelSettings, String namePlayer) throws NullPointerException {
-		this.modelSettings = Objects.requireNonNull(modelSettings);
-		player = new Player(namePlayer);
-		bank = new Bank(modelSettings);
-		loanShark = new LoanShark(modelSettings);
-		return this;
 	}
 	
 	public MoneyDealer getBank() {
@@ -58,25 +40,6 @@ public class GameData implements IGameData {
 	
 	public MoneyDealer getLoanShark() {
 		return loanShark;
-	}
-	
-	
-	public Player getPlayer() {
-		return player;
-	}
-	
-	@Override
-	public List<ScoreData> getScores() {
-        return scoreManager.getScores();
-    }
-	
-	@Override
-	public ScoreProvider getScoreProvider() {
-		return scoreManager;
-	}
-
-	public GameSettings getSettings() {
-		return modelSettings;
 	}
 	
 	@Override
@@ -110,5 +73,10 @@ public class GameData implements IGameData {
 	@Override
 	public void setExitButtonClicked(boolean exitButtonClicked) {
 		this.exitButtonClicked = exitButtonClicked;
+	}
+	
+	@Override
+	public void unregisterObserver(Observer o) {
+		observers.remove(o);
 	}
 }

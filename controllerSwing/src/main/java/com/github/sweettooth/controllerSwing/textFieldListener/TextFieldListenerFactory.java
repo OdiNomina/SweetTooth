@@ -18,7 +18,7 @@ public class TextFieldListenerFactory {
 	}
 	
 	public ActionListener create(String eventName, JComboBox<String> associatedComboBox, JComponent nextInFocus, JLabel answerBox) {
-		IGameData gameData = controller.getGameModel();
+		IGameData gameData = controller.getGameData();
 		Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 		switch(eventName.toLowerCase()) {
 			case "seek": return new SeekTextFieldListener(gameData, event, nextInFocus, answerBox);

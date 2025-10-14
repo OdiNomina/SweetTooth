@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.session.SessionData;
 import com.github.sweettooth.model.snacks.Snack;
 
 public final class Seek extends Event {
-	Seek(GameData gameData){
-		super(gameData);
+	Seek(SessionData sessionData, GameData gameData){
+		super(sessionData, gameData);
 	}
 	
 	@Override
@@ -18,7 +19,7 @@ public final class Seek extends Event {
 			
 			if(!isAtHometown()) return notAtHometown;
 			
-			ArrayList<? extends Snack> snackStash = player.getCandyStash();
+			ArrayList<? extends Snack> snackStash = player.getSnacksInStash();
 			if(snackStash.isEmpty()) return "Hä...?!";
 			
 			final String snackInput = clearStringInput(stringInput);
@@ -31,8 +32,8 @@ public final class Seek extends Event {
 			
 			if(Tools.isTooMuchToCarry(player, integerInput)) return "Soviel kannst du nicht tragen.";
 			
-			player.addSnack(selectedSnack, player.getCandies(), integerInput);
-			player.removeSnack(selectedSnack, player.getCandyStash(), integerInput);
+			player.addSnack(selectedSnack, player.getSnacksInPockets(), integerInput);
+			player.removeSnack(selectedSnack, player.getSnacksInStash(), integerInput);
 			return "Eingepackt";
 		} catch(IllegalArgumentException ex) {
 			this.warn("Error when Seek", ex);

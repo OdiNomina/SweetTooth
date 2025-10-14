@@ -8,6 +8,7 @@ public class InternSettings {
 	 */
 	public final static int GAME_DURATION_DAYS = Integer.valueOf(30);
 	public final static Location HOMETOWN = Location.BRONX;
+	public final static double START_CASH = Double.valueOf(200);
 	
 	public final static int MAX_SNACKS = Integer.valueOf(100); 
 	

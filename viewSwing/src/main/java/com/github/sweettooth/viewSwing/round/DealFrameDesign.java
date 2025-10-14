@@ -1,10 +1,9 @@
-package com.github.sweettooth.viewSwing.views;
+package com.github.sweettooth.viewSwing.round;
 
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
-
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -21,7 +20,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 public class DealFrameDesign {
-	JFrame frame;
+	JFrame dealFrame;
 	JTabbedPane tabbedPane;
 	// Title Panel
 	JLabel title1Label;
@@ -100,7 +99,7 @@ public class DealFrameDesign {
 	JButton seekButton;
 	JLabel hideSeekInfo;
 	
-	JFrame createDesign() {
+	JFrame createFrame() {
 		String sampleText = "Sample text for formatting purposes.";
 
 		JPanel titlePanel = new JPanel();
@@ -971,12 +970,12 @@ public class DealFrameDesign {
 		tabbedPane.addTab("", null, financesScrollPane, null);
 		tabbedPane.addTab("", null, stashScrollPane, null);
 		
-		frame = new JFrame();
-		frame.setPreferredSize(new Dimension(1000, 700));
-		frame.getContentPane().setBackground(new Color(0, 102, 153));
-		frame.setBounds(100, 100, 1100, 815);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		GroupLayout gl_contentPane = new GroupLayout(frame.getContentPane());
+		dealFrame = new JFrame();
+		dealFrame.setPreferredSize(new Dimension(1000, 700));
+		dealFrame.getContentPane().setBackground(new Color(0, 102, 153));
+		dealFrame.setBounds(100, 100, 1100, 815);
+		dealFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		GroupLayout gl_contentPane = new GroupLayout(dealFrame.getContentPane());
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
@@ -991,7 +990,7 @@ public class DealFrameDesign {
 					.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
-		frame.getContentPane().setLayout(gl_contentPane);
-		return frame;
+		dealFrame.getContentPane().setLayout(gl_contentPane);
+		return dealFrame;
 	}
 }

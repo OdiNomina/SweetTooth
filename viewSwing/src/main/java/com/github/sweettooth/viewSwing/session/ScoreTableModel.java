@@ -1,6 +1,6 @@
-package com.github.sweettooth.viewSwing.views;
+package com.github.sweettooth.viewSwing.session;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
@@ -12,7 +12,7 @@ public class ScoreTableModel extends AbstractTableModel {
     private final String[] columns = {"Rang", "Name", "Score"};
 
     public ScoreTableModel() {
-        scoreList = new LinkedList<ScoreData>();
+        scoreList = new ArrayList<ScoreData>();
     }
 	
 	@Override
@@ -43,6 +43,7 @@ public class ScoreTableModel extends AbstractTableModel {
 	
 	void updateScores(List<ScoreData> scores) {
 		scoreList.clear();
-		scores.stream().forEach(scoreList::add);
+		scoreList.addAll(scores);
+		fireTableDataChanged();
 	}
 }

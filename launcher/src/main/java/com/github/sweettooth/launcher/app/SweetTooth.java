@@ -9,10 +9,11 @@ import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.GameSettings;
+import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.api.ISnackFactory.SnackType;
-import com.github.sweettooth.model.api.GameSettings;
+import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.LoggingSetup;
 import com.github.sweettooth.viewSwing.api.SwingDisplay;
@@ -33,12 +34,11 @@ public class SweetTooth implements Loggable {
 			app.setDefaultUncaughtExceptionHandler();
 			app.addShutdownHook();
 			
+			ScoreProvider scoreProvider = ScoreProvider.createScoreProvider();
 			GameSettings gameSettings = new GameSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
+			ISessionData sessionData = ISessionData.createSessionData(scoreProvider, gameSettings, null);
 			
-			IGameData gameModel = IGameData.createGameData().initialize(gameSettings, null);
-			
-			SwingDisplay gui = SwingDisplay.getInstance(gameModel);
-			gui.initialize(gameSettings);
+			SwingDisplay gui = SwingDisplay.getInstance(sessionData);
 			
 			executor.submit(gui);
 			

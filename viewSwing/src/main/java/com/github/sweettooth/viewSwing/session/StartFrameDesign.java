@@ -1,4 +1,4 @@
-package com.github.sweettooth.viewSwing.views;
+package com.github.sweettooth.viewSwing.session;
 
 import javax.swing.JFrame;
 import java.awt.Color;
@@ -16,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JButton;
 
 public class StartFrameDesign {
-	JFrame frame;
 	JLabel titleLabel;
 	JButton playButton;
 	JTable table;
@@ -24,7 +23,7 @@ public class StartFrameDesign {
 	/**
 	 * @wbp.parser.entryPoint
 	 */
-	JFrame createDesign(ScoreTableModel scoreTableModel) {
+	JFrame createFrame(ScoreTableModel scoreTableModel) {
 		String sampleText = "Sample text for formatting purposes.";
 		
 		titleLabel = new JLabel(sampleText);
@@ -57,7 +56,7 @@ public class StartFrameDesign {
 		scrollPane.setPreferredSize(new Dimension(650, 500));
 		scrollPane.setViewportView(table);
 		
-		frame = new JFrame();
+		JFrame frame = new JFrame();
 		frame.setMinimumSize(new Dimension(775, 750));
 		frame.setPreferredSize(new Dimension(775, 750));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

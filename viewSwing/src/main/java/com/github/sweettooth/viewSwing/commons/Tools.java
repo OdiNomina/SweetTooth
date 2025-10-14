@@ -8,7 +8,7 @@ import java.util.Locale;
 
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.viewAPI.IPlayer;
+import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
 
 public class Tools {
@@ -54,12 +54,11 @@ public class Tools {
 	 * Flag ',': The result will include locale-specific grouping separators.
 	 * Conversion 'f': The result is formatted as a decimal number.
 	 */
-	public static String formatBalanceSheet(GameSettings gameSettings, IGameData gameData) {
-    	IPlayer player = gameData.player();
-    	double cash = player.cash();
-		double loan = gameData.loanShark().clientsBalance(player);
-		double balance = gameData.bank().clientsBalance(player);
-		Locale locale = gameSettings.getLocale();
+	public static String formatBalanceSheet(ISessionData sessionData, IGameData gameData) {
+    	double cash = sessionData.getPlayer().getCash();
+		double loan = gameData.loanShark().clientsBalance(sessionData.getPlayer());
+		double balance = gameData.bank().clientsBalance(sessionData.getPlayer());
+		Locale locale = sessionData.getSettings().getLocale();
 		String currency = Currency.getInstance(locale).getSymbol();
 		StringBuffer answer = new StringBuffer();
 		answer.append(String.format(locale, "Cash: %,.2f %s", cash, currency))

@@ -1,23 +1,17 @@
 package com.github.sweettooth.model.api;
 
 import java.io.IOException;
-import java.util.List;
 
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
-import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.games.GameData;
 
 public interface IGameData {
 	// --- launcher
 	
-	static IGameData createGameData() {
-		return new GameData();
+	static IGameData createGameData(GameSettings gameSettings) {
+		return new GameData(gameSettings);
 	}
-	
-	IGameData initialize(GameSettings modelSettings, String namePlayer) throws NullPointerException;
 	
 	// --- controller
 	
@@ -35,15 +29,10 @@ public interface IGameData {
 		return (IMoneyDealer) ((GameData)this).getLoanShark();
 	}
 	
-	public default IPlayer player() {
-		return (IPlayer) ((GameData)this).getPlayer();
-	}
-	
 	int getDayOfGame();
-	List<ScoreData> getScores();
-	ScoreProvider getScoreProvider();
 	boolean isExitButtonClicked();
 	void registerObserver(Observer o);
+	void unregisterObserver(Observer o);
 	
 	// --- controller and view
 	

@@ -11,23 +11,32 @@ import com.github.sweettooth.model.locations.Location;
 import com.github.sweettooth.model.snacks.Snack;
 
 public class Player implements IPlayer, PersistentPreference {
-	private Location hometown;
+	private final String name;
+	private final Location hometown;
+	private final ArrayList<Snack> snacksInPockets;
+	private final ArrayList<Snack> snacksInStash;
+	
 	private Location location;
-	private final ArrayList<Snack> candies = new ArrayList<>();
-	private final ArrayList<Snack> candyStash = new ArrayList<>();
-	private double cash = 200;
-	private String name;
-
+	private double cash;
+	
 	public Player(String name){
-		hometown = InternSettings.HOMETOWN;
-		location = hometown;
 		this.name = Objects.requireNonNullElse(name, "Anonymer Spieler");
+		hometown = InternSettings.HOMETOWN;
+		snacksInPockets = new ArrayList<>();
+		snacksInStash = new ArrayList<>();
+		initialize();
+	}
+	
+	private void initialize() {
+		location = hometown;
+		cash = InternSettings.START_CASH;
 	}
 
 	public Location getHometown() {
 		return hometown;
 	}
 	
+	@Override
 	public Location getLocation() {
 		return location;
 	}
@@ -106,8 +115,8 @@ public class Player implements IPlayer, PersistentPreference {
 		Player other = (Player) obj;
 		long thisCash = cash == 0.0 ? 0L : Double.doubleToLongBits(cash);
 		long otherCash = other.cash == 0.0 ? 0L : Double.doubleToLongBits(other.cash);
-		return Objects.equals(candies, other.candies) //ArrayList compares elementData
-				&& Objects.equals(candyStash, other.candyStash) 
+		return Objects.equals(snacksInPockets, other.snacksInPockets) //ArrayList compares elementData
+				&& Objects.equals(snacksInStash, other.snacksInStash) 
 				&& thisCash == otherCash
 				&& name.equalsIgnoreCase(other.name);
 	}
@@ -115,24 +124,26 @@ public class Player implements IPlayer, PersistentPreference {
 	/**
 	 * Returns the list reference of player's candies list.
 	 */
-	public ArrayList<Snack> getCandies() {
-		return candies;
+	public ArrayList<Snack> getSnacksInPockets() {
+		return snacksInPockets;
 	}
 	
 	/**
 	 * Returns the list reference of player's candyStash list.
 	 */
-	public ArrayList<Snack> getCandyStash() {
-		return candyStash;
+	public ArrayList<Snack> getSnacksInStash() {
+		return snacksInStash;
 	}
 	
 	/**
 	 * Returns player's cash rounded to two decimal places.
 	 */
+	@Override
 	public double getCash() {
 		return Tools.rounded(cash);
 	}
 	
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -146,7 +157,7 @@ public class Player implements IPlayer, PersistentPreference {
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
-		result = prime * result + Objects.hash(candies, cash, name, candyStash);
+		result = prime * result + Objects.hash(snacksInPockets, cash, name, snacksInStash);
 		return result;
 	}
 
@@ -202,6 +213,13 @@ public class Player implements IPlayer, PersistentPreference {
 			}
 		}
 	}
+	
+	@Override
+	public void reset() {
+	    snacksInPockets.clear();
+	    snacksInStash.clear();
+	    initialize();
+	}
 
 	/**
 	 * Sets player's cash rounded to two decimal places.
@@ -219,8 +237,8 @@ public class Player implements IPlayer, PersistentPreference {
 	@Override
 	public String toString() {
 		StringBuffer builder = new StringBuffer();
-		builder.append("Player [candies=").append(candies)
-			.append(", candyStash=").append(candyStash)
+		builder.append("Player [candies=").append(snacksInPockets)
+			.append(", candyStash=").append(snacksInStash)
 			.append(", cash=").append(cash)
 			.append(", name=").append(name)
 			.append(", hometown=").append(hometown)

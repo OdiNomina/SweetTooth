@@ -3,11 +3,12 @@ package com.github.sweettooth.model.events;
 import java.util.NoSuchElementException;
 
 import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.session.SessionData;
 import com.github.sweettooth.model.snacks.Snack;
 
 public final class Sell extends Event {
-	Sell(GameData gameData){
-		super(gameData);
+	Sell(SessionData sessionData, GameData gameData){
+		super(sessionData, gameData);
 	}
 	
 	@Override
@@ -17,13 +18,13 @@ public final class Sell extends Event {
 			if(integerInput < 1)
 				return "Nix verkauft";
 			
-			Snack playersCandy = Snack.findSnack(player.getCandies(), stringInput);
+			Snack playersCandy = Snack.findSnack(player.getSnacksInPockets(), stringInput);
 			if(playersCandy.getQuantity() < integerInput)
 				return "Kannst du nicht zählen?";
 			if(playersCandy.getQuantity() > integerInput)
 				playersCandy.reduceQuantity(integerInput);
 			else
-				player.getCandies().remove(playersCandy);
+				player.getSnacksInPockets().remove(playersCandy);
 			player.addCash(playersCandy.getStaticPrice() * integerInput);			
 			return "Verkauft";
 		} catch(NoSuchElementException ex) {

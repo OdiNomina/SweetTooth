@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.games;
+package com.github.sweettooth.model.session;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,8 +7,8 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -16,26 +16,34 @@ import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.shared.api.Loggable;
 
 public class ScoreManager implements Loggable, ScoreProvider {
-	final Logger logger;
-    Path userHome = Path.of(System.getProperty("user.home"));
-    Path appDir = userHome.resolve(".SweetTooth");
-    Path scoreFile = appDir.resolve("scores.txt");
-    
-    List<ScoreEntry> scores = new LinkedList<>();
+	private final Logger logger;
+	private final List<ScoreEntry> scores;
+	
+	Path userHome;
+    Path appDir;
+    Path scoreFile;
     
     public ScoreManager() {
     	logger = Logger.getLogger(ScoreManager.class.getName());
+    	scores = new ArrayList<>();
+    	
+    	userHome = Path.of(System.getProperty("user.home"));
+    	appDir = userHome.resolve(".SweetTooth");
+    	scoreFile = appDir.resolve("scores.txt");
     }
-    
-    public void addScore(String name, double score) {
-        scores.add(new ScoreEntry(name, score));
+   
+    @Override
+    public synchronized void addScore(String name, Double score) {
+    	scores.removeIf(e -> e.score() == null || e.score().isNaN());
+    	scores.add(new ScoreEntry(name, score));
         Collections.sort(scores);
-        scores = scores.stream().limit(50).toList();
+        if (scores.size() > 50)
+            scores.subList(50, scores.size()).clear();
         writeScores();
     }
     
     @Override
-    public void readScores() {
+    public synchronized void readScoresFromFile() {
         try {
         	if(Files.notExists(appDir))
         		Files.createDirectories(appDir);
@@ -43,22 +51,19 @@ public class ScoreManager implements Loggable, ScoreProvider {
         	if(Files.notExists(scoreFile))
         		try (InputStream is = getClass().getResourceAsStream("/defaultScores.txt")) {
         			if (is == null) 
-                        throw new FileNotFoundException("Resource defaultScores.txt nicht gefunden!");
-                    
+                        throw new FileNotFoundException("Resource defaultScores.txt not found!");
         			Files.copy(is, scoreFile);
         		}
         	
+        	scores.clear();
     		try (BufferedReader reader = Files.newBufferedReader(scoreFile)) {
-    			reader.lines()
-    				.map(ScoreEntry::fromString)
-    				.forEach(scores::add);
+    			reader.lines().map(ScoreEntry::fromString).forEach(scores::add);
     		}
     		Collections.sort(scores);
-    		scores = scores.stream().limit(50).toList();
-        } catch(IOException ex) {
-        	error("IOException while reading score file.", ex);
-        } catch(RuntimeException ex) {
-        	error("Exception while reading scores ", ex);
+    		if (scores.size() > 50)
+    		    scores.subList(50, scores.size()).clear();
+        } catch(IOException | RuntimeException ex) {
+        	error("Exception while reading scores from file. ", ex);
         }
     }
     
@@ -70,7 +75,7 @@ public class ScoreManager implements Loggable, ScoreProvider {
     		
     		Files.write(scoreFile, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
     	} catch(IOException ex) {
-    		error("IOException while writing score file.", ex);
+    		error("Exception while writing scores in file.", ex);
     	}
     }
 
@@ -80,11 +85,9 @@ public class ScoreManager implements Loggable, ScoreProvider {
 	}
 
 	@Override
-	public List<ScoreData> getScores() {
-		return Collections.unmodifiableList(
-				scores.stream()
+	public synchronized List<ScoreData> getScores() {
+		return scores.stream()
 					.map(e -> new ScoreData(e.name(), e.score()))
-					.toList()
-				);
+					.toList();
 	}
 }

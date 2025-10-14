@@ -6,19 +6,16 @@ import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.characters.Player;
 
 public interface IPlayer {
-	public default double cash() {
-		return ((Player)this).getCash();
-	}
-	
 	public default ArrayList<? extends Snackable> snacks() {
-		return ((Player)this).getCandies();
+		return ((Player)this).getSnacksInPockets();
 	}
 	
 	public default ArrayList<? extends Snackable> stash() {
-		return ((Player)this).getCandyStash();
+		return ((Player)this).getSnacksInStash();
 	}
 	
-	public default ILocation location() {
-		return ((Player)this).getLocation();
-	}
+	double getCash();
+	ILocation getLocation();
+	String getName();
+	void reset();
 }

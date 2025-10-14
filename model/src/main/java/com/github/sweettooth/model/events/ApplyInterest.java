@@ -4,15 +4,16 @@ import java.util.Currency;
 import java.util.Locale;
 
 import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.session.SessionData;
 
 public final class ApplyInterest extends Event {
-	ApplyInterest(GameData gameData){
-		super(gameData);
+	ApplyInterest(SessionData sessionData, GameData gameData){
+		super(sessionData, gameData);
 	}
 	
 	@Override
 	public String process(String stringInput, Integer integerInput, Double doubleInput) {
-		Locale locale = modelSettings.getLocale();
+		Locale locale = settings.getLocale();
 		StringBuffer answer = new StringBuffer();
 		answer.append("Fällige Zinsen für gestern: Bank ")
 			.append(String.format(locale, "%.2f %s", bank.applyInterestToBalance(player), Currency.getInstance(locale).getSymbol()))

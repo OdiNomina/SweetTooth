@@ -13,14 +13,13 @@ import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class ComboBoxListenerFactory {
 	private DealController controller;
-	private IGameData gameData;
 	
 	public ComboBoxListenerFactory(DealController controller){
 		this.controller = controller;
-		gameData = controller.getGameModel();
 	}
 	
 	public ActionListener create(UpdateGuard guard, JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
+		IGameData gameData = controller.getGameData();
 		try {
 			switch(eventName.toLowerCase()) {
 				case "buy": return new DealSelectionListener(gameData, guard,nextInFocus);

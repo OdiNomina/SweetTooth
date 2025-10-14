@@ -1,9 +1,12 @@
 package com.github.sweettooth.controllerSwing.api;
 
 import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.shared.api.FrameNavigator;
 import com.github.sweettooth.shared.api.UpdateGuard;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 
 import javax.swing.JComboBox;
 import javax.swing.JComponent;
@@ -14,11 +17,9 @@ import com.github.sweettooth.controllerSwing.controllers.DealController;
 
 @SuppressWarnings("exports")
 public interface IDealController {
-	static IDealController getInstance() {
-		return new DealController();
+	static IDealController getInstance(FrameNavigator frameNavigator, ISessionData sessionData, IGameData gameData) {
+		return new DealController(frameNavigator, sessionData, gameData);
 	}
-	
-	IDealController initialize(IGameData gameModel) throws NullPointerException;
 	
 	/**
 	 * Creates the matching text field listener for the event.
@@ -50,4 +51,6 @@ public interface IDealController {
 	 * @return java.awt.event.ActionListener
 	 */
 	ActionListener createButtonListener(String eventName, JComboBox<String> associatedComboBox, JTextField associatedTextField, JComponent nextInFocus, JLabel... answerBox);
+	
+	WindowListener createWindowCloseListener();
 }

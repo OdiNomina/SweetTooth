@@ -11,9 +11,9 @@ final class MuggingCandies extends Experience {
 	
 	@Override
 	public String process(Player player) {
-		if(player.getCandies().size() < 1)
+		if(player.getSnacksInPockets().size() < 1)
 			return "Jemand will dir Süßigkeiten klauen, aber du hast nichts.";
-		player.getCandies().clear();
+		player.getSnacksInPockets().clear();
 		return "Hilfe! Jemand klaut dir alle Süßigkeiten.";
 	}
 }

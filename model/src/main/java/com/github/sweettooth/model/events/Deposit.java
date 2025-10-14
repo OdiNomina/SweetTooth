@@ -1,10 +1,11 @@
 package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.session.SessionData;
 
 public final class Deposit extends Event {
-	Deposit(GameData gameData){
-		super(gameData);
+	Deposit(SessionData sessionData, GameData gameData){
+		super(sessionData, gameData);
 	}
 	
 	@Override

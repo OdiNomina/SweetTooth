@@ -14,29 +14,33 @@ import java.util.logging.SimpleFormatter;
 public class LoggingSetup {
 	public static Path logsPath;
 	
-	public static void initialize(Class<?> launchClass) {
-        createLogsDirectory(launchClass);
+	public static void initialize(Class<?> launcher) {
+        createLogsDirectory(launcher);
         configureLogging();
     }
 	
-	public static void createLogsDirectory(Class<?> launchClass) {
+	private static void createLogsDirectory(Class<?> launcher) {
 		try {
-			Path compiledOutputPath = Paths.get(launchClass.getProtectionDomain().getCodeSource().getLocation().toURI());
-			Path projectRoot = compiledOutputPath // bin
+			Path launcherPath = Paths.get(launcher.getProtectionDomain().getCodeSource().getLocation().toURI());
+			
+			Path projectRoot = launcherPath // bin
 					.getParent() // launcher
 					.getParent(); // project root
 			logsPath = projectRoot.resolve("_LOGFILES");
+//			System.out.println("############## launcherPath " + launcherPath);
+//			System.out.println("############## projectRoot " + projectRoot);
+//			System.out.println("############## logsPath " + logsPath);
 			try {
 				Files.createDirectory(logsPath);
 			} catch(FileAlreadyExistsException ignored) {}
 		}
-		catch(Exception e) {
-			System.err.println("Error while creating the log directory: " + e.getMessage());
-			e.printStackTrace();
+		catch(Exception ex) {
+			System.err.println("Error while creating the log directory: " + ex.getMessage());
+			ex.printStackTrace();
 		}
 	}
 	
-	public static void configureLogging() {
+	private static void configureLogging() {
 		try {
             	LogManager.getLogManager().reset();
             	Logger rootLogger = Logger.getLogger("");
@@ -47,17 +51,17 @@ public class LoggingSetup {
             	consoleHandler.setFormatter(new SimpleFormatter());
             	rootLogger.addHandler(consoleHandler);
             	
-            	String fileNamePattern = logsPath.resolve("app-%u.log").toString();
+            	String fileNamePattern = logsPath.resolve("/app-%u.log").toString();
             	FileHandler fileHandler = new FileHandler(fileNamePattern, 1_000_000, 2, true);
             	fileHandler.setLevel(Level.INFO);
             	fileHandler.setFormatter(new SimpleFormatter());
             	rootLogger.addHandler(fileHandler);
         }
-        catch (Exception e) {
-            System.err.println("Error while configure logging: " + e.getMessage());
-            e.printStackTrace();
+        catch (Exception ex) {
+            System.err.println("Error while configure logging: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 	
-	public LoggingSetup(){}
+	private LoggingSetup(){}
 }

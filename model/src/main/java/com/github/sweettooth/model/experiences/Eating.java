@@ -15,7 +15,7 @@ final class Eating extends Experience {
 	
 	@Override
 	public String process(Player player) {
-		ArrayList<? extends Snack> candies = player.getCandies();
+		ArrayList<? extends Snack> candies = player.getSnacksInPockets();
 		int size = candies.size();
 		if(size == 0)
 			return "Du hast Hunger, aber leider nix zu Essen.";

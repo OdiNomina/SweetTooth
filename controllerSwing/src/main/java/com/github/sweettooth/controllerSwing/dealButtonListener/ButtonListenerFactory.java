@@ -20,7 +20,7 @@ public class ButtonListenerFactory {
 	}
 	
 	public ActionListener create(String eventName, JComboBox<String> associatedComboBox, JTextField associatedTextBox, JComponent nextInFocus, JLabel... answerBox) {
-		IGameData gameData = controller.getGameModel();
+		IGameData gameData = controller.getGameData();
 		Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 		switch(eventName.toLowerCase()) {
 			case "hide": return new HideListener(nextInFocus, gameData, event, answerBox);

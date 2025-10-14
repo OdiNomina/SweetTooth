@@ -1,21 +1,15 @@
 package com.github.sweettooth.controllerSwing.api;
 
 import java.awt.event.ActionListener;
-import javax.swing.JFrame;
 
 import com.github.sweettooth.controllerSwing.controllers.StartController;
+import com.github.sweettooth.shared.api.FrameNavigator;
 
 @SuppressWarnings("exports")
 public interface IStartController {
-	static IStartController getInstance() {
-		return new StartController();
+	static IStartController getInstance(FrameNavigator frameNavigator) {
+		return new StartController(frameNavigator);
 	}
 	
-	/**
-	 * 
-	 * @param startFrame
-	 * @param dealFrame
-	 * @return java.awt.event.ActionListener
-	 */
-	ActionListener createButtonListener(JFrame startFrame, JFrame dealFrame);
+	ActionListener createButtonListener();
 }
