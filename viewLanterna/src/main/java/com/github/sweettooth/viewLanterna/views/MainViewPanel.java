@@ -7,9 +7,10 @@ import java.util.Locale;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.controllerLanterna.api.ILanternaController;
+import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.GameSettings;
+import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
@@ -34,20 +35,20 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	
 	private ILanternaController controller;
 	private IGameData gameData;
-	private GameSettings modelSettings;
+	private GameSettings settings;
 	
 	private IPlayer player;
 	private IMoneyDealer loanShark;
 	private IMoneyDealer bank;
 	
-	public MainViewPanel(LayoutManager layoutManager, IGameData gameModel, ILanternaController controller, GameSettings modelSettings) {
+	public MainViewPanel(LayoutManager layoutManager, ISessionData sessionData, IGameData gameData, ILanternaController controller) {
         super(layoutManager);
         logger = Logger.getLogger(LanternaGUI.class.getName());
         this.controller = controller;
-        this.gameData = gameModel;
-        this.modelSettings = modelSettings;
+        this.gameData = gameData;
         
-        player = gameData.player();
+        settings = sessionData.getSettings();
+        player = sessionData.getPlayer();
         loanShark = gameData.loanShark();
         bank = gameData.bank();
     }
@@ -337,15 +338,15 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	public void updateContent() {
     	try {
 			labels.get("currentDay").setText(Integer.toString(gameData.getDayOfGame()));
-		    labels.get("currentLocation").setText(player.location().getOfficialName());
-		    labels.get("cash").setText(formatMoney(player.cash()));
+		    labels.get("currentLocation").setText(player.getLocation().getOfficialName());
+		    labels.get("cash").setText(formatMoney(player.getCash()));
 		    labels.get("buySellInfo").setText("");
 		    labels.get("hideSeekInfo").setText("");
 		    labels.get("bankBalance").setText(formatMoney(bank.clientsBalance(player)));
 		    labels.get("bankInfo").setText("");
 		    labels.get("loansharkBalance").setText(formatMoney(loanShark.clientsBalance(player)));
 		    labels.get("loansharkInfo").setText("");
-		    labels.get("ticketPrice").setText(formatMoney(modelSettings.getTravelCosts()));
+		    labels.get("ticketPrice").setText(formatMoney(settings.getTravelCosts()));
 		    labels.get("travel1").setText("");
 		    labels.get("travel2").setText("");
 		    labels.get("travel3").setText("");
@@ -397,10 +398,10 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	 */
     private String formatBalanceSheet() {
     	try {
-			double cash = player.cash();
+			double cash = player.getCash();
 			double loan = loanShark.clientsBalance(player);
 			double balance = bank.clientsBalance(player);
-			Locale locale = modelSettings.getLocale();
+			Locale locale = settings.getLocale();
 			String currency = Currency.getInstance(locale).getSymbol();
 			StringBuffer answer = new StringBuffer();
 			answer.append(String.format(locale, "Cash: %,.2f %s", cash, currency))
@@ -421,10 +422,10 @@ public class MainViewPanel extends ViewPanel implements Loggable {
      */
 	private ArrayList<String> formatDefaultSnacks() {
 		try {
-		    ArrayList<? extends Snackable> candies = modelSettings.getSnackFactory().defaultSnacks();
+		    ArrayList<? extends Snackable> candies = settings.getSnackFactory().defaultSnacks();
 		    candies.sort(Comparator.comparing(Snackable::name)); //String implements Comparable
 	    	ArrayList<String> formattedList = new ArrayList<>();
-	    	Locale locale = modelSettings.getLocale();
+	    	Locale locale = settings.getLocale();
 	    	String currency = Currency.getInstance(locale).getSymbol();
 	    	for(Snackable s : candies)
 		    	formattedList.add(String.format(locale, "%s - %.2f %s", s.name(), s.staticPrice(), currency));
@@ -438,7 +439,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	
 	private String formatMoney(double money) {
 		try {
-			Locale locale = modelSettings.getLocale();
+			Locale locale = settings.getLocale();
 			return String.format(locale, "%,.2f %s", money, Currency.getInstance(locale).getSymbol());
 		}
 		catch(RuntimeException e) {
@@ -459,7 +460,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 				formattedList.add("Nix drin!");
 				return formattedList;
 			}
-			Locale locale = modelSettings.getLocale();
+			Locale locale = settings.getLocale();
 			for(Snackable s : snacks)
 				formattedList.add(String.format(locale, "%,d | %s", s.quantity(), s.name()));
 			return formattedList;

@@ -7,8 +7,8 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.controllerLanterna.api.ILanternaController;
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.viewLanterna.api.DisplayElement;
@@ -31,29 +31,24 @@ public class LanternaGUI implements Observer, DisplayElement, Loggable {
 	private final Logger logger;
 	private ILanternaController controller;
 	
+	private ISessionData sessionData;
 	private IGameData gameModel;
-	private GameSettings gameSettings;
 	private ViewPanel mainViewPanel;
 	
-	public LanternaGUI(IGameData gameModel) throws NullPointerException {
+	public LanternaGUI(ISessionData sessionData, IGameData gameData) throws NullPointerException {
 		logger = Logger.getLogger(LanternaGUI.class.getName());
-		this.gameModel = Objects.requireNonNull(gameModel);
+		this.sessionData = Objects.requireNonNull(sessionData);
+		this.gameModel = Objects.requireNonNull(gameData);
 		
 		controller = ILanternaController.getInstance();
-		controller.initialize(gameModel);
+		controller.initialize(sessionData, gameData);
+		
+		gameModel.registerObserver(this);
 	}
 	
 	@Override
 	public Logger getLogger() {	
 		return logger;
-	}
-
-	@Override
-	public DisplayElement initialize(GameSettings gameSettings) throws NullPointerException {
-		this.gameSettings = Objects.requireNonNull(gameSettings);
-		
-		gameModel.registerObserver(this);
-		return this;
 	}
 
 	public void interruptGuiThread() {
@@ -92,7 +87,7 @@ public class LanternaGUI implements Observer, DisplayElement, Loggable {
 	
 	private ViewPanel createMainViewPanel() {
 		try {
-			ViewPanel panel = new MainViewPanel(new GridLayout(2), gameModel, controller, gameSettings);
+			ViewPanel panel = new MainViewPanel(new GridLayout(2), sessionData, gameModel, controller);
 			panel.createContent();
 		    panel.addContent();
 		    panel.initializeContent();
