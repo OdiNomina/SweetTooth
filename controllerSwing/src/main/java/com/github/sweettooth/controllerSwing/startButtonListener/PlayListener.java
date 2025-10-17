@@ -15,6 +15,6 @@ public class PlayListener implements ActionListener  {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		frameNavigator.hideStartFrame();
-		frameNavigator.showDealFrameNewGameRound();
+		frameNavigator.startNewGameRound();
 	}
 }

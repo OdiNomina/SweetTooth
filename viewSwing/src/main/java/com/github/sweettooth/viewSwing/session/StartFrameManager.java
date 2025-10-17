@@ -11,6 +11,7 @@ import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.shared.api.FrameNavigator;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.UpdateGuard;
+import com.github.sweettooth.viewSwing.commons.Tools;
 
 public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 	private final Logger logger;
@@ -36,8 +37,8 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 		scoreProvider.readScoresFromFile();
 		
 		startFrame = design.createFrame(scoreTableModel);
-		initializeContent();
-		updateContent();
+		initializeUI();
+		updateUI();
 		addInputHandling();
 	}
 	
@@ -57,39 +58,45 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 	
 	@Override
 	public void update() {
-		updateContent();
+		updateUI();
 	}
 
 	private void addInputHandling() {
-		try {
-			design.playButton.addActionListener(startController.createButtonListener());
-		}
-		catch(RuntimeException ex)  {
-			error("Error when adding input handling " + ex.getClass().getName(), ex);
-		}
+		Tools.runOnEDT( () -> {
+			try {
+				design.playButton.addActionListener(startController.createButtonListener());
+			}
+			catch(RuntimeException ex)  {
+				error("Error when adding input handling " + ex.getClass().getName(), ex);
+			}
+		});
 	}
 
-	private void initializeContent() {
-		try {
-			startFrame.setTitle("Sweet Tooth");
-			design.titleLabel.setText("Sweet Tooth");
-			design.playButton.setText("Play");
-		}
-		catch(RuntimeException ex) { 
-			error("Error when initializing content " + ex.getClass().getName(), ex);
-		}
+	private void initializeUI() {
+		Tools.runOnEDT( () -> {
+			try {
+				startFrame.setTitle("Sweet Tooth");
+				design.titleLabel.setText("Sweet Tooth");
+				design.playButton.setText("Play");
+			}
+			catch(RuntimeException ex) { 
+				error("Error when initializing content " + ex.getClass().getName(), ex);
+			}
+		});
 	}
 
-	private void updateContent() {
-		try {
+	private void updateUI() {
+		Tools.runOnEDT( () -> {
 			updating = true;
-			scoreTableModel.updateScores(scoreProvider.getScores());
-		}
-		catch(RuntimeException ex) {
-			error("Error when updating content " + ex.getClass().getName(), ex);
-		}
-		finally {
-            updating = false;
-        }
+			try {
+				scoreTableModel.updateScores(scoreProvider.getScores());
+			}
+			catch(RuntimeException ex) {
+				error("Error when updating content " + ex.getClass().getName(), ex);
+			}
+			finally {
+	            updating = false;
+	        }
+		});
 	}
 }

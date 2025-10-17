@@ -4,10 +4,10 @@ import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.shared.api.FrameNavigator;
 import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.viewSwing.api.SwingDisplay;
+import com.github.sweettooth.viewSwing.commons.Tools;
 import com.github.sweettooth.viewSwing.round.GameRoundManager;
 
 import java.util.logging.Logger;
-import javax.swing.SwingUtilities;
 
 public class SwingGUI implements SwingDisplay, Loggable, FrameNavigator {
 	private final Logger logger;
@@ -30,30 +30,26 @@ public class SwingGUI implements SwingDisplay, Loggable, FrameNavigator {
 	public void run() {
 		info(String.format(Thread.currentThread().getName() + " is running: "+ getClass().getSimpleName() + " > " + Thread.currentThread().getStackTrace()[1].getMethodName()));
 		
-		try {
-			 SwingUtilities.invokeLater(() -> {
-		            startFrameManager.createFrame();
-		            startFrameManager.getStartFrame().setVisible(true);
-		        });
-		}
-		catch (Exception ex) {
-			error("Error when running " + ex.getClass().getName(), ex);
-		}
+		startFrameManager.createFrame();
+		showStartFrame();
 	}
 
 	@Override
 	public void hideStartFrame() {
-		startFrameManager.getStartFrame().setVisible(false);
+		Tools.runOnEDT( () -> {
+				startFrameManager.getStartFrame().setVisible(false);
+			});
 	}
 	
 	@Override
 	public void showStartFrame() {
-		startFrameManager.getStartFrame().setVisible(true);
+		Tools.runOnEDT( () -> {
+				startFrameManager.getStartFrame().setVisible(true);
+			});
 	}
 	
 	@Override
-	public void showDealFrameNewGameRound() {
-		gameRoundManager.disposeActiveGame();
+	public void startNewGameRound() {
 		gameRoundManager.startRound();
 	}
 }

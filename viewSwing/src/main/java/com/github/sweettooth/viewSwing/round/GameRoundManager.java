@@ -6,6 +6,7 @@ import javax.swing.SwingUtilities;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.shared.api.FrameNavigator;
+import com.github.sweettooth.viewSwing.commons.Tools;
 
 public class GameRoundManager {
     private final FrameNavigator navigator;
@@ -19,37 +20,37 @@ public class GameRoundManager {
     }
 	
     public void startRound() {
+    	sessionData.getPlayer().reset();
     	activeGameData = IGameData.createGameData(sessionData.getSettings());
-        dealFrameManager = new DealFrameManager(navigator, sessionData, activeGameData);
-
-        SwingUtilities.invokeLater(() -> {
+    	
+    	// First game round
+    	if (dealFrameManager == null) {
+            dealFrameManager = new DealFrameManager(navigator, sessionData, activeGameData);
             dealFrameManager.createFrame();
-            dealFrameManager.getDealFrame().setVisible(true);
-        });
+        }
+    	// Further rounds: Reinitialize existing window
+    	else
+            dealFrameManager.resetWithNewGame(activeGameData);
+    	
+    	Tools.runOnEDT( () -> {
+    			dealFrameManager.getDealFrame().setVisible(true);
+    		});
     }
     
     public void disposeActiveGame() {
-        sessionData.getPlayer().reset();
-    	
     	if (dealFrameManager != null) {
             JFrame dealFrame = dealFrameManager.getDealFrame();
-        	if (dealFrame != null) {
-        		if(SwingUtilities.isEventDispatchThread()) {
-                	dealFrame.dispose();
-        		}
-        		else {
-        			try {
-                        SwingUtilities.invokeAndWait(dealFrame::dispose);
+            if (dealFrame != null) {
+                if (SwingUtilities.isEventDispatchThread())
+                    dealFrame.setVisible(false);
+                else
+                    try {
+                        SwingUtilities.invokeAndWait( () -> dealFrame.setVisible(false) );
                     }
-        			catch (Exception ex) {
+                    catch (Exception ex) {
                         ex.printStackTrace();
                     }
-        		}
             }
-        	if (dealFrameManager != null) {
-        		activeGameData.unregisterObserver(dealFrameManager);
-        	}
-            dealFrameManager = null;
             activeGameData = null;
         }
     }

@@ -1,10 +1,17 @@
 package com.github.sweettooth.viewSwing.commons;
 
+import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Currency;
 import java.util.IllegalFormatException;
 import java.util.Locale;
+
+import javax.swing.AbstractButton;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
@@ -66,5 +73,48 @@ public class Tools {
 		.append(String.format(locale, "\tBankkonto: %,.2f %s", balance, currency))
 		.append(String.format(locale, "\t=>      SALDO: %,.2f %s", cash + loan + balance, currency));
 		return answer.toString();
+	}
+	
+	public static void removeAllActionListeners(AbstractButton button) {
+		runOnEDT( () -> {
+			for (ActionListener al : button.getActionListeners())
+		        button.removeActionListener(al);
+		});
+	}
+
+	public static void removeAllActionListeners(JComboBox<?> comboBox) {
+		runOnEDT( () -> {
+			for (ActionListener al : comboBox.getActionListeners()) {
+		        comboBox.removeActionListener(al);
+		    }
+		});
+	}
+
+	public static void removeAllActionListeners(JTextField textField) {
+		runOnEDT( () -> {
+			for (ActionListener al : textField.getActionListeners()) {
+		        textField.removeActionListener(al);
+		    }
+		});
+	}
+	
+	public static void runOnEDT(Runnable r) {
+        if (SwingUtilities.isEventDispatchThread()) {
+            r.run();
+        } else {
+            SwingUtilities.invokeLater(r);
+        }
+    }
+	
+	public static void runAndWaitOnEDT(Runnable r) {
+	    if (SwingUtilities.isEventDispatchThread()) {
+	        r.run();
+	    } else {
+	        try {
+	            SwingUtilities.invokeAndWait(r);
+	        } catch (InterruptedException | InvocationTargetException ex) {
+	            ex.printStackTrace();
+	        }
+	    }
 	}
 }
