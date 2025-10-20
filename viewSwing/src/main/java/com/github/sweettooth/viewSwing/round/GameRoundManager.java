@@ -1,8 +1,5 @@
 package com.github.sweettooth.viewSwing.round;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.shared.api.FrameNavigator;
@@ -35,23 +32,5 @@ public class GameRoundManager {
     	Tools.runOnEDT( () -> {
     			dealFrameManager.getDealFrame().setVisible(true);
     		});
-    }
-    
-    public void disposeActiveGame() {
-    	if (dealFrameManager != null) {
-            JFrame dealFrame = dealFrameManager.getDealFrame();
-            if (dealFrame != null) {
-                if (SwingUtilities.isEventDispatchThread())
-                    dealFrame.setVisible(false);
-                else
-                    try {
-                        SwingUtilities.invokeAndWait( () -> dealFrame.setVisible(false) );
-                    }
-                    catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-            }
-            activeGameData = null;
-        }
     }
 }

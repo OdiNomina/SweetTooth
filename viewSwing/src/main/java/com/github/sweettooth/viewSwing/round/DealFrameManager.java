@@ -42,6 +42,7 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 	public void createFrame() {
 		dealFrame = design.createFrame();
 		initializeUI();
+		newRoundSetting();
 		updateUI();
 		addInputHandling();
 	}
@@ -69,7 +70,9 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 	    controller = IDealController.getInstance(frameNavigator, sessionData, gameData);
 	    gameData.registerObserver(this);
 	    
+	    newRoundSetting();
 	    updateUI();
+	    addInputHandling();
 	    
 	    info("Resetting DealFrameManager with new game data instance: " + gameData.hashCode());
 	}
@@ -157,6 +160,15 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 		});
 	}
 
+	private void newRoundSetting() {
+		Tools.runOnEDT( () -> {
+			design.gameOverLabel.setVisible(false);
+			design.buySelection.setSelectedIndex(0);
+			design.sellSelection.setSelectedIndex(0);
+			design.locationSelection.setSelectedIndex(0);
+		});
+	}
+	
 	private void initializeUI() {
 		Tools.runOnEDT( () -> {
 			try {
@@ -181,8 +193,6 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				sessionData.getSettings().getSnackFactory().defaultSnacks().stream()
 					.sorted(Comparator.comparing(Snackable::name))
 					.forEach(e -> { design.buySelection.addItem(e.name()); design.sellSelection.addItem(e.name()); });
-				design.buySelection.setSelectedIndex(0);
-				design.sellSelection.setSelectedIndex(0);
 				design.buyPriceLabel.setText("Was kosten die?");
 				design.sellPriceLabel.setText("für");
 				design.buyQuantity.setText("");
@@ -244,7 +254,6 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
         Tools.runOnEDT( () -> {
 			updating = true;
 			try {
-				design.gameOverLabel.setVisible(false);
 				// Current Panel
 				design.currentDay.setText(day);
 				design.currentLocation.setText(locationName);

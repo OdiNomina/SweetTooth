@@ -76,26 +76,18 @@ public class Tools {
 	}
 	
 	public static void removeAllActionListeners(AbstractButton button) {
-		runOnEDT( () -> {
-			for (ActionListener al : button.getActionListeners())
-		        button.removeActionListener(al);
-		});
+		for (ActionListener al : button.getActionListeners())
+	        button.removeActionListener(al);
 	}
 
 	public static void removeAllActionListeners(JComboBox<?> comboBox) {
-		runOnEDT( () -> {
-			for (ActionListener al : comboBox.getActionListeners()) {
-		        comboBox.removeActionListener(al);
-		    }
-		});
+		for (ActionListener al : comboBox.getActionListeners())
+	        comboBox.removeActionListener(al);
 	}
 
 	public static void removeAllActionListeners(JTextField textField) {
-		runOnEDT( () -> {
-			for (ActionListener al : textField.getActionListeners()) {
-		        textField.removeActionListener(al);
-		    }
-		});
+		for (ActionListener al : textField.getActionListeners())
+	        textField.removeActionListener(al);
 	}
 	
 	public static void runOnEDT(Runnable r) {

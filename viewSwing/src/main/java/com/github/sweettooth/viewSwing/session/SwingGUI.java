@@ -16,7 +16,6 @@ public class SwingGUI implements SwingDisplay, Loggable, FrameNavigator {
 	
 	public SwingGUI(ISessionData sessionData) throws NullPointerException {
 		logger = Logger.getLogger(SwingGUI.class.getName());
-	
         gameRoundManager = new GameRoundManager(this, sessionData);
         startFrameManager = new StartFrameManager(this, sessionData);
 	}

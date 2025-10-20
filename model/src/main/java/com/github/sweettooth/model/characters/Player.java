@@ -11,7 +11,7 @@ import com.github.sweettooth.model.locations.Location;
 import com.github.sweettooth.model.snacks.Snack;
 
 public class Player implements IPlayer, PersistentPreference {
-	private final String name;
+	private String name;
 	private final Location hometown;
 	private final ArrayList<Snack> snacksInPockets;
 	private final ArrayList<Snack> snacksInStash;
@@ -146,6 +146,10 @@ public class Player implements IPlayer, PersistentPreference {
 	@Override
 	public String getName() {
 		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	/**

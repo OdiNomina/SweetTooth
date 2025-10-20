@@ -22,6 +22,7 @@ public interface ISessionData {
 	
 	// --- controller
 	
+	void setNamePlayer(String name);
 	void notifyObservers();
 	
 	// --- view

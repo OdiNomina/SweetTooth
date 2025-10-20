@@ -53,6 +53,11 @@ public class SessionData implements ISessionData {
 	}
 	
 	@Override
+	public void setNamePlayer(String name) {
+		player.setName(name);
+	}
+	
+	@Override
 	public void unregisterObserver(Observer o) {
 		observers.remove(o);
 	}

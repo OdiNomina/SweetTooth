@@ -19,12 +19,14 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 	private final IStartController startController;
 	private final ScoreProvider scoreProvider;
 	private final ScoreTableModel scoreTableModel;
+	private final ISessionData sessionData;
 	
 	private JFrame startFrame;
 	private boolean updating;
 	
 	StartFrameManager(FrameNavigator frameNavigator, ISessionData sessionData) {
 		logger = Logger.getLogger(StartFrameManager.class.getName());
+		this.sessionData = sessionData;
 		design = new StartFrameDesign();
 		startController = IStartController.getInstance(frameNavigator);
 		scoreProvider = sessionData.getScoreProvider();
@@ -64,7 +66,8 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 	private void addInputHandling() {
 		Tools.runOnEDT( () -> {
 			try {
-				design.playButton.addActionListener(startController.createButtonListener());
+				design.namePlayer.addActionListener(startController.createTextFieldListener(sessionData));
+				design.playButton.addActionListener(startController.createButtonListener(sessionData, design.namePlayer));
 			}
 			catch(RuntimeException ex)  {
 				error("Error when adding input handling " + ex.getClass().getName(), ex);
@@ -77,6 +80,8 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 			try {
 				startFrame.setTitle("Sweet Tooth");
 				design.titleLabel.setText("Sweet Tooth");
+				design.namePlayerLabel.setText("Wer spielt?");
+				design.namePlayer.setText(sessionData.getPlayer().getName());
 				design.playButton.setText("Play");
 			}
 			catch(RuntimeException ex) { 
