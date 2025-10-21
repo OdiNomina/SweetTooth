@@ -71,6 +71,7 @@ public class ScoreManager implements Loggable, ScoreProvider {
     private void writeScores(Locale locale) {
     	try {
     		List<String> lines = scores.stream()
+    				.filter(entry -> entry.score() != 0.0)
     				.map(score -> score.toLocaleString(locale))
     				.toList();
     		
@@ -87,9 +88,15 @@ public class ScoreManager implements Loggable, ScoreProvider {
 
 	@Override
 	public synchronized List<ScoreData> getScores(Locale locale) {
-		return scores.stream()
-					.map(scoreEntry -> new ScoreData(scoreEntry.name(), toLocaleString(locale, scoreEntry.score())))
+		if(scores.size() > 1)
+			return scores.stream()
+					.filter(entry -> entry.score() != 0)
+					.map(scoreEntry -> new ScoreData(scoreEntry.name(), doubleToLocaleString(locale, scoreEntry.score())))
 					.toList();
+		
+		return scores.stream()
+				.map(scoreEntry -> new ScoreData(scoreEntry.name(), doubleToLocaleString(locale, scoreEntry.score())))
+				.toList();
 	}
 	
 	/*
@@ -97,7 +104,10 @@ public class ScoreManager implements Loggable, ScoreProvider {
 	 * Flag ',': The result will include locale-specific grouping separators.
 	 * Conversion 'f': The result is formatted as a decimal number.
 	 */
-	private static String toLocaleString(Locale locale, Double score) {
+	private static String doubleToLocaleString(Locale locale, Double score) {
+		if(score == 0)
+			return "";
+		
 		return String.format(locale, "%,.2f", Math.round(score*100)/100.0);
 	}
 }

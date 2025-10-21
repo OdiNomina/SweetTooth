@@ -15,7 +15,7 @@ public record ScoreEntry(String name, Double score) implements Comparable<ScoreE
 			//Regex \s* means zero or more whitespace
 			String[] parts = line.split("\\s*:\\s*");
 			if (parts.length != 2)
-				return new ScoreEntry(parts[0].strip(), null);
+				return new ScoreEntry(parts[0].strip(), 0.0);
 	        
 			NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 			return new ScoreEntry(parts[0].strip(), numberFormat.parse(parts[1].strip()).doubleValue());
