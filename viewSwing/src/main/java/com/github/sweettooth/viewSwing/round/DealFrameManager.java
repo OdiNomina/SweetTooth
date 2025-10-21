@@ -162,10 +162,22 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 
 	private void newRoundSetting() {
 		Tools.runOnEDT( () -> {
-			design.gameOverLabel.setVisible(false);
+			design.gameOverLabel.setVisible(false);	
+			design.buySelection.setEnabled(true);
+			design.sellSelection.setEnabled(true);
+			design.seekQuantity.setEnabled(true);
+			design.hideButton.setEnabled(true);
+			design.seekButton.setEnabled(true);
+			design.deposit.setEnabled(true);
+			design.withdraw.setEnabled(true);
+			design.lend.setEnabled(true);
+			design.giveBack.setEnabled(true);
+			design.locationSelection.setEnabled(true);
+			design.balanceSheet.setEnabled(true);
 			design.buySelection.setSelectedIndex(0);
 			design.sellSelection.setSelectedIndex(0);
 			design.locationSelection.setSelectedIndex(0);
+			
 		});
 	}
 	
