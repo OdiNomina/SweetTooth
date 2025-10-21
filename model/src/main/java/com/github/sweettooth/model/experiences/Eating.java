@@ -15,15 +15,15 @@ final class Eating extends Experience {
 	
 	@Override
 	public String process(Player player) {
-		ArrayList<? extends Snack> candies = player.getSnacksInPockets();
-		int size = candies.size();
+		ArrayList<? extends Snack> snacks = player.getSnacksInPockets();
+		int size = snacks.size();
 		if(size == 0)
 			return "Du hast Hunger, aber leider nix zu Essen.";
 		
 		ThreadLocalRandom random = ThreadLocalRandom.current();
-		Snack randomCandy = candies.get(random.nextInt(0, size));
+		Snack randomCandy = snacks.get(random.nextInt(0, size));
 		int randomQuantity = random.nextInt(1, randomCandy.getQuantity() + 1);
-		player.removeSnack(randomCandy, candies, randomQuantity);
+		player.removeSnack(randomCandy, snacks, randomQuantity);
 		return "Du hast Hunger und isst einige deiner Süßigkeiten.";
 	}
 }

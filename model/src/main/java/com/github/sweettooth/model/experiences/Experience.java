@@ -8,11 +8,12 @@ public abstract sealed class Experience permits
 {	
 
 	public static Experience randomExperience(GameSettings modelSettings){
-		double random = Math.random();
-		if(random < 0.1) return new MuggingCash(modelSettings);
-		if(random < 0.2) return new MuggingCandies(modelSettings);
-		if(random < 0.4) return new Eating(modelSettings);
-		if(random < 0.6) return new Gift(modelSettings); 
+		double random = Math.random()*10;
+		System.out.println(random);
+		if(random <= 0.4) return new MuggingCash(modelSettings);
+		if(random <= 0.8) return new MuggingCandies(modelSettings);
+		if(random <= 1.2) return new Eating(modelSettings);
+		if(random <= 2.0) return new Gift(modelSettings); 
 		return new NoopEvent();
 	}
 	
