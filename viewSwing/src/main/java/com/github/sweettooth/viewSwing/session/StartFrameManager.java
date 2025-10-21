@@ -36,7 +36,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 	}
 	
 	void createFrame() {
-		scoreProvider.readScoresFromFile();
+		scoreProvider.readScoresFromFile(sessionData.getSettings().getLocale());
 		
 		startFrame = design.createFrame(scoreTableModel);
 		initializeUI();
@@ -94,7 +94,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 		Tools.runOnEDT( () -> {
 			updating = true;
 			try {
-				scoreTableModel.updateScores(scoreProvider.getScores());
+				scoreTableModel.updateScores(scoreProvider.getScores(sessionData.getSettings().getLocale()));
 			}
 			catch(RuntimeException ex) {
 				error("Error when updating content " + ex.getClass().getName(), ex);

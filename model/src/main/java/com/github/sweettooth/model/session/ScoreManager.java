@@ -10,6 +10,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
@@ -33,17 +34,17 @@ public class ScoreManager implements Loggable, ScoreProvider {
     }
    
     @Override
-    public synchronized void addScore(String name, Double score) {
+    public synchronized void addScore(String name, Double score, Locale locale) {
     	scores.removeIf(e -> e.score() == null || e.score().isNaN());
     	scores.add(new ScoreEntry(name, score));
         Collections.sort(scores);
         if (scores.size() > 50)
             scores.subList(50, scores.size()).clear();
-        writeScores();
+        writeScores(locale);
     }
     
     @Override
-    public synchronized void readScoresFromFile() {
+    public synchronized void readScoresFromFile(Locale locale) {
         try {
         	if(Files.notExists(appDir))
         		Files.createDirectories(appDir);
@@ -57,7 +58,7 @@ public class ScoreManager implements Loggable, ScoreProvider {
         	
         	scores.clear();
     		try (BufferedReader reader = Files.newBufferedReader(scoreFile)) {
-    			reader.lines().map(ScoreEntry::fromString).forEach(scores::add);
+    			reader.lines().map(line -> ScoreEntry.fromLocaleString(line, locale)).forEach(scores::add);
     		}
     		Collections.sort(scores);
     		if (scores.size() > 50)
@@ -67,10 +68,10 @@ public class ScoreManager implements Loggable, ScoreProvider {
         }
     }
     
-    private void writeScores() {
+    private void writeScores(Locale locale) {
     	try {
     		List<String> lines = scores.stream()
-    				.map(ScoreEntry::toString)
+    				.map(score -> score.toLocaleString(locale))
     				.toList();
     		
     		Files.write(scoreFile, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
@@ -85,9 +86,18 @@ public class ScoreManager implements Loggable, ScoreProvider {
 	}
 
 	@Override
-	public synchronized List<ScoreData> getScores() {
+	public synchronized List<ScoreData> getScores(Locale locale) {
 		return scores.stream()
-					.map(e -> new ScoreData(e.name(), e.score()))
+					.map(scoreEntry -> new ScoreData(scoreEntry.name(), toLocaleString(locale, scoreEntry.score())))
 					.toList();
+	}
+	
+	/*
+	 * %[flags][.precision]conversion
+	 * Flag ',': The result will include locale-specific grouping separators.
+	 * Conversion 'f': The result is formatted as a decimal number.
+	 */
+	private static String toLocaleString(Locale locale, Double score) {
+		return String.format(locale, "%,.2f", Math.round(score*100)/100.0);
 	}
 }

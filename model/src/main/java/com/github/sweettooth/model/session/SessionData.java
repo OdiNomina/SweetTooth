@@ -34,7 +34,7 @@ public class SessionData implements ISessionData {
     
     @Override
 	public List<ScoreData> getScores() {
-        return scoreManager.getScores();
+        return scoreManager.getScores(settings.getLocale());
     }
 
     @Override

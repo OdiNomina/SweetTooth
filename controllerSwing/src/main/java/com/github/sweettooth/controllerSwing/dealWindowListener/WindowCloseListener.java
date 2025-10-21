@@ -20,7 +20,7 @@ public class WindowCloseListener extends WindowAdapter {
 	
 	@Override
     public void windowClosing(WindowEvent e) {
-        sessionData.getScoreProvider().addScore(sessionData.getPlayer().getName(), sumUpScore());
+        sessionData.getScoreProvider().addScore(sessionData.getPlayer().getName(), sumUpScore(), sessionData.getSettings().getLocale());
         sessionData.notifyObservers();
         frameNavigator.showStartFrame();
     }
