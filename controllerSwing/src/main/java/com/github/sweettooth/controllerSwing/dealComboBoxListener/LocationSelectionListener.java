@@ -1,4 +1,4 @@
-package com.github.sweettooth.controllerSwing.comboBoxListener;
+package com.github.sweettooth.controllerSwing.dealComboBoxListener;
 
 import java.awt.event.ActionEvent;
 import java.io.IOException;

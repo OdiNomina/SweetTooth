@@ -120,21 +120,21 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				
 				design.buySelection.addActionListener(controller.createComboBoxListener(this, null, "Buy", design.buyQuantity, design.buySellInfo));
 				design.sellSelection.addActionListener(controller.createComboBoxListener(this, null, "Sell", design.sellQuantity, design.buySellInfo));
-				design.locationSelection.addActionListener(
-						controller.createComboBoxListener(this, design.currentLocation, "Travel", design.locationSelection, design.travelInfo1, design.travelInfo2, design.travelInfo3, design.travelInterest));
+				design.locationSelection.addActionListener(controller.createComboBoxListener(
+						this, design.currentLocation, "Travel", design.locationSelection, design.travelInfo1, design.travelInfo2, design.travelInfo3, design.travelInterest));
 		
 				design.hideButton.addActionListener(controller.createButtonListener("Hide", null, null, design.hideButton, design.hideSeekInfo));
 				design.seekButton.addActionListener(controller.createButtonListener("Seek", design.stash, design.seekQuantity, design.stash, design.hideSeekInfo));
 				design.exitButton.addActionListener(controller.createButtonListener("Exit", null, null, null));
 				
 				design.seekQuantity.addActionListener(controller.createTextFieldListener("Seek", design.stash, design.seekButton, design.hideSeekInfo));
-				
 				design.buyQuantity.addActionListener(controller.createTextFieldListener("Buy", design.buySelection, design.buySelection, design.buySellInfo));
 				design.sellQuantity.addActionListener(controller.createTextFieldListener("Sell", design.sellSelection, design.sellSelection, design.buySellInfo));
 				design.deposit.addActionListener(controller.createTextFieldListener("Deposit", null, design.deposit, design.bankInfo));
 				design.withdraw.addActionListener(controller.createTextFieldListener("Withdraw", null, design.withdraw, design.bankInfo));
 				design.lend.addActionListener(controller.createTextFieldListener("Lend", null, design.lend, design.loansharkInfo));
 				design.giveBack.addActionListener(controller.createTextFieldListener("GiveMoneyBack", null, design.giveBack, design.loansharkInfo));
+				
 				design.dealFrame.addWindowListener(controller.createWindowCloseListener());
 			}
 			catch(RuntimeException ex)  {

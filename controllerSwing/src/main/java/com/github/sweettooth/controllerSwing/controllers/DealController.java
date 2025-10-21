@@ -2,6 +2,7 @@ package com.github.sweettooth.controllerSwing.controllers;
 
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;
+import java.util.Locale;
 import java.util.Objects;
 
 import javax.swing.JComboBox;
@@ -10,10 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.github.sweettooth.controllerSwing.api.IDealController;
-import com.github.sweettooth.controllerSwing.comboBoxListener.ComboBoxListenerFactory;
 import com.github.sweettooth.controllerSwing.dealButtonListener.ButtonListenerFactory;
+import com.github.sweettooth.controllerSwing.dealComboBoxListener.ComboBoxListenerFactory;
+import com.github.sweettooth.controllerSwing.dealTextFieldListener.TextFieldListenerFactory;
 import com.github.sweettooth.controllerSwing.dealWindowListener.WindowCloseListener;
-import com.github.sweettooth.controllerSwing.textFieldListener.TextFieldListenerFactory;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.controllerAPI.EventFactory;
@@ -42,6 +43,10 @@ public class DealController implements IDealController {
 
 	public IGameData getGameData() {
 		return gameData;
+	}
+	
+	public Locale getLocale() {
+		return sessionData.getSettings().getLocale();
 	}
 
 	private void initialize() {
