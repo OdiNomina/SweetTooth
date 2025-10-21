@@ -13,13 +13,13 @@ public class InternSettings {
 	public final static int MAX_SNACKS = Integer.valueOf(100); 
 	
 	public final static int MAX_GIFT_TYPES = Integer.valueOf(3);
-	public final static int MAX_GIFT_QUANTITY = Integer.valueOf(6);
+	public final static int MAX_GIFT_QUANTITY = Integer.valueOf(10);
 	
 	public final static double BANK_MIN_BALANCE = Double.valueOf(-100);
-	public final static double BANK_INTEREST_CREDIT_PERCENT = Double.valueOf(2);
-	public final static double BANK_INTEREST_DEBT_PERCENT = Double.valueOf(5);
-	public final static double LOANSHARK_INTEREST_DEBT_PERCENT = Double.valueOf(10);
+	public final static double BANK_INTEREST_CREDIT_PERCENT = Double.valueOf(1.5);
+	public final static double BANK_INTEREST_DEBT_PERCENT = Double.valueOf(3);
+	public final static double LOANSHARK_INTEREST_DEBT_PERCENT = Double.valueOf(5);
 	
-	public final static double TRAVEL_COSTS = Double.valueOf(10);;
+	public final static double TRAVEL_COSTS = Double.valueOf(5);;
 }	
 	
