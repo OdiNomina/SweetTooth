@@ -9,8 +9,8 @@ import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.shared.api.FrameNavigator;
-import com.github.sweettooth.shared.api.Loggable;
 import com.github.sweettooth.shared.api.UpdateGuard;
+import com.github.sweettooth.shared.logging.Loggable;
 import com.github.sweettooth.viewSwing.commons.Tools;
 
 public class StartFrameManager implements Observer, UpdateGuard, Loggable {

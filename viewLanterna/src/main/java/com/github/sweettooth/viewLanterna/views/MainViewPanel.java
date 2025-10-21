@@ -14,8 +14,7 @@ import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
-import com.github.sweettooth.shared.api.Loggable;
-
+import com.github.sweettooth.shared.logging.Loggable;
 import com.googlecode.lanterna.SGR;
 import com.googlecode.lanterna.TextColor.RGB;
 import com.googlecode.lanterna.graphics.SimpleTheme;

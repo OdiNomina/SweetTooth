@@ -14,7 +14,7 @@ import java.util.Locale;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
-import com.github.sweettooth.shared.api.Loggable;
+import com.github.sweettooth.shared.logging.Loggable;
 
 public class ScoreManager implements Loggable, ScoreProvider {
 	private final Logger logger;

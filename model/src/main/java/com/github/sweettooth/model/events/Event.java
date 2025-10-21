@@ -8,7 +8,7 @@ import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.session.SessionData;
-import com.github.sweettooth.shared.api.Loggable;
+import com.github.sweettooth.shared.logging.Loggable;
 
 public abstract sealed class Event implements Processable, Loggable permits 
 	ApplyInterest, Buy, Deposit, Exit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw //Update factory!

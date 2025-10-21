@@ -14,8 +14,8 @@ import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.api.ISnackFactory.SnackType;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
-import com.github.sweettooth.shared.api.Loggable;
-import com.github.sweettooth.shared.api.LoggingSetup;
+import com.github.sweettooth.shared.logging.Loggable;
+import com.github.sweettooth.shared.logging.LoggingSetup;
 import com.github.sweettooth.viewSwing.api.SwingDisplay;
 
 public class SweetTooth implements Loggable {
