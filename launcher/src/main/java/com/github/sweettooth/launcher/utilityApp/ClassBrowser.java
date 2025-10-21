@@ -12,7 +12,7 @@ import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
-import com.github.sweettooth.viewLanterna.api.DisplayElement;
+//import com.github.sweettooth.viewLanterna.api.DisplayElement;
 import com.github.sweettooth.model.api.ISnackFactory;
 
 public class ClassBrowser {
@@ -28,8 +28,8 @@ public class ClassBrowser {
 		
 		// --- view
 		System.out.println("### Modul: view\n");
-		Class<?>[] view = {DisplayElement.class};
-		show(view);
+//		Class<?>[] view = {DisplayElement.class};
+//		show(view);
 		
 		// --- model
 		System.out.println("### Modul: model\n");
