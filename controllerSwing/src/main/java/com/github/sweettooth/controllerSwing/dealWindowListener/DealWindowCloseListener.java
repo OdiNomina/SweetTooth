@@ -3,26 +3,28 @@ package com.github.sweettooth.controllerSwing.dealWindowListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+import com.github.sweettooth.controllerSwing.controllers.DealController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.shared.api.FrameNavigator;
 
-public class WindowCloseListener extends WindowAdapter {
-	private final FrameNavigator frameNavigator;
+public class DealWindowCloseListener extends WindowAdapter {
+	private final DealController dealController;
 	private final ISessionData sessionData;
 	private final IGameData gameData;
 	
-	public WindowCloseListener(FrameNavigator frameNavigator, ISessionData sessionData, IGameData gameData) {
-		this.frameNavigator = frameNavigator;
+	public DealWindowCloseListener(DealController dealController, ISessionData sessionData, IGameData gameData) {
+		this.dealController = dealController;
 		this.sessionData = sessionData;
 		this.gameData = gameData;
 	}
 	
 	@Override
     public void windowClosing(WindowEvent e) {
-        sessionData.getScoreProvider().addScore(sessionData.getPlayer().getName(), sumUpScore(), sessionData.getSettings().getLocale());
+        sessionData.addScore(sumUpScore());
+        dealController.getGameNavigator().writeDealScores();
+        
         sessionData.notifyObservers();
-        frameNavigator.showStartFrame();
+        dealController.getWindowNavigator().showStartWindow();
     }
 	
 	private double sumUpScore() {

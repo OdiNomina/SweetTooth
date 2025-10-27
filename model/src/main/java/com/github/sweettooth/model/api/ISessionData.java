@@ -22,8 +22,9 @@ public interface ISessionData {
 	
 	// --- controller
 	
-	void setNamePlayer(String name);
+	void addScore(Double score);
 	void notifyObservers();
+	void setNamePlayer(String name);
 	
 	// --- view
 	

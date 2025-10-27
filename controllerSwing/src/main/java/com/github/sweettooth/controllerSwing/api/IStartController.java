@@ -1,19 +1,22 @@
 package com.github.sweettooth.controllerSwing.api;
 
 import java.awt.event.ActionListener;
+import java.awt.event.WindowListener;
 
 import javax.swing.JTextField;
 
 import com.github.sweettooth.controllerSwing.controllers.StartController;
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.shared.api.FrameNavigator;
+import com.github.sweettooth.shared.api.GameNavigator;
+import com.github.sweettooth.shared.api.WindowNavigator;
 
 @SuppressWarnings("exports")
 public interface IStartController {
-	static IStartController getInstance(FrameNavigator frameNavigator) {
-		return new StartController(frameNavigator);
+	static IStartController getInstance(GameNavigator gameNavigator, WindowNavigator windowNavigator) {
+		return new StartController(gameNavigator, windowNavigator);
 	}
 	
 	ActionListener createButtonListener(ISessionData sessionData, JTextField nameField);
 	ActionListener createTextFieldListener(ISessionData sessionData);
+	WindowListener createWindowCloseListener();
 }

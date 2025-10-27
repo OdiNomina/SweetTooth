@@ -33,61 +33,34 @@ public class ScoreManager implements Loggable, ScoreProvider {
     	scoreFile = appDir.resolve("scores.txt");
     }
    
-    @Override
-    public synchronized void addScore(String name, Double score, Locale locale) {
+    synchronized void addScore(String name, Double score, Locale locale) {
     	scores.removeIf(e -> e.score() == null || e.score().isNaN());
     	scores.add(new ScoreEntry(name, score));
         Collections.sort(scores);
         if (scores.size() > 50)
             scores.subList(50, scores.size()).clear();
-        writeScores(locale);
     }
     
     @Override
-    public synchronized void readScoresFromFile(Locale locale) {
-        try {
-        	if(Files.notExists(appDir))
-        		Files.createDirectories(appDir);
-        	
-        	if(Files.notExists(scoreFile))
-        		try (InputStream is = getClass().getResourceAsStream("/defaultScores.txt")) {
-        			if (is == null) 
-                        throw new FileNotFoundException("Resource defaultScores.txt not found!");
-        			Files.copy(is, scoreFile);
-        		}
-        	
-        	scores.clear();
-    		try (BufferedReader reader = Files.newBufferedReader(scoreFile)) {
-    			reader.lines().map(line -> ScoreEntry.fromLocaleString(line, locale)).forEach(scores::add);
-    		}
-    		Collections.sort(scores);
-    		if (scores.size() > 50)
-    		    scores.subList(50, scores.size()).clear();
-        } catch(IOException | RuntimeException ex) {
-        	error("Exception while reading scores from file. ", ex);
-        }
-    }
-    
-    private void writeScores(Locale locale) {
-    	try {
-    		List<String> lines = scores.stream()
-    				.filter(entry -> entry.score() != 0.0)
-    				.map(score -> score.toLocaleString(locale))
-    				.toList();
-    		
-    		Files.write(scoreFile, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
-    	} catch(IOException ex) {
-    		error("Exception while writing scores in file.", ex);
-    	}
-    }
+    public synchronized void writeScoresToFile(Locale locale) {
+		try {
+			List<String> lines = scores.stream()
+					.filter(entry -> entry.score() != 0.0)
+					.map(score -> score.toLocaleString(locale))
+					.toList();
+			
+			Files.write(scoreFile, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+		} catch(IOException ex) {
+			error("Exception while writing scores in file.", ex);
+		}
+	}
 
 	@Override
 	public Logger getLogger() {
 		return logger;
 	}
 
-	@Override
-	public synchronized List<ScoreData> getScores(Locale locale) {
+	synchronized List<ScoreData> getScores(Locale locale) {
 		if(scores.size() > 1)
 			return scores.stream()
 					.filter(entry -> entry.score() != 0)
@@ -109,5 +82,30 @@ public class ScoreManager implements Loggable, ScoreProvider {
 			return "";
 		
 		return String.format(locale, "%,.2f", Math.round(score*100)/100.0);
+	}
+
+	@Override
+	public synchronized void readScoresFromFile(Locale locale) {
+	    try {
+	    	if(Files.notExists(appDir))
+	    		Files.createDirectories(appDir);
+	    	
+	    	if(Files.notExists(scoreFile))
+	    		try (InputStream is = getClass().getResourceAsStream("/defaultScores.txt")) {
+	    			if (is == null) 
+	                    throw new FileNotFoundException("Resource defaultScores.txt not found!");
+	    			Files.copy(is, scoreFile);
+	    		}
+	    	
+	    	scores.clear();
+			try (BufferedReader reader = Files.newBufferedReader(scoreFile)) {
+				reader.lines().map(line -> ScoreEntry.fromLocaleString(line, locale)).forEach(scores::add);
+			}
+			Collections.sort(scores);
+			if (scores.size() > 50)
+			    scores.subList(50, scores.size()).clear();
+	    } catch(IOException | RuntimeException ex) {
+	    	error("Exception while reading scores from file. ", ex);
+	    }
 	}
 }

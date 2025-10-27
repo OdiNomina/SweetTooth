@@ -14,15 +14,17 @@ import com.github.sweettooth.controllerSwing.api.IDealController;
 import com.github.sweettooth.controllerSwing.dealButtonListener.ButtonListenerFactory;
 import com.github.sweettooth.controllerSwing.dealComboBoxListener.ComboBoxListenerFactory;
 import com.github.sweettooth.controllerSwing.dealTextFieldListener.TextFieldListenerFactory;
-import com.github.sweettooth.controllerSwing.dealWindowListener.WindowCloseListener;
+import com.github.sweettooth.controllerSwing.dealWindowListener.DealWindowCloseListener;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.controllerAPI.EventFactory;
-import com.github.sweettooth.shared.api.FrameNavigator;
+import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.GameNavigator;
 import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class DealController implements IDealController {
-	private final FrameNavigator frameNavigator;
+	private final GameNavigator gameNavigator;
+	private final WindowNavigator windowNavigator;
 	private ISessionData sessionData;
 	private IGameData gameData;
 	private EventFactory eventFactory;
@@ -30,8 +32,9 @@ public class DealController implements IDealController {
 	private ButtonListenerFactory buttonListenerFactory;
 	private ComboBoxListenerFactory comboBoxListenerFactory;
 	
-	public DealController(FrameNavigator frameNavigator, ISessionData sessionData, IGameData gameData) {
-		this.frameNavigator = frameNavigator;
+	public DealController(GameNavigator gameNavigator, WindowNavigator windowNavigator, ISessionData sessionData, IGameData gameData) {
+		this.gameNavigator = gameNavigator;
+		this.windowNavigator = windowNavigator;
 		this.sessionData = sessionData;
 		this.gameData = Objects.requireNonNull(gameData);
 		initialize();
@@ -45,8 +48,16 @@ public class DealController implements IDealController {
 		return gameData;
 	}
 	
+	public GameNavigator getGameNavigator() {
+		return gameNavigator;
+	}
+	
 	public Locale getLocale() {
 		return sessionData.getSettings().getLocale();
+	}
+	
+	public WindowNavigator getWindowNavigator() {
+		return windowNavigator;
 	}
 
 	private void initialize() {
@@ -73,6 +84,6 @@ public class DealController implements IDealController {
 	
 	@Override
 	public WindowListener createWindowCloseListener() {
-		return new WindowCloseListener(frameNavigator, sessionData, gameData);
+		return new DealWindowCloseListener(this, sessionData, gameData);
 	}
 }

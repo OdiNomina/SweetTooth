@@ -23,6 +23,12 @@ public class SessionData implements ISessionData {
         player = new Player(playerName);
     }
 
+    @Override
+    public void addScore(Double score) {
+    	scoreManager.addScore(player.getName(), score, settings.getLocale());
+    }
+    
+    @Override
     public Player getPlayer() {
 	    return player;
 	}
