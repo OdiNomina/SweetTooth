@@ -33,11 +33,6 @@
 		</dependency>
 		<dependency>
 		    <groupId>com.github.sweettooth</groupId>
-		    <artifactId>viewLanterna</artifactId>
-		    <version>1.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-		    <groupId>com.github.sweettooth</groupId>
 		     <artifactId>viewSwing</artifactId>
  			 <version>1.0.0-SNAPSHOT</version>
 		</dependency>
