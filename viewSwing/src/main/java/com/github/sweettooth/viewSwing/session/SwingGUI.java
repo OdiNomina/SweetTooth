@@ -1,54 +1,76 @@
 package com.github.sweettooth.viewSwing.session;
 
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.shared.api.FrameNavigator;
+import com.github.sweettooth.shared.api.GameNavigator;
+import com.github.sweettooth.shared.api.WindowNavigator;
 import com.github.sweettooth.shared.logging.Loggable;
 import com.github.sweettooth.viewSwing.api.SwingDisplay;
+import com.github.sweettooth.viewSwing.commons.SwingExecutor;
 import com.github.sweettooth.viewSwing.commons.Tools;
 import com.github.sweettooth.viewSwing.round.GameRoundManager;
 
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
-public class SwingGUI implements SwingDisplay, Loggable, FrameNavigator {
+public class SwingGUI implements SwingDisplay, Loggable, GameNavigator, WindowNavigator {
 	private final Logger logger;
+	private ISessionData sessionData;
 	private GameRoundManager gameRoundManager;
 	private StartFrameManager startFrameManager;
 	
 	public SwingGUI(ISessionData sessionData) throws NullPointerException {
 		logger = Logger.getLogger(SwingGUI.class.getName());
-        gameRoundManager = new GameRoundManager(this, sessionData);
-        startFrameManager = new StartFrameManager(this, sessionData);
+		this.sessionData = sessionData;
+        gameRoundManager = new GameRoundManager(this, this, sessionData);
+        startFrameManager = new StartFrameManager(this, this, sessionData);
 	}
 	
     @Override
 	public Logger getLogger() {	
 		return logger;
 	}
-	
+
 	@Override
-	public void run() {
-		info(String.format(Thread.currentThread().getName() + " is running: "+ getClass().getSimpleName() + " > " + Thread.currentThread().getStackTrace()[1].getMethodName()));
-		
-		startFrameManager.createFrame();
-		showStartFrame();
+	public void exitGame() {
+		SwingExecutor.getInstance().shutdownAndAwait(2, TimeUnit.SECONDS);
 	}
 
 	@Override
-	public void hideStartFrame() {
+	public void hideStartWindow() {
 		Tools.runOnEDT( () -> {
 				startFrameManager.getStartFrame().setVisible(false);
 			});
 	}
 	
 	@Override
-	public void showStartFrame() {
+	public void newDealGame() {
+		gameRoundManager.startRound();
+	}
+
+	@Override
+	public void showStartWindow() {
 		Tools.runOnEDT( () -> {
 				startFrameManager.getStartFrame().setVisible(true);
 			});
 	}
 	
 	@Override
-	public void startNewGameRound() {
-		gameRoundManager.startRound();
+	public void showDealWindow() {
+		Tools.runOnEDT( () -> {
+				gameRoundManager.getDealFrameManager().getDealFrame().setVisible(true);
+			});
+	}
+	
+	@Override
+	public void start() {
+		startFrameManager.createFrame();
+		showStartWindow();
+	}
+
+	@Override
+	public void writeDealScores() {
+		SwingExecutor.getInstance().submit( () -> 
+				sessionData.getScoreProvider().writeScoresToFile(sessionData.getSettings().getLocale())
+			);
 	}
 }

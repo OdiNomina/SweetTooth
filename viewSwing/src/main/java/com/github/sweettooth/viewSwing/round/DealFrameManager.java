@@ -13,7 +13,8 @@ import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
-import com.github.sweettooth.shared.api.FrameNavigator;
+import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.GameNavigator;
 import com.github.sweettooth.shared.api.UpdateGuard;
 import com.github.sweettooth.shared.logging.Loggable;
 import com.github.sweettooth.viewSwing.commons.Tools;
@@ -22,17 +23,19 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 	private final Logger logger;
 	DealFrameDesign design;
 	IDealController controller;
-	FrameNavigator frameNavigator;
+	GameNavigator gameNavigator;
+	WindowNavigator windowNavigator;
 	ISessionData sessionData;
 	IGameData gameData;
 	private JFrame dealFrame;
 	boolean updating;
 	
-	public DealFrameManager(FrameNavigator frameNavigator, ISessionData sessionData, IGameData gameData) {
+	public DealFrameManager(GameNavigator gameNavigator, WindowNavigator windowNavigator, ISessionData sessionData, IGameData gameData) {
 		logger = Logger.getLogger(DealFrameManager.class.getName());
 		design = new DealFrameDesign();
-		controller = IDealController.getInstance(frameNavigator, sessionData, gameData);
-		this.frameNavigator = frameNavigator;
+		controller = IDealController.getInstance(gameNavigator, windowNavigator, sessionData, gameData);
+		this.gameNavigator = gameNavigator;
+		this.windowNavigator = windowNavigator;
 		this.sessionData = sessionData;
 		this.gameData = gameData;
 
@@ -67,14 +70,14 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 	    removeAllListeners();
 		
 	    gameData = newGameData;
-	    controller = IDealController.getInstance(frameNavigator, sessionData, gameData);
+	    controller = IDealController.getInstance(gameNavigator, windowNavigator, sessionData, gameData);
 	    gameData.registerObserver(this);
 	    
 	    newRoundSetting();
 	    updateUI();
 	    addInputHandling();
 	    
-	    info("Resetting DealFrameManager with new game data instance: " + gameData.hashCode());
+//	    info("Resetting DealFrameManager with new game data instance: " + gameData.hashCode());
 	}
 
 	private void removeAllListeners() {

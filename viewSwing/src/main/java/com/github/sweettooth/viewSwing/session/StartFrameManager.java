@@ -8,9 +8,11 @@ import com.github.sweettooth.controllerSwing.api.IStartController;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
-import com.github.sweettooth.shared.api.FrameNavigator;
+import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.GameNavigator;
 import com.github.sweettooth.shared.api.UpdateGuard;
 import com.github.sweettooth.shared.logging.Loggable;
+import com.github.sweettooth.viewSwing.commons.SwingExecutor;
 import com.github.sweettooth.viewSwing.commons.Tools;
 
 public class StartFrameManager implements Observer, UpdateGuard, Loggable {
@@ -24,11 +26,11 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 	private JFrame startFrame;
 	private boolean updating;
 	
-	StartFrameManager(FrameNavigator frameNavigator, ISessionData sessionData) {
+	StartFrameManager(GameNavigator gameNavigator, WindowNavigator windowNavigator, ISessionData sessionData) {
 		logger = Logger.getLogger(StartFrameManager.class.getName());
 		this.sessionData = sessionData;
 		design = new StartFrameDesign();
-		startController = IStartController.getInstance(frameNavigator);
+		startController = IStartController.getInstance(gameNavigator, windowNavigator);
 		scoreProvider = sessionData.getScoreProvider();
 		scoreTableModel = new ScoreTableModel();
 		
@@ -36,12 +38,13 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 	}
 	
 	void createFrame() {
-		scoreProvider.readScoresFromFile(sessionData.getSettings().getLocale());
-		
 		startFrame = design.createFrame(scoreTableModel);
 		initializeUI();
-		updateUI();
 		addInputHandling();
+		SwingExecutor.getInstance().submit(
+				() -> scoreProvider.readScoresFromFile(sessionData.getSettings().getLocale()),
+				() -> updateUI()
+			);
 	}
 	
 	@Override
@@ -68,6 +71,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 			try {
 				design.namePlayer.addActionListener(startController.createTextFieldListener(sessionData));
 				design.playButton.addActionListener(startController.createButtonListener(sessionData, design.namePlayer));
+				design.frame.addWindowListener(startController.createWindowCloseListener());
 			}
 			catch(RuntimeException ex)  {
 				error("Error when adding input handling " + ex.getClass().getName(), ex);
@@ -94,7 +98,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 		Tools.runOnEDT( () -> {
 			updating = true;
 			try {
-				scoreTableModel.updateScores(scoreProvider.getScores(sessionData.getSettings().getLocale()));
+				scoreTableModel.updateScores(sessionData.getScores());
 			}
 			catch(RuntimeException ex) {
 				error("Error when updating content " + ex.getClass().getName(), ex);
