@@ -1,21 +1,7 @@
 package com.github.sweettooth.launcher.utilityApp;
 
-import java.util.Arrays;
-
-import com.github.sweettooth.launcher.app.SweetTooth;
-import com.github.sweettooth.model.api.GameSettings;
-import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.controllerAPI.EventFactory;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
-import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
-import com.github.sweettooth.model.api.viewAPI.IPlayer;
-import com.github.sweettooth.model.api.viewAPI.Observer;
-import com.github.sweettooth.model.api.viewAPI.Snackable;
-//import com.github.sweettooth.viewLanterna.api.DisplayElement;
-import com.github.sweettooth.model.api.ISnackFactory;
-
 public class ClassBrowser {
+	/*
 	public static void main(String... args) {
 		System.getProperties().list(System.out);
 		System.out.println();
@@ -51,4 +37,5 @@ public class ClassBrowser {
 			System.out.println();
 		}
 	}
+	*/
 }
