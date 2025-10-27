@@ -4,6 +4,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Objects;
 
+/**<pre>
+ * Example usage:
+ * 
+ * Thread logging info:
+ * info(Thread.currentThread().getName() + 
+ * 		" is running: "+ getClass().getSimpleName() +
+ * 		" > " + Thread.currentThread().getStackTrace()[1].getMethodName()
+ * 	)
+ * </pre>
+ */
+
 public interface Loggable {
 	public Logger getLogger();
 	
