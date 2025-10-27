@@ -8,7 +8,7 @@ import com.github.sweettooth.controllerLanterna.comboBoxListeners.ComboBoxListen
 import com.github.sweettooth.controllerLanterna.textBoxInputFilters.InputFilterFactory;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.model.api.controllerAPI.EventFactory;
+import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.InputFilter;

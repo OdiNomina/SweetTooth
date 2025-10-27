@@ -7,7 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public class SeekTextFieldListener extends TextFieldListener {
 	SeekTextFieldListener(IGameData gameData, Processable event, JComponent nextInFocus, JLabel answerBox) {

@@ -2,7 +2,7 @@ package com.github.sweettooth.controllerLanterna.textBoxInputFilters;
 
 import com.github.sweettooth.controllerLanterna.controllers.LanternaController;
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.InputFilter;
 import com.googlecode.lanterna.gui2.Interactable;

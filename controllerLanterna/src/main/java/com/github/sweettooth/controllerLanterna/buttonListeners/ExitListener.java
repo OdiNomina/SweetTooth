@@ -1,7 +1,7 @@
 package com.github.sweettooth.controllerLanterna.buttonListeners;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.Interactable;
 

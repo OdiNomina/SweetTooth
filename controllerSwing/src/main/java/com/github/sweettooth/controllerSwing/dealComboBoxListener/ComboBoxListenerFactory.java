@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 
 import com.github.sweettooth.controllerSwing.controllers.DealController;
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class ComboBoxListenerFactory {

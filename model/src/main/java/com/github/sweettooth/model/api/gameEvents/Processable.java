@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.api.controllerAPI;
+package com.github.sweettooth.model.api.gameEvents;
 
 public interface Processable {
 	//This nested record is used as a response container (... no special reason).

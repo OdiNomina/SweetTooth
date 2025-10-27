@@ -3,7 +3,7 @@ package com.github.sweettooth.model.events;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.model.api.GameSettings;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.games.GameData;

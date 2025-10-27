@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public class DealTextFieldListener extends TextFieldListener {
 	JComboBox<String> associatedComboBox;

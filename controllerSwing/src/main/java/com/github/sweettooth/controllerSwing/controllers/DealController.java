@@ -17,7 +17,7 @@ import com.github.sweettooth.controllerSwing.dealTextFieldListener.TextFieldList
 import com.github.sweettooth.controllerSwing.dealWindowListener.DealWindowCloseListener;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.model.api.controllerAPI.EventFactory;
+import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.github.sweettooth.shared.api.WindowNavigator;
 import com.github.sweettooth.shared.api.GameNavigator;
 import com.github.sweettooth.shared.api.UpdateGuard;

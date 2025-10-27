@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class LocationSelectionListener extends ComboBoxListener {

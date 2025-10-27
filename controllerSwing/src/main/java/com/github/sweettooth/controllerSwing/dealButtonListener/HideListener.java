@@ -6,7 +6,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.controllerAPI.Processable;
+import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public class HideListener extends ButtonListener {
 	Processable event;
