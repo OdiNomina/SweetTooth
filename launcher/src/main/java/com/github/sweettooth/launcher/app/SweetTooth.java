@@ -4,8 +4,6 @@ import java.lang.Thread.UncaughtExceptionHandler;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
@@ -20,46 +18,47 @@ import com.github.sweettooth.viewSwing.api.SwingDisplay;
 
 public class SweetTooth implements Loggable {
 	private static final Logger LOGGER = Logger.getLogger(SweetTooth.class.getName());
-	private static SweetTooth app;
+	private static SweetTooth gameInstance;
 	
 	SweetTooth(){}
 	
 	public static void main(String[] args) {
 		try {
 			Instant start = Instant.now();
-			ExecutorService executor = Executors.newCachedThreadPool();
-			app = new SweetTooth();
+			gameInstance = new SweetTooth();
 			
 			LoggingSetup.initialize(SweetTooth.class);
-			app.setDefaultUncaughtExceptionHandler();
-			app.addShutdownHook();
+			gameInstance.setDefaultUncaughtExceptionHandler();
+			gameInstance.addShutdownHook();
 			
 			ScoreProvider scoreProvider = ScoreProvider.createScoreProvider();
 			GameSettings gameSettings = new GameSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
 			ISessionData sessionData = ISessionData.createSessionData(scoreProvider, gameSettings, null);
 			
-			SwingDisplay gui = SwingDisplay.getInstance(sessionData);
+			SwingDisplay.getInstance(sessionData).start();
 			
-			executor.submit(gui);
-			
-			executor.shutdown();
-			app.info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
+			gameInstance.info(String.format(Thread.currentThread().getName() + " thread stopped: Runtime %s ms", start.until(Instant.now(), ChronoUnit.MILLIS)));
 		}
 		catch(Exception ex) {
-			app.error(Thread.currentThread().getName() + " thread throws " + ex.getClass().getName(), ex);
+			gameInstance.error(Thread.currentThread().getName() + " thread throws " + ex.getClass().getName(), ex);
 		}
+	}
+
+	@Override
+	public Logger getLogger() {
+		return LOGGER;
 	}
 
 	private void addShutdownHook() {
 		try {
 			Runtime.getRuntime()
 				.addShutdownHook(new Thread( () -> {
-						app.info(Thread.currentThread().getName() + " shutdown hook is executed: Logger is reset.\n");
+						gameInstance.info(Thread.currentThread().getName() + " shutdown hook is executed: Logger is reset.\n");
 				        try {
 				        	LogManager.getLogManager().reset();  // Schließt alle globalen Handler (z.B. FileHandler)
 				        }
-				        catch(SecurityException e) {
-				        	error(e.getClass().getName() + " when attempting to reset log manager.", e);
+				        catch(SecurityException ex) {
+				        	error(ex.getClass().getName() + " when attempting to reset log manager.", ex);
 				        }
 			        }
 				));
@@ -67,11 +66,6 @@ public class SweetTooth implements Loggable {
 		catch(IllegalArgumentException | IllegalStateException | SecurityException ex) {
 			error(ex.getClass().getName() + " when adding 'shutdown hook'.", ex);
 		}
-	}
-	
-	@Override
-	public Logger getLogger() {
-		return LOGGER;
 	}
 	
 	private void setDefaultUncaughtExceptionHandler() {
