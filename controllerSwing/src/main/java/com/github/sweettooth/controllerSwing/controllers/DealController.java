@@ -53,7 +53,7 @@ public class DealController implements IDealController {
 	}
 	
 	public Locale getLocale() {
-		return sessionData.getSettings().getLocale();
+		return sessionData.getGlobalSettings().getLocale();
 	}
 	
 	public WindowNavigator getWindowNavigator() {

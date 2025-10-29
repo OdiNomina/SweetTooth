@@ -3,13 +3,13 @@ package com.github.sweettooth.model.characters;
 import java.util.Currency;
 import java.util.Locale;
 
-import com.github.sweettooth.model.api.GameSettings;
+import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 
 non-sealed public class Bank extends MoneyDealer {
 	
-	public Bank(GameSettings modelSettings) {
-		super(InternSettings.HOMETOWN, modelSettings);
+	public Bank(GlobalSettings globalSettings) {
+		super(InternSettings.HOMETOWN, globalSettings);
 	}
 	
 	@Override
@@ -47,18 +47,18 @@ non-sealed public class Bank extends MoneyDealer {
 
 	@Override
 	public String getDispoHint() {
-		Locale locale = modelSettings.getLocale();
+		Locale locale = globalSettings.getLocale();
 		return String.format(locale, "Kredit-Rahmen: %.2f %s (mehr gibts nicht)", InternSettings.BANK_MIN_BALANCE, Currency.getInstance(locale).getSymbol());
 	}
 	
 	@Override
 	public String getCreditInterestHint() {
-		return String.format(modelSettings.getLocale(), "Guthaben Zinsen:  +%.1f %% pro Tag", InternSettings.BANK_INTEREST_CREDIT_PERCENT);
+		return String.format(globalSettings.getLocale(), "Guthaben Zinsen:  +%.1f %% pro Tag", InternSettings.BANK_INTEREST_CREDIT_PERCENT);
 	}
 
 	@Override
 	public String getDebitInterestHint() {
-		return String.format(modelSettings.getLocale(), "Kredit Zinsen: -%.1f %% pro Tag", InternSettings.BANK_INTEREST_DEBT_PERCENT);
+		return String.format(globalSettings.getLocale(), "Kredit Zinsen: -%.1f %% pro Tag", InternSettings.BANK_INTEREST_DEBT_PERCENT);
 	}
 
 	@Override

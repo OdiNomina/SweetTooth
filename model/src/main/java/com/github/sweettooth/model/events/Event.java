@@ -2,10 +2,11 @@ package com.github.sweettooth.model.events;
 
 import java.util.logging.Logger;
 
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.commons.GameSettings;
+import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.session.SessionData;
 import com.github.sweettooth.shared.logging.Loggable;
@@ -14,7 +15,8 @@ public abstract sealed class Event implements Processable, Loggable permits
 	ApplyInterest, Buy, Deposit, Exit, GiveMoneyBack, Hide, Lend, Seek, Sell, Travel, Withdraw //Update factory!
 {
 	final Logger logger;
-	GameSettings settings;
+	GlobalSettings globalSettings;
+	GameSettings gameSettings;
 	Player player;
 	MoneyDealer bank;
 	MoneyDealer loanShark;
@@ -23,7 +25,8 @@ public abstract sealed class Event implements Processable, Loggable permits
 	
 	public Event(SessionData sessionData, GameData gameData) {
 		logger = Logger.getLogger(Event.class.getName());
-		settings = sessionData.getSettings();
+		globalSettings = sessionData.getGlobalSettings();
+		gameSettings = sessionData.getGameSettings();
 		player = sessionData.getPlayer();
 		bank = gameData.getBank();
 		loanShark = gameData.getLoanShark();

@@ -1,11 +1,11 @@
 package com.github.sweettooth.model.characters;
 
-import com.github.sweettooth.model.api.GameSettings;
+import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 
 non-sealed public class LoanShark extends MoneyDealer {
-	public LoanShark(GameSettings modelSettings) {
-		super(InternSettings.HOMETOWN, modelSettings);
+	public LoanShark(GlobalSettings globalSettings) {
+		super(InternSettings.HOMETOWN, globalSettings);
 	}
 	
 	@Override
@@ -46,7 +46,7 @@ non-sealed public class LoanShark extends MoneyDealer {
 
 	@Override
 	public String getDebitInterestHint() {
-		return String.format(modelSettings.getLocale(), "Ich will %.1f %% pro Tag!", InternSettings.LOANSHARK_INTEREST_DEBT_PERCENT);
+		return String.format(globalSettings.getLocale(), "Ich will %.1f %% pro Tag!", InternSettings.LOANSHARK_INTEREST_DEBT_PERCENT);
 	}
 
 	@Override

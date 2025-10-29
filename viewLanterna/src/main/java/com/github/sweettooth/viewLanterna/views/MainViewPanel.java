@@ -7,10 +7,11 @@ import java.util.Locale;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.controllerLanterna.api.ILanternaController;
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.settings.IGameSettings;
+import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
@@ -34,7 +35,8 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	
 	private ILanternaController controller;
 	private IGameData gameData;
-	private GameSettings settings;
+	private IGlobalSettings globalSettings;
+	private IGameSettings gameSettings;
 	
 	private IPlayer player;
 	private IMoneyDealer loanShark;
@@ -46,7 +48,8 @@ public class MainViewPanel extends ViewPanel implements Loggable {
         this.controller = controller;
         this.gameData = gameData;
         
-        settings = sessionData.getSettings();
+        globalSettings = sessionData.getGlobalSettings();
+        gameSettings = sessionData.getGameSettings();
         player = sessionData.getPlayer();
         loanShark = gameData.loanShark();
         bank = gameData.bank();
@@ -345,7 +348,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 		    labels.get("bankInfo").setText("");
 		    labels.get("loansharkBalance").setText(formatMoney(loanShark.clientsBalance(player)));
 		    labels.get("loansharkInfo").setText("");
-		    labels.get("ticketPrice").setText(formatMoney(settings.getTravelCosts()));
+		    labels.get("ticketPrice").setText(formatMoney(gameSettings.getTravelCosts()));
 		    labels.get("travel1").setText("");
 		    labels.get("travel2").setText("");
 		    labels.get("travel3").setText("");
@@ -400,7 +403,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 			double cash = player.getCash();
 			double loan = loanShark.clientsBalance(player);
 			double balance = bank.clientsBalance(player);
-			Locale locale = settings.getLocale();
+			Locale locale = globalSettings.getLocale();
 			String currency = Currency.getInstance(locale).getSymbol();
 			StringBuffer answer = new StringBuffer();
 			answer.append(String.format(locale, "Cash: %,.2f %s", cash, currency))
@@ -421,10 +424,10 @@ public class MainViewPanel extends ViewPanel implements Loggable {
      */
 	private ArrayList<String> formatDefaultSnacks() {
 		try {
-		    ArrayList<? extends Snackable> candies = settings.getSnackFactory().defaultSnacks();
+		    ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().defaultSnacks();
 		    candies.sort(Comparator.comparing(Snackable::name)); //String implements Comparable
 	    	ArrayList<String> formattedList = new ArrayList<>();
-	    	Locale locale = settings.getLocale();
+	    	Locale locale = globalSettings.getLocale();
 	    	String currency = Currency.getInstance(locale).getSymbol();
 	    	for(Snackable s : candies)
 		    	formattedList.add(String.format(locale, "%s - %.2f %s", s.name(), s.staticPrice(), currency));
@@ -438,7 +441,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	
 	private String formatMoney(double money) {
 		try {
-			Locale locale = settings.getLocale();
+			Locale locale = globalSettings.getLocale();
 			return String.format(locale, "%,.2f %s", money, Currency.getInstance(locale).getSymbol());
 		}
 		catch(RuntimeException e) {
@@ -459,7 +462,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 				formattedList.add("Nix drin!");
 				return formattedList;
 			}
-			Locale locale = settings.getLocale();
+			Locale locale = globalSettings.getLocale();
 			for(Snackable s : snacks)
 				formattedList.add(String.format(locale, "%,d | %s", s.quantity(), s.name()));
 			return formattedList;

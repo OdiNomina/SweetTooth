@@ -3,32 +3,48 @@ package com.github.sweettooth.model.session;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.settings.IGameSettings;
+import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
+import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.commons.GameSettings;
+import com.github.sweettooth.model.commons.GlobalSettings;
 
 public class SessionData implements ISessionData {
 	private final List<Observer> observers;
 	private final ScoreManager scoreManager;
-    private final GameSettings settings;
+    private final GlobalSettings globalSettings;
+    private final GameSettings gameSettings;
     private final Player player;
 
-    public SessionData(ScoreManager scoreManager, GameSettings settings, String playerName) {
+    public SessionData(ScoreProvider scoreProvider, IGlobalSettings globalSettings, IGameSettings gameSettings, String playerName) {
     	observers = new ArrayList<>();
     	
-    	this.scoreManager = scoreManager;
-        this.settings = settings;
+    	this.scoreManager = (ScoreManager)scoreProvider;
+        this.globalSettings = (GlobalSettings)globalSettings;
+        this.gameSettings = (GameSettings)gameSettings;
         player = new Player(playerName);
     }
 
     @Override
     public void addScore(Double score) {
-    	scoreManager.addScore(player.getName(), score, settings.getLocale());
+    	scoreManager.addScore(player.getName(), score, globalSettings.getLocale());
     }
     
     @Override
+	public GameSettings getGameSettings() {
+	    return gameSettings;
+	}
+    
+    @Override
+	public GlobalSettings getGlobalSettings() {
+	    return globalSettings;
+	}
+
+	@Override
     public Player getPlayer() {
 	    return player;
 	}
@@ -40,12 +56,7 @@ public class SessionData implements ISessionData {
     
     @Override
 	public List<ScoreData> getScores() {
-        return scoreManager.getScores(settings.getLocale());
-    }
-
-    @Override
-    public GameSettings getSettings() {
-        return settings;
+        return scoreManager.getScores(globalSettings.getLocale());
     }
 
     @Override

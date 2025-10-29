@@ -4,12 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
 import com.github.sweettooth.model.characters.MoneyDealer;
+import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 
 public class GameData implements IGameData {
@@ -21,11 +22,12 @@ public class GameData implements IGameData {
 	private boolean gameOver;
 	private boolean exitButtonClicked;
 	
-	public GameData(GameSettings gameSettings) {
+	public GameData(IGlobalSettings globalSettings) {
+		GlobalSettings settings = (GlobalSettings)globalSettings;
 		observers = new ArrayList<>();
 		
-		bank = new Bank(gameSettings);
-		loanShark = new LoanShark(gameSettings);
+		bank = new Bank(settings);
+		loanShark = new LoanShark(settings);
 		dayOfGame = Integer.valueOf(1);
 	}
 	

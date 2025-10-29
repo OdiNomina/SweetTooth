@@ -2,8 +2,8 @@ package com.github.sweettooth.model.experiences;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.commons.GameSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.snacks.Snack;

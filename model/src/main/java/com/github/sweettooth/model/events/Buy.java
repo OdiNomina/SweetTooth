@@ -18,7 +18,7 @@ public final class Buy extends Event {
 			return "Nix gekauft";
 		if(Tools.isTooMuchToCarry(player, integerInput))
 			return "Soviel kannst du gar nicht tragen.";
-		SnackFactory snackFactory = (SnackFactory)settings.getSnackFactory();
+		SnackFactory snackFactory = (SnackFactory)gameSettings.getSnackFactory();
 		Snack kindOfCandy = snackFactory.valueOf(stringInput);
 		if(player.getCash() < kindOfCandy.getStaticPrice() * integerInput)
 			return "Soviel Geld hast du nicht dabei, musst du erst besorgen...";

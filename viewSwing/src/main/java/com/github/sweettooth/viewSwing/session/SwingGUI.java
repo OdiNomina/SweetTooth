@@ -70,7 +70,7 @@ public class SwingGUI implements SwingDisplay, Loggable, GameNavigator, WindowNa
 	@Override
 	public void writeDealScores() {
 		SwingExecutor.getInstance().submit( () -> 
-				sessionData.getScoreProvider().writeScoresToFile(sessionData.getSettings().getLocale())
+				sessionData.getScoreProvider().writeScoresToFile(sessionData.getGlobalSettings().getLocale())
 			);
 	}
 }

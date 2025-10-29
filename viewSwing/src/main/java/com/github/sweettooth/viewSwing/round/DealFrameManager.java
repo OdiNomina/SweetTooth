@@ -205,7 +205,7 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				design.sellTitel.setText("Hey! Willst du was Süßes?");
 				design.buySelectionLabel.setText("Ich mag...");
 				design.sellSelectionLabel.setText("Ich verkaufe dir...");
-				sessionData.getSettings().getSnackFactory().defaultSnacks().stream()
+				sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
 					.sorted(Comparator.comparing(Snackable::name))
 					.forEach(e -> { design.buySelection.addItem(e.name()); design.sellSelection.addItem(e.name()); });
 				design.buyPriceLabel.setText("Was kosten die?");
@@ -256,14 +256,14 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 	}
 
 	private void updateUI() {
-		List<String> pocketItems = Tools.formatSnacks(sessionData.getSettings(), sessionData.getPlayer().snacks());
-        List<String> stashedItems = Tools.formatSnacks(sessionData.getSettings(), sessionData.getPlayer().stash());
-        String cash = Tools.formatMoney(sessionData.getSettings(), sessionData.getPlayer().getCash());
-        String bankBalance = Tools.formatMoney(sessionData.getSettings(), gameData.bank().clientsBalance(sessionData.getPlayer()));
-        String loanBalance = Tools.formatMoney(sessionData.getSettings(), gameData.loanShark().clientsBalance(sessionData.getPlayer()));
+		List<String> pocketItems = Tools.formatSnacks(sessionData.getGlobalSettings(), sessionData.getPlayer().snacks());
+        List<String> stashedItems = Tools.formatSnacks(sessionData.getGlobalSettings(), sessionData.getPlayer().stash());
+        String cash = Tools.formatMoney(sessionData.getGlobalSettings(), sessionData.getPlayer().getCash());
+        String bankBalance = Tools.formatMoney(sessionData.getGlobalSettings(), gameData.bank().clientsBalance(sessionData.getPlayer()));
+        String loanBalance = Tools.formatMoney(sessionData.getGlobalSettings(), gameData.loanShark().clientsBalance(sessionData.getPlayer()));
         String day = Integer.toString(gameData.getDayOfGame());
         String locationName = sessionData.getPlayer().getLocation().getOfficialName();
-        String ticketPrice = Tools.formatMoney(sessionData.getSettings(), sessionData.getSettings().getTravelCosts());
+        String ticketPrice = Tools.formatMoney(sessionData.getGlobalSettings(), sessionData.getGameSettings().getTravelCosts());
         String balanceSheet = Tools.formatBalanceSheet(sessionData, gameData);
 		
         Tools.runOnEDT( () -> {
@@ -277,19 +277,19 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				pocketItems.forEach(design.pockets::addItem);
 			    // Buy Sell Panel
 			    String buySelectedItem = design.buySelection.getSelectedItem().toString().strip();
-			    double buyPriceValue = sessionData.getSettings().getSnackFactory().defaultSnacks().stream()
+			    double buyPriceValue = sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
 			    	.filter(e -> e.name().equalsIgnoreCase(buySelectedItem))
 			    	.findFirst()
 			    	.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + buySelectedItem))
 			    	.staticPrice();
-			    design.buyPrice.setText(Tools.formatMoney(sessionData.getSettings(), buyPriceValue));
+			    design.buyPrice.setText(Tools.formatMoney(sessionData.getGlobalSettings(), buyPriceValue));
 			    String sellSelectedItem = design.sellSelection.getSelectedItem().toString().strip();
-			    Double sellPriceValue = sessionData.getSettings().getSnackFactory().defaultSnacks().stream()
+			    Double sellPriceValue = sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
 			    		.filter(e -> e.name().equalsIgnoreCase(sellSelectedItem))
 			    		.findFirst()
 			    		.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + sellSelectedItem))
 			    		.staticPrice();
-			    design.sellPrice.setText(Tools.formatMoney(sessionData.getSettings(), sellPriceValue));
+			    design.sellPrice.setText(Tools.formatMoney(sessionData.getGlobalSettings(), sellPriceValue));
 			    design.buySellInfo.setText("");
 			    // Hide Seek Panel
 			    design.stash.removeAllItems();

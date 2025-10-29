@@ -13,14 +13,15 @@ import javax.swing.JComboBox;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.settings.IGameSettings;
+import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.viewAPI.Snackable;
 
 public class Tools {
-	public static String formatMoney(GameSettings gameSettings, double money) throws IllegalFormatException, NullPointerException, IllegalArgumentException {
-		Locale locale = gameSettings.getLocale();
+	public static String formatMoney(IGlobalSettings globalSettings, double money) throws IllegalFormatException, NullPointerException, IllegalArgumentException {
+		Locale locale = globalSettings.getLocale();
 		return String.format(locale, "%,.2f %s", money, Currency.getInstance(locale).getSymbol());
     }
 
@@ -28,14 +29,14 @@ public class Tools {
      * Converts the list entries to formatted strings.
      * @return A String list with formatted entries or null if an error occurred.
      */
-	public static ArrayList<String> formatSnacks(GameSettings gameSettings, ArrayList<? extends Snackable> snacks) throws NullPointerException, java.util.IllegalFormatException {
+	public static ArrayList<String> formatSnacks(IGlobalSettings globalSettings, ArrayList<? extends Snackable> snacks) throws NullPointerException, java.util.IllegalFormatException {
 		snacks.sort(Comparator.comparing(Snackable::name));
 		ArrayList<String> formattedList = new ArrayList<>();
 		if(snacks.isEmpty()) {
 			formattedList.add("Nix drin!");
 			return formattedList;
 		}
-		Locale locale = gameSettings.getLocale();
+		Locale locale = globalSettings.getLocale();
 		for(Snackable s : snacks)
 			formattedList.add(String.format(locale, "%,d | %s", s.quantity(), s.name()));
 		return formattedList;
@@ -45,11 +46,11 @@ public class Tools {
      * Retrieves a list of standard snacks and converts their entries to formatted strings.
      * @return A String list with formatted entries or null if an error occurred.
      */
-	public static ArrayList<String> formatDefaultSnacks(GameSettings gameSettings) throws NullPointerException, IllegalArgumentException, java.util.IllegalFormatException {
-		ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().defaultSnacks();
+	public static ArrayList<String> formatDefaultSnacks(IGlobalSettings globalSettings, IGameSettings gamesettings) throws NullPointerException, IllegalArgumentException, java.util.IllegalFormatException {
+		ArrayList<? extends Snackable> candies = gamesettings.getSnackFactory().defaultSnacks();
 	    candies.sort(Comparator.comparing(Snackable::name)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
-    	Locale locale = gameSettings.getLocale();
+    	Locale locale = globalSettings.getLocale();
     	String currency = Currency.getInstance(locale).getSymbol();
     	for(Snackable s : candies)
 	    	formattedList.add(String.format(locale, "%s - %.2f %s", s.name(), s.staticPrice(), currency));
@@ -65,7 +66,7 @@ public class Tools {
     	double cash = sessionData.getPlayer().getCash();
 		double loan = gameData.loanShark().clientsBalance(sessionData.getPlayer());
 		double balance = gameData.bank().clientsBalance(sessionData.getPlayer());
-		Locale locale = sessionData.getSettings().getLocale();
+		Locale locale = sessionData.getGlobalSettings().getLocale();
 		String currency = Currency.getInstance(locale).getSymbol();
 		StringBuffer answer = new StringBuffer();
 		answer.append(String.format(locale, "Cash: %,.2f %s", cash, currency))

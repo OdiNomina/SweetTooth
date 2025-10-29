@@ -7,10 +7,11 @@ import java.util.Locale;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.ISnackFactory;
 import com.github.sweettooth.model.api.ISnackFactory.SnackType;
+import com.github.sweettooth.model.api.settings.IGameSettings;
+import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.shared.logging.Loggable;
 import com.github.sweettooth.shared.logging.LoggingSetup;
@@ -32,8 +33,9 @@ public class SweetTooth implements Loggable {
 			gameInstance.addShutdownHook();
 			
 			ScoreProvider scoreProvider = ScoreProvider.createScoreProvider();
-			GameSettings gameSettings = new GameSettings(Locale.GERMANY, ISnackFactory.getFactory(SnackType.Candy));
-			ISessionData sessionData = ISessionData.createSessionData(scoreProvider, gameSettings, null);
+			IGlobalSettings globalSettings = IGlobalSettings.getInstance(Locale.GERMANY);
+			IGameSettings gameSettings = IGameSettings.getInstance(ISnackFactory.getFactory(SnackType.Candy));
+			ISessionData sessionData = ISessionData.createSessionData(scoreProvider, globalSettings, gameSettings, null);
 			
 			SwingDisplay.getInstance(sessionData).start();
 			

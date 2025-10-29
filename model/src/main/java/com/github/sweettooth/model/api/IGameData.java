@@ -2,6 +2,7 @@ package com.github.sweettooth.model.api;
 
 import java.io.IOException;
 
+import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.games.GameData;
@@ -9,8 +10,8 @@ import com.github.sweettooth.model.games.GameData;
 public interface IGameData {
 	// --- launcher
 	
-	static IGameData createGameData(GameSettings gameSettings) {
-		return new GameData(gameSettings);
+	static IGameData createGameData(IGlobalSettings globalSettings) {
+		return new GameData(globalSettings);
 	}
 	
 	// --- controller

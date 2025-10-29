@@ -42,7 +42,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 		initializeUI();
 		addInputHandling();
 		SwingExecutor.getInstance().submit(
-				() -> scoreProvider.readScoresFromFile(sessionData.getSettings().getLocale()),
+				() -> scoreProvider.readScoresFromFile(sessionData.getGlobalSettings().getLocale()),
 				() -> updateUI()
 			);
 	}

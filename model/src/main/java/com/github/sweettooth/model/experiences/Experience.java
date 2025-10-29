@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.experiences;
 
-import com.github.sweettooth.model.api.GameSettings;
 import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.commons.GameSettings;
 
 public abstract sealed class Experience permits 
 	Eating, Gift, MuggingCandies, MuggingCash, NoopEvent

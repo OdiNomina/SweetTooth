@@ -25,12 +25,12 @@ public final class Travel extends Event {
 			payment = "Du zahlst per Bankcard.";
 		}
 		player.setLocation(Location.valueOf(stringInput));
-		SnackFactory snackFactory = (SnackFactory)settings.getSnackFactory();
+		SnackFactory snackFactory = (SnackFactory)gameSettings.getSnackFactory();
 		snackFactory.changeSnackPrices(player.getLocation());
 		String infoChangePrices = "(Die Marktpreise haben sich geändert.)";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")
-					.append(Experience.randomExperience(settings).process(player))
+					.append(Experience.randomExperience(gameSettings).process(player))
 					.append(" ");
 		return new Answer(eventAnswer.toString(), payment, infoChangePrices);
 	}
