@@ -30,7 +30,7 @@ public class Tools {
      * @return A String list with formatted entries or null if an error occurred.
      */
 	public static ArrayList<String> formatSnacks(IGlobalSettings globalSettings, ArrayList<? extends Snackable> snacks) throws NullPointerException, java.util.IllegalFormatException {
-		snacks.sort(Comparator.comparing(Snackable::name));
+		snacks.sort(Comparator.comparing(Snackable::getName));
 		ArrayList<String> formattedList = new ArrayList<>();
 		if(snacks.isEmpty()) {
 			formattedList.add("Nix drin!");
@@ -38,7 +38,7 @@ public class Tools {
 		}
 		Locale locale = globalSettings.getLocale();
 		for(Snackable s : snacks)
-			formattedList.add(String.format(locale, "%,d | %s", s.quantity(), s.name()));
+			formattedList.add(String.format(locale, "%,d | %s", s.getQuantity(), s.getName()));
 		return formattedList;
 	}
 	
@@ -48,12 +48,12 @@ public class Tools {
      */
 	public static ArrayList<String> formatDefaultSnacks(IGlobalSettings globalSettings, IGameSettings gamesettings) throws NullPointerException, IllegalArgumentException, java.util.IllegalFormatException {
 		ArrayList<? extends Snackable> candies = gamesettings.getSnackFactory().defaultSnacks();
-	    candies.sort(Comparator.comparing(Snackable::name)); //String implements Comparable
+	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
     	Locale locale = globalSettings.getLocale();
     	String currency = Currency.getInstance(locale).getSymbol();
     	for(Snackable s : candies)
-	    	formattedList.add(String.format(locale, "%s - %.2f %s", s.name(), s.staticPrice(), currency));
+	    	formattedList.add(String.format(locale, "%s - %.2f %s", s.getName(), s.getPrice(), currency));
 	    return formattedList;
 	}
 	

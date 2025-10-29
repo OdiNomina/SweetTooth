@@ -206,8 +206,8 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				design.buySelectionLabel.setText("Ich mag...");
 				design.sellSelectionLabel.setText("Ich verkaufe dir...");
 				sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
-					.sorted(Comparator.comparing(Snackable::name))
-					.forEach(e -> { design.buySelection.addItem(e.name()); design.sellSelection.addItem(e.name()); });
+					.sorted(Comparator.comparing(Snackable::getName))
+					.forEach(e -> { design.buySelection.addItem(e.getName()); design.sellSelection.addItem(e.getName()); });
 				design.buyPriceLabel.setText("Was kosten die?");
 				design.sellPriceLabel.setText("für");
 				design.buyQuantity.setText("");
@@ -278,17 +278,17 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 			    // Buy Sell Panel
 			    String buySelectedItem = design.buySelection.getSelectedItem().toString().strip();
 			    double buyPriceValue = sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
-			    	.filter(e -> e.name().equalsIgnoreCase(buySelectedItem))
+			    	.filter(e -> e.getName().equalsIgnoreCase(buySelectedItem))
 			    	.findFirst()
 			    	.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + buySelectedItem))
-			    	.staticPrice();
+			    	.getPrice();
 			    design.buyPrice.setText(Tools.formatMoney(sessionData.getGlobalSettings(), buyPriceValue));
 			    String sellSelectedItem = design.sellSelection.getSelectedItem().toString().strip();
 			    Double sellPriceValue = sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
-			    		.filter(e -> e.name().equalsIgnoreCase(sellSelectedItem))
+			    		.filter(e -> e.getName().equalsIgnoreCase(sellSelectedItem))
 			    		.findFirst()
 			    		.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + sellSelectedItem))
-			    		.staticPrice();
+			    		.getPrice();
 			    design.sellPrice.setText(Tools.formatMoney(sessionData.getGlobalSettings(), sellPriceValue));
 			    design.buySellInfo.setText("");
 			    // Hide Seek Panel

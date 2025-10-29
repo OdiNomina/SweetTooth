@@ -25,7 +25,7 @@ public final class Sell extends Event {
 				playersCandy.reduceQuantity(integerInput);
 			else
 				player.getSnacksInPockets().remove(playersCandy);
-			player.addCash(playersCandy.getStaticPrice() * integerInput);			
+			player.addCash(playersCandy.getPrice() * integerInput);			
 			return "Verkauft";
 		} catch(NoSuchElementException ex) {
 			return "Lass sehen... das hast du doch gar nicht!";

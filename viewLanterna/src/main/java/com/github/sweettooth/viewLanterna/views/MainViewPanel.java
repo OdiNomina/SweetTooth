@@ -425,12 +425,12 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	private ArrayList<String> formatDefaultSnacks() {
 		try {
 		    ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().defaultSnacks();
-		    candies.sort(Comparator.comparing(Snackable::name)); //String implements Comparable
+		    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
 	    	ArrayList<String> formattedList = new ArrayList<>();
 	    	Locale locale = globalSettings.getLocale();
 	    	String currency = Currency.getInstance(locale).getSymbol();
 	    	for(Snackable s : candies)
-		    	formattedList.add(String.format(locale, "%s - %.2f %s", s.name(), s.staticPrice(), currency));
+		    	formattedList.add(String.format(locale, "%s - %.2f %s", s.getName(), s.getPrice(), currency));
 		    return formattedList;
 		}
 		catch(RuntimeException e) {
@@ -456,7 +456,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
      */
 	private ArrayList<String> formatSnacks(ArrayList<? extends Snackable> snacks) {
 		try {
-			snacks.sort(Comparator.comparing(Snackable::name));
+			snacks.sort(Comparator.comparing(Snackable::getName));
 			ArrayList<String> formattedList = new ArrayList<>();
 			if(snacks.isEmpty()) {
 				formattedList.add("Nix drin!");
@@ -464,7 +464,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 			}
 			Locale locale = globalSettings.getLocale();
 			for(Snackable s : snacks)
-				formattedList.add(String.format(locale, "%,d | %s", s.quantity(), s.name()));
+				formattedList.add(String.format(locale, "%,d | %s", s.getQuantity(), s.getName()));
 			return formattedList;
 		}
 		catch(RuntimeException e) {

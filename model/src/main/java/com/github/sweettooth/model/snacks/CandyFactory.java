@@ -33,15 +33,15 @@ public class CandyFactory extends SnackFactory {
 	
 	@Override
 	public void changeSnackPrices(Location location) {
-		getDefaultSnacks().stream().forEach(  t -> t.setRandomStaticPrice(location) );
+		getDefault().stream().forEach(  t -> t.setRandomStaticPrice(location) );
 	}
 	
 	@Override
-	public ArrayList<Snack> getDefaultSnacks() {
+	public ArrayList<Candy> getDefault() {
 		if(defaultCandies.isEmpty())
 			creatDefaultCandies();
 		
-		ArrayList<Snack> copy = new ArrayList<>();
+		ArrayList<Candy> copy = new ArrayList<>();
 		for(Candy c : defaultCandies)
 			copy.add(c);
 		return copy;

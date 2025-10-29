@@ -21,8 +21,8 @@ public interface ISnackFactory {
 	// --- view
 	
 	public default ArrayList<? extends Snackable> defaultSnacks() {
-		return this.getDefaultSnacks();
+		return this.getDefault();
 	}
 	
-	ArrayList<? extends Snackable> getDefaultSnacks();
+	ArrayList<? extends Snackable> getDefault();
 }

@@ -23,7 +23,7 @@ final class Bonbon extends Candy {
 	}
 
 	@Override
-	public double getStaticPrice() {
+	public double getPrice() {
 		return Tools.rounded(price);
 	}
 

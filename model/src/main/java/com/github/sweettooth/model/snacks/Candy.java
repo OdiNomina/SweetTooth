@@ -9,13 +9,11 @@ import com.github.sweettooth.model.locations.Location;
 public abstract sealed class Candy extends Snack implements Cloneable permits
 	Bonbon, BubbleGum, ChewyCandy, ChocolateBar, GummyBears, Lollipop
 {
-	private final String name;
 	private final double minPrice;
 	private final double maxPrice;
-	private int quantity = 1;
 	
 	Candy(String name, double minPrice, double maxPrice) {
-		this.name = name;
+		super(name);
 		this.minPrice = minPrice;
 		this.maxPrice = maxPrice;
 	}
@@ -41,18 +39,8 @@ public abstract sealed class Candy extends Snack implements Cloneable permits
 	}
 	
 	@Override
-	public String getName() {
-		return name;
-	}
-	
-	@Override
-	public int getQuantity() {
-		return quantity;
-	}
-	
-	@Override
-	public abstract double getStaticPrice();
-	
+	public abstract double getPrice();
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(name, quantity);
@@ -68,13 +56,7 @@ public abstract sealed class Candy extends Snack implements Cloneable permits
 		quantity -= number;
 	}
 	
-	@Override
-	public void setQuantity(int quantity) {
-		this.quantity = quantity > 0 ? quantity : 0;
-	}
-	
-	@Override
-	public void setRandomStaticPrice(Location location) {
+	void setRandomStaticPrice(Location location) {
 		ThreadLocalRandom random = ThreadLocalRandom.current();
 		double newPrice = Tools.rounded(random.nextDouble(minPrice, maxPrice));
 		newPrice *= location.getPriceFactor();

@@ -20,10 +20,10 @@ public final class Buy extends Event {
 			return "Soviel kannst du gar nicht tragen.";
 		SnackFactory snackFactory = (SnackFactory)gameSettings.getSnackFactory();
 		Snack kindOfCandy = snackFactory.valueOf(stringInput);
-		if(player.getCash() < kindOfCandy.getStaticPrice() * integerInput)
+		if(player.getCash() < kindOfCandy.getPrice() * integerInput)
 			return "Soviel Geld hast du nicht dabei, musst du erst besorgen...";
 		player.addSnack(kindOfCandy, player.getSnacksInPockets(), integerInput);
-		player.reduceCash(kindOfCandy.getStaticPrice() * integerInput);
+		player.reduceCash(kindOfCandy.getPrice() * integerInput);
 		return "Gekauft!";
 	}
 
