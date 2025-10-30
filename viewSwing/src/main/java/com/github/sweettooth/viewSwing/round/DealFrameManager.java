@@ -205,7 +205,7 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				design.sellTitel.setText("Hey! Willst du was Süßes?");
 				design.buySelectionLabel.setText("Ich mag...");
 				design.sellSelectionLabel.setText("Ich verkaufe dir...");
-				sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
+				sessionData.getGameSettings().getSnackFactory().getDefaultSnacks().stream()
 					.sorted(Comparator.comparing(Snackable::getName))
 					.forEach(e -> { design.buySelection.addItem(e.getName()); design.sellSelection.addItem(e.getName()); });
 				design.buyPriceLabel.setText("Was kosten die?");
@@ -277,14 +277,14 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				pocketItems.forEach(design.pockets::addItem);
 			    // Buy Sell Panel
 			    String buySelectedItem = design.buySelection.getSelectedItem().toString().strip();
-			    double buyPriceValue = sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
+			    double buyPriceValue = sessionData.getGameSettings().getSnackFactory().getDefaultSnacks().stream()
 			    	.filter(e -> e.getName().equalsIgnoreCase(buySelectedItem))
 			    	.findFirst()
 			    	.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + buySelectedItem))
 			    	.getPrice();
 			    design.buyPrice.setText(Tools.formatMoney(sessionData.getGlobalSettings(), buyPriceValue));
 			    String sellSelectedItem = design.sellSelection.getSelectedItem().toString().strip();
-			    Double sellPriceValue = sessionData.getGameSettings().getSnackFactory().defaultSnacks().stream()
+			    Double sellPriceValue = sessionData.getGameSettings().getSnackFactory().getDefaultSnacks().stream()
 			    		.filter(e -> e.getName().equalsIgnoreCase(sellSelectedItem))
 			    		.findFirst()
 			    		.orElseThrow(() -> new IllegalArgumentException("Snack not found: " + sellSelectedItem))

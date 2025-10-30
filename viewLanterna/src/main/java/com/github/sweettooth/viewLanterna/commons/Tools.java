@@ -41,7 +41,7 @@ public class Tools {
      * @return A String list with formatted entries or null if an error occurred.
      */
 	public static ArrayList<String> formatDefaultSnacks(IGlobalSettings globalSettings, IGameSettings gameSettings) throws NullPointerException, IllegalArgumentException, java.util.IllegalFormatException {
-		ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().defaultSnacks();
+		ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().getDefaultSnacks();
 	    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
     	ArrayList<String> formattedList = new ArrayList<>();
     	Locale locale = globalSettings.getLocale();

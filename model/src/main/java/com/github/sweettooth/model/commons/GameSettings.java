@@ -8,7 +8,7 @@ public class GameSettings implements IGameSettings {
 	private ISnackFactory snackFactory;
 	
 	public GameSettings() {
-		snackFactory = ISnackFactory.getFactory(SnackType.Candy);
+		snackFactory = ISnackFactory.getSnackFactory(SnackType.Candy);
 	}
 	
 	public GameSettings(ISnackFactory snackFactory) {

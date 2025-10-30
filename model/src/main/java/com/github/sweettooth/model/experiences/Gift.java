@@ -23,7 +23,7 @@ final class Gift extends Experience {
 		int gift = 0;
 		for(int i = 0; i <= random.nextInt(0, InternSettings.MAX_GIFT_TYPES); i++) {
 			randomQuantity = random.nextInt(1,InternSettings.MAX_GIFT_QUANTITY + 1);
-			randomCandy = snackFactory.getRandom();
+			randomCandy = snackFactory.getRandomSnack();
 			if(!Tools.isTooMuchToCarry(player, randomQuantity)) {
 				player.addSnack(randomCandy, player.getSnacksInPockets(), randomQuantity);
 				gift++;

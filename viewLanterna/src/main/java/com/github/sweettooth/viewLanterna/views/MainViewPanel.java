@@ -424,7 +424,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
      */
 	private ArrayList<String> formatDefaultSnacks() {
 		try {
-		    ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().defaultSnacks();
+		    ArrayList<? extends Snackable> candies = gameSettings.getSnackFactory().getDefaultSnacks();
 		    candies.sort(Comparator.comparing(Snackable::getName)); //String implements Comparable
 	    	ArrayList<String> formattedList = new ArrayList<>();
 	    	Locale locale = globalSettings.getLocale();
