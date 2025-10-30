@@ -3,6 +3,7 @@ package com.github.sweettooth.model.api.viewAPI;
 import java.util.ArrayList;
 
 import com.github.sweettooth.model.api.ILocation;
+import com.github.sweettooth.model.api.snacks.Snackable;
 import com.github.sweettooth.model.characters.Player;
 
 public interface IPlayer {

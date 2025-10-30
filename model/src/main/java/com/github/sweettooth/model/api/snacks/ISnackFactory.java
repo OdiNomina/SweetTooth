@@ -1,8 +1,7 @@
-package com.github.sweettooth.model.api;
+package com.github.sweettooth.model.api.snacks;
 
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 import com.github.sweettooth.model.snacks.SnackFactory;
 
 public interface ISnackFactory {

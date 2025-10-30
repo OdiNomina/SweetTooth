@@ -1,8 +1,8 @@
 package com.github.sweettooth.model.commons;
 
-import com.github.sweettooth.model.api.ISnackFactory;
-import com.github.sweettooth.model.api.ISnackFactory.SnackType;
 import com.github.sweettooth.model.api.settings.IGameSettings;
+import com.github.sweettooth.model.api.snacks.ISnackFactory;
+import com.github.sweettooth.model.api.snacks.ISnackFactory.SnackType;
 
 public class GameSettings implements IGameSettings {
 	private ISnackFactory snackFactory;

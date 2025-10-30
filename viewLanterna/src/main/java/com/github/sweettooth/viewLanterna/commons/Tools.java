@@ -10,8 +10,8 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
+import com.github.sweettooth.model.api.snacks.Snackable;
 import com.github.sweettooth.model.api.viewAPI.IPlayer;
-import com.github.sweettooth.model.api.viewAPI.Snackable;
 
 public class Tools {
 	public static String formatMoney(IGlobalSettings globalSettings, double money) throws IllegalFormatException, NullPointerException, IllegalArgumentException {

@@ -2,8 +2,8 @@ package com.github.sweettooth.model.snacks;
 
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.api.ISnackFactory;
-import com.github.sweettooth.model.api.viewAPI.Snackable;
+import com.github.sweettooth.model.api.snacks.ISnackFactory;
+import com.github.sweettooth.model.api.snacks.Snackable;
 import com.github.sweettooth.model.locations.Location;
 
 public abstract class SnackFactory implements ISnackFactory {

@@ -3,7 +3,7 @@ package com.github.sweettooth.model.snacks;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-import com.github.sweettooth.model.api.viewAPI.Snackable;
+import com.github.sweettooth.model.api.snacks.Snackable;
 
 public abstract class Snack implements Snackable {
 	

@@ -8,10 +8,10 @@ import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.model.api.ISnackFactory;
-import com.github.sweettooth.model.api.ISnackFactory.SnackType;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
+import com.github.sweettooth.model.api.snacks.ISnackFactory;
+import com.github.sweettooth.model.api.snacks.ISnackFactory.SnackType;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.shared.logging.Loggable;
 import com.github.sweettooth.shared.logging.LoggingSetup;

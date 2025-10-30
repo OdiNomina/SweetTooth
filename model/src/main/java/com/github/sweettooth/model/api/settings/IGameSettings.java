@@ -1,6 +1,6 @@
 package com.github.sweettooth.model.api.settings;
 
-import com.github.sweettooth.model.api.ISnackFactory;
+import com.github.sweettooth.model.api.snacks.ISnackFactory;
 import com.github.sweettooth.model.commons.GameSettings;
 
 public interface IGameSettings {
