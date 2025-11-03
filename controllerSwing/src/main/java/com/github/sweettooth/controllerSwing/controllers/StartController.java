@@ -10,8 +10,8 @@ import com.github.sweettooth.controllerSwing.startWindowListener.StartWindowClos
 import com.github.sweettooth.controllerSwing.startButtonListener.PlayListener;
 import com.github.sweettooth.controllerSwing.startTextFieldListener.PlayerTextFieldListener;
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.shared.api.GameNavigator;
-import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.gameControl.GameNavigator;
+import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 
 public class StartController implements IStartController {
 	private final GameNavigator gameNavigator;

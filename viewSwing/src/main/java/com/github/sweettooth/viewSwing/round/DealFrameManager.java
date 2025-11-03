@@ -12,11 +12,11 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.snacks.Snackable;
-import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.gameControl.GameNavigator;
+import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 import com.github.sweettooth.shared.api.logging.Loggable;
 import com.github.sweettooth.shared.api.util.Observer;
 import com.github.sweettooth.shared.api.util.UpdateGuard;
-import com.github.sweettooth.shared.api.GameNavigator;
 import com.github.sweettooth.viewSwing.commons.Tools;
 
 public class DealFrameManager implements Observer, UpdateGuard, Loggable {

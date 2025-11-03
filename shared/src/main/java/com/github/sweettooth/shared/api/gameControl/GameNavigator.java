@@ -1,4 +1,4 @@
-package com.github.sweettooth.shared.api;
+package com.github.sweettooth.shared.api.gameControl;
 
 public interface GameNavigator {
 	void exitGame();

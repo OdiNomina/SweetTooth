@@ -7,8 +7,8 @@ import javax.swing.JTextField;
 
 import com.github.sweettooth.controllerSwing.controllers.StartController;
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.shared.api.GameNavigator;
-import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.gameControl.GameNavigator;
+import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 
 @SuppressWarnings("exports")
 public interface IStartController {
