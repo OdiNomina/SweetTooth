@@ -270,14 +270,14 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	    labels.get("bankBalanceLabel").addStyle(SGR.BOLD).setText("Kontostand:");
 	    labels.get("depositLabel").setText("Ich möchte Geld einzahlen.");
 	    labels.get("withdrawLabel").setText("Ich würde gerne Geld abheben.");
-	    labels.get("bankInterestHint").addStyle(SGR.ITALIC).setText(bank.getCreditInterestHint() + "  |  " + bank.getDebitInterestHint());
-	    labels.get("bankDispoHint").addStyle(SGR.ITALIC).setText(bank.getDispoHint());
+	    labels.get("bankInterestHint").addStyle(SGR.ITALIC).setText(bank.getHintCreditInterest() + "  |  " + bank.getHintDebitInterest());
+	    labels.get("bankDispoHint").addStyle(SGR.ITALIC).setText(bank.getHintDispo());
 	    
 	    labels.get("loansharkTitel").addStyle(SGR.BOLD).setText("KREDITHAI:");
 	    labels.get("loansharkBalanceLabel").addStyle(SGR.BOLD).setText("Schulden:");
 	    labels.get("lendLabel").setText("Ich brauch Geld.");
 	    labels.get("giveBackLabel").setText("Hier, ich hab dein Geld dabei.");
-	    labels.get("loansharkInterestHint").addStyle(SGR.ITALIC).setText(loanShark.getDebitInterestHint());
+	    labels.get("loansharkInterestHint").addStyle(SGR.ITALIC).setText(loanShark.getHintDebitInterest());
 	    
 	    labels.get("travelTitel1").addStyle(SGR.BOLD).setText("Du willst dich mal umschauen?");
 	    labels.get("travelTitel2").addStyle(SGR.BOLD).setText("Klar, aber du wirst den ganzen Tag unterwegs sein.");
@@ -344,9 +344,9 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 		    labels.get("cash").setText(formatMoney(player.getCash()));
 		    labels.get("buySellInfo").setText("");
 		    labels.get("hideSeekInfo").setText("");
-		    labels.get("bankBalance").setText(formatMoney(bank.clientsBalance(player)));
+		    labels.get("bankBalance").setText(formatMoney(bank.getClientsBalance(player)));
 		    labels.get("bankInfo").setText("");
-		    labels.get("loansharkBalance").setText(formatMoney(loanShark.clientsBalance(player)));
+		    labels.get("loansharkBalance").setText(formatMoney(loanShark.getClientsBalance(player)));
 		    labels.get("loansharkInfo").setText("");
 		    labels.get("ticketPrice").setText(formatMoney(gameSettings.getTravelCosts()));
 		    labels.get("travel1").setText("");
@@ -401,8 +401,8 @@ public class MainViewPanel extends ViewPanel implements Loggable {
     private String formatBalanceSheet() {
     	try {
 			double cash = player.getCash();
-			double loan = loanShark.clientsBalance(player);
-			double balance = bank.clientsBalance(player);
+			double loan = loanShark.getClientsBalance(player);
+			double balance = bank.getClientsBalance(player);
 			Locale locale = globalSettings.getLocale();
 			String currency = Currency.getInstance(locale).getSymbol();
 			StringBuffer answer = new StringBuffer();

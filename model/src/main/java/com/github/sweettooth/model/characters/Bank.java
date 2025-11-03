@@ -38,26 +38,20 @@ non-sealed public class Bank extends MoneyDealer {
 			return false;
 		return true;
 	}
-	
-	@Override
-	public double getClientsBalance(Player player) {
-		Client bankClient = getExistingOrNewClient(player);
-		return bankClient.getBalance();
-	}
 
 	@Override
-	public String getDispoHint() {
+	public String getHintDispo() {
 		Locale locale = globalSettings.getLocale();
 		return String.format(locale, "Kredit-Rahmen: %.2f %s (mehr gibts nicht)", InternSettings.BANK_MIN_BALANCE, Currency.getInstance(locale).getSymbol());
 	}
 	
 	@Override
-	public String getCreditInterestHint() {
+	public String getHintCreditInterest() {
 		return String.format(globalSettings.getLocale(), "Guthaben Zinsen:  +%.1f %% pro Tag", InternSettings.BANK_INTEREST_CREDIT_PERCENT);
 	}
 
 	@Override
-	public String getDebitInterestHint() {
+	public String getHintDebitInterest() {
 		return String.format(globalSettings.getLocale(), "Kredit Zinsen: -%.1f %% pro Tag", InternSettings.BANK_INTEREST_DEBT_PERCENT);
 	}
 

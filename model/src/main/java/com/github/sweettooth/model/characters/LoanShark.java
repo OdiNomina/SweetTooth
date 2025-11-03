@@ -30,22 +30,17 @@ non-sealed public class LoanShark extends MoneyDealer {
 	}
 
 	@Override
-	public double getClientsBalance(Player player) {
-		return getExistingOrNewClient(player).getBalance();
-	}
-
-	@Override
-	public String getDispoHint() {
+	public String getHintDispo() {
 		return "";
 	}
 
 	@Override
-	public String getCreditInterestHint() {
+	public String getHintCreditInterest() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public String getDebitInterestHint() {
+	public String getHintDebitInterest() {
 		return String.format(globalSettings.getLocale(), "Ich will %.1f %% pro Tag!", InternSettings.LOANSHARK_INTEREST_DEBT_PERCENT);
 	}
 
