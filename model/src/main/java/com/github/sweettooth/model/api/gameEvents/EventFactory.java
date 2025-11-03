@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.api.gameEvents;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.model.events.DefaultEventFactory;
 
 public abstract class EventFactory {

@@ -1,7 +1,7 @@
 package com.github.sweettooth.viewSwing.round;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 

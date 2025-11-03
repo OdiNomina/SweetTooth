@@ -7,9 +7,9 @@ import javax.swing.JTextField;
 
 import com.github.sweettooth.controllerSwing.api.IStartController;
 import com.github.sweettooth.controllerSwing.startWindowListener.StartWindowCloseListener;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.controllerSwing.startButtonListener.PlayListener;
 import com.github.sweettooth.controllerSwing.startTextFieldListener.PlayerTextFieldListener;
-import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 

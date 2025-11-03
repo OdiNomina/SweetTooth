@@ -3,11 +3,11 @@ package com.github.sweettooth.model.session;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ScoreProvider;
+import com.github.sweettooth.model.api.gameSession.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.commons.GameSettings;
 import com.github.sweettooth.model.commons.GlobalSettings;

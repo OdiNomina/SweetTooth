@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.logging.Logger;
 
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
+import com.github.sweettooth.model.api.gameSession.ScoreProvider;
 import com.github.sweettooth.shared.api.logging.Loggable;
 
 public class ScoreManager implements Loggable, ScoreProvider {

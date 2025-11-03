@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 
 public class PlayerTextFieldListener implements ActionListener {
 	ISessionData sessionData;

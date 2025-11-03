@@ -1,6 +1,6 @@
 package com.github.sweettooth.viewSwing.session;
 
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 import com.github.sweettooth.shared.api.logging.Loggable;

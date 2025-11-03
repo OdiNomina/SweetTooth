@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.controllerLanterna.api.ILanternaController;
 import com.github.sweettooth.shared.api.logging.Loggable;
 import com.github.sweettooth.shared.api.util.Observer;

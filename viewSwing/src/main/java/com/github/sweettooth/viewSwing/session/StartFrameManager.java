@@ -5,8 +5,8 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 import com.github.sweettooth.controllerSwing.api.IStartController;
-import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ScoreProvider;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 import com.github.sweettooth.shared.api.logging.Loggable;

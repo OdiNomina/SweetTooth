@@ -1,6 +1,6 @@
 package com.github.sweettooth.viewSwing.api;
 
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.viewSwing.session.SwingGUI;
 
 public interface SwingDisplay {

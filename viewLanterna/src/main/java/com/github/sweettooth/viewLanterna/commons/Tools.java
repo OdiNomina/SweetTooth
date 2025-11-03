@@ -7,8 +7,8 @@ import java.util.IllegalFormatException;
 import java.util.Locale;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.characters.IPlayer;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.snacks.Snackable;

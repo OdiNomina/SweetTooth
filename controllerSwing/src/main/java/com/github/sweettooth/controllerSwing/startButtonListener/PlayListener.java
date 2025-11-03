@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JTextField;
 
 import com.github.sweettooth.controllerSwing.controllers.StartController;
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 
 public class PlayListener implements ActionListener  {
 	private final StartController startController;

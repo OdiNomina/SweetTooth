@@ -1,12 +1,11 @@
-package com.github.sweettooth.model.api;
+package com.github.sweettooth.model.api.gameSession;
 
 import java.util.List;
 
 import com.github.sweettooth.model.api.characters.IPlayer;
+import com.github.sweettooth.model.api.gameSession.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.session.SessionData;
 import com.github.sweettooth.shared.api.util.Observer;
 
@@ -16,20 +15,15 @@ public interface ISessionData {
 		return new SessionData(scoreProvider, globalSettings, gameSettings, playerName);
 	}
 	
-	IPlayer getPlayer();
-	List<ScoreData> getScores();
-	ScoreProvider getScoreProvider();
 	IGameSettings getGameSettings();
 	IGlobalSettings getGlobalSettings();
-	
-	// --- controller
+	IPlayer getPlayer();
+	ScoreProvider getScoreProvider();
+	void notifyObservers();
+	void registerObserver(Observer o);
+	void setNamePlayer(String name);
+	void unregisterObserver(Observer o);
 	
 	void addScore(Double score);
-	void notifyObservers();
-	void setNamePlayer(String name);
-	
-	// --- view
-	
-	void registerObserver(Observer o);
-	void unregisterObserver(Observer o);
+	List<ScoreData> getScores();
 }

@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.api.viewAPI;
+package com.github.sweettooth.model.api.gameSession;
 
 import java.util.Locale;
 

@@ -7,12 +7,12 @@ import java.util.Locale;
 import java.util.logging.Logger;
 import java.util.logging.LogManager;
 
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ScoreProvider;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.snacks.ISnackFactory;
 import com.github.sweettooth.model.api.snacks.ISnackFactory.SnackType;
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.shared.api.logging.Loggable;
 import com.github.sweettooth.viewSwing.api.SwingDisplay;
 

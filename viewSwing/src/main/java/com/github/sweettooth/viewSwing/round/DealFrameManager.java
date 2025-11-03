@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import com.github.sweettooth.controllerSwing.api.IDealController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.ISessionData;
+import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.model.api.snacks.Snackable;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;

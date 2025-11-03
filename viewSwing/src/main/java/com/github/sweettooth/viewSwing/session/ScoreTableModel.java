@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
+import com.github.sweettooth.model.api.gameSession.ScoreProvider.ScoreData;
 
 public class ScoreTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
