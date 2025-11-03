@@ -20,7 +20,7 @@ public class DealWindowCloseListener extends WindowAdapter {
 	
 	@Override
     public void windowClosing(WindowEvent e) {
-        sessionData.addScore(sumUpScore());
+        sessionData.getScoreProvider().addScore(sessionData.getPlayer().getName(), sumUpScore());
         dealController.getGameNavigator().writeDealScores();
         
         sessionData.notifyObservers();

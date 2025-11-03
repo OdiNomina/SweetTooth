@@ -42,7 +42,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 		initializeUI();
 		addInputHandling();
 		SwingExecutor.getInstance().submit(
-				() -> scoreProvider.readScoresFromFile(sessionData.getGlobalSettings().getLocale()),
+				() -> scoreProvider.readScoresFromFile(),
 				() -> updateUI()
 			);
 	}
@@ -98,7 +98,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 		Tools.runOnEDT( () -> {
 			updating = true;
 			try {
-				scoreTableModel.updateScores(sessionData.getScores());
+				scoreTableModel.updateScores(sessionData.getScoreProvider().getScores());
 			}
 			catch(RuntimeException ex) {
 				error("Error when updating content " + ex.getClass().getName(), ex);

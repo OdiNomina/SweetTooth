@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.model.api.gameSession.ScoreProvider;
-import com.github.sweettooth.model.api.gameSession.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.characters.Player;
@@ -28,11 +27,6 @@ public class SessionData implements ISessionData {
         this.gameSettings = (GameSettings)gameSettings;
         player = new Player(playerName);
     }
-
-    @Override
-    public void addScore(Double score) {
-    	scoreManager.addScore(player.getName(), score, globalSettings.getLocale());
-    }
     
     @Override
 	public GameSettings getGameSettings() {
@@ -52,11 +46,6 @@ public class SessionData implements ISessionData {
 	@Override
     public ScoreManager getScoreProvider() {
         return scoreManager;
-    }
-    
-    @Override
-	public List<ScoreData> getScores() {
-        return scoreManager.getScores(globalSettings.getLocale());
     }
 
     @Override

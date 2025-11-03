@@ -31,8 +31,8 @@ public class SweetTooth implements Loggable {
 			gameInstance.setDefaultUncaughtExceptionHandler();
 			gameInstance.addShutdownHook();
 			
-			ScoreProvider scoreProvider = ScoreProvider.createScoreProvider();
 			IGlobalSettings globalSettings = IGlobalSettings.getInstance(Locale.GERMANY);
+			ScoreProvider scoreProvider = ScoreProvider.createScoreProvider(globalSettings);
 			IGameSettings gameSettings = IGameSettings.getInstance(ISnackFactory.getSnackFactory(SnackType.Candy));
 			ISessionData sessionData = ISessionData.createSessionData(scoreProvider, globalSettings, gameSettings, null);
 			

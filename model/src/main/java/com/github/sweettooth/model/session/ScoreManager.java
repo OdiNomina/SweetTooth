@@ -14,35 +14,38 @@ import java.util.Locale;
 import java.util.logging.Logger;
 
 import com.github.sweettooth.model.api.gameSession.ScoreProvider;
+import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.shared.api.logging.Loggable;
 
 public class ScoreManager implements Loggable, ScoreProvider {
 	private final Logger logger;
-	private final List<ScoreEntry> scores;
+	private final List<ScoreEntry> scores  = new ArrayList<>();
+	private Locale locale;
 	
 	Path userHome;
     Path appDir;
     Path scoreFile;
     
-    public ScoreManager() {
+    public ScoreManager(IGlobalSettings globalSettings) {
     	logger = Logger.getLogger(ScoreManager.class.getName());
-    	scores = new ArrayList<>();
+    	locale = globalSettings.getLocale();
     	
     	userHome = Path.of(System.getProperty("user.home"));
     	appDir = userHome.resolve(".SweetTooth");
     	scoreFile = appDir.resolve("scores.txt");
     }
    
-    synchronized void addScore(String name, Double score, Locale locale) {
+    @Override
+    public synchronized void addScore(String namePlayer, Double score) {
     	scores.removeIf(e -> e.score() == null || e.score().isNaN());
-    	scores.add(new ScoreEntry(name, score));
+    	scores.add(new ScoreEntry(namePlayer, score));
         Collections.sort(scores);
         if (scores.size() > 50)
             scores.subList(50, scores.size()).clear();
     }
     
     @Override
-    public synchronized void writeScoresToFile(Locale locale) {
+    public synchronized void writeScoresToFile() {
 		try {
 			List<String> lines = scores.stream()
 					.filter(entry -> entry.score() != 0.0)
@@ -60,7 +63,8 @@ public class ScoreManager implements Loggable, ScoreProvider {
 		return logger;
 	}
 
-	synchronized List<ScoreData> getScores(Locale locale) {
+	@Override
+	public synchronized List<ScoreData> getScores() {
 		if(scores.size() > 1)
 			return scores.stream()
 					.filter(entry -> entry.score() != 0)
@@ -85,7 +89,7 @@ public class ScoreManager implements Loggable, ScoreProvider {
 	}
 
 	@Override
-	public synchronized void readScoresFromFile(Locale locale) {
+	public synchronized void readScoresFromFile() {
 	    try {
 	    	if(Files.notExists(appDir))
 	    		Files.createDirectories(appDir);
