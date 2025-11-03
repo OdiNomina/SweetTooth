@@ -19,8 +19,8 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.util.UpdateGuard;
 import com.github.sweettooth.shared.api.GameNavigator;
-import com.github.sweettooth.shared.api.UpdateGuard;
 
 public class DealController implements IDealController {
 	private final GameNavigator gameNavigator;

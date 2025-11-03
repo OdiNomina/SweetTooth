@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import com.github.sweettooth.controllerSwing.controllers.DealController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.gameEvents.Processable;
-import com.github.sweettooth.shared.api.UpdateGuard;
+import com.github.sweettooth.shared.api.util.UpdateGuard;
 
 public class ComboBoxListenerFactory {
 	private DealController controller;

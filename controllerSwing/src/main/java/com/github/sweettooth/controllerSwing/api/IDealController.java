@@ -3,8 +3,8 @@ package com.github.sweettooth.controllerSwing.api;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.util.UpdateGuard;
 import com.github.sweettooth.shared.api.GameNavigator;
-import com.github.sweettooth.shared.api.UpdateGuard;
 
 import java.awt.event.ActionListener;
 import java.awt.event.WindowListener;

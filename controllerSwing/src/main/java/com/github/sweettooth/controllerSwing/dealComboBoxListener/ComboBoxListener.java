@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.shared.api.UpdateGuard;
+import com.github.sweettooth.shared.api.util.UpdateGuard;
 
 public abstract class ComboBoxListener implements ActionListener {
 	IGameData gameData;

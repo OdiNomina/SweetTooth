@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JComponent;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.shared.api.UpdateGuard;
+import com.github.sweettooth.shared.api.util.UpdateGuard;
 
 public class DealSelectionListener extends ComboBoxListener {
 	public DealSelectionListener(IGameData gameData, UpdateGuard guard, JComponent nextInFocus) {
