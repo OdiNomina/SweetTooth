@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 
-import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
+import com.github.sweettooth.model.api.characters.IMoneyDealer;
 import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.locations.Location;
 

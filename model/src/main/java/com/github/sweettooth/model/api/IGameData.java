@@ -2,8 +2,8 @@ package com.github.sweettooth.model.api;
 
 import java.io.IOException;
 
+import com.github.sweettooth.model.api.characters.IMoneyDealer;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
-import com.github.sweettooth.model.api.viewAPI.IMoneyDealer;
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.shared.api.util.Observer;
 

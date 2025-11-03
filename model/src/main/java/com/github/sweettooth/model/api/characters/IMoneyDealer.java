@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.api.viewAPI;
+package com.github.sweettooth.model.api.characters;
 
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
