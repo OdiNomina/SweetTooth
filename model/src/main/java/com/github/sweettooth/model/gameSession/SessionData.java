@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.session;
+package com.github.sweettooth.model.gameSession;
 
 import java.util.ArrayList;
 import java.util.List;

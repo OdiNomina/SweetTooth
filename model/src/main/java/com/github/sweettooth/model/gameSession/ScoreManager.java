@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.session;
+package com.github.sweettooth.model.gameSession;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

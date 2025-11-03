@@ -2,9 +2,9 @@ package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.experiences.Experience;
+import com.github.sweettooth.model.gameSession.SessionData;
 import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.locations.Location;
-import com.github.sweettooth.model.session.SessionData;
 import com.github.sweettooth.model.snacks.SnackFactory;
 
 public final class Travel extends Event {

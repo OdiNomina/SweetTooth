@@ -3,8 +3,8 @@ package com.github.sweettooth.model.events;
 import java.util.Currency;
 import java.util.Locale;
 
+import com.github.sweettooth.model.gameSession.SessionData;
 import com.github.sweettooth.model.games.GameData;
-import com.github.sweettooth.model.session.SessionData;
 
 public final class ApplyInterest extends Event {
 	ApplyInterest(SessionData sessionData, GameData gameData){

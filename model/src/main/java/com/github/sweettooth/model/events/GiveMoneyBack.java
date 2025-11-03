@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.events;
 
+import com.github.sweettooth.model.gameSession.SessionData;
 import com.github.sweettooth.model.games.GameData;
-import com.github.sweettooth.model.session.SessionData;
 
 public final class GiveMoneyBack extends Event {
 	GiveMoneyBack(SessionData sessionData, GameData gameData){

@@ -3,8 +3,8 @@ package com.github.sweettooth.model.events;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.gameSession.SessionData;
 import com.github.sweettooth.model.games.GameData;
-import com.github.sweettooth.model.session.SessionData;
 
 public class DefaultEventFactory extends EventFactory {
 	SessionData sessionData;

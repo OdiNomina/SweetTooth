@@ -3,7 +3,7 @@ package com.github.sweettooth.model.api.gameSession;
 import com.github.sweettooth.model.api.characters.IPlayer;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
-import com.github.sweettooth.model.session.SessionData;
+import com.github.sweettooth.model.gameSession.SessionData;
 import com.github.sweettooth.shared.api.util.Observer;
 
 public interface ISessionData {

@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.session;
+package com.github.sweettooth.model.gameSession;
 
 import java.text.NumberFormat;
 import java.text.ParseException;

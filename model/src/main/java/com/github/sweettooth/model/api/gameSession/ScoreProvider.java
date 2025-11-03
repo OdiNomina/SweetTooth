@@ -3,7 +3,7 @@ package com.github.sweettooth.model.api.gameSession;
 import java.util.List;
 
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
-import com.github.sweettooth.model.session.ScoreManager;
+import com.github.sweettooth.model.gameSession.ScoreManager;
 
 public interface ScoreProvider {
 	
