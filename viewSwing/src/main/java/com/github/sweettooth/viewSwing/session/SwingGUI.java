@@ -3,7 +3,7 @@ package com.github.sweettooth.viewSwing.session;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.shared.api.GameNavigator;
 import com.github.sweettooth.shared.api.WindowNavigator;
-import com.github.sweettooth.shared.logging.Loggable;
+import com.github.sweettooth.shared.api.logging.Loggable;
 import com.github.sweettooth.viewSwing.api.SwingDisplay;
 import com.github.sweettooth.viewSwing.commons.SwingExecutor;
 import com.github.sweettooth.viewSwing.commons.Tools;

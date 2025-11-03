@@ -13,8 +13,7 @@ import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.snacks.ISnackFactory;
 import com.github.sweettooth.model.api.snacks.ISnackFactory.SnackType;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
-import com.github.sweettooth.shared.logging.Loggable;
-import com.github.sweettooth.shared.logging.LoggingSetup;
+import com.github.sweettooth.shared.api.logging.Loggable;
 import com.github.sweettooth.viewSwing.api.SwingDisplay;
 
 public class SweetTooth implements Loggable {
@@ -28,7 +27,7 @@ public class SweetTooth implements Loggable {
 			Instant start = Instant.now();
 			gameInstance = new SweetTooth();
 			
-			LoggingSetup.initialize(SweetTooth.class);
+			Loggable.setUpLogger(SweetTooth.class);
 			gameInstance.setDefaultUncaughtExceptionHandler();
 			gameInstance.addShutdownHook();
 			

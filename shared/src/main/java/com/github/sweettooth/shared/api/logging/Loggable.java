@@ -1,7 +1,10 @@
-package com.github.sweettooth.shared.logging;
+package com.github.sweettooth.shared.api.logging;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import com.github.sweettooth.shared.logging.LoggingSetup;
+
 import java.util.Objects;
 
 /**<pre>
@@ -16,7 +19,11 @@ import java.util.Objects;
  */
 
 public interface Loggable {
-	public Logger getLogger();
+	static void setUpLogger(Class<?> launcher) {
+		LoggingSetup.setUpLogger(launcher);
+	}
+	
+	Logger getLogger();
 	
 	default void info(String message) {
 		Logger logger = getLogger();

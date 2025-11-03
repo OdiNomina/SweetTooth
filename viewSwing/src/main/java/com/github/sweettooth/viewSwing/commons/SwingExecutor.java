@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 import javax.swing.SwingUtilities;
 
-import com.github.sweettooth.shared.logging.Loggable;
+import com.github.sweettooth.shared.api.logging.Loggable;
 
 /**
  * <pre>

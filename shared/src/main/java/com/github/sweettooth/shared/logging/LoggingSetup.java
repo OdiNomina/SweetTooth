@@ -20,7 +20,7 @@ import java.util.logging.SimpleFormatter;
 public class LoggingSetup {
 	public static Path logsPath;
 	
-	public static void initialize(Class<?> launcher) {
+	public static void setUpLogger(Class<?> launcher) {
         createLogsDirectory(launcher);
         configureLogging();
     }
