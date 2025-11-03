@@ -6,12 +6,12 @@ import java.util.List;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
-import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider.ScoreData;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.commons.GameSettings;
 import com.github.sweettooth.model.commons.GlobalSettings;
+import com.github.sweettooth.shared.api.util.Observer;
 
 public class SessionData implements ISessionData {
 	private final List<Observer> observers;

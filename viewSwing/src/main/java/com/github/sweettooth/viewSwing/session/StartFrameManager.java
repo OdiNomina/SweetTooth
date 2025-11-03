@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 
 import com.github.sweettooth.controllerSwing.api.IStartController;
 import com.github.sweettooth.model.api.ISessionData;
-import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.api.viewAPI.ScoreProvider;
 import com.github.sweettooth.shared.api.WindowNavigator;
+import com.github.sweettooth.shared.api.util.Observer;
 import com.github.sweettooth.shared.api.GameNavigator;
 import com.github.sweettooth.shared.api.UpdateGuard;
 import com.github.sweettooth.shared.logging.Loggable;

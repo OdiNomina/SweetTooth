@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ISessionData;
 import com.github.sweettooth.controllerLanterna.api.ILanternaController;
-import com.github.sweettooth.model.api.viewAPI.Observer;
+import com.github.sweettooth.shared.api.util.Observer;
 import com.github.sweettooth.shared.logging.Loggable;
 import com.github.sweettooth.viewLanterna.api.DisplayElement;
 import com.googlecode.lanterna.TerminalSize;

@@ -6,12 +6,12 @@ import java.util.List;
 
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
-import com.github.sweettooth.model.api.viewAPI.Observer;
 import com.github.sweettooth.model.characters.Bank;
 import com.github.sweettooth.model.characters.LoanShark;
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.commons.InternSettings;
+import com.github.sweettooth.shared.api.util.Observer;
 
 public class GameData implements IGameData {
 	private final List<Observer> observers;

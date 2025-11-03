@@ -5,5 +5,5 @@ module com.github.sweettooth.model {
 	exports com.github.sweettooth.model.api.snacks;
 	exports com.github.sweettooth.model.api.viewAPI;
 	
-	requires com.github.sweettooth.shared;
+	requires transitive com.github.sweettooth.shared;
 }
