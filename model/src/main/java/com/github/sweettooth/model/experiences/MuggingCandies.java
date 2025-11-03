@@ -15,7 +15,7 @@ final class MuggingCandies extends Experience {
 	
 	@Override
 	public String process(Player player) {
-		ArrayList<? extends Snack> snacks = player.getSnacksInPockets();
+		ArrayList<? extends Snack> snacks = player.getSnacksFromPockets();
 		int size = snacks.size();
 		
 		if(size < 1)

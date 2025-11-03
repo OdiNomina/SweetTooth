@@ -256,13 +256,13 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 	}
 
 	private void updateUI() {
-		List<String> pocketItems = Tools.formatSnacks(sessionData.getGlobalSettings(), sessionData.getPlayer().snacks());
-        List<String> stashedItems = Tools.formatSnacks(sessionData.getGlobalSettings(), sessionData.getPlayer().stash());
+		List<String> pocketItems = Tools.formatSnacks(sessionData.getGlobalSettings(), sessionData.getPlayer().getSnacksFromPockets());
+        List<String> stashedItems = Tools.formatSnacks(sessionData.getGlobalSettings(), sessionData.getPlayer().getSnacksFromStash());
         String cash = Tools.formatMoney(sessionData.getGlobalSettings(), sessionData.getPlayer().getCash());
         String bankBalance = Tools.formatMoney(sessionData.getGlobalSettings(), gameData.bank().getClientsBalance(sessionData.getPlayer()));
         String loanBalance = Tools.formatMoney(sessionData.getGlobalSettings(), gameData.loanShark().getClientsBalance(sessionData.getPlayer()));
         String day = Integer.toString(gameData.getDayOfGame());
-        String locationName = sessionData.getPlayer().getLocation().getOfficialName();
+        String locationName = sessionData.getPlayer().getCurrentLocation().getOfficialName();
         String ticketPrice = Tools.formatMoney(sessionData.getGlobalSettings(), sessionData.getGameSettings().getTravelCosts());
         String balanceSheet = Tools.formatBalanceSheet(sessionData, gameData);
 		

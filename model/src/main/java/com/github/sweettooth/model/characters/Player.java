@@ -37,7 +37,7 @@ public class Player implements IPlayer, PersistentPreference {
 	}
 	
 	@Override
-	public Location getLocation() {
+	public Location getCurrentLocation() {
 		return location;
 	}
 	
@@ -124,14 +124,16 @@ public class Player implements IPlayer, PersistentPreference {
 	/**
 	 * Returns the list reference of player's candies list.
 	 */
-	public ArrayList<Snack> getSnacksInPockets() {
+	@Override
+	public ArrayList<Snack> getSnacksFromPockets() {
 		return snacksInPockets;
 	}
 	
 	/**
 	 * Returns the list reference of player's candyStash list.
 	 */
-	public ArrayList<Snack> getSnacksInStash() {
+	@Override
+	public ArrayList<Snack> getSnacksFromStash() {
 		return snacksInStash;
 	}
 	
@@ -158,6 +160,7 @@ public class Player implements IPlayer, PersistentPreference {
 	* @see java.lang.Object#equals(java.lang.Object)
 	* @see java.util.HashMap
 	*/
+	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
@@ -219,7 +222,7 @@ public class Player implements IPlayer, PersistentPreference {
 	}
 	
 	@Override
-	public void reset() {
+	public void resetRoundData() {
 	    snacksInPockets.clear();
 	    snacksInStash.clear();
 	    initialize();

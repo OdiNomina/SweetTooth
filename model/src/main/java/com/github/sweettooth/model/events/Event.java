@@ -40,7 +40,7 @@ public abstract sealed class Event implements Processable, Loggable permits
 	}
 	
 	boolean isAtHometown() {
-		return player.getLocation() == player.getHometown();
+		return player.getCurrentLocation() == player.getHometown();
 	}
 	
 	/**

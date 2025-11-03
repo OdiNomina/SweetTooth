@@ -26,7 +26,7 @@ public final class Travel extends Event {
 		}
 		player.setLocation(Location.valueOf(stringInput));
 		SnackFactory snackFactory = (SnackFactory)gameSettings.getSnackFactory();
-		snackFactory.changeSnackPrices(player.getLocation());
+		snackFactory.changeSnackPrices(player.getCurrentLocation());
 		String infoChangePrices = "(Die Marktpreise haben sich geändert.)";
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")

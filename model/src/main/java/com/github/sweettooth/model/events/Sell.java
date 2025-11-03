@@ -18,13 +18,13 @@ public final class Sell extends Event {
 			if(integerInput < 1)
 				return "Nix verkauft";
 			
-			Snack playersCandy = Snack.findSnack(player.getSnacksInPockets(), stringInput);
+			Snack playersCandy = Snack.findSnack(player.getSnacksFromPockets(), stringInput);
 			if(playersCandy.getQuantity() < integerInput)
 				return "Kannst du nicht zählen?";
 			if(playersCandy.getQuantity() > integerInput)
 				playersCandy.reduceQuantity(integerInput);
 			else
-				player.getSnacksInPockets().remove(playersCandy);
+				player.getSnacksFromPockets().remove(playersCandy);
 			player.addCash(playersCandy.getPrice() * integerInput);			
 			return "Verkauft";
 		} catch(NoSuchElementException ex) {

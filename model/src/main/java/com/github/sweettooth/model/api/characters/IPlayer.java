@@ -4,19 +4,12 @@ import java.util.ArrayList;
 
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.snacks.Snackable;
-import com.github.sweettooth.model.characters.Player;
 
 public interface IPlayer {
-	public default ArrayList<? extends Snackable> snacks() {
-		return ((Player)this).getSnacksInPockets();
-	}
-	
-	public default ArrayList<? extends Snackable> stash() {
-		return ((Player)this).getSnacksInStash();
-	}
-	
 	double getCash();
-	ILocation getLocation();
+	ILocation getCurrentLocation();
 	String getName();
-	void reset();
+	ArrayList<? extends Snackable> getSnacksFromPockets();
+	ArrayList<? extends Snackable> getSnacksFromStash();
+	void resetRoundData();
 }

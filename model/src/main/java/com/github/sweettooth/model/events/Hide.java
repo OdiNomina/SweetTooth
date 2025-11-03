@@ -13,8 +13,8 @@ public final class Hide extends Event {
 		if(!isAtHometown())
 			return notAtHometown;
 
-		player.addAllSnacks(player.getSnacksInPockets(), player.getSnacksInStash());
-		player.getSnacksInPockets().clear();
+		player.addAllSnacks(player.getSnacksFromPockets(), player.getSnacksFromStash());
+		player.getSnacksFromPockets().clear();
 		return "Alles versteckt!";
 	}
 

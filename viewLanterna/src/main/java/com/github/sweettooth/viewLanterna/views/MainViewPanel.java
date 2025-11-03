@@ -340,7 +340,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	public void updateContent() {
     	try {
 			labels.get("currentDay").setText(Integer.toString(gameData.getDayOfGame()));
-		    labels.get("currentLocation").setText(player.getLocation().getOfficialName());
+		    labels.get("currentLocation").setText(player.getCurrentLocation().getOfficialName());
 		    labels.get("cash").setText(formatMoney(player.getCash()));
 		    labels.get("buySellInfo").setText("");
 		    labels.get("hideSeekInfo").setText("");
@@ -369,7 +369,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 		    ExtendedTextBox giveBack = textBoxesIT.get("giveBack");
 		    giveBack.setText(giveBack.getInitialText());
 		    
-		    ArrayList<String> sweetsList = formatSnacks(player.snacks());
+		    ArrayList<String> sweetsList = formatSnacks(player.getSnacksFromPockets());
 		    ComboBox<String> sweetsInPockets = comboBoxes.get("sweetsInPockets").clearItems();
 		    for(String s : sweetsList)
 		    	sweetsInPockets.addItem(s);
@@ -385,7 +385,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 		    for(String s : sellList)
 		    	sellSelection.addItem(s);
 		
-		    ArrayList<String> stashList = formatSnacks(player.stash());
+		    ArrayList<String> stashList = formatSnacks(player.getSnacksFromStash());
 		    ComboBox<String> stash = comboBoxes.get("stash").clearItems();
 		    for(String s : stashList)
 		    	stash.addItem(s);

@@ -19,7 +19,7 @@ public final class Seek extends Event {
 			
 			if(!isAtHometown()) return notAtHometown;
 			
-			ArrayList<? extends Snack> snackStash = player.getSnacksInStash();
+			ArrayList<? extends Snack> snackStash = player.getSnacksFromStash();
 			if(snackStash.isEmpty()) return "Hä...?!";
 			
 			final String snackInput = clearStringInput(stringInput);
@@ -32,8 +32,8 @@ public final class Seek extends Event {
 			
 			if(Tools.isTooMuchToCarry(player, integerInput)) return "Soviel kannst du nicht tragen.";
 			
-			player.addSnack(selectedSnack, player.getSnacksInPockets(), integerInput);
-			player.removeSnack(selectedSnack, player.getSnacksInStash(), integerInput);
+			player.addSnack(selectedSnack, player.getSnacksFromPockets(), integerInput);
+			player.removeSnack(selectedSnack, player.getSnacksFromStash(), integerInput);
 			return "Eingepackt";
 		} catch(IllegalArgumentException ex) {
 			this.warn("Error when Seek", ex);

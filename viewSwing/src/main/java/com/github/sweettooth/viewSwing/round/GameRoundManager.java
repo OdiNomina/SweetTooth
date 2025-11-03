@@ -23,7 +23,7 @@ public class GameRoundManager {
     }
     
     public void startRound() {
-    	sessionData.getPlayer().reset();
+    	sessionData.getPlayer().resetRoundData();
     	activeGameData = IGameData.createGameData(sessionData.getGlobalSettings());
     	
     	// First game round

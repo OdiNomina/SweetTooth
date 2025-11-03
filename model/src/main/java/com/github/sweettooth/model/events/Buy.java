@@ -22,7 +22,7 @@ public final class Buy extends Event {
 		Snack kindOfCandy = snackFactory.valueOf(stringInput);
 		if(player.getCash() < kindOfCandy.getPrice() * integerInput)
 			return "Soviel Geld hast du nicht dabei, musst du erst besorgen...";
-		player.addSnack(kindOfCandy, player.getSnacksInPockets(), integerInput);
+		player.addSnack(kindOfCandy, player.getSnacksFromPockets(), integerInput);
 		player.reduceCash(kindOfCandy.getPrice() * integerInput);
 		return "Gekauft!";
 	}
