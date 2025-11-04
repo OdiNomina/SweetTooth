@@ -8,8 +8,8 @@ import com.github.sweettooth.shared.api.util.Observer;
 
 public interface IGameSession {
 	
-	public static IGameSession createSessionData(ScoreProvider scoreProvider, IGlobalSettings globalSettings, IGameSettings gameSettings, String playerName) {
-		return new GameSession(scoreProvider, globalSettings, gameSettings, playerName);
+	public static IGameSession create(ScoreProvider scoreProvider, IGlobalSettings globalSettings, IGameSettings gameSettings, String namePlayer) {
+		return new GameSession(scoreProvider, globalSettings, gameSettings, namePlayer);
 	}
 	
 	IGameSettings getGameSettings();

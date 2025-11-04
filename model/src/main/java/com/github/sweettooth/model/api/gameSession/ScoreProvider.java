@@ -12,7 +12,7 @@ public interface ScoreProvider {
 	 */
 	public record ScoreData(String name, String score) {}
 	
-	public static ScoreProvider createScoreProvider(IGlobalSettings globalSettings) {
+	public static ScoreProvider create(IGlobalSettings globalSettings) {
 		return new ScoreManager(globalSettings);
 	}
 	
