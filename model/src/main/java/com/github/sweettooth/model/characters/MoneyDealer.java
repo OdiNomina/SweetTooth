@@ -6,8 +6,8 @@ import java.util.Objects;
 
 import com.github.sweettooth.model.api.characters.IMoneyDealer;
 import com.github.sweettooth.model.api.characters.IPlayer;
-import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.settings.GlobalSettings;
 
 public abstract sealed class MoneyDealer implements IMoneyDealer permits Bank, LoanShark
 {

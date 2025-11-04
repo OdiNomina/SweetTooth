@@ -7,10 +7,10 @@ import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.shared.api.util.Observer;
 
-public interface IGameData {
+public interface IGameRound {
 	// --- launcher
 	
-	static IGameData createGameData(IGlobalSettings globalSettings) {
+	static IGameRound createGameData(IGlobalSettings globalSettings) {
 		return new GameRound(globalSettings);
 	}
 	

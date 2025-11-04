@@ -8,7 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import com.github.sweettooth.controllerSwing.controllers.DealController;
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public class TextFieldListenerFactory {
@@ -19,7 +19,7 @@ public class TextFieldListenerFactory {
 	}
 	
 	public ActionListener create(String eventName, JComboBox<String> associatedComboBox, JComponent nextInFocus, JLabel answerBox) {
-		IGameData gameData = controller.getGameData();
+		IGameRound gameData = controller.getGameData();
 		Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 		Locale locale = controller.getLocale();
 		switch(eventName.toLowerCase()) {

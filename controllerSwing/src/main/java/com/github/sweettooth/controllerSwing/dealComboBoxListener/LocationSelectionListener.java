@@ -7,7 +7,7 @@ import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.github.sweettooth.shared.api.util.UpdateGuard;
@@ -18,7 +18,7 @@ public class LocationSelectionListener extends ComboBoxListener {
 	JLabel[] answerBox;
 	Processable applyInterestEvent;
 	
-	public LocationSelectionListener(UpdateGuard guard, JLabel currentLocation, JComponent nextInFocus, IGameData gameData, Processable event, Processable applyInterestEvent, JLabel... answerBox) {
+	public LocationSelectionListener(UpdateGuard guard, JLabel currentLocation, JComponent nextInFocus, IGameRound gameData, Processable event, Processable applyInterestEvent, JLabel... answerBox) {
 		super(gameData, guard, nextInFocus);
 		this.currentLocation = currentLocation;
 		this.gameData = gameData;

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.commons.GameSettings;
+import com.github.sweettooth.model.settings.GameSettings;
 import com.github.sweettooth.model.snacks.Snack;
 
 final class MuggingCandies extends Experience {

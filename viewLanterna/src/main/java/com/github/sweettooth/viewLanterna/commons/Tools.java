@@ -6,7 +6,7 @@ import java.util.Currency;
 import java.util.IllegalFormatException;
 import java.util.Locale;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.characters.IPlayer;
 import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.api.settings.IGameSettings;
@@ -56,7 +56,7 @@ public class Tools {
 	 * Flag ',': The result will include locale-specific grouping separators.
 	 * Conversion 'f': The result is formatted as a decimal number.
 	 */
-	public static String formatBalanceSheet(IGameSession sessionData, IGameData gameData) {
+	public static String formatBalanceSheet(IGameSession sessionData, IGameRound gameData) {
     	IPlayer player = sessionData.getPlayer();
     	double cash = player.getCash();
 		double loan = gameData.loanShark().getClientsBalance(player);

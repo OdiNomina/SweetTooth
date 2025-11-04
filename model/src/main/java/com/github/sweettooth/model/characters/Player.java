@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import com.github.sweettooth.model.api.characters.IPlayer;
-import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.commons.PersistentPreference;
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.settings.InternSettings;
 import com.github.sweettooth.model.snacks.Snack;
 
 public class Player implements IPlayer, PersistentPreference {

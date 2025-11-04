@@ -8,7 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 import com.github.sweettooth.controllerSwing.controllers.DealController;
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 
 
@@ -20,7 +20,7 @@ public class ButtonListenerFactory {
 	}
 	
 	public ActionListener create(String eventName, JComboBox<String> associatedComboBox, JTextField associatedTextBox, JComponent nextInFocus, JLabel... answerBox) {
-		IGameData gameData = controller.getGameData();
+		IGameRound gameData = controller.getGameData();
 		Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 		switch(eventName.toLowerCase()) {
 			case "hide": return new HideListener(nextInFocus, gameData, event, answerBox);

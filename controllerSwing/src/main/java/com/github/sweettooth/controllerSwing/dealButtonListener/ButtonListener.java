@@ -4,13 +4,13 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JComponent;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 
 abstract class ButtonListener implements ActionListener {
-	IGameData gameData;
+	IGameRound gameData;
 	JComponent nextInFocus;
 	
-	ButtonListener(IGameData gameData, JComponent nextInFocus) {
+	ButtonListener(IGameRound gameData, JComponent nextInFocus) {
 		this.gameData = gameData;
 		this.nextInFocus = nextInFocus;
 	}

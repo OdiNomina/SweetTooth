@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.commons;
+package com.github.sweettooth.model.settings;
 
 import com.github.sweettooth.model.locations.Location;
 

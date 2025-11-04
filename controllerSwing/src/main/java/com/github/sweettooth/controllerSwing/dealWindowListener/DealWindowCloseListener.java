@@ -4,15 +4,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import com.github.sweettooth.controllerSwing.controllers.DealController;
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameSession.IGameSession;
 
 public class DealWindowCloseListener extends WindowAdapter {
 	private final DealController dealController;
 	private final IGameSession sessionData;
-	private final IGameData gameData;
+	private final IGameRound gameData;
 	
-	public DealWindowCloseListener(DealController dealController, IGameSession sessionData, IGameData gameData) {
+	public DealWindowCloseListener(DealController dealController, IGameSession sessionData, IGameRound gameData) {
 		this.dealController = dealController;
 		this.sessionData = sessionData;
 		this.gameData = gameData;

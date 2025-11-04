@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 import com.github.sweettooth.controllerSwing.api.IDealController;
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.api.snacks.Snackable;
@@ -26,11 +26,11 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 	GameNavigator gameNavigator;
 	WindowNavigator windowNavigator;
 	IGameSession sessionData;
-	IGameData gameData;
+	IGameRound gameData;
 	private JFrame dealFrame;
 	boolean updating;
 	
-	public DealFrameManager(GameNavigator gameNavigator, WindowNavigator windowNavigator, IGameSession sessionData, IGameData gameData) {
+	public DealFrameManager(GameNavigator gameNavigator, WindowNavigator windowNavigator, IGameSession sessionData, IGameRound gameData) {
 		logger = Logger.getLogger(DealFrameManager.class.getName());
 		design = new DealFrameDesign();
 		controller = IDealController.getInstance(gameNavigator, windowNavigator, sessionData, gameData);
@@ -64,7 +64,7 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
         return updating;
     }
 	
-	public void resetWithNewGame(IGameData newGameData) {
+	public void resetWithNewGame(IGameRound newGameData) {
 		if (gameData != null)
 	        gameData.unregisterObserver(this);
 	    removeAllListeners();

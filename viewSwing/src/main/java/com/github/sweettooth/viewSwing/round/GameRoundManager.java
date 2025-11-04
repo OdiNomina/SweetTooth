@@ -1,6 +1,6 @@
 package com.github.sweettooth.viewSwing.round;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
@@ -9,7 +9,7 @@ public class GameRoundManager {
 	private final GameNavigator gameNavigator;
 	private final WindowNavigator windowNavigator;
 	private final IGameSession sessionData;
-    private IGameData activeGameData;
+    private IGameRound activeGameData;
 	private DealFrameManager dealFrameManager;
 
     public GameRoundManager(GameNavigator gameNavigator, WindowNavigator navigator, IGameSession sessionData) {
@@ -24,7 +24,7 @@ public class GameRoundManager {
     
     public void startRound() {
     	sessionData.getPlayer().resetRoundData();
-    	activeGameData = IGameData.createGameData(sessionData.getGlobalSettings());
+    	activeGameData = IGameRound.createGameData(sessionData.getGlobalSettings());
     	
     	// First game round
     	if (dealFrameManager == null) {

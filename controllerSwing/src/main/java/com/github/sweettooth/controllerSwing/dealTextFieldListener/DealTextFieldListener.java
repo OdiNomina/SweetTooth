@@ -7,13 +7,13 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public class DealTextFieldListener extends TextFieldListener {
 	JComboBox<String> associatedComboBox;
 	
-	DealTextFieldListener(IGameData gameData, Processable event, JComboBox<String> associatedComboBox, JComponent nextInFocus, JLabel answerBox) {
+	DealTextFieldListener(IGameRound gameData, Processable event, JComboBox<String> associatedComboBox, JComponent nextInFocus, JLabel answerBox) {
 		super(nextInFocus, gameData, event, answerBox);
 		this.associatedComboBox = associatedComboBox;
 	}

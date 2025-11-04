@@ -5,16 +5,16 @@ import java.awt.event.ActionListener;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public abstract class TextFieldListener implements ActionListener {
 	JComponent nextInFocus;
-	IGameData gameData;
+	IGameRound gameData;
 	Processable event;
 	JLabel answerBox;
 	
-	TextFieldListener(JComponent nextInFocus, IGameData gameData, Processable event, JLabel answerBox) {
+	TextFieldListener(JComponent nextInFocus, IGameRound gameData, Processable event, JLabel answerBox) {
 		this.nextInFocus = nextInFocus;
 		this.gameData = gameData;
 		this.event = event;

@@ -6,7 +6,7 @@ import com.github.sweettooth.controllerLanterna.api.ILanternaController;
 import com.github.sweettooth.controllerLanterna.buttonListeners.ButtonListenerFactory;
 import com.github.sweettooth.controllerLanterna.comboBoxListeners.ComboBoxListenerFactory;
 import com.github.sweettooth.controllerLanterna.textBoxInputFilters.InputFilterFactory;
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.googlecode.lanterna.gui2.Button;
@@ -17,7 +17,7 @@ import com.googlecode.lanterna.gui2.Label;
 import com.googlecode.lanterna.gui2.TextBox;
 
 public class LanternaController implements ILanternaController {
-	private IGameData gameModel;
+	private IGameRound gameModel;
 	private EventFactory eventFactory;
 	private InputFilterFactory inputFilterFactory;
 	private ButtonListenerFactory buttonListenerFactory;
@@ -26,7 +26,7 @@ public class LanternaController implements ILanternaController {
 	public LanternaController() {}
 	
 	@Override
-	public ILanternaController initialize(IGameSession sessionData, IGameData gameModel) throws NullPointerException {
+	public ILanternaController initialize(IGameSession sessionData, IGameRound gameModel) throws NullPointerException {
 		this.gameModel = Objects.requireNonNull(gameModel);
 		eventFactory = EventFactory.getDefaultFactory(sessionData);
 		inputFilterFactory = new InputFilterFactory(this);
@@ -35,7 +35,7 @@ public class LanternaController implements ILanternaController {
 		return this;
 	}
 	
-	public IGameData getGameModel() {
+	public IGameRound getGameModel() {
 		return gameModel;
 	}
 	

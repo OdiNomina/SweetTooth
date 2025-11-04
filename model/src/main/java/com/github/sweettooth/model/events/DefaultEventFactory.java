@@ -1,6 +1,6 @@
 package com.github.sweettooth.model.events;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.gameRounds.GameRound;
@@ -14,7 +14,7 @@ public class DefaultEventFactory extends EventFactory {
 	}
 	
 	@Override
-	public Event createEvent(String event, IGameData gameData) {
+	public Event createEvent(String event, IGameRound gameData) {
 		GameRound data = (GameRound)gameData;
 		Event instance = null; 
 		switch (event) {

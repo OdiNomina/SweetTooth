@@ -2,7 +2,7 @@ package com.github.sweettooth.model.api.settings;
 
 import java.util.Locale;
 
-import com.github.sweettooth.model.commons.GlobalSettings;
+import com.github.sweettooth.model.settings.GlobalSettings;
 
 public interface IGlobalSettings {
 	/**

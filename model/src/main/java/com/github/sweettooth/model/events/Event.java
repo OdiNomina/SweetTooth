@@ -5,10 +5,10 @@ import java.util.logging.Logger;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.commons.GameSettings;
-import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.GameSession;
+import com.github.sweettooth.model.settings.GameSettings;
+import com.github.sweettooth.model.settings.GlobalSettings;
 import com.github.sweettooth.shared.api.logging.Loggable;
 
 public abstract sealed class Event implements Processable, Loggable permits 

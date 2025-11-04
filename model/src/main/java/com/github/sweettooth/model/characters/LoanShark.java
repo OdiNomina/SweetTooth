@@ -1,7 +1,7 @@
 package com.github.sweettooth.model.characters;
 
-import com.github.sweettooth.model.commons.GlobalSettings;
-import com.github.sweettooth.model.commons.InternSettings;
+import com.github.sweettooth.model.settings.GlobalSettings;
+import com.github.sweettooth.model.settings.InternSettings;
 
 non-sealed public class LoanShark extends MoneyDealer {
 	public LoanShark(GlobalSettings globalSettings) {

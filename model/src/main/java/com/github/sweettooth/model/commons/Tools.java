@@ -3,6 +3,7 @@ package com.github.sweettooth.model.commons;
 import java.util.ArrayList;
 
 import com.github.sweettooth.model.characters.Player;
+import com.github.sweettooth.model.settings.InternSettings;
 import com.github.sweettooth.model.snacks.Snack;
 
 public class Tools {

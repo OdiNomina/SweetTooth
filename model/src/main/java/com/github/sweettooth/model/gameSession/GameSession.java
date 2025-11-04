@@ -8,8 +8,8 @@ import com.github.sweettooth.model.api.gameSession.ScoreProvider;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.characters.Player;
-import com.github.sweettooth.model.commons.GameSettings;
-import com.github.sweettooth.model.commons.GlobalSettings;
+import com.github.sweettooth.model.settings.GameSettings;
+import com.github.sweettooth.model.settings.GlobalSettings;
 import com.github.sweettooth.shared.api.util.Observer;
 
 public class GameSession implements IGameSession {

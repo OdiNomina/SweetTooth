@@ -8,7 +8,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public class SeekListener extends ButtonListener {
@@ -17,7 +17,7 @@ public class SeekListener extends ButtonListener {
 	Processable event;
 	JLabel[] answerBox;
 	
-	public SeekListener(JComboBox<String> associatedComboBox, JTextField associatedTextBox, JComponent nextInFocus, IGameData gameData, Processable event, JLabel... answerBox) {
+	public SeekListener(JComboBox<String> associatedComboBox, JTextField associatedTextBox, JComponent nextInFocus, IGameRound gameData, Processable event, JLabel... answerBox) {
 		super(gameData, nextInFocus);
 		this.associatedComboBox = associatedComboBox;
 		this.associatedTextBox = associatedTextBox;

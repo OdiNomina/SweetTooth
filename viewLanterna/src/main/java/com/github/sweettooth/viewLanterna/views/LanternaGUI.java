@@ -6,7 +6,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.controllerLanterna.api.ILanternaController;
 import com.github.sweettooth.shared.api.logging.Loggable;
@@ -32,10 +32,10 @@ public class LanternaGUI implements Observer, DisplayElement, Loggable {
 	private ILanternaController controller;
 	
 	private IGameSession sessionData;
-	private IGameData gameModel;
+	private IGameRound gameModel;
 	private ViewPanel mainViewPanel;
 	
-	public LanternaGUI(IGameSession sessionData, IGameData gameData) throws NullPointerException {
+	public LanternaGUI(IGameSession sessionData, IGameRound gameData) throws NullPointerException {
 		logger = Logger.getLogger(LanternaGUI.class.getName());
 		this.sessionData = Objects.requireNonNull(sessionData);
 		this.gameModel = Objects.requireNonNull(gameData);

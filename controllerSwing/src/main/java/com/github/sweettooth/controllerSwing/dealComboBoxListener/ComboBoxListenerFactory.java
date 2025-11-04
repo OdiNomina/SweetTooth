@@ -7,7 +7,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import com.github.sweettooth.controllerSwing.controllers.DealController;
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.github.sweettooth.shared.api.util.UpdateGuard;
 
@@ -19,7 +19,7 @@ public class ComboBoxListenerFactory {
 	}
 	
 	public ActionListener create(UpdateGuard guard, JLabel currentLocation, String eventName, JComponent nextInFocus, JLabel... answerBox) {
-		IGameData gameData = controller.getGameData();
+		IGameRound gameData = controller.getGameData();
 		try {
 			switch(eventName.toLowerCase()) {
 				case "buy": return new DealSelectionListener(gameData, guard,nextInFocus);

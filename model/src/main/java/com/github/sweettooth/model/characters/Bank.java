@@ -3,8 +3,8 @@ package com.github.sweettooth.model.characters;
 import java.util.Currency;
 import java.util.Locale;
 
-import com.github.sweettooth.model.commons.GlobalSettings;
-import com.github.sweettooth.model.commons.InternSettings;
+import com.github.sweettooth.model.settings.GlobalSettings;
+import com.github.sweettooth.model.settings.InternSettings;
 
 non-sealed public class Bank extends MoneyDealer {
 	

@@ -1,6 +1,6 @@
 package com.github.sweettooth.controllerLanterna.textBoxInputFilters;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
@@ -9,7 +9,7 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 public class FinancesInputFilter extends TextBoxInputFilter {	
-	public FinancesInputFilter(IGameData gameData, Processable event, Interactable nextInFocus, Label answerBox) {
+	public FinancesInputFilter(IGameRound gameData, Processable event, Interactable nextInFocus, Label answerBox) {
 		super(nextInFocus, gameData, event, answerBox);
 	}
 	

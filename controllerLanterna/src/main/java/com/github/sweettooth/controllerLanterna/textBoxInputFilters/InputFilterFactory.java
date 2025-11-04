@@ -1,7 +1,7 @@
 package com.github.sweettooth.controllerLanterna.textBoxInputFilters;
 
 import com.github.sweettooth.controllerLanterna.controllers.LanternaController;
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.InputFilter;
@@ -16,7 +16,7 @@ public class InputFilterFactory {
 	}
 	
 	public InputFilter create(String eventName, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerBox) {
-		IGameData gameData = controller.getGameModel();
+		IGameRound gameData = controller.getGameModel();
 		Processable event = controller.getEventFactory().createEvent(eventName, gameData);
 		switch(eventName) {
 			case "Seek": return new SeekQuantityInputFilter(gameData, event, nextInFocus, answerBox);

@@ -9,13 +9,13 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public class FinancesTextFieldListener extends TextFieldListener {
 	Locale locale;
 	
-	FinancesTextFieldListener(Locale locale, IGameData gameData, Processable event, JComponent nextInFocus, JLabel answerBox) {
+	FinancesTextFieldListener(Locale locale, IGameRound gameData, Processable event, JComponent nextInFocus, JLabel answerBox) {
 		super(nextInFocus, gameData, event, answerBox);
 		this.locale = locale;
 	}

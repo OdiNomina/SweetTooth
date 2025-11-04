@@ -2,8 +2,8 @@ package com.github.sweettooth.model.snacks;
 
 import java.util.ArrayList;
 
-import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.model.locations.Location;
+import com.github.sweettooth.model.settings.InternSettings;
 
 public class CandyFactory extends SnackFactory {	
 	private static CandyFactory uniqueInstance;

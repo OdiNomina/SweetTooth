@@ -15,7 +15,7 @@ import com.github.sweettooth.controllerSwing.dealButtonListener.ButtonListenerFa
 import com.github.sweettooth.controllerSwing.dealComboBoxListener.ComboBoxListenerFactory;
 import com.github.sweettooth.controllerSwing.dealTextFieldListener.TextFieldListenerFactory;
 import com.github.sweettooth.controllerSwing.dealWindowListener.DealWindowCloseListener;
-import com.github.sweettooth.model.api.IGameData;
+import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
@@ -26,13 +26,13 @@ public class DealController implements IDealController {
 	private final GameNavigator gameNavigator;
 	private final WindowNavigator windowNavigator;
 	private IGameSession sessionData;
-	private IGameData gameData;
+	private IGameRound gameData;
 	private EventFactory eventFactory;
 	private TextFieldListenerFactory textFieldListenerFactory;
 	private ButtonListenerFactory buttonListenerFactory;
 	private ComboBoxListenerFactory comboBoxListenerFactory;
 	
-	public DealController(GameNavigator gameNavigator, WindowNavigator windowNavigator, IGameSession sessionData, IGameData gameData) {
+	public DealController(GameNavigator gameNavigator, WindowNavigator windowNavigator, IGameSession sessionData, IGameRound gameData) {
 		this.gameNavigator = gameNavigator;
 		this.windowNavigator = windowNavigator;
 		this.sessionData = sessionData;
@@ -44,7 +44,7 @@ public class DealController implements IDealController {
 		return eventFactory;
 	}
 
-	public IGameData getGameData() {
+	public IGameRound getGameData() {
 		return gameData;
 	}
 	
