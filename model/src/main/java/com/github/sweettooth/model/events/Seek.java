@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.gameRounds.GameRound;
-import com.github.sweettooth.model.gameSession.SessionData;
+import com.github.sweettooth.model.gameSession.GameSession;
 import com.github.sweettooth.model.snacks.Snack;
 
 public final class Seek extends Event {
-	Seek(SessionData sessionData, GameRound gameData){
+	Seek(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	

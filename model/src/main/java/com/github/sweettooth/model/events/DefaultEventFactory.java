@@ -4,13 +4,13 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.github.sweettooth.model.api.gameSession.ISessionData;
 import com.github.sweettooth.model.gameRounds.GameRound;
-import com.github.sweettooth.model.gameSession.SessionData;
+import com.github.sweettooth.model.gameSession.GameSession;
 
 public class DefaultEventFactory extends EventFactory {
-	SessionData sessionData;
+	GameSession sessionData;
 	
 	public DefaultEventFactory(ISessionData sessionData ){
-		this.sessionData = (SessionData)sessionData;
+		this.sessionData = (GameSession)sessionData;
 	}
 	
 	@Override

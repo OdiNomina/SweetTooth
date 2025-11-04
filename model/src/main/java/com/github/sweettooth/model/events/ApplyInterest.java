@@ -4,10 +4,10 @@ import java.util.Currency;
 import java.util.Locale;
 
 import com.github.sweettooth.model.gameRounds.GameRound;
-import com.github.sweettooth.model.gameSession.SessionData;
+import com.github.sweettooth.model.gameSession.GameSession;
 
 public final class ApplyInterest extends Event {
-	ApplyInterest(SessionData sessionData, GameRound gameData){
+	ApplyInterest(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	

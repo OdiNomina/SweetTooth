@@ -12,14 +12,14 @@ import com.github.sweettooth.model.commons.GameSettings;
 import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.shared.api.util.Observer;
 
-public class SessionData implements ISessionData {
+public class GameSession implements ISessionData {
 	private final List<Observer> observers;
 	private final ScoreManager scoreManager;
     private final GlobalSettings globalSettings;
     private final GameSettings gameSettings;
     private final Player player;
 
-    public SessionData(ScoreProvider scoreProvider, IGlobalSettings globalSettings, IGameSettings gameSettings, String playerName) {
+    public GameSession(ScoreProvider scoreProvider, IGlobalSettings globalSettings, IGameSettings gameSettings, String playerName) {
     	observers = new ArrayList<>();
     	
     	this.scoreManager = (ScoreManager)scoreProvider;

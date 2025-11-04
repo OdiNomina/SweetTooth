@@ -1,10 +1,10 @@
 package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.gameRounds.GameRound;
-import com.github.sweettooth.model.gameSession.SessionData;
+import com.github.sweettooth.model.gameSession.GameSession;
 
 public final class Exit extends Event {
-	Exit(SessionData sessionData, GameRound gameData){
+	Exit(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	

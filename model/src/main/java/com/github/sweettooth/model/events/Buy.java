@@ -2,12 +2,12 @@ package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.commons.Tools;
 import com.github.sweettooth.model.gameRounds.GameRound;
-import com.github.sweettooth.model.gameSession.SessionData;
+import com.github.sweettooth.model.gameSession.GameSession;
 import com.github.sweettooth.model.snacks.Snack;
 import com.github.sweettooth.model.snacks.SnackFactory;
 
 public final class Buy extends Event {
-	Buy(SessionData sessionData, GameRound gameData){
+	Buy(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	

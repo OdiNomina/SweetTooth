@@ -1,10 +1,10 @@
 package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.gameRounds.GameRound;
-import com.github.sweettooth.model.gameSession.SessionData;
+import com.github.sweettooth.model.gameSession.GameSession;
 
 public final class GiveMoneyBack extends Event {
-	GiveMoneyBack(SessionData sessionData, GameRound gameData){
+	GiveMoneyBack(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	
