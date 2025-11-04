@@ -5,26 +5,22 @@ import com.github.sweettooth.model.settings.GameSettings;
 
 public interface IGameSettings {
 	/**
-	 * <pre>
-	 * Creates a new instance of GameSettings with default configurations.
-	 * Default settings:
+	 * Creates a new instance of GameSettings with default configurations.<br>
+	 * Default settings:<br>
 	 * SnackFactory = CandyFactory
 	 * @return a new instance with default settings
-	 * </pre>
 	 */
 	public static IGameSettings getInstance() {
-		return (IGameSettings)new GameSettings();
+		return new GameSettings();
 	}
 	
 	/**
-	 * <pre>
 	 * Creates a new instance of GameSettings.
 	 * @param snackFactory the desired factory
 	 * @return a new instance
-	 * </pre>
 	 */
 	public static IGameSettings getInstance(ISnackFactory snackFactory) {
-		return (IGameSettings)new GameSettings(snackFactory);
+		return new GameSettings(snackFactory);
 	}
 	
 	ISnackFactory getSnackFactory();

@@ -6,15 +6,13 @@ import com.github.sweettooth.model.settings.GlobalSettings;
 
 public interface IGlobalSettings {
 	/**
-	 * <pre>
-	 * Creates a new instance of GlobalSettings with default configurations.
-	 * Default settings:
+	 * Creates a new instance of GlobalSettings with default configurations.<br>
+	 * Default settings:<br>
 	 * java.util.Locale.GERMANY
 	 * @return a new instance with default settings
-	 * </pre>
 	 */
 	public static IGlobalSettings getInstance() {
-		return (IGlobalSettings) new GlobalSettings();
+		return new GlobalSettings();
 	}
 	
 	/**
@@ -23,7 +21,7 @@ public interface IGlobalSettings {
 	 * @return a new instance
 	 */
 	public static IGlobalSettings getInstance(Locale locale) {
-		return (IGlobalSettings) new GlobalSettings(locale);
+		return new GlobalSettings(locale);
 	}
 	
 	public Locale getLocale();
