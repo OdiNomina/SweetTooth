@@ -9,12 +9,9 @@ public final class Exit extends Event {
 	}
 	
 	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
-		return "";
-	}
-
-	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[1];
+		returnArray[0] = "";
+		return returnArray;
 	}
 }

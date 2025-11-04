@@ -11,10 +11,12 @@ public final class Travel extends Event {
 	Travel(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
-	
+
 	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[3];
 		double travelCosts = InternSettings.TRAVEL_COSTS;
+		
 		String payment = "";
 		if(player.getCash() >= travelCosts) {
 			player.reduceCash(travelCosts);
@@ -24,19 +26,20 @@ public final class Travel extends Event {
 			bank.reduceClientsBalance(player, travelCosts);
 			payment = "Du zahlst per Bankcard.";
 		}
+		
 		player.setLocation(Location.valueOf(stringInput));
+		
 		SnackFactory snackFactory = (SnackFactory)gameSettings.getSnackFactory();
 		snackFactory.changeSnackPrices(player.getCurrentLocation());
-		String infoChangePrices = "(Die Marktpreise haben sich geändert.)";
+		
 		StringBuffer eventAnswer = new StringBuffer();
 		eventAnswer.append(" ")
 					.append(Experience.randomExperience(gameSettings).process(player))
 					.append(" ");
-		return new Answer(eventAnswer.toString(), payment, infoChangePrices);
-	}
-
-	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+		
+		returnArray[0] = eventAnswer.toString();
+		returnArray[1] = payment;
+		returnArray[2] = "Denk dran: Die Preise sind an jedem Ort anders.";
+		return returnArray;
 	}
 }

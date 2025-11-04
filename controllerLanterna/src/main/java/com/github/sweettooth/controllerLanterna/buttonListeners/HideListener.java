@@ -7,22 +7,22 @@ import com.googlecode.lanterna.gui2.Interactable;
 import com.googlecode.lanterna.gui2.Label;
 
 public class HideListener extends ButtonListener {
-	IGameRound gameData;
+	IGameRound gameRound;
 	Processable event;
-	Label[] answerBox;
+	Label[] answerRecipient;
 	
-	public HideListener(Interactable nextInFocus, IGameRound gameData, Processable event, Label... answerBox) {
+	public HideListener(Interactable nextInFocus, IGameRound gameRound, Processable event, Label... answerRecipient) {
 		super(nextInFocus);
-		this.gameData = gameData;
+		this.gameRound = gameRound;
 		this.event = event;
-		this.answerBox = answerBox;
+		this.answerRecipient = answerRecipient;
 	}
 	
 	@Override
 	public void onTriggered(Button button) {
-		String answer = event.process(null, null, null);
-		gameData.notifyObservers();
-		answerBox[0].setText(answer);
+		String[] eventAnswer = event.process(null, null, null);
+		gameRound.notifyObservers();
+		answerRecipient[0].setText(eventAnswer[0]);
 		nextInFocus.takeFocus();
 	}
 }

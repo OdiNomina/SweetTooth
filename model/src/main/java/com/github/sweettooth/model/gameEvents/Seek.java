@@ -13,36 +13,50 @@ public final class Seek extends Event {
 	}
 	
 	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[1];
 		try {
-			if(integerInput == 0) return "";
-			
-			if(!isAtHometown()) return notAtHometown;
-			
+			if(integerInput == 0) {
+				returnArray[0] = "";
+				return returnArray;
+			}
+				
+			if(!isAtHometown()) {
+				returnArray[0] = notAtHometown;
+				return returnArray;
+			}
+
 			ArrayList<? extends Snack> snackStash = player.getSnacksFromStash();
-			if(snackStash.isEmpty()) return "Hä...?!";
-			
+			if(snackStash.isEmpty()) {
+				returnArray[0] = "Hä...?!";
+				return returnArray;
+			}
+
 			final String snackInput = clearStringInput(stringInput);
 			Snack selectedSnack = snackStash.stream()
 					.filter(e -> e.getName().equalsIgnoreCase(snackInput))
 					.findFirst()
 					.orElseThrow(() -> new IllegalArgumentException("Snack nicht gefunden: " + stringInput));
 			
-			if(integerInput > selectedSnack.getQuantity()) return "Denkste, so viel hast du gar nicht versteckt.";
+			if(integerInput > selectedSnack.getQuantity()) {
+				returnArray[0] = "Denkste, so viel hast du gar nicht versteckt.";
+				return returnArray;
+			}
 			
-			if(Tools.isTooMuchToCarry(player, integerInput)) return "Soviel kannst du nicht tragen.";
+			if(Tools.isTooMuchToCarry(player, integerInput)) {
+				returnArray[0] = "Soviel kannst du nicht tragen.";
+				return returnArray;
+			}
 			
 			player.addSnack(selectedSnack, player.getSnacksFromPockets(), integerInput);
 			player.removeSnack(selectedSnack, player.getSnacksFromStash(), integerInput);
-			return "Eingepackt";
-		} catch(IllegalArgumentException ex) {
-			this.warn("Error when Seek", ex);
-			return "";
+			returnArray[0] = "Eingepackt";
+			return returnArray;
 		}
-	}
-
-	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+		catch(IllegalArgumentException ex) {
+			this.warn("Error when Seek", ex);
+			returnArray[0] = "";
+			return returnArray;
+		}
 	}
 }

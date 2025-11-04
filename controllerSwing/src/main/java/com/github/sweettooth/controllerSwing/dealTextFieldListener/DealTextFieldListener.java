@@ -13,8 +13,8 @@ import com.github.sweettooth.model.api.gameEvents.Processable;
 public class DealTextFieldListener extends TextFieldListener {
 	JComboBox<String> associatedComboBox;
 	
-	DealTextFieldListener(IGameRound gameData, Processable event, JComboBox<String> associatedComboBox, JComponent nextInFocus, JLabel answerBox) {
-		super(nextInFocus, gameData, event, answerBox);
+	DealTextFieldListener(IGameRound gameRound, Processable event, JComboBox<String> associatedComboBox, JComponent nextInFocus, JLabel answerRecipient) {
+		super(nextInFocus, gameRound, event, answerRecipient);
 		this.associatedComboBox = associatedComboBox;
 	}
 
@@ -24,26 +24,27 @@ public class DealTextFieldListener extends TextFieldListener {
 
 	    String text = textField.getText().strip();
 
-	    if (text.isBlank()) {
+	    if (text.isBlank())
 	        textField.setText("");
-	    } else {
+	    else {
 	        try {
 	            Integer input = Integer.parseInt(text);
 	            if (input > 100) {
 	                throw new NumberFormatException();
 	            }
-	            String eventAnswer = event.process((String)associatedComboBox.getSelectedItem(), input, null);
-	            gameData.notifyObservers();
+	            String[] eventAnswer = event.process((String)associatedComboBox.getSelectedItem(), input, null);
+	            gameRound.notifyObservers();
 
-	            answerBox.setText(eventAnswer);
+	            answerRecipient.setText(eventAnswer[0]);
 	            textField.setText("");
 	            textField.setEnabled(false);
 	            associatedComboBox.setEnabled(true);
 	            associatedComboBox.requestFocusInWindow();
 
-	        } catch (NumberFormatException ex) {
+	        }
+	        catch (NumberFormatException ex) {
 	            textField.setText("");
-	            answerBox.setText("Du musst eine Zahl eingeben! (<= 100)");
+	            answerRecipient.setText("Du musst eine Zahl eingeben! (<= 100)");
 	        }
 	    }
 	}

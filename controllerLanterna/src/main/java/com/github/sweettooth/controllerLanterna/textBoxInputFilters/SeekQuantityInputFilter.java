@@ -29,7 +29,7 @@ public class SeekQuantityInputFilter extends TextBoxInputFilter {
 				}
 				catch(NumberFormatException e) {
 					seekQuantity.removeLine(0);
-					answerBox.setText("Du musst eine Zahl eingeben! (<= 100)");
+					answerRecipient.setText("Du musst eine Zahl eingeben! (<= 100)");
 				}
 			nextInFocus.takeFocus();
 			return false;

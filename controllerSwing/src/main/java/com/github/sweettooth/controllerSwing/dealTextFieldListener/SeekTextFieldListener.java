@@ -34,7 +34,7 @@ public class SeekTextFieldListener extends TextFieldListener {
 
 	        } catch (NumberFormatException ex) {
 	            textField.setText("");
-	            answerBox.setText("Du musst eine Zahl eingeben! (<= 100)");
+	            answerRecipient.setText("Du musst eine Zahl eingeben! (<= 100)");
 	        }
 	    }
 	}

@@ -12,8 +12,8 @@ import com.googlecode.lanterna.input.KeyType;
 public class DealInputFilter extends TextBoxInputFilter {	
 	ComboBox<String> associatedComboBox;
 	
-	public DealInputFilter(IGameRound gameData, Processable event, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerBox) {
-		super(nextInFocus, gameData, event, answerBox);
+	public DealInputFilter(IGameRound gameRound, Processable event, ComboBox<String> associatedComboBox, Interactable nextInFocus, Label answerRecipient) {
+		super(nextInFocus, gameRound, event, answerRecipient);
 		this.associatedComboBox = associatedComboBox;
 	}
 	
@@ -32,16 +32,16 @@ public class DealInputFilter extends TextBoxInputFilter {
 					Integer input = Integer.parseInt(textbox.getText().strip());
 					if(input > 100)
 						throw new NumberFormatException();
-					String eventAnswer = event.process(associatedComboBox.getSelectedItem(), input, null);
-					gameData.notifyObservers();
+					String[] eventAnswer = event.process(associatedComboBox.getSelectedItem(), input, null);
+					gameRound.notifyObservers();
 					
 					associatedComboBox.setEnabled(true);
 					textbox.setEnabled(false);
-					answerBox.setText(eventAnswer);
+					answerRecipient.setText(eventAnswer[0]);
 				}
-				catch(NumberFormatException e) {
+				catch(NumberFormatException ex) {
 					textbox.removeLine(0);
-					answerBox.setText("Du musst eine Zahl eingeben! (<= 100)");
+					answerRecipient.setText("Du musst eine Zahl eingeben! (<= 100)");
 				}
 			nextInFocus.takeFocus();
 		}

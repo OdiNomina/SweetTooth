@@ -9,17 +9,17 @@ public final class Hide extends Event {
 	}
 	
 	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
-		if(!isAtHometown())
-			return notAtHometown;
-
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[1];
+		
+		if(!isAtHometown()) {
+			returnArray[0] = notAtHometown;
+			return returnArray;
+		}
+		
 		player.addAllSnacks(player.getSnacksFromPockets(), player.getSnacksFromStash());
 		player.getSnacksFromPockets().clear();
-		return "Alles versteckt!";
-	}
-
-	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+		returnArray[0] = "Alles versteckt!";
+		return returnArray;
 	}
 }

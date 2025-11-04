@@ -8,12 +8,12 @@ import com.github.sweettooth.model.api.IGameRound;
 import com.github.sweettooth.shared.api.util.UpdateGuard;
 
 public abstract class ComboBoxListener implements ActionListener {
-	IGameRound gameData;
+	IGameRound gameRound;
 	UpdateGuard guard;
 	JComponent nextInFocus;
 	
 	ComboBoxListener(IGameRound gameData, UpdateGuard guard, JComponent nextInFocus) {
-		this.gameData = gameData;
+		this.gameRound = gameData;
 		this.guard = guard;
 		this.nextInFocus = nextInFocus;
 	}

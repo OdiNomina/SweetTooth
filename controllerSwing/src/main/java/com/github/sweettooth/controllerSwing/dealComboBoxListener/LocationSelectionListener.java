@@ -15,15 +15,15 @@ import com.github.sweettooth.shared.api.util.UpdateGuard;
 public class LocationSelectionListener extends ComboBoxListener {
 	JLabel currentLocation;
 	Processable event;
-	JLabel[] answerBox;
+	JLabel[] answerRecipient;
 	Processable applyInterestEvent;
 	
-	public LocationSelectionListener(UpdateGuard guard, JLabel currentLocation, JComponent nextInFocus, IGameRound gameData, Processable event, Processable applyInterestEvent, JLabel... answerBox) {
-		super(gameData, guard, nextInFocus);
+	public LocationSelectionListener(UpdateGuard guard, JLabel currentLocation, JComponent nextInFocus, IGameRound gameRound, Processable event, Processable applyInterestEvent, JLabel... answerRecipient) {
+		super(gameRound, guard, nextInFocus);
 		this.currentLocation = currentLocation;
-		this.gameData = gameData;
+		this.gameRound = gameRound;
 		this.event = event;
-		this.answerBox = answerBox;
+		this.answerRecipient = answerRecipient;
 		this.applyInterestEvent = applyInterestEvent;
 	}
 	
@@ -35,38 +35,39 @@ public class LocationSelectionListener extends ComboBoxListener {
 		JComboBox<String> comboBox = (JComboBox<String>)e.getSource();
 		
 		if(comboBox.getSelectedItem().equals(currentLocation.getText()))
-			answerBox[0].setText("Du bist doch schon da!");
-		else
+			answerRecipient[0].setText("Du bist doch schon da!");
+		else {
 			try {
-				gameData.increaseDayOfGame(1);
-				if(gameData.isGameOver()) {
-					gameData.notifyObservers();
+				gameRound.increaseDayOfGame(1);
+				if(gameRound.isGameOver()) {
+					gameRound.notifyObservers();
 					return;
 				}
+				
 				ILocation location = ILocation.valueOfficialName(comboBox.getSelectedItem().toString());	
-				Processable.Answer answer = event.processMultipleAnswers(location.toString(), null, null);
+				String[] eventAnswer = event.process(location.toString(), null, null);
     			
-    			gameData.notifyObservers();
+    			gameRound.notifyObservers();
     			
-            	answerBox[0].setText(answer.answer1());
-            	answerBox[1].setText(answer.answer2());
-            	answerBox[2].setText(answer.answer3());
+            	answerRecipient[0].setText(eventAnswer[0]);
+            	answerRecipient[1].setText(eventAnswer[1]);
+            	answerRecipient[2].setText(eventAnswer[2]);
             	
-            	answerBox[3].setText(applyInterestEvent.process(null, null, null));
+            	answerRecipient[3].setText(applyInterestEvent.process(null, null, null)[0]);
 			}
 			catch(IllegalArgumentException ex) {
-				answerBox[0].setText("An exception occurred.");
+				answerRecipient[0].setText("An exception occurred.");
 				comboBox.requestFocusInWindow();
 				ex.printStackTrace();
 			}
 			catch(ArrayIndexOutOfBoundsException ex) {
-				gameData.notifyObservers();
+				gameRound.notifyObservers();
 				ex.printStackTrace();
 			}
 			catch(IOException ex) {
 				ex.printStackTrace();
 			}
-		
+		}
 		nextInFocus.requestFocusInWindow();
 	}
 }

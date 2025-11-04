@@ -16,7 +16,7 @@ public class DealSelectionListener extends ComboBoxListener {
 	public void actionPerformed(ActionEvent e) {
 		if(guard.isUpdating()) return; // programmatisches Event ignorieren
 		
-		gameData.notifyObservers();
+		gameRound.notifyObservers();
 		
 	    nextInFocus.setEnabled(true);
 	    nextInFocus.requestFocusInWindow();

@@ -9,20 +9,19 @@ public final class Deposit extends Event {
 	}
 	
 	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[1];
 		double amount = doubleInput > 0 ? doubleInput : 0;
 		amount = Math.round(amount * 100) / 100.00;
 		
-		if(player.getCash() < amount)
-			return "Ups! So viel hab ich gar nicht dabei...";
-		player.reduceCash(amount);
-		
-		bank.increaseClientsBalance(player, amount);
-		return "Betrag einbezahlt.";
-	}
+		if(player.getCash() < amount) {
+			returnArray[0] =  "Ups! So viel hab ich gar nicht dabei...";
+			return returnArray;
+		}
 
-	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+		player.reduceCash(amount);
+		bank.increaseClientsBalance(player, amount);
+		returnArray[0] = "Betrag einbezahlt.";
+		return returnArray;
 	}
 }

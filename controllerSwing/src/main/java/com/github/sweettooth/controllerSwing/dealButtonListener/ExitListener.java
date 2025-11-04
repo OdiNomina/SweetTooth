@@ -15,7 +15,7 @@ public class ExitListener extends ButtonListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		gameData.setExitButtonClicked(true);
-		gameData.notifyObservers();
+		gameRound.setExitButtonClicked(true);
+		gameRound.notifyObservers();
 	}
 }

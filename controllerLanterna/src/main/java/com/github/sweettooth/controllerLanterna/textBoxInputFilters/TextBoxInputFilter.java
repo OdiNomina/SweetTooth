@@ -8,14 +8,14 @@ import com.googlecode.lanterna.gui2.Label;
 
 abstract class TextBoxInputFilter implements InputFilter {
 	Interactable nextInFocus;
-	IGameRound gameData;
+	IGameRound gameRound;
 	Processable event;
-	Label answerBox;
+	Label answerRecipient;
 	
 	TextBoxInputFilter(Interactable nextInFocus, IGameRound gameData, Processable event, Label answerBox) {
 		this.nextInFocus = nextInFocus;
-		this.gameData = gameData;
+		this.gameRound = gameData;
 		this.event = event;
-		this.answerBox = answerBox;
+		this.answerRecipient = answerBox;
 	}
 }

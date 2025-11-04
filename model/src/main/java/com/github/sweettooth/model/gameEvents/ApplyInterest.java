@@ -12,18 +12,17 @@ public final class ApplyInterest extends Event {
 	}
 	
 	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[1];
 		Locale locale = globalSettings.getLocale();
+		
 		StringBuffer answer = new StringBuffer();
 		answer.append("Fällige Zinsen für gestern: Bank ")
 			.append(String.format(locale, "%.2f %s", bank.applyInterestToBalance(player), Currency.getInstance(locale).getSymbol()))
 			.append(" | Kredithai ")
 			.append(String.format(locale, "%.2f %s", loanShark.applyInterestToBalance(player), Currency.getInstance(locale).getSymbol()));
-		return answer.toString();
-	}
-
-	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+		
+		returnArray[0] = answer.toString();
+		return returnArray;
 	}
 }

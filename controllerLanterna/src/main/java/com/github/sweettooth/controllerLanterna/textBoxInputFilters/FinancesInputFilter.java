@@ -9,8 +9,8 @@ import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
 
 public class FinancesInputFilter extends TextBoxInputFilter {	
-	public FinancesInputFilter(IGameRound gameData, Processable event, Interactable nextInFocus, Label answerBox) {
-		super(nextInFocus, gameData, event, answerBox);
+	public FinancesInputFilter(IGameRound gameRound, Processable event, Interactable nextInFocus, Label answerRecipient) {
+		super(nextInFocus, gameRound, event, answerRecipient);
 	}
 	
 	@Override
@@ -20,22 +20,23 @@ public class FinancesInputFilter extends TextBoxInputFilter {
 		if(keyStroke.getKeyType() == KeyType.Enter) {
 			if(textbox.getText().isBlank())
 				textbox.removeLine(0);
-			else
+			else {
 				try {
 					Double input = Double.parseDouble(textbox.getText().strip());
 					if(input > 100_000)
 						throw new NumberFormatException();
-					String eventAnswer = event.process(null, null, input);
-					gameData.notifyObservers();
+					String[] eventAnswer = event.process(null, null, input);
+					gameRound.notifyObservers();
 					
-					answerBox.setText(eventAnswer);
+					answerRecipient.setText(eventAnswer[0]);
 					textbox.removeLine(0);
 					nextInFocus.takeFocus();
 				}
 				catch(NumberFormatException e) {
 					textbox.removeLine(0);
-					answerBox.setText("Du musst eine Zahl eingeben! (<= 100.000)");
+					answerRecipient.setText("Du musst eine Zahl eingeben! (<= 100.000)");
 				}
+			}
 			return false;
 		}
 		return true;

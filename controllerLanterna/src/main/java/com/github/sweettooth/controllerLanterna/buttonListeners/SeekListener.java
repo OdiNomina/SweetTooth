@@ -11,17 +11,17 @@ import com.googlecode.lanterna.gui2.TextBox;
 public class SeekListener extends ButtonListener {
 	ComboBox<String> associatedComboBox;
 	TextBox associatedTextBox;
-	IGameRound gameData;
+	IGameRound gameRound;
 	Processable event;
-	Label[] answerBox;
+	Label[] answerRecipient;
 	
-	public SeekListener(ComboBox<String> associatedComboBox, TextBox associatedTextBox, Interactable nextInFocus, IGameRound gameData, Processable event, Label... answerBox) {
+	public SeekListener(ComboBox<String> associatedComboBox, TextBox associatedTextBox, Interactable nextInFocus, IGameRound gameRound, Processable event, Label... answerRecipient) {
 		super(nextInFocus);
 		this.associatedComboBox = associatedComboBox;
 		this.associatedTextBox = associatedTextBox;
-		this.gameData = gameData;
+		this.gameRound = gameRound;
 		this.event = event;
-		this.answerBox = answerBox;
+		this.answerRecipient = answerRecipient;
 	}
 	
 	@Override
@@ -31,13 +31,16 @@ public class SeekListener extends ButtonListener {
 		try {
 			snackQuantity = Integer.parseInt(associatedTextBox.getText());
 		}
-		catch(NumberFormatException e) {
-			e.printStackTrace();
+		catch(NumberFormatException ex) {
+			ex.printStackTrace();
 			snackQuantity = 0;
 		}
-		String answer = event.process(snackInput, snackQuantity, null);
-		gameData.notifyObservers();
-		answerBox[0].setText(answer);
+		String[] eventAnswer = event.process(snackInput, snackQuantity, null);
+		
+		gameRound.notifyObservers();
+		
+		answerRecipient[0].setText(eventAnswer[0]);
+		
 		associatedTextBox.setEnabled(true);
 		button.setEnabled(false);
 		nextInFocus.takeFocus();

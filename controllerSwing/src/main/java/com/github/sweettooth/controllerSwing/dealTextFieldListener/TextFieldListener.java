@@ -10,14 +10,14 @@ import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public abstract class TextFieldListener implements ActionListener {
 	JComponent nextInFocus;
-	IGameRound gameData;
+	IGameRound gameRound;
 	Processable event;
-	JLabel answerBox;
+	JLabel answerRecipient;
 	
 	TextFieldListener(JComponent nextInFocus, IGameRound gameData, Processable event, JLabel answerBox) {
 		this.nextInFocus = nextInFocus;
-		this.gameData = gameData;
+		this.gameRound = gameData;
 		this.event = event;
-		this.answerBox = answerBox;
+		this.answerRecipient = answerBox;
 	}
 }

@@ -12,28 +12,33 @@ public final class Sell extends Event {
 	}
 	
 	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[1];
 		try {
 			stringInput = clearStringInput(stringInput);
-			if(integerInput < 1)
-				return "Nix verkauft";
+			if(integerInput < 1) {
+				returnArray[0] = "Nix verkauft";
+				return returnArray;
+			}
 			
-			Snack playersCandy = Snack.findSnack(player.getSnacksFromPockets(), stringInput);
-			if(playersCandy.getQuantity() < integerInput)
-				return "Kannst du nicht zählen?";
-			if(playersCandy.getQuantity() > integerInput)
-				playersCandy.reduceQuantity(integerInput);
+			Snack snack = Snack.findSnack(player.getSnacksFromPockets(), stringInput);
+			if(snack.getQuantity() < integerInput) {
+				returnArray[0] = "Kannst du nicht zählen?";
+				return returnArray;
+			}
+			
+			if(snack.getQuantity() > integerInput)
+				snack.reduceQuantity(integerInput);
 			else
-				player.getSnacksFromPockets().remove(playersCandy);
-			player.addCash(playersCandy.getPrice() * integerInput);			
-			return "Verkauft";
-		} catch(NoSuchElementException ex) {
-			return "Lass sehen... das hast du doch gar nicht!";
+				player.getSnacksFromPockets().remove(snack);
+			
+			player.addCash(snack.getPrice() * integerInput);			
+			returnArray[0] = "Verkauft";
+			return returnArray;
 		}
-	}
-
-	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+		catch(NoSuchElementException ex) {
+			returnArray[0] = "Lass sehen... das hast du doch gar nicht!";
+			return returnArray;
+		}
 	}
 }

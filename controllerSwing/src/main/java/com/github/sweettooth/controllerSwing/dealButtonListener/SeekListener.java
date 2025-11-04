@@ -15,14 +15,14 @@ public class SeekListener extends ButtonListener {
 	JComboBox<String> associatedComboBox;
 	JTextField associatedTextBox;
 	Processable event;
-	JLabel[] answerBox;
+	JLabel[] answerRecipient;
 	
-	public SeekListener(JComboBox<String> associatedComboBox, JTextField associatedTextBox, JComponent nextInFocus, IGameRound gameData, Processable event, JLabel... answerBox) {
-		super(gameData, nextInFocus);
+	public SeekListener(JComboBox<String> associatedComboBox, JTextField associatedTextBox, JComponent nextInFocus, IGameRound gameRound, Processable event, JLabel... answerRecipient) {
+		super(gameRound, nextInFocus);
 		this.associatedComboBox = associatedComboBox;
 		this.associatedTextBox = associatedTextBox;
 		this.event = event;
-		this.answerBox = answerBox;
+		this.answerRecipient = answerRecipient;
 	}
 	
 	@Override
@@ -37,9 +37,9 @@ public class SeekListener extends ButtonListener {
 			ex.printStackTrace();
 			snackQuantity = 0;
 		}
-		String answer = event.process(snackInput, snackQuantity, null);
-		gameData.notifyObservers();
-		answerBox[0].setText(answer);
+		String[] eventAnswer = event.process(snackInput, snackQuantity, null);
+		gameRound.notifyObservers();
+		answerRecipient[0].setText(eventAnswer[0]);
 		associatedTextBox.setEnabled(true);
 		button.setEnabled(false);
 		nextInFocus.requestFocusInWindow();

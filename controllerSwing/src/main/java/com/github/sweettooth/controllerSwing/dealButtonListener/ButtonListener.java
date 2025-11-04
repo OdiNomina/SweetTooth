@@ -7,11 +7,11 @@ import javax.swing.JComponent;
 import com.github.sweettooth.model.api.IGameRound;
 
 abstract class ButtonListener implements ActionListener {
-	IGameRound gameData;
+	IGameRound gameRound;
 	JComponent nextInFocus;
 	
 	ButtonListener(IGameRound gameData, JComponent nextInFocus) {
-		this.gameData = gameData;
+		this.gameRound = gameData;
 		this.nextInFocus = nextInFocus;
 	}
 }

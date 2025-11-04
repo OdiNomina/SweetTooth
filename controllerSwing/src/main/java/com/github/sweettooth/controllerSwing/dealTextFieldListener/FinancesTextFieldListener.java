@@ -15,8 +15,8 @@ import com.github.sweettooth.model.api.gameEvents.Processable;
 public class FinancesTextFieldListener extends TextFieldListener {
 	Locale locale;
 	
-	FinancesTextFieldListener(Locale locale, IGameRound gameData, Processable event, JComponent nextInFocus, JLabel answerBox) {
-		super(nextInFocus, gameData, event, answerBox);
+	FinancesTextFieldListener(Locale locale, IGameRound gameRound, Processable event, JComponent nextInFocus, JLabel answerRecipient) {
+		super(nextInFocus, gameRound, event, answerRecipient);
 		this.locale = locale;
 	}
 
@@ -26,9 +26,9 @@ public class FinancesTextFieldListener extends TextFieldListener {
 
 	    String text = textField.getText().strip();
 
-	    if (text.isBlank()) {
+	    if (text.isBlank())
 	        textField.setText("");
-	    } else {
+	    else {
 	        try {
 	        	NumberFormat numberFormat = NumberFormat.getNumberInstance(locale);
 	            Double input = numberFormat.parse(text).doubleValue();
@@ -36,10 +36,10 @@ public class FinancesTextFieldListener extends TextFieldListener {
 	                throw new NumberFormatException();
 	            }
 
-	            String eventAnswer = event.process(null, null, input);
-	            gameData.notifyObservers();
+	            String[] eventAnswer = event.process(null, null, input);
+	            gameRound.notifyObservers();
 
-	            answerBox.setText(eventAnswer);
+	            answerRecipient.setText(eventAnswer[0]);
 	            textField.setText("");
 	            nextInFocus.requestFocusInWindow();
 	        }
@@ -48,7 +48,7 @@ public class FinancesTextFieldListener extends TextFieldListener {
 	        }
 	        catch (NumberFormatException ex) {
 	            textField.setText("");
-	            answerBox.setText("Du musst eine Zahl eingeben! (<= 100 000)");
+	            answerRecipient.setText("Du musst eine Zahl eingeben! (<= 100 000)");
 	        }
 	    }
 	}

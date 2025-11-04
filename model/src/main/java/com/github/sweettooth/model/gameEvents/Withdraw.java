@@ -10,18 +10,19 @@ public final class Withdraw extends Event {
 	}
 	
 	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[1];
 		double amount = doubleInput > 0 ? doubleInput : 0;
 		amount = Math.round(amount * 100) / 100.00;
-		if(bank.getClientsBalance(player) - amount < InternSettings.BANK_MIN_BALANCE)
-			return "Die Bank zahlt dir diese Summe nicht aus.";
+		
+		if(bank.getClientsBalance(player) - amount < InternSettings.BANK_MIN_BALANCE) {
+			returnArray[0] = "Die Bank zahlt dir diese Summe nicht aus.";
+			return returnArray;
+		}
+		
 		player.addCash(amount);
 		bank.reduceClientsBalance(player, amount);
-		return "Betrag ausbezahlt.";
-	}
-
-	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+		returnArray[0] = "Betrag ausbezahlt.";
+		return returnArray;
 	}
 }

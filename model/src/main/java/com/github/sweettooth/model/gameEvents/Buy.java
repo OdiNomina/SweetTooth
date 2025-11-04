@@ -12,23 +12,31 @@ public final class Buy extends Event {
 	}
 	
 	@Override
-	public String process(String stringInput, Integer integerInput, Double doubleInput) {
+	public String[] process(String stringInput, Integer integerInput, Double doubleInput) {
+		String[] returnArray = new String[1];
 		stringInput = clearStringInput(stringInput);
-		if(integerInput < 1)
-			return "Nix gekauft";
-		if(Tools.isTooMuchToCarry(player, integerInput))
-			return "Soviel kannst du gar nicht tragen.";
+		
+		if(integerInput < 1) {
+			returnArray[0] = "Nix gekauft";
+			return returnArray;
+		}
+
+		if(Tools.isTooMuchToCarry(player, integerInput)) {
+			returnArray[0] = "Soviel kannst du gar nicht tragen.";
+			return returnArray;
+		}
+
 		SnackFactory snackFactory = (SnackFactory)gameSettings.getSnackFactory();
 		Snack kindOfCandy = snackFactory.valueOf(stringInput);
-		if(player.getCash() < kindOfCandy.getPrice() * integerInput)
-			return "Soviel Geld hast du nicht dabei, musst du erst besorgen...";
+		
+		if(player.getCash() < kindOfCandy.getPrice() * integerInput) {
+			returnArray[0] = "Soviel Geld hast du nicht dabei, musst du erst besorgen...";
+			return returnArray;
+		}
+
 		player.addSnack(kindOfCandy, player.getSnacksFromPockets(), integerInput);
 		player.reduceCash(kindOfCandy.getPrice() * integerInput);
-		return "Gekauft!";
-	}
-
-	@Override
-	public Answer processMultipleAnswers(String stringInput, Integer integerInput, Double doubleInput) {
-		throw new UnsupportedOperationException("The class " + this.getClass().getCanonicalName() + " don't support this operation.");
+		returnArray[0] = "Gekauft!";
+		return returnArray;
 	}
 }

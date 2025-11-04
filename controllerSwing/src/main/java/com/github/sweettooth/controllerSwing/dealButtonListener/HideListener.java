@@ -10,19 +10,19 @@ import com.github.sweettooth.model.api.gameEvents.Processable;
 
 public class HideListener extends ButtonListener {
 	Processable event;
-	JLabel[] answerBox;
+	JLabel[] answerRecipient;
 	
-	public HideListener(JComponent nextInFocus, IGameRound gameData, Processable event, JLabel... answerBox) {
-		super(gameData, nextInFocus);
+	public HideListener(JComponent nextInFocus, IGameRound gameRound, Processable event, JLabel... answerRecipient) {
+		super(gameRound, nextInFocus);
 		this.event = event;
-		this.answerBox = answerBox;
+		this.answerRecipient = answerRecipient;
 	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		String answer = event.process(null, null, null);
-		gameData.notifyObservers();
-		answerBox[0].setText(answer);
+		String[] eventAnswer = event.process(null, null, null);
+		gameRound.notifyObservers();
+		answerRecipient[0].setText(eventAnswer[0]);
 		nextInFocus.requestFocusInWindow();
 	}
 }
