@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import com.github.sweettooth.controllerSwing.api.IDealController;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.api.snacks.Snackable;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
@@ -25,12 +25,12 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 	IDealController controller;
 	GameNavigator gameNavigator;
 	WindowNavigator windowNavigator;
-	ISessionData sessionData;
+	IGameSession sessionData;
 	IGameData gameData;
 	private JFrame dealFrame;
 	boolean updating;
 	
-	public DealFrameManager(GameNavigator gameNavigator, WindowNavigator windowNavigator, ISessionData sessionData, IGameData gameData) {
+	public DealFrameManager(GameNavigator gameNavigator, WindowNavigator windowNavigator, IGameSession sessionData, IGameData gameData) {
 		logger = Logger.getLogger(DealFrameManager.class.getName());
 		design = new DealFrameDesign();
 		controller = IDealController.getInstance(gameNavigator, windowNavigator, sessionData, gameData);

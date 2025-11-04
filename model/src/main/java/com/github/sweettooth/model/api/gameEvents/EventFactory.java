@@ -1,11 +1,11 @@
 package com.github.sweettooth.model.api.gameEvents;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.events.DefaultEventFactory;
 
 public abstract class EventFactory {
-	public static EventFactory getDefaultFactory(ISessionData sessionData) {
+	public static EventFactory getDefaultFactory(IGameSession sessionData) {
 		return new DefaultEventFactory(sessionData);
 	}
 	

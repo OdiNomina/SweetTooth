@@ -1,7 +1,7 @@
 package com.github.sweettooth.controllerSwing.api;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 import com.github.sweettooth.shared.api.util.UpdateGuard;
@@ -18,7 +18,7 @@ import com.github.sweettooth.controllerSwing.controllers.DealController;
 
 @SuppressWarnings("exports")
 public interface IDealController {
-	static IDealController getInstance(GameNavigator gameNavigator, WindowNavigator frameNavigator, ISessionData sessionData, IGameData gameData) {
+	static IDealController getInstance(GameNavigator gameNavigator, WindowNavigator frameNavigator, IGameSession sessionData, IGameData gameData) {
 		return new DealController(gameNavigator, frameNavigator, sessionData, gameData);
 	}
 	

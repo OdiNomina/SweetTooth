@@ -2,14 +2,14 @@ package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.GameSession;
 
 public class DefaultEventFactory extends EventFactory {
 	GameSession sessionData;
 	
-	public DefaultEventFactory(ISessionData sessionData ){
+	public DefaultEventFactory(IGameSession sessionData ){
 		this.sessionData = (GameSession)sessionData;
 	}
 	

@@ -3,7 +3,7 @@ package com.github.sweettooth.model.gameSession;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.api.gameSession.ScoreProvider;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
@@ -12,7 +12,7 @@ import com.github.sweettooth.model.commons.GameSettings;
 import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.shared.api.util.Observer;
 
-public class GameSession implements ISessionData {
+public class GameSession implements IGameSession {
 	private final List<Observer> observers;
 	private final ScoreManager scoreManager;
     private final GlobalSettings globalSettings;

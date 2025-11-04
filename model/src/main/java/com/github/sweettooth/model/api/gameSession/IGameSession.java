@@ -6,9 +6,9 @@ import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.gameSession.GameSession;
 import com.github.sweettooth.shared.api.util.Observer;
 
-public interface ISessionData {
+public interface IGameSession {
 	
-	public static ISessionData createSessionData(ScoreProvider scoreProvider, IGlobalSettings globalSettings, IGameSettings gameSettings, String playerName) {
+	public static IGameSession createSessionData(ScoreProvider scoreProvider, IGlobalSettings globalSettings, IGameSettings gameSettings, String playerName) {
 		return new GameSession(scoreProvider, globalSettings, gameSettings, playerName);
 	}
 	

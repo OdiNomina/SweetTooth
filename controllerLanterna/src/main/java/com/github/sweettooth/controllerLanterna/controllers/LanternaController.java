@@ -8,7 +8,7 @@ import com.github.sweettooth.controllerLanterna.comboBoxListeners.ComboBoxListen
 import com.github.sweettooth.controllerLanterna.textBoxInputFilters.InputFilterFactory;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.googlecode.lanterna.gui2.Button;
 import com.googlecode.lanterna.gui2.ComboBox;
 import com.googlecode.lanterna.gui2.InputFilter;
@@ -26,7 +26,7 @@ public class LanternaController implements ILanternaController {
 	public LanternaController() {}
 	
 	@Override
-	public ILanternaController initialize(ISessionData sessionData, IGameData gameModel) throws NullPointerException {
+	public ILanternaController initialize(IGameSession sessionData, IGameData gameModel) throws NullPointerException {
 		this.gameModel = Objects.requireNonNull(gameModel);
 		eventFactory = EventFactory.getDefaultFactory(sessionData);
 		inputFilterFactory = new InputFilterFactory(this);

@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JTextField;
 
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 
 public class PlayerTextFieldListener implements ActionListener {
-	ISessionData sessionData;
+	IGameSession sessionData;
 	
-	public PlayerTextFieldListener(ISessionData sessionData) {
+	public PlayerTextFieldListener(IGameSession sessionData) {
 		this.sessionData = sessionData;
 	}
 	

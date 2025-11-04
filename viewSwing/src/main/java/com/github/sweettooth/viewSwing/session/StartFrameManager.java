@@ -5,7 +5,7 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 import com.github.sweettooth.controllerSwing.api.IStartController;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.api.gameSession.ScoreProvider;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
@@ -21,12 +21,12 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 	private final IStartController startController;
 	private final ScoreProvider scoreProvider;
 	private final ScoreTableModel scoreTableModel;
-	private final ISessionData sessionData;
+	private final IGameSession sessionData;
 	
 	private JFrame startFrame;
 	private boolean updating;
 	
-	StartFrameManager(GameNavigator gameNavigator, WindowNavigator windowNavigator, ISessionData sessionData) {
+	StartFrameManager(GameNavigator gameNavigator, WindowNavigator windowNavigator, IGameSession sessionData) {
 		logger = Logger.getLogger(StartFrameManager.class.getName());
 		this.sessionData = sessionData;
 		design = new StartFrameDesign();

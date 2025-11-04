@@ -1,18 +1,18 @@
 package com.github.sweettooth.viewSwing.round;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 
 public class GameRoundManager {
 	private final GameNavigator gameNavigator;
 	private final WindowNavigator windowNavigator;
-	private final ISessionData sessionData;
+	private final IGameSession sessionData;
     private IGameData activeGameData;
 	private DealFrameManager dealFrameManager;
 
-    public GameRoundManager(GameNavigator gameNavigator, WindowNavigator navigator, ISessionData sessionData) {
+    public GameRoundManager(GameNavigator gameNavigator, WindowNavigator navigator, IGameSession sessionData) {
         this.gameNavigator = gameNavigator;
     	this.windowNavigator = navigator;
     	this.sessionData = sessionData;

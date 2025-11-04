@@ -7,7 +7,7 @@ import javax.swing.JTextField;
 
 import com.github.sweettooth.controllerSwing.api.IStartController;
 import com.github.sweettooth.controllerSwing.startWindowListener.StartWindowCloseListener;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.controllerSwing.startButtonListener.PlayListener;
 import com.github.sweettooth.controllerSwing.startTextFieldListener.PlayerTextFieldListener;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
@@ -31,12 +31,12 @@ public class StartController implements IStartController {
 	}
 
 	@Override
-	public ActionListener createButtonListener(ISessionData sessionData, JTextField nameField) {
+	public ActionListener createButtonListener(IGameSession sessionData, JTextField nameField) {
 		return new PlayListener(this, sessionData, nameField);
 	}
 
 	@Override
-	public ActionListener createTextFieldListener(ISessionData sessionData) {
+	public ActionListener createTextFieldListener(IGameSession sessionData) {
 		return new PlayerTextFieldListener(sessionData);
 	}
 	

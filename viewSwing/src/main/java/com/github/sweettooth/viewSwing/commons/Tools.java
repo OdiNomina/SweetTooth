@@ -14,7 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import com.github.sweettooth.model.api.IGameData;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.snacks.Snackable;
@@ -62,7 +62,7 @@ public class Tools {
 	 * Flag ',': The result will include locale-specific grouping separators.
 	 * Conversion 'f': The result is formatted as a decimal number.
 	 */
-	public static String formatBalanceSheet(ISessionData sessionData, IGameData gameData) {
+	public static String formatBalanceSheet(IGameSession sessionData, IGameData gameData) {
     	double cash = sessionData.getPlayer().getCash();
 		double loan = gameData.loanShark().getClientsBalance(sessionData.getPlayer());
 		double balance = gameData.bank().getClientsBalance(sessionData.getPlayer());

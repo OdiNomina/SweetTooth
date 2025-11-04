@@ -11,7 +11,7 @@ import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.ILocation;
 import com.github.sweettooth.model.api.characters.IMoneyDealer;
 import com.github.sweettooth.model.api.characters.IPlayer;
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.model.api.settings.IGameSettings;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
 import com.github.sweettooth.model.api.snacks.Snackable;
@@ -42,7 +42,7 @@ public class MainViewPanel extends ViewPanel implements Loggable {
 	private IMoneyDealer loanShark;
 	private IMoneyDealer bank;
 	
-	public MainViewPanel(LayoutManager layoutManager, ISessionData sessionData, IGameData gameData, ILanternaController controller) {
+	public MainViewPanel(LayoutManager layoutManager, IGameSession sessionData, IGameData gameData, ILanternaController controller) {
         super(layoutManager);
         logger = Logger.getLogger(LanternaGUI.class.getName());
         this.controller = controller;

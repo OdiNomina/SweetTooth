@@ -1,6 +1,6 @@
 package com.github.sweettooth.viewSwing.session;
 
-import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.api.gameSession.IGameSession;
 import com.github.sweettooth.shared.api.gameControl.GameNavigator;
 import com.github.sweettooth.shared.api.gameControl.WindowNavigator;
 import com.github.sweettooth.shared.api.logging.Loggable;
@@ -14,11 +14,11 @@ import java.util.logging.Logger;
 
 public class SwingGUI implements SwingDisplay, Loggable, GameNavigator, WindowNavigator {
 	private final Logger logger;
-	private ISessionData sessionData;
+	private IGameSession sessionData;
 	private GameRoundManager gameRoundManager;
 	private StartFrameManager startFrameManager;
 	
-	public SwingGUI(ISessionData sessionData) throws NullPointerException {
+	public SwingGUI(IGameSession sessionData) throws NullPointerException {
 		logger = Logger.getLogger(SwingGUI.class.getName());
 		this.sessionData = sessionData;
         gameRoundManager = new GameRoundManager(this, this, sessionData);
