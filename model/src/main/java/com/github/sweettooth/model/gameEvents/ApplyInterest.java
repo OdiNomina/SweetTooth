@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.events;
+package com.github.sweettooth.model.gameEvents;
 
 import java.util.Currency;
 import java.util.Locale;

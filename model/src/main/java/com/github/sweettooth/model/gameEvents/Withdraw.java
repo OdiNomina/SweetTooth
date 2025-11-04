@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.events;
+package com.github.sweettooth.model.gameEvents;
 
 import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.GameSession;

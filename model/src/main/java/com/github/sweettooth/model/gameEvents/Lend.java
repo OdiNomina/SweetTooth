@@ -1,10 +1,10 @@
-package com.github.sweettooth.model.events;
+package com.github.sweettooth.model.gameEvents;
 
 import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.GameSession;
 
-public final class GiveMoneyBack extends Event {
-	GiveMoneyBack(GameSession sessionData, GameRound gameData){
+public final class Lend extends Event {
+	Lend(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	
@@ -12,19 +12,15 @@ public final class GiveMoneyBack extends Event {
 	public String process(String stringInput, Integer integerInput, Double doubleInput) {
 		if(!isAtHometown()) 
 			return notAtHometown;
-		
+
 		double amount = doubleInput > 0 ? doubleInput : 0;
-		amount = Math.round(amount * 100) / 100.00;
 		
-		if(amount + loanShark.getClientsBalance(player) > 0)
-			return "Digga was gibst du mir soviel Geld? Hab ich dir gar nicht gegeben.";
-		
-		player.reduceCash(amount);
-		loanShark.increaseClientsBalance(player, amount);
 		if(loanShark.getClientsBalance(player) < 0)
-			return "Da fehlt aber noch was!";
+			return "Kannst du vergessen Alder.";
 		
-		return "Geht klar Alder, bis zum nächsten Mal.";
+		player.addCash(amount);
+		loanShark.reduceClientsBalance(player, amount);
+		return "Hier, lass dir ruhig Zeit... aber nicht ZU lange!";
 	}
 
 	@Override

@@ -1,26 +1,21 @@
-package com.github.sweettooth.model.events;
+package com.github.sweettooth.model.gameEvents;
 
 import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.GameSession;
 
-public final class Lend extends Event {
-	Lend(GameSession sessionData, GameRound gameData){
+public final class Hide extends Event {
+	Hide(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	
 	@Override
 	public String process(String stringInput, Integer integerInput, Double doubleInput) {
-		if(!isAtHometown()) 
+		if(!isAtHometown())
 			return notAtHometown;
 
-		double amount = doubleInput > 0 ? doubleInput : 0;
-		
-		if(loanShark.getClientsBalance(player) < 0)
-			return "Kannst du vergessen Alder.";
-		
-		player.addCash(amount);
-		loanShark.reduceClientsBalance(player, amount);
-		return "Hier, lass dir ruhig Zeit... aber nicht ZU lange!";
+		player.addAllSnacks(player.getSnacksFromPockets(), player.getSnacksFromStash());
+		player.getSnacksFromPockets().clear();
+		return "Alles versteckt!";
 	}
 
 	@Override

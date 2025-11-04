@@ -1,24 +1,30 @@
-package com.github.sweettooth.model.events;
+package com.github.sweettooth.model.gameEvents;
 
 import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.GameSession;
 
-public final class Deposit extends Event {
-	Deposit(GameSession sessionData, GameRound gameData){
+public final class GiveMoneyBack extends Event {
+	GiveMoneyBack(GameSession sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	
 	@Override
 	public String process(String stringInput, Integer integerInput, Double doubleInput) {
+		if(!isAtHometown()) 
+			return notAtHometown;
+		
 		double amount = doubleInput > 0 ? doubleInput : 0;
 		amount = Math.round(amount * 100) / 100.00;
 		
-		if(player.getCash() < amount)
-			return "Ups! So viel hab ich gar nicht dabei...";
-		player.reduceCash(amount);
+		if(amount + loanShark.getClientsBalance(player) > 0)
+			return "Digga was gibst du mir soviel Geld? Hab ich dir gar nicht gegeben.";
 		
-		bank.increaseClientsBalance(player, amount);
-		return "Betrag einbezahlt.";
+		player.reduceCash(amount);
+		loanShark.increaseClientsBalance(player, amount);
+		if(loanShark.getClientsBalance(player) < 0)
+			return "Da fehlt aber noch was!";
+		
+		return "Geht klar Alder, bis zum nächsten Mal.";
 	}
 
 	@Override
