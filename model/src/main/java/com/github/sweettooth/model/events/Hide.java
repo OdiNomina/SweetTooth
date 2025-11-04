@@ -1,10 +1,10 @@
 package com.github.sweettooth.model.events;
 
+import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.SessionData;
-import com.github.sweettooth.model.games.GameData;
 
 public final class Hide extends Event {
-	Hide(SessionData sessionData, GameData gameData){
+	Hide(SessionData sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	

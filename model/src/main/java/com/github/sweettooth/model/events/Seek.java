@@ -3,12 +3,12 @@ package com.github.sweettooth.model.events;
 import java.util.ArrayList;
 
 import com.github.sweettooth.model.commons.Tools;
+import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.SessionData;
-import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.snacks.Snack;
 
 public final class Seek extends Event {
-	Seek(SessionData sessionData, GameData gameData){
+	Seek(SessionData sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	

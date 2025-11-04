@@ -7,8 +7,8 @@ import com.github.sweettooth.model.characters.MoneyDealer;
 import com.github.sweettooth.model.characters.Player;
 import com.github.sweettooth.model.commons.GameSettings;
 import com.github.sweettooth.model.commons.GlobalSettings;
+import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.SessionData;
-import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.shared.api.logging.Loggable;
 
 public abstract sealed class Event implements Processable, Loggable permits 
@@ -23,7 +23,7 @@ public abstract sealed class Event implements Processable, Loggable permits
 	String notAtHometown;
 	
 	
-	public Event(SessionData sessionData, GameData gameData) {
+	public Event(SessionData sessionData, GameRound gameData) {
 		logger = Logger.getLogger(Event.class.getName());
 		globalSettings = sessionData.getGlobalSettings();
 		gameSettings = sessionData.getGameSettings();

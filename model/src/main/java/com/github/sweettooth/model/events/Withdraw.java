@@ -1,11 +1,11 @@
 package com.github.sweettooth.model.events;
 
 import com.github.sweettooth.model.commons.InternSettings;
+import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.SessionData;
-import com.github.sweettooth.model.games.GameData;
 
 public final class Withdraw extends Event {
-	Withdraw(SessionData sessionData, GameData gameData){
+	Withdraw(SessionData sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	

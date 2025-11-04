@@ -4,14 +4,14 @@ import java.io.IOException;
 
 import com.github.sweettooth.model.api.characters.IMoneyDealer;
 import com.github.sweettooth.model.api.settings.IGlobalSettings;
-import com.github.sweettooth.model.games.GameData;
+import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.shared.api.util.Observer;
 
 public interface IGameData {
 	// --- launcher
 	
 	static IGameData createGameData(IGlobalSettings globalSettings) {
-		return new GameData(globalSettings);
+		return new GameRound(globalSettings);
 	}
 	
 	// --- controller
@@ -23,11 +23,11 @@ public interface IGameData {
 	// --- view
 	
 	public default IMoneyDealer bank() {
-		return (IMoneyDealer) ((GameData)this).getBank();
+		return (IMoneyDealer) ((GameRound)this).getBank();
 	}
 
 	public default IMoneyDealer loanShark() {
-		return (IMoneyDealer) ((GameData)this).getLoanShark();
+		return (IMoneyDealer) ((GameRound)this).getLoanShark();
 	}
 	
 	int getDayOfGame();

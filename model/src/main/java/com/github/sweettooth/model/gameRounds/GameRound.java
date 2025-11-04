@@ -1,4 +1,4 @@
-package com.github.sweettooth.model.games;
+package com.github.sweettooth.model.gameRounds;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +13,7 @@ import com.github.sweettooth.model.commons.GlobalSettings;
 import com.github.sweettooth.model.commons.InternSettings;
 import com.github.sweettooth.shared.api.util.Observer;
 
-public class GameData implements IGameData {
+public class GameRound implements IGameData {
 	private final List<Observer> observers;
 	private final MoneyDealer bank;
 	private final MoneyDealer loanShark;
@@ -22,7 +22,7 @@ public class GameData implements IGameData {
 	private boolean gameOver;
 	private boolean exitButtonClicked;
 	
-	public GameData(IGlobalSettings globalSettings) {
+	public GameRound(IGlobalSettings globalSettings) {
 		GlobalSettings settings = (GlobalSettings)globalSettings;
 		observers = new ArrayList<>();
 		

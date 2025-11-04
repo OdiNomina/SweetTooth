@@ -3,11 +3,11 @@ package com.github.sweettooth.model.events;
 import java.util.Currency;
 import java.util.Locale;
 
+import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.SessionData;
-import com.github.sweettooth.model.games.GameData;
 
 public final class ApplyInterest extends Event {
-	ApplyInterest(SessionData sessionData, GameData gameData){
+	ApplyInterest(SessionData sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	

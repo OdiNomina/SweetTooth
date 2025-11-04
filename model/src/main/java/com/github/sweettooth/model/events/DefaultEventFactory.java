@@ -3,8 +3,8 @@ package com.github.sweettooth.model.events;
 import com.github.sweettooth.model.api.IGameData;
 import com.github.sweettooth.model.api.gameEvents.EventFactory;
 import com.github.sweettooth.model.api.gameSession.ISessionData;
+import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.SessionData;
-import com.github.sweettooth.model.games.GameData;
 
 public class DefaultEventFactory extends EventFactory {
 	SessionData sessionData;
@@ -15,7 +15,7 @@ public class DefaultEventFactory extends EventFactory {
 	
 	@Override
 	public Event createEvent(String event, IGameData gameData) {
-		GameData data = (GameData)gameData;
+		GameRound data = (GameRound)gameData;
 		Event instance = null; 
 		switch (event) {
 			case "ApplyInterest" -> instance = new ApplyInterest(sessionData, data);

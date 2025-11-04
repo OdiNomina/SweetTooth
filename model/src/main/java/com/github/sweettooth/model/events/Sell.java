@@ -2,12 +2,12 @@ package com.github.sweettooth.model.events;
 
 import java.util.NoSuchElementException;
 
+import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.model.gameSession.SessionData;
-import com.github.sweettooth.model.games.GameData;
 import com.github.sweettooth.model.snacks.Snack;
 
 public final class Sell extends Event {
-	Sell(SessionData sessionData, GameData gameData){
+	Sell(SessionData sessionData, GameRound gameData){
 		super(sessionData, gameData);
 	}
 	
