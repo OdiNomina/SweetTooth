@@ -29,8 +29,8 @@ public class DealWindowCloseListener extends WindowAdapter {
 	
 	private double sumUpScore() {
     	double cash = sessionData.getPlayer().getCash();
-		double loan = gameData.loanShark().getClientsBalance(sessionData.getPlayer());
-		double balance = gameData.bank().getClientsBalance(sessionData.getPlayer());
+		double loan = gameData.getLoanShark().getClientsBalance(sessionData.getPlayer());
+		double balance = gameData.getBank().getClientsBalance(sessionData.getPlayer());
 		return cash + loan + balance;
 	}
 }

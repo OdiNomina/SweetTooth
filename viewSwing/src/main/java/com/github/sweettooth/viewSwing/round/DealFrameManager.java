@@ -225,9 +225,9 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				design.depositAnswer.setText("Natürlich, welchen Betrag?");
 				design.withdrawLabel.setText("Ich würde gerne Geld abheben.");
 				design.withdrawAnswer.setText("Gerne, wie viel?");
-				design.bankDispoHint.setText(gameData.bank().getHintDispo());
-				design.bankInterestHint1.setText(gameData.bank().getHintCreditInterest());
-				design.bankInterestHint2.setText(gameData.bank().getHintDebitInterest());
+				design.bankDispoHint.setText(gameData.getBank().getHintDispo());
+				design.bankInterestHint1.setText(gameData.getBank().getHintCreditInterest());
+				design.bankInterestHint2.setText(gameData.getBank().getHintDebitInterest());
 			    // Loanshark Panel
 				design.loansharkTitle.setText("KREDITHAI:");
 				design.loansharkBalanceLabel.setText("Schulden:");
@@ -235,7 +235,7 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 				design.lendAnswer.setText("Wie viel willst du?!");
 				design.giveBackLabel.setText("Hier, ich hab dein Geld dabei.");
 				design.giveBackAnswer.setText("Lass sehn...");
-				design.loansharkInterestHint.setText(gameData.loanShark().getHintDebitInterest());
+				design.loansharkInterestHint.setText(gameData.getLoanShark().getHintDebitInterest());
 			    // Travel Panel
 				design.travelTitle1.setText("Du willst dich mal umschauen?");
 				design.travelTitle2.setText("Klar, aber du wirst den ganzen Tag unterwegs sein.");
@@ -259,8 +259,8 @@ public class DealFrameManager implements Observer, UpdateGuard, Loggable {
 		List<String> pocketItems = Tools.formatSnacks(sessionData.getGlobalSettings(), sessionData.getPlayer().getSnacksFromPockets());
         List<String> stashedItems = Tools.formatSnacks(sessionData.getGlobalSettings(), sessionData.getPlayer().getSnacksFromStash());
         String cash = Tools.formatMoney(sessionData.getGlobalSettings(), sessionData.getPlayer().getCash());
-        String bankBalance = Tools.formatMoney(sessionData.getGlobalSettings(), gameData.bank().getClientsBalance(sessionData.getPlayer()));
-        String loanBalance = Tools.formatMoney(sessionData.getGlobalSettings(), gameData.loanShark().getClientsBalance(sessionData.getPlayer()));
+        String bankBalance = Tools.formatMoney(sessionData.getGlobalSettings(), gameData.getBank().getClientsBalance(sessionData.getPlayer()));
+        String loanBalance = Tools.formatMoney(sessionData.getGlobalSettings(), gameData.getLoanShark().getClientsBalance(sessionData.getPlayer()));
         String day = Integer.toString(gameData.getDayOfGame());
         String locationName = sessionData.getPlayer().getCurrentLocation().getOfficialName();
         String ticketPrice = Tools.formatMoney(sessionData.getGlobalSettings(), sessionData.getGameSettings().getTravelCosts());

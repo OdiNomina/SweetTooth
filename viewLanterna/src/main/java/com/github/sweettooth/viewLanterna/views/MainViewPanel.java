@@ -51,8 +51,8 @@ public class MainViewPanel extends ViewPanel implements Loggable {
         globalSettings = sessionData.getGlobalSettings();
         gameSettings = sessionData.getGameSettings();
         player = sessionData.getPlayer();
-        loanShark = gameData.loanShark();
-        bank = gameData.bank();
+        loanShark = gameData.getLoanShark();
+        bank = gameData.getBank();
     }
 	
 	@Override

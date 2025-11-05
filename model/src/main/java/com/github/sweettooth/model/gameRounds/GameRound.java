@@ -31,6 +31,7 @@ public class GameRound implements IGameRound {
 		dayOfGame = Integer.valueOf(1);
 	}
 	
+	@Override
 	public MoneyDealer getBank() {
 		return bank;
 	}
@@ -40,6 +41,7 @@ public class GameRound implements IGameRound {
 		return dayOfGame;
 	}
 	
+	@Override
 	public MoneyDealer getLoanShark() {
 		return loanShark;
 	}

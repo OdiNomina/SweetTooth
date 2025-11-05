@@ -24,7 +24,7 @@ public class GameRoundManager {
     
     public void startRound() {
     	sessionData.getPlayer().resetRoundData();
-    	activeGameData = IGameRound.createGameData(sessionData.getGlobalSettings());
+    	activeGameData = IGameRound.create(sessionData.getGlobalSettings());
     	
     	// First game round
     	if (dealFrameManager == null) {

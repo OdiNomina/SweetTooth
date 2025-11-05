@@ -8,34 +8,19 @@ import com.github.sweettooth.model.gameRounds.GameRound;
 import com.github.sweettooth.shared.api.util.Observer;
 
 public interface IGameRound {
-	// --- launcher
 	
-	static IGameRound createGameData(IGlobalSettings globalSettings) {
-		return new GameRound(globalSettings);
+	static IGameRound create(IGlobalSettings s) {
+		return new GameRound(s);
 	}
 	
-	// --- controller
-	
-	void increaseDayOfGame(int numberOfDays) throws IOException;
-	void notifyObservers();
-	void setExitButtonClicked(boolean exitButtonClicked);
-	
-	// --- view
-	
-	public default IMoneyDealer bank() {
-		return (IMoneyDealer) ((GameRound)this).getBank();
-	}
-
-	public default IMoneyDealer loanShark() {
-		return (IMoneyDealer) ((GameRound)this).getLoanShark();
-	}
-	
+	IMoneyDealer getBank();
 	int getDayOfGame();
+	IMoneyDealer getLoanShark();
+	void increaseDayOfGame(int d) throws IOException;
 	boolean isExitButtonClicked();
-	void registerObserver(Observer o);
-	void unregisterObserver(Observer o);
-	
-	// --- controller and view
-	
 	boolean isGameOver();
+	void notifyObservers();
+	void registerObserver(Observer o);
+	void setExitButtonClicked(boolean b);
+	void unregisterObserver(Observer o);
 }

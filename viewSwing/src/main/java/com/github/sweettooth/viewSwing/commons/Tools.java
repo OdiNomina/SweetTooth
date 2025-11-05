@@ -64,8 +64,8 @@ public class Tools {
 	 */
 	public static String formatBalanceSheet(IGameSession sessionData, IGameRound gameData) {
     	double cash = sessionData.getPlayer().getCash();
-		double loan = gameData.loanShark().getClientsBalance(sessionData.getPlayer());
-		double balance = gameData.bank().getClientsBalance(sessionData.getPlayer());
+		double loan = gameData.getLoanShark().getClientsBalance(sessionData.getPlayer());
+		double balance = gameData.getBank().getClientsBalance(sessionData.getPlayer());
 		Locale locale = sessionData.getGlobalSettings().getLocale();
 		String currency = Currency.getInstance(locale).getSymbol();
 		StringBuffer answer = new StringBuffer();
