@@ -11,30 +11,14 @@ public enum Location implements ILocation {
 	BROOKLYN("Brooklyn", 1.2);
 	
 	/**
-	 * Returns the initial name of the corresponding enum entity.
-	 * @param 	officialName the official name of the location represented by enum entity.
-	 * @return 	name of enum entity.
-	 * @exception IllegalArgumentException
-	 * 				if argument is no valid location name.
+	 * Returns the corresponding enum object for the specified official name of a location.
+	 * @param name the official name of a location
+	 * @return an enum object representing the specified name
+	 * @exception IllegalArgumentException if the argument is not a valid location name
 	 */
-//	public static String getEnumName(String officialName) {
-//		for(Location staticObject : Location.values()) {
-//			if(staticObject.officialName.equalsIgnoreCase(officialName.strip()))
-//				return staticObject.name();
-//		}
-//		throw new IllegalArgumentException("Invalid argument.");
-//	}
-	
-	/**
-	 * Returns the corresponding enum entity.
-	 * @param 	officialName the official name of the location represented by enum entity.
-	 * @return 	enum entity.
-	 * @exception IllegalArgumentException
-	 * 				if argument is no valid location name.
-	 */
-	public static Location valueOfficialName(String officialName) {
+	public static Location valueOfficialName(String name) {
 		for(Location staticObject : Location.values()) {
-			if(staticObject.officialName.equalsIgnoreCase(officialName.strip()))
+			if(staticObject.officialName.equalsIgnoreCase(name.strip()))
 				return staticObject;
 		}
 		throw new IllegalArgumentException("Invalid argument.");
@@ -48,10 +32,6 @@ public enum Location implements ILocation {
 		this.priceFactor = priceFactor;
 	}
 	
-	/**
-	 * Returns the official name of the location represented by enum entity.
-	 * @return 	the locations's official name.
-	 */
 	@Override
 	public String getOfficialName() {
 		return officialName;
