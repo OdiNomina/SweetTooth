@@ -20,6 +20,9 @@ lib/
 bin/
 *.class
 
+##### Java Doc
+_DOCS
+
 ##### Eclipse
 #Workspace settings
 .metadata
