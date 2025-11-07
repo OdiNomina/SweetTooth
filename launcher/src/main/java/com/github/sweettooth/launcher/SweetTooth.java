@@ -1,4 +1,4 @@
-package com.github.sweettooth.launcher.app;
+package com.github.sweettooth.launcher;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.time.Instant;
