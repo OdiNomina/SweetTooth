@@ -1,4 +1,4 @@
-package com.github.sweettooth.launcher.utilityApp;
+package com.github.sweettooth.utilityApp.classBrowser;
 
 public class ClassBrowser {
 	/*
