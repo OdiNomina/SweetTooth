@@ -1,12 +1,11 @@
-package com.github.sweettooth.utilityApp.accessDB;
+package com.github.sweettooth.utilityApp.persistence;
 
 import com.github.sweettooth.persistence.api.PersistenceProvider;
+import com.github.sweettooth.persistence.api.PersistenceProvider.ConcretePersistenceProvider;
 
-public class AccessDB {
+public class PersistenceTestAccess {
 	
 	public static void main(String... args) {
-		PersistenceProvider connectable = PersistenceProvider.getInstance();
-		
-		connectable.testAccessDB();
+		PersistenceProvider.getInstance().testAccess(ConcretePersistenceProvider.ExampleAccessJDBC);
 	}
 }
