@@ -7,10 +7,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Logger;
 
-import com.github.sweettooth.persistence.api.PersistenceProvider;
 import com.github.sweettooth.shared.api.logging.Loggable;
 
-public class ExampleAccessJDBC implements Loggable, PersistenceProvider {
+public class ExampleAccessJDBC implements Loggable {
 	private static ExampleAccessJDBC uniqueInstance;
 	
 	public static ExampleAccessJDBC getInstance() {
@@ -20,8 +19,8 @@ public class ExampleAccessJDBC implements Loggable, PersistenceProvider {
 		return uniqueInstance;
 	}
 	
-	private final String jdbcURL;
 	private final Logger logger;
+	private final String jdbcURL;
 	
 	private ExampleAccessJDBC() {
 		logger = Logger.getLogger(ExampleAccessJDBC.class.getName());
@@ -29,33 +28,32 @@ public class ExampleAccessJDBC implements Loggable, PersistenceProvider {
 	}
 	
 	// Ist die Datenbank als solche noch nicht angelegt, legt H2 sie automatisch an.
-	@Override
 	public void testAccessDB() {
 		try( Connection con = DriverManager.getConnection( jdbcURL, "ST", "")) {
 			Statement stmt = con.createStatement();
 			
-			if( !con.getMetaData().getTables(null, null, "TextOutput", null).next() ) {
+			if( !con.getMetaData().getTables(null, null, "TEXTOUTPUT", null).next() ) {
 				String[] sqlStmts = {
-					"CREATE TABLE TextOutput("
+					"CREATE TABLE TEXTOUTPUT (" // H2 speichert intern alle Tabellennamen in Großbuchstaben
 						+ "ID INTEGER NOT NULL PRIMARY KEY,"
 						+ "DESCRIPTION VARCHAR(255),"
 						+ "ENGLISH VARCHAR(255),"
 						+ "GERMAN VARCHAR(255))",
-					"INSERT INTO TextOutput VALUES("
+					"INSERT INTO textoutput VALUES("
 						+ "0,"
 						+ "'LabelOutput',"
-						+ "'Test - Output in English.',"
-						+ "'Test - Ausgabe auf Deutsch')"
+						+ "'Test: Output in English',"
+						+ "'Test: Ausgabe auf Deutsch')"
 				};
 				for(String sql : sqlStmts) {
 					stmt.executeUpdate(sql);
 				}
-				info("H2 Datenbank - Testtabelle und Testdaten neu angelegt");
+				info("H2 Datenbank: Testtabelle und Testdaten neu angelegt");
 			}
 			
-			ResultSet rs = stmt.executeQuery( "SELECT * FROM TextOutput" );
+			ResultSet rs = stmt.executeQuery( "SELECT * FROM textoutput" );
 			while ( rs.next() )
-				System.out.printf("Testoutput: %d, %s, %s %s", rs.getInt(1) ,rs.getString(2),rs.getString(3), rs.getString(4));
+				System.out.printf("Testoutput: %d, %s, %s, %s", rs.getInt(1) ,rs.getString(2),rs.getString(3), rs.getString(4));
 		}
 		catch( SQLException ex ) {
 			error("An error occurs when accessing H2-DB.",ex);
