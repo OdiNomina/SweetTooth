@@ -1,10 +1,14 @@
 package com.github.sweettooth.persistence.api;
 
-import com.github.sweettooth.persistence.jdbc.ExampleAccessJDBC;
+import com.github.sweettooth.persistence.PersistenceManager;
 
 public interface PersistenceProvider {
+	
+	public enum ConcretePersistenceProvider {ExampleAccessJDBC}
+	
 	public static PersistenceProvider getInstance() {
-		return ExampleAccessJDBC.getInstance();
+		return PersistenceManager.getInstance();
 	}
-	void testAccessDB();
+	
+	void testAccess(ConcretePersistenceProvider p);
 }
