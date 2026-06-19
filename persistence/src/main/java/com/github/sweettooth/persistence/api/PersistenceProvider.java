@@ -1,14 +1,16 @@
 package com.github.sweettooth.persistence.api;
 
-import com.github.sweettooth.persistence.PersistenceManager;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
-public interface PersistenceProvider {
+import com.github.sweettooth.persistence.Shareable;
+
+public interface PersistenceProvider<T extends Shareable> {
 	
-	public enum ConcretePersistenceProvider {ExampleAccessJDBC}
+	void readFromFile(List<T> target, Locale l) throws IOException;
 	
-	public static PersistenceProvider getInstance() {
-		return PersistenceManager.getInstance();
-	}
+	void testAccess(T dao);
 	
-	void testAccess(ConcretePersistenceProvider p);
+	void writeToFile(List<T> source, Locale l) throws IOException;
 }

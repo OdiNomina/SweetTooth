@@ -10,19 +10,10 @@ import java.util.logging.Logger;
 import com.github.sweettooth.shared.api.logging.Loggable;
 
 public class ExampleAccessJDBC implements Loggable {
-	private static ExampleAccessJDBC uniqueInstance;
-	
-	public static ExampleAccessJDBC getInstance() {
-		if(uniqueInstance == null)
-			uniqueInstance = new ExampleAccessJDBC();
-		
-		return uniqueInstance;
-	}
-	
 	private final Logger logger;
 	private final String jdbcURL;
 	
-	private ExampleAccessJDBC() {
+	public ExampleAccessJDBC() {
 		logger = Logger.getLogger(ExampleAccessJDBC.class.getName());
 		jdbcURL = "jdbc:h2:file:~/.SweetTooth/h2/SweetToothDB";
 	}
@@ -60,6 +51,7 @@ public class ExampleAccessJDBC implements Loggable {
 		}
 	}
 	
+	@SuppressWarnings("exports")
 	@Override
 	public Logger getLogger() {
 		return logger;
