@@ -51,7 +51,6 @@ public class ExampleAccessJDBC implements Loggable {
 		}
 	}
 	
-	@SuppressWarnings("exports")
 	@Override
 	public Logger getLogger() {
 		return logger;
