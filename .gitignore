@@ -18,6 +18,7 @@ lib/
 ##### Java
 #compiled source code
 bin/
+bin-test/
 *.class
 
 ##### Java Doc
