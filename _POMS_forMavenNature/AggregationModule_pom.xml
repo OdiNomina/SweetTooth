@@ -5,7 +5,7 @@
   	
  	<groupId>com.github.sweettooth</groupId>
 	<artifactId>aggregate</artifactId>
-	<version>2.0.0-SNAPSHOT</version>
+	<version>2.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>com.github.sweettooth.aggregate</name>
 	
@@ -14,12 +14,11 @@
 	</properties>
 	
 	<modules>
-		<module>controllerLanterna</module>
 		<module>controllerSwing</module>
 		<module>launcher</module>
 		<module>model</module>
+		<module>persistence</module>
 		<module>shared</module>
-		<module>viewLanterna</module>
 		<module>viewSwing</module>
 	</modules>
 </project>
