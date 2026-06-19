@@ -32,7 +32,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 		design = new StartFrameDesign();
 		startController = IStartController.getInstance(gameNavigator, windowNavigator);
 		scoreProvider = sessionData.getScoreProvider();
-		scoreTableModel = new ScoreTableModel();
+		scoreTableModel = new ScoreTableModel(sessionData.getGlobalSettings().getLocale());
 		
 		sessionData.registerObserver(this);
 	}
@@ -42,7 +42,7 @@ public class StartFrameManager implements Observer, UpdateGuard, Loggable {
 		initializeUI();
 		addInputHandling();
 		SwingExecutor.getInstance().submit(
-				() -> scoreProvider.readScoresFromFile(),
+				() -> scoreProvider.readPersistentScore(),
 				() -> updateUI()
 			);
 	}
