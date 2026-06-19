@@ -7,4 +7,5 @@ module com.github.sweettooth.model {
 	exports com.github.sweettooth.model.api.snacks;
 	
 	requires transitive com.github.sweettooth.shared;
+	requires com.github.sweettooth.persistence;
 }
